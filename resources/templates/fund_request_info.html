@@ -1,0 +1,324 @@
+<!-- Control Sidebar -->
+<style>
+.tooltip1 {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+    font-family: 'Montserrat' ,Helvetica,Arial,sans-serif; 
+}
+
+.tooltip1 .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color:#000000;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 10px;
+}
+
+.tooltip1 .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #000000 transparent transparent transparent;
+    font-size: 10px;
+}
+
+.tooltip1:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.sm_body {
+    height: 80%;
+    /*width: 200px;*/
+    overflow: auto;
+}
+</style>
+
+<aside class="sm_container pmct demo animated" style="top: 52px;" id = "aside_container">
+    <!-- Create the tabs -->
+    <div class="sm_head"> 
+        <h4 class="">{{templateData.data[0].data.title}}
+            <a class="pm_close"><i  ng-click="closeComp();" class="mdi mdi-close"></i></a>
+        </h4>
+    </div>
+
+    <!-- Tab panes -->
+    <div class="sm_body" style="overflow-y: unset;"> 
+        <!--  {{templateData}} -->
+        <div class="tab-content" >
+            <div id="fundRequestInfoId"   ng-if="(showTemp == 'fa fa-info')">
+                <h5 style="color: #2d90ca;">Fund Request Information</h5>
+                <hr>
+
+                <div class="row">
+                    <div class="col-md-5">
+                        <span><strong>Creator :</strong></span>
+                    </div>
+                    <div class="col-md-7">
+                        <span> {{templateData.data[0].data.creater_user_info.name}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <span><strong>Amount :</strong></span><br>
+                    </div>
+                    <div class="col-md-7">
+                        <span>{{templateData.data[0].data.fund_request_amount | currency:""}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <span><strong>Date :</strong></span>
+                    </div>
+                    <div class="col-md-7">
+                        <span> {{templateData.data[0].data.fund_request_date}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <span><strong>Status :</strong></span>
+                    </div>
+                    <div class="col-md-7">
+                        <span> {{templateData.data[0].data.status}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <span><strong>Description :</strong></span>
+                    </div>
+                    <div class="col-md-7">
+                        <span> {{templateData.data[0].data.description}}</span>
+                    </div>
+                </div>
+
+            </div>
+            <div id="userId"   ng-if="(showTemp == 'fa fa-users')">
+                <table class="table" style="background-color:transparent">
+
+                    <thead class="thead-default"> 
+                        <tr>
+                            <th>Name</th>
+                            <th style="text-align: center;">Order</th>
+                            <th>Status</th>
+                            <th>Designation</th>
+                            <th>Email</th>   
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr ng-repeat="data in templateData.data[0].data.user_list" ng-if="data.id" ng-repeat="data in templateData.data[0].data.particulars" ng-style="data.approver_status=='Approved' && {'background-color':' #e8f8f5'} || data.approver_status=='Closed' && {'background-color':'#e5e7e9'} || data.approver_status=='Rejected' && {'background-color':'#f9ebea'} || data.approver_status=='Postponed' && {'background-color':'#FFFDE5'}">
+
+                            <td>{{data.user_info.name}}</td>
+                            <td style="text-align: center;">{{data.order}}</td>
+                            <td>{{data.approver_status}}</td>
+                            <td>{{data.user_info.user_designation.designation}}</td>
+                            <td>{{data.user_info.email}}</td>
+                            <!-- <td><button type="button" id = "viewTimeAllocLog_{{$index}}" class="btn btn-default btn-sm" title="View activity log" data-ng-click="viewTimeAllocLog(data, $index);"  style="border:white;"><a ng-href=""><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                </button>
+                            </td> -->
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+            <div id="particularId"   ng-if="(showTemp == 'fa fa-cart-plus')">
+                <table class="table" style="background-color:transparent">
+
+                    <thead class="thead-default"> 
+                        <tr>
+                            <th>Particular</th>
+                            <th>Category</th>
+                            <th style="text-align: center;">Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr ng-repeat="data in templateData.data[0].data.particular_list" ng-repeat="data in templateData.data[0].data.particulars" ng-style="data.status=='Approved' && {'background-color':' #e8f8f5'} || data.status=='Closed' && {'background-color':'#e5e7e9'} || data.status=='Rejected' && {'background-color':'#f9ebea'} || data.status=='Postponed' && {'background-color':'#FFFDE5'}">
+
+                            <td>{{data.title}}</td>
+                            <td>{{data.fund_category.name}}</td>
+                            <td style="text-align: center;">{{data.particular_amount | currency:""}}</td>
+                            <td>{{data.status}}</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+            <!-- <div id="activityLog"   ng-if="(showTemp == 'mdi mdi-view-headline')">
+                <h4>
+                    Activity Log
+                </h4>
+                <div ng-repeat="data1 in templateData.data[0].data.project">
+                    <div class="row col-md-12 ">
+                        <h4>
+                            Project :
+
+                            <span>
+                                {{data1.name}}
+                            </span>
+
+
+                            <button type="button" data-toggle="collapse" data-target="#moreInfo_{{$index}}" class="btn btn-default btn-xs pull pull-right"  title="More" ><i class="mdi mdi-information-outline" aria-hidden="true"></i>
+                            </button>
+                        </h4>
+
+                        <div class="row collapse" id="moreInfo_{{$index}}" style="border: 1px solid black;padding: 12px;margin-left: 2px;">
+                            <span ng-if="data1.time_allocation_log.length < 1"><i class="mdi mdi-emoticon-sad"></i> &nbsp;&nbsp;Log is empty!!</span>
+                            <div ng-repeat="data in data1.time_allocation_log">
+                                <div>
+                                    <label>
+                                        End Date :
+                                    </label>
+                                    <span>
+                                        {{data.due_date}}
+                                    </span>
+                                </div>
+                                <div>
+                                    <label>
+                                        Updated by :
+                                    </label>
+                                    <span>
+                                        {{data.created_by_name}}
+                                    </span>
+                                </div>
+                                <div>
+                                    <label>
+                                        Remark :
+                                    </label>
+                                    <span>
+                                        {{data.remark}}
+                                    </span>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+
+                    </div> <br>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>
+<div class="sm_footer">
+    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+
+        <li class="tooltip1 showActive" role="presentation" ng-click="showTab(templateData.data[0].icon);" ng-class="templateData.title == 'Fund Request Info' ? 'active' : ''">
+        <span class="tooltiptext">Fund Request Information</span>
+            <a data-toggle="tab" aria-expanded="false">
+                <!-- <span class="tooltiptext">Tooltip text</span> -->
+                <i class="{{templateData.data[0].icon}}"  aria-hidden="true"></i>
+            </a>
+        </li>
+
+        <li class="tooltip1 showDeactive" role="presentation"  ng-click="showTab(templateData.data[1].icon);" ng-class="templateData.title == 'User' ? 'active' : ''">
+        <span class="tooltiptext">Approval hierarchy</span>
+            <a data-toggle="tab" aria-expanded="false">
+                <i class="{{templateData.data[1].icon}}"  aria-hidden="true"></i>
+            </a>
+        </li>
+
+        <li class="tooltip1 showDeactive" role="presentation" ng-click="showTab(templateData.data[2].icon);"  ng-class="templateData.title == 'Particular' ? 'active' : ''">
+        <span class="tooltiptext">Particular List</span>
+            <a data-toggle="tab" aria-expanded="false">
+                <i class="{{templateData.data[2].icon}}"  aria-hidden="true"></i>
+            </a>
+        </li>
+
+        <!--   <li role="presentation" ng-click="showTab(templateData.data[3].icon);"  ng-class="templateData.title == 'Activity Log' ? 'active' : ''">
+              <a href="#" data-toggle="tab" aria-expanded="false">
+                  <i class="{{templateData.data[3].icon}}"  aria-hidden="true"></i>
+              </a>
+          </li> -->
+
+    </ul> 
+</div>
+</aside>
+
+
+
+<!-- Modal -->
+<!-- <div class="modal fade viewActivityLogModal" id="viewActivityLogModal" role="dialog">
+    <div class="modal-dialog modal-md">
+
+        
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="dismissViewTimeAllocLogModal();">&times;</button>
+                <h4 class="modal-title"><center>Activity log</center></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12" >
+                        <div>
+                            <label>Project Name :</label>&nbsp;<span>{{projectNameTimeAlloc}}</span>
+                        </div><br>
+                        <span ng-if="dataArray.length < 1"><i class="mdi mdi-emoticon-sad"></i> &nbsp;&nbsp;Log is empty!!</span>
+                        <div ng-repeat="data in dataArray | orderBy:'eDate':true"" ng-init="eDate = data.due_date.split(' ')[0]">
+                            <div>
+                                <label>End date :  </label>&nbsp;<span ng-bind="eDate | date :'dd - MM - yyyy'"></span>
+                            </div>
+                            <div>
+                                <label>Updated by :</label>&nbsp;<span>{{data.created_by_name}}</span>
+                            </div>
+                            <div>
+                                <label>Remark :</label>&nbsp;<span>{{data.remark}}</span>
+                            </div> <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="closeModal" type="button" class="btn btn-default" ng-click="dismissViewTimeAllocLogModal();">Ok</button>
+            </div>
+        </div>
+
+    </div>
+</div> -->
+
+<script >
+
+    $("#ref").click(function (e) {
+        e.preventDefault();
+        $(".sm_container").show();
+    })
+
+    $(".pm_close").click(function (e) {
+        e.preventDefault();
+        // $('li.active').removeClass('active');
+        $(this).parents(".pmct").hide();
+        console.log("gfdgdfgdf");
+    })
+
+    // $('#viewActivityLogModal').on('hidden.bs.modal', function () {
+    //     $("#closeModal").click();
+    // });
+
+    function setCSS(){
+            if($('.modal').is(':visible') == true){
+                console.log("Modal is open");
+                $('header').css('z-index', '900');
+                $('footer').css('z-index', '900');
+            }else{
+                $('header').css('z-index', '1053');
+                $('footer').css('z-index', '1053');
+            }
+        }
+        setCSS();
+</script>

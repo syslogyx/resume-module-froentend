@@ -1,0 +1,212 @@
+<!-- Control Sidebar -->
+<style>
+.tooltip1 {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+    font-family: 'Montserrat' ,Helvetica,Arial,sans-serif; 
+}
+
+.tooltip1 .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color:#000000;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 10px;
+}
+
+.tooltip1 .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #000000 transparent transparent transparent;
+    font-size: 10px;
+}
+
+.tooltip1:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.sm_body {
+            height: 80%;
+            /*width: 200px;*/
+            overflow: auto;
+          }
+</style>
+
+<aside class="sm_container1 pmct demo animated" style="top: 52px;" id = "aside_container">
+    <!-- Create the tabs -->
+    <div class="sm_head"> 
+        <h4 class="">{{templateData.data[0].data.title}}
+            <a class="pm_close"><i  ng-click="closeComp();" class="mdi mdi-close"></i></a>
+        </h4>
+        <!-- <span>[{{templateData.data[0].data.designation}}]</span> -->
+    </div>
+
+    <!-- Tab panes -->
+    <div class="sm_body" style="overflow-y: unset;"> 
+        <!--  {{templateData}} -->
+        <div class="tab-content" >
+            <div id="fundRequestInfoId"   ng-if="(showTemp == 'fa fa-info')" >
+                <h5 style="color: #2d90ca;">Fund Request Information</h5>
+                <hr>
+
+                <div class="row">
+                    <div class="col-md-5">
+                        <span><strong>Creator :</strong></span>
+                    </div>
+                    <div class="col-md-7">
+                        <span> {{templateData.data[0].data.creater_user_info[0].name}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <span><strong>Amount :</strong></span>
+                    </div>
+                    <div class="col-md-7">
+                        <span>{{templateData.data[0].data.fund_request_amount | currency:""}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <span><strong>Date :</strong></span><br>
+                    </div>
+                    <div class="col-md-7">
+                        <span> {{templateData.data[0].data.fund_request_date}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <span><strong>Status :</strong></span>
+                    </div>
+                    <div class="col-md-7">
+                        <span> {{templateData.data[0].data.status}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <span><strong>Description :</strong></span>
+                    </div>
+                    <div class="col-md-7">
+                        <span> {{templateData.data[0].data.description}}</span>
+                    </div>
+                </div>
+            </div>
+            <div id="userId"   ng-if="(showTemp == 'fa fa-users')">
+                <!-- {{templateData.data[0].data.project}} -->
+                <table class="table" style="background-color:transparent">
+
+                    <thead class="thead-default"> 
+                        <tr>
+                            <th>Name</th>
+                            <th style="text-align: center;">Order</th>
+                            <th>Status</th>
+                            <th>Designation</th>
+                            <th>Email</th> 
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr ng-repeat="data in templateData.data[0].data.approvers" ng-if="data.id" ng-style="data.approver_status=='Approved' && {'background-color':' #e8f8f5'} || data.approver_status=='Closed' && {'background-color':'#e5e7e9'} || data.approver_status=='Rejected' && {'background-color':'#f9ebea'} || data.approver_status=='Postponed' && {'background-color':'#FFFDE5'}">
+
+                            <td>{{data.user[0].name}}</td>
+                            <td style="text-align: center;">{{data.order}}</td>
+                            <td>{{data.approver_status}}</td>
+                            <td>{{data.user[0].designation}}</td>
+                            <td>{{data.user[0].email}}</td>
+                            <!-- <td><button type="button" id = "viewTimeAllocLog_{{$index}}" class="btn btn-default btn-sm" title="View activity log" data-ng-click="viewTimeAllocLog(data, $index);"  style="border:white;"><a ng-href=""><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                </button>
+                            </td> -->
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+            <div id="particularId"   ng-if="(showTemp == 'fa fa-cart-plus')">
+                <table class="table" style="background-color:transparent">
+
+                    <thead class="thead-default"> 
+                        <tr>
+                            <th>Particular</th>
+                            <th>Category</th>
+                            <th style="text-align: center;">Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr ng-repeat="data in templateData.data[0].data.particulars" ng-style="data.status=='Approved' && {'background-color':' #e8f8f5'} || data.status=='Closed' && {'background-color':'#e5e7e9'} || data.status=='Rejected' && {'background-color':'#f9ebea'} || data.status=='Postponed' && {'background-color':'#FFFDE5'}">
+
+                            <td>{{data.title}}</td>
+                            <td>{{data.category[0].name}}</td>
+                            <td style="text-align: center;">{{data.particular_amount | currency:""}}</td>
+                            <td>{{data.status}}</td>
+                            <!--<td>{{data.duration_years}} years & {{data.duration_months}} months</td>-->
+                            <!-- <td>{{data.duration == "" ? "-" : data.duration}}</td> -->
+
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="sm_footer">
+    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+
+        <li class="tooltip1 showActive" role="presentation" ng-click="showTab(templateData.data[0].icon);" ng-class="templateData.title == 'Fund Request Info' ? 'active' : ''">
+        <span class="tooltiptext">Fund Request Information</span>
+            <a data-toggle="tab" aria-expanded="false">
+                <!-- <span class="tooltiptext">Tooltip text</span> -->
+                <i class="{{templateData.data[0].icon}}"  aria-hidden="true"></i>
+            </a>
+        </li>
+
+        <li class="tooltip1 showDeactive" role="presentation"  ng-click="showTab(templateData.data[1].icon);" ng-class="templateData.title == 'User' ? 'active' : ''">
+        <span class="tooltiptext">Approval hierarchy</span>
+            <a data-toggle="tab" aria-expanded="false">
+                <i class="{{templateData.data[1].icon}}"  aria-hidden="true"></i>
+            </a>
+        </li>
+
+        <li class="tooltip1 showDeactive" role="presentation" ng-click="showTab(templateData.data[2].icon);"  ng-class="templateData.title == 'Particular' ? 'active' : ''">
+        <span class="tooltiptext">Particular List</span>
+            <a data-toggle="tab" aria-expanded="false">
+                <i class="{{templateData.data[2].icon}}"  aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul> 
+</div>
+</aside>
+
+<script >
+
+    $("#ref").click(function (e) {
+        e.preventDefault();
+        $(".sm_container1").show();
+    })
+
+    $(".pm_close").click(function (e) {
+        e.preventDefault();
+        // $('li.active').removeClass('active');
+        $(this).parents(".pmct").hide();
+        console.log("gfdgdfgdf");
+    })
+</script>

@@ -1,0 +1,265 @@
+<section class="content" ng-cloak >
+    <div class="container-fluid" style="overflow-y: hidden;">
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Users</h4>
+            </div>
+            <div class="col-md-4" style="margin-top:1.5%;">
+                <div class="dataTables_length text-right" id="example_length">
+                    <label>Show 
+                        <select id="table_length" aria-controls="example" style="outline: 0;">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select> 
+                    entries</label>
+                </div>
+            </div>
+            <div class="col-md-2 pull-right" style="margin-top:1%;">
+                <button type="button" class="btn btn-primary btn-circle btn-sm pull-right"  title="Add new User " data-target="" data-ng-click="usr.addNewUser()" style="outline: 0;background-color:#428bca;border-color:#357ebd;"><i class="fa fa-plus" aria-hidden="true" style="padding-right:0.3px"></i>
+                </button>
+
+                <!-- <button type="button" data-toggle="collapse" data-target="#filterBox" class="btn btn-primary btn-circle btn-sm pull-right" title="Filter" style="outline: 0;margin-right:5px;background-color:#428bca;border-color:#357ebd;"><i class="fa fa-filter" aria-hidden="true"></i>
+                </button>  -->
+            </div>  
+        </div> 
+        <br>
+        <div class="row collapse" id="filterBox">
+            <div class="col-md-12">
+                <div class="box box-primary paddingLeft0">
+                    <div class="box-header with-border paddingLeft0 marginBorderHead">
+                        <div class="formHeadDiv">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h1 class="formheading paddingLeft0">Filter</h1>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="pull-right">
+                                        <i data-toggle="tooltip" title="Refresh" data-ng-click="usr.refreshUserfilter();" style="font-size: 18px;margin-right: 15px;" class="mdi mdi-refresh" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <form id="filterDataForm" name="filterDataForm">
+                        <div class="box-body marginEmailBody">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="" for="">Name</label>
+                                        <select id="fiterUserName" name="fiterUserName" class="form-control select2 s2mn" ng-model="usr.filteUsername" placeholder="Select name." style="width:100%;" ng-options="x.id as x.name for x in usr.usersList" >
+                                            <option value="" style="color:#ccc;">Select Name
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                             
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="" for="">Designation</label>
+                                        <select id="filterDesignation" name="filterDesignation" class="form-control s2mn" ng-model="usr.filterDesignation" placeholder="Select designation." style="width:100%;" ng-options="x.id as x.designation for x in usr.designationList" >
+                                            <option value="" style="color:#ccc;">Select designation</option>
+                                        </select>
+                                    </div>  
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="" for="">Contact Email</label>
+                                        <input type="text" class="form-control" name="filterContactEmail" id="filterContactEmail" ng-model="usr.filterContactEmail" placeholder="Enter contact email">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- /.box-body -->
+                    <div class="box-footer" style="margin-right:14px!important;border-top: 1px solid lightgrey!important;">
+                        <div class="row">
+                            <div class="pull-right">
+                                <div class="col-md-6" style="float: right;">
+                                    <button  type="button" class="btn btn-default btn-md pull pull-right"  title="Find" ng-click="usr.findFilterWithUser(-1);" style="margin-top: 10px;outline: 0;background-color: white;border-color: #ccc;" ><i class="fa fa-search" aria-hidden="true"></i> &nbsp; Find
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Filter section ends here -->
+        <br>
+        <div>
+            <table class="table table-condensed table-hover table-responsive">
+                <thead class="thead-default">
+                    <tr>
+                        <th style="text-align: center;">Sr No.</th>
+                        <th>Name</th>
+                        <th style="text-align: center;">Contact Number</th>
+                        <th>Email</th>
+                        <th>Comapany Name</th>
+                        <th>Role</th>
+                        <th style="text-align: center;">Action</th>
+                    </tr>
+                </thead>
+                <!-- <pre>{{usr.allUsersList|json}}</pre> -->
+                <tbody>
+                    <tr ng-repeat="ul in usr.allUsersList ">
+                        <td style="text-align: center;" ng-bind="(usr.pageno - 1) * usr.limit + ($index + 1)"></td>
+                        <td> {{ul.name}} </td>
+                        <td style="text-align: center;"> {{ul.mobile}} </td>
+                        <td> {{ul.email}} </td>
+                        <td> {{ul.company_name}} </td>
+                        <td> {{ul.role.name}} </td>
+                        <td style="text-align: center;"> 
+                            <a type="button" class="btn" ng-href="user/edit?id={{ul.id}}" title="Edit" style="outline: 0;padding:0px"><i class="fa fa-pencil" aria-hidden="true" ></i></a>
+
+                            <a type="button" class="btn"  data="{{ul.id}}" title="Change Password" ng-click="usr.sendUserId(ul.id,ul.name);usr.resetForm()" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px" class="fa fa-key" aria-hidden="true"></i></a>
+                        </td>     
+                    </tr>
+                    <tr ng-if="usr.allUsersList == null || usr.allUsersList.length == 0">
+                        <td style="text-align: center;" colspan="6">No Records Found</td> 
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row col-sm-12" style="padding-right: 0px;">
+                <ul id="pagination-sec" class="pagination-sm" style="float: right;margin-top: 5px;margin-bottom:45px;margin-right:-1.2%"></ul>
+            </div>
+        </div> 
+    </div>
+
+    <div class="modal fade changePasswordModal" id="changePasswordModal" role="dialog">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content" style="border-radius: 0px!important;" >
+                <div class="modal-header" id="popUpModalHeader"> 
+                    <button type="button" class="close" data-dismiss="modal" ng-click="usr.resetForm()" style="margin-right: 5px;">&times;</button>
+                    <h4 class="modal-title popUpModalTitle">Change Password - {{usr.userName}}</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="changePasswordForm">
+                        <div class="form-group" ng-show="usr.userName==usr.logInUser" style="min-height:67px;margin-bottom:0px">
+                            <div class="row">
+                                <div class="col-md-4" style="margin-top: 1%;">
+                                    <label class="" style="font-size: 14px">Old Password :</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input  id="oldPassword" type="password" class="form-control"  name="oldPassword" ng-model="usr.oldPassword" placeholder="Old Password">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" style="min-height:67px;margin-bottom:0px">
+                            <div class="row">
+                                <div class="col-md-4" style="margin-top: 1%;">
+                                    <label class="mandatory" style="font-size: 14px">New Password :</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input  id="newPassword" type="password" class="form-control"  name="newPassword" ng-model="usr.newPassword" placeholder="New Password">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" style="min-height:67px;margin-bottom:0px">
+                            <div class="row">
+                                
+                                <div class="col-md-4" style="margin-top: 1%;">
+                                    <label class="mandatory" style="font-size: 14px">Confirm Password :</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input  id="repeatPassword" type="password" class="form-control"  name="repeatPassword" ng-model="usr.repeatPassword" placeholder=" Confirm Password">
+                                    <span ng-if="usr.newPassword!=usr.repeatPassword" style="color: #dd4b39;border-color: #dd4b39;">{{usr.errMessage}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer" style="margin-top: 0px;"> 
+                    <button type="button" id="changePasswordBtn" class="btn btn-primary"  data-ng-click="usr.updatePassword(usr.userId);" >Save</button>
+                    <button type="reset" id="closeModal" class="btn btn-warning"  ng-click="usr.resetForm()" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        //For form validations
+        $("#changePasswordForm").validate({
+            errorElement: 'span', //default input error message container
+            errorClass: 'help-block help-block-error',
+            focusInvalid: true, // set focus the last invalid input
+            ignore: "", // validate all fields including form hidden input
+            rules: {
+                // oldPassword: {
+                //     required: true
+                // },
+                newPassword: {
+                    required: true,
+                    minlength:5
+                },
+                    repeatPassword: {
+                    required: true
+                }
+            },
+            messages: {
+                // oldPassword: {
+                //     required: "Old Password is required."
+                // },
+                newPassword: {
+                    required: "New Password is required.",
+                    minlength:"Minimum 5 characters are required"
+                },
+                repeatPassword: {
+                    required: "Repeat Password is required"
+                }
+            },
+            highlight: function (element) { // hightlight error inputs
+                $(element)
+                    .closest('.form-group').addClass('has-error');
+                $(element)
+                    .next().children().children().attr('style', 'border-color:#dd4b39!important');
+                // set error class to the control group
+            },
+            unhighlight: function (element) { // revert the change done by hightlight
+                $(element)
+                    .closest('.form-group').removeClass('has-error');
+                $(element)
+                    .next().children().children().attr('style', 'border-color:'); // set error class to the control group
+            },
+            success: function (label) {
+                label
+                    .closest('.form-group').removeClass('has-error'); // set success class to the control group
+            }
+        }); 
+    }); 
+</script>
+<script>
+    $("#changePasswordModal").on('hidden.bs.modal',function(){
+        $(this).find('form').trigger('reset');
+    });
+    $("#filterDesignation").select2();
+    $("#fiterUserName").select2();
+            
+    $(".s2mn").on("change", function () { $(this).valid(); });
+</script>
+<script>
+    $(document).ready(function () {
+        $("html, body").animate({scrollTop: 0}, "fast");
+        $('.modal').on('hidden.bs.modal', function (e) {
+            console.log("Modal is closed");
+            $('header').css('z-index', '1053');
+            $('footer').css('z-index', '1053');
+        })
+    });
+    function setCSS(){
+        if($('.modal').is(':visible') == true){
+            console.log("Modal is open");
+            $('header').css('z-index', '900');
+            $('footer').css('z-index', '900');
+        }else{
+            $('header').css('z-index', '1053');
+            $('footer').css('z-index', '1053');
+        }
+    }
+    setCSS();
+</script>

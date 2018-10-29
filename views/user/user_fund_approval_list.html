@@ -1,0 +1,364 @@
+<style type="text/css" ng-cloak>
+    label,.has-error{
+       font-size: 14px;}
+    /*.form-group{
+        padding-right: 30px;
+         clear: both;
+    }*/
+    .help-block-error{
+        text-align:left;
+    }
+
+</style>
+<section class="content">
+    <div class="container-fluid" style="overflow-y: hidden;">
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <h4>My Approval Request</h4>
+            </div> 
+            <div class="col-md-5" style="margin-top:1.4%;">
+                <div class="dataTables_length text-right" id="example_length">
+                    <label>Show 
+                        <select id="table_length1" aria-controls="example" style="outline: 0;">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select> 
+                    entries</label>
+                </div>
+            </div>
+            <div class="col-md-1 pull-right" style="margin-top:1%;">
+                  <button type="button" data-toggle="collapse" data-target="#filterBox" class="btn btn-primary btn-circle btn-sm pull-right" title="Filter" style="outline: 0;margin-right:5px;background-color:#428bca;border-color:#357ebd;"><i class="fa fa-filter" aria-hidden="true"></i>
+                  </button> 
+            </div> 
+        </div> 
+        <br>
+        <div class="row collapse" id="filterBox">
+            <div class="col-md-12">
+                <div class="box box-primary paddingLeft0">
+                    <div class="box-header with-border paddingLeft0 marginBorderHead">
+                        <div class="formHeadDiv">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h1 class="formheading paddingLeft0">
+                                        Filter
+                                    </h1>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="pull-right">
+                                        <i data-toggle="tooltip" title="Refresh" data-ng-click="usr.refreshUserFundApprovalListFilter();" style="font-size: 18px;margin-right: 15px;" class="mdi mdi-refresh" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <!-- /.box-header -->
+
+                    <form id="filterDataForm" name="filterDataForm">
+                        <div class="box-body marginEmailBody">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="" for="">Title</label>
+                                        <select id="fiterTitle" name="fiterTitle" class="form-control s2mn" ng-model="usr.filterFundRequestTitle" placeholder="Select fund request." style="width:100%;" ng-options="x.title as x.title for x in usr.allApprovalFundRequestList" >
+                                            <option value="" style="color:#ccc;">Select fund request
+                                                </option>
+                                        </select>
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="" for="">Status</label>
+                                        <select id="filterDesignation" name="filterStatus" ng-model="usr.filterApproverStatus" class="form-control s2mn" placeholder="Enter status." style="width:100%;" ng-options="x.type as x.type for x in usr.filterStatusType" >
+                                            <option value="" style="color:#ccc;">Select status</option>
+                                        </select>
+                                    </div>  
+                                </div>
+                                <!-- <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="" for="request">Request Type</label>
+                                        <select id="filterFundRequestType" name="filterFundRequestType" ng-model="usr.filterRequestType" class="form-control select2 s2mn" style="width: 100%;" data-placeholder="Select request type" ng-options="x.id as x.name for x in usr.allCategoryList" >
+                                            <option value="">Select request type</option>
+                                            </select>
+                                    </div>
+                                </div> -->
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="">From Date</label>
+                                        <div>
+                                            <div class="input-group date">
+                                                <div class="input-group-addon">
+                                                    <i  class="fa fa-calendar"></i>
+                                                </div>  
+                                                <input type="text" class="form-control" id="filterFromDate" name="filterFromDate" ng-model="usr.filterFromDateOfFundRequest"  placeholder="Enter date" style="cursor: default;background-color: white;" readonly='true'> 
+                                            </div>
+                                        </div>
+                                    </div>  
+                                </div>
+                                <div class="col-md-3"> 
+                                    <div class="form-group">
+                                        <label class="">To Date</label>
+                                        <div>
+                                            <div class="input-group date">
+                                                <div class="input-group-addon">
+                                                    <i  class="fa fa-calendar"></i>
+                                                </div>  
+                                                <input type="text" class="form-control" id="filterToDate" name="filterToDate" ng-model="usr.filterToDateOfFundRequest" placeholder="Enter date" style="cursor: default;background-color: white;" readonly='true'>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- /.box-body -->
+
+                    <div class="box-footer" style="margin-right:14px!important;border-top: 1px solid lightgrey!important;">
+                        <div class="row">
+                            <div class="pull-right">
+                                <div class="col-md-6" style="float: right;">
+                                    <button  type="button" class="btn btn-default btn-md pull pull-right"  title="Find" ng-click="usr.findFilterForUserFundApprovalList(usr.logInUserId,-1);" style="margin-top: 10px;outline: 0;background-color: white;border-color: #ccc;" ><i class="fa fa-search" aria-hidden="true"></i> &nbsp; Find
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Filter section ends here -->
+        <br>
+        <div>
+            <div>
+                <table class="table table-condensed table-hover table-responsive">
+                    <thead class="thead-default">
+                        <tr>
+                            <th style="text-align: center;">Sr No.</th>
+                            <th>Title</th>
+                            <th>Amount</th>
+                            <th style="text-align: center;">Date</th>
+                            <th style="text-align: center;">Status</th>
+                            <th style="text-align: center;">Action</th>    
+                        </tr>
+                    </thead>
+                    <!--  <pre>{{usr.allPendingFundRequestList|json}}</pre> -->
+                    <tbody>
+                        <tr ng-repeat="ul in  usr.allPendingFundRequestList" ng-style="ul.approver_status=='Approved' && {'background-color':' #e8f8f5'} || ul.approver_status=='Closed' && {'background-color':'#e5e7e9'} || ul.approver_status=='Rejected' && {'background-color':'#f9ebea'} || ul.approver_status=='Postponed' && {'background-color':'#FFFDE5'}">
+
+                            <td style="text-align: center;" ng-bind="(usr.pageno1 - 1) * usr.limit1 + ($index + 1)" ></td>
+                            <td> {{ul.title}}<i class="mdi mdi-information-outline" ng-click="usr.showMore( ul,'Fund Request Info');usr.showActiveTab();" style="font-size: 18px!important;margin-left:4px;position:absolute;margin-top:-2px;" data-toggle="tooltip" title="See more."></i> </td>
+                            <td> {{ul.fund_request_amount | currency:""}}  </td>
+                            <td style="text-align: center;"> {{ul.fund_request_date}}  </td>
+                            <td style="text-align: center;"> {{ul.approver_status}} </td>
+                            <td style="text-align: center;padding:2px">
+                                <a type="button" class="btn"  data-toggle="tooltip" title="Change Status" ng-click="usr.getParticularFundRequest(ul);usr.resetForm();" style="outline: 0;padding-top:3px!important;padding-bottom:0px!important"><i class="fa fa-check-square-o" aria-hidden="true"></i></a>
+
+                                <!-- <a type="button" class="btn"  data-toggle="tooltip"  title="View" ng-click="usr.showMore( ul,'Fund Request Info');usr.showActiveTab();" style="outline: 0;margin-top: 0%;padding-top:3px!important;padding-bottom:3px!important"><i class="fa fa-eye" aria-hidden="true"></i></a> -->
+                            </td> 
+                        </tr>
+                        <tr ng-if="usr.allPendingFundRequestList == null || usr.allPendingFundRequestList.length == 0">
+                            <td style="text-align: center;" colspan="7">No Records Found</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row col-sm-12" style="padding-right: 0px;">
+                    <ul id="pagination-sec1" class="pagination-sm" style="float: right;margin-top: 5px;margin-bottom: 45px;margin-right:-1.2%"></ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade fundRequestApproval" id="fundRequestApprovalModal" role="dialog">
+            <div class="modal-dialog modal-md" style="width: 50% !important;">
+                <div class="modal-content" style="border-radius: 0px!important;" >
+                    <div class="modal-header" id="popUpModalHeader"> 
+                        <button type="button" class="close" data-dismiss="modal" ng-click="usr.resetForm()" style="margin-right: 5px;">&times;</button>
+                        <h4 class="modal-title popUpModalTitle">Fund Request Approval<span class="pull-right" style="margin-right:10px">Available Fund : <i class="fa fa-rupee" aria-hidden="true"></i> {{usr.allFundsList[0].fund_amount | currency:""}}</span></h4>
+                    </div>
+                    <div class="modal-body popUpModalBody" style="font-size:14px;padding: 10px 10px 0px 10px!important;text-align: left!important">
+                        <form id="fundRequestApprovalForm">
+                            <span style="color: #a94442;"><i class="mdi mdi-information-outline" style="font-size: 18px!important;margin-left:4px;position:absolute;margin-top:-2px;    cursor: default;" ng-if="usr.error == 'The particular amount exceeds the fund limit'"></i><span style="margin-left:25px"> {{usr.error}}</span></span>
+                            <br>
+                            <div class="table-responsive">
+                                <table class="table table-condensed table-hover table-responsive">
+                                    <thead class="thead-default">
+                                        <tr>
+                                            <th style="text-align: center;width:10%;">Sr No.</th>
+                                            <th>Title</th>
+                                            <th style="width:20%;">Request Type</th>
+                                            <th style="text-align: center;">Amount</th>
+                                            <th style="text-align: center;">Status</th>
+                                            <th style="text-align: center;">Remark</th>   
+                                        </tr>
+                                    </thead>
+                                    <!-- <pre>{{usr.allParticularList |json}}</pre> -->
+                                    <tbody>
+                                        <tr ng-repeat="ul in usr.allParticularList.particulars" >
+                                            <td style="text-align: center;padding-top: 2%;">{{$index+1}}</td>
+                                            <td style="text-align: left;padding-top: 2%;">{{ul.title}} </td>
+                                            <td style="text-align: left;padding-top: 2%;">{{ul.category[0].name}} </td>
+                                            <td style="text-align: center;padding-top: 2%;"> {{ul.particular_amount | currency:""}}  </td>
+                                            <td style="width:25%">
+                                                <div class="">
+                                                    <div class="form-group" style="padding-right: 0px;">
+                                                        <select id="fundApprovalstatus_{{$index+1}}" name="fundApprovalstatus_{{$index+1}}" class="form-control fundApprovalstatus" placeholder="Enter Status." style="width:100%;" ng-options="x.type as x.type disable when  x.id == '4' || x.id == '5'  for x in usr.statusType"  ng-model="ul.particularStatus" ng-disabled="usr.isDisable(ul)" ng-focus="usr.sendPreviousStatus(ul.particularStatus);" ng-change="usr.calculateFund(ul.particularStatus,ul);">
+                                                            <option value="" style="color:#ccc;">Select Status</option></select>
+                                                    </div>  
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="">
+                                                    <div class="form-group" style="padding-right: 0px;">
+                                                        <input  id="particularRemark_{{$index+1}}" type="text" class="form-control particularRemark"  name="particularRemark_{{$index+1}}" ng-model="ul.particularRemark" ng-disabled="usr.isDisable(ul)"placeholder="Enter remark" style="width:100%;" >
+                                                    </div>  
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div class="modal-footer" style="margin-top:0%"> 
+                        <button type="button" id="approveParticular" class="btn btn-primary"  data-ng-click="usr.approveParticularList(usr.allParticularList)" ng-disabled="usr.allParticularList.can_approve=='false'" >Submit</button>
+                        <button type="reset" id="closeModal" class="btn btn-warning" ng-click="usr.resetForm()" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+                 //For form validations
+                $("#fundRequestApprovalForm").validate({
+                    errorElement: 'span', //default input error message container
+                    errorClass: 'help-block help-block-error',
+                    errorPlacement: function (error, element) {
+
+                        if ($(element).attr("id") === "fundApprovalstatus")
+                        {
+                            // custom placement
+                            element.parent().append(error);
+                        }  else {
+                            error.insertAfter(element);
+                        }
+                    },
+                    focusInvalid: true, // set focus the last invalid input
+                    ignore: "", // validate all fields including form hidden input
+                    rules: {
+                        fundApprovalstatus: {
+                            required: true
+                        },
+                        particularRemark: {
+                            required: true,
+                            maxlength: 10
+                        }
+                    },
+                    messages: {
+                        fundApprovalstatus: {
+                            required: "Status is required."
+                        },
+                        particularRemark: {
+                            required: "Remark is required.",
+                            maxlength:"Only 100 characters are allowed."
+                        }
+                    },
+                    highlight: function (element) { // hightlight error inputs
+                        $(element)
+                                .closest('.form-group').addClass('has-error');
+                        $(element)
+                                .next().children().children().attr('style', 'border-color:#dd4b39!important');
+                        // set error class to the control group
+                    },
+                    unhighlight: function (element) { // revert the change done by hightlight
+                        $(element)
+                                .closest('.form-group').removeClass('has-error');
+                        $(element)
+                                .next().children().children().attr('style', 'border-color:'); // set error class to the control group
+                    },
+                    success: function (label) {
+                        label
+                                .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                    }
+                });  
+
+                $("#fundRequestApprovalModal").on('hidden.bs.modal',function(){
+                    $(this).find('form').trigger('reset');
+                });
+
+                $('#filterFromDate').datepicker({
+                    autoclose: true,
+                    todayHighlight: true
+                }).on("changeDate", function () {
+                    $(this).valid();
+                    var selected = $(this).val();
+                    console.log(selected);
+                    $('#filterToDate').datepicker('setStartDate', selected);  
+                }); 
+
+                $('#filterToDate').datepicker({
+                    autoclose: true,
+                    todayHighlight: true
+                }).on("changeDate", function () {
+                    $(this).valid();  
+                    var selected = $(this).val();
+                    console.log(selected);
+                    $('#filterFromDate').datepicker('setEndDate', selected); 
+                });
+
+                $.validator.addClassRules(
+                    "particularRemark", //your class name
+                    {
+                        required: true,
+                        maxlength: 100
+                    }
+                ); 
+
+                // $('.particularRemark').each(function() {
+                //     $(this).rules('add', {
+                //         required: true,
+                //         maxlength: 100,
+                //         messages: { // optional custom messages
+                //             required:  "your custom message",
+                //             maxlength:  "your custom message"
+                //         }
+                //     });
+                // });
+                
+                $.validator.addClassRules(
+                    "fundApprovalstatus", //your class name
+                    {
+                        required: true
+                    }
+                ); 
+                
+                $(".s2mn").on("change", function () { $(this).valid(); });
+                $(".s2mn").select2();
+                $("#filterFundRequestType").select2();           
+</script>
+<script>
+        $(document).ready(function () {
+            $("html, body").animate({scrollTop: 0}, "fast");
+            $('.modal').on('hidden.bs.modal', function (e) {
+                console.log("Modal is closed");
+              $('header').css('z-index', '1053');
+              $('footer').css('z-index', '1053');
+            })
+        });
+        function setCSS(){
+            if($('.modal').is(':visible') == true){
+                console.log("Modal is open");
+                $('header').css('z-index', '900');
+                $('footer').css('z-index', '900');
+            }else{
+                $('header').css('z-index', '1053');
+                $('footer').css('z-index', '1053');
+            }
+        }
+        setCSS();
+</script>

@@ -1,0 +1,635 @@
+<section class="contsiner ng-cloak" style="padding-top: 50px;" ng-cloak> <!-- height:562px -->
+    <div class="row">
+        <div class="col-md-3" style="padding-right: 0px;">
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active " id="settingTab"><a style="border-radius: 0px; font-weight: 500;outline: 0;text-decoration: none;" data-toggle="pill" onclick="return false;"
+                    href="#fundSettingtab" ng-click="stg.resetForm();stg.removeCollaps();">Fund Setting</a>
+                </li>
+                <li id="settingPassword" style="margin-top: 0px;"><a style="border-radius: 0px; font-weight: 500;outline: 0;text-decoration: none;" data-toggle="pill" onclick="return false;" href="#changePasswordSettingTab" ng-click="
+                    stg.resetForm();stg.removeCollaps();">
+                    Change Password</a>
+                </li>
+                <li id="designationSetting" style="margin-top: 0px;"><a style="border-radius: 0px; font-weight: 500;outline: 0;text-decoration: none;" data-toggle="pill" onclick="return false;" href="#designationSettingTab" ng-click="
+                    stg.resetForm();stg.removeCollaps();">
+                    Designations</a>
+                </li>
+                <li id="categorySetting" style="margin-top: 0px;"><a style="border-radius: 0px; font-weight: 500;outline: 0;text-decoration: none;" data-toggle="pill" onclick="return false;" href="#categorySettingTab" ng-click="
+                    stg.resetForm();stg.removeCollaps();">Categories</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-md-9 paddingLeft0">
+            <div class="tab-content">
+            <!-- Fund Setting block start here -->
+                <div id="fundSettingtab"  class="tab-pane fade in active">
+                    <div class="box box-default paddingLeft0">
+                        <div class="box-header with-border paddingLeft0 marginBorderHead">
+                            <div class="formHeadDiv">
+                                <h1 class="formheading paddingLeft0">Fund Setting</h1>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <form id="addFundSettingForm">
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label class="" for="">Current Minimum Balance Amount in % :</label>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control" id="currentMinBalanceAmount" name="currentMinBalanceAmount" ng-model="stg.currentFundBalanceAmount" disabled="disabled">
+                                        </div>
+                                    </div>
+                                    <br>
+                              
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <div class="col-sm-6">
+                                                <label class="mandatory" for="minBalanceAmount">Minimum Balance Amount in % :</label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" id="minBalanceAmount" name="minBalanceAmount" ng-model="stg.fundBalanceAmount" placeholder="Enter minimum fund balance amount">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                              
+                                <div class="box-footer" style="border-top: 0px">
+                                    <div class="form-group pull pull-right" style="margin-right: -5px;">
+                                        <input type="submit" value="Save" data-ng-click="stg.setFundSetting();" class="btn btn-success" style="outline: 0;"/>
+                                        <!-- <input type="button" value="Cancel" class="btn btn-warning" data-ng-click="stg.cancelFundSetting()"  style="outline: 0;"/> --> 
+                                        <input type="button" value="Reset" ng-click="stg.cancelFundSetting()" class="btn" style="outline: 0;"/>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- Change password block start here -->
+                <div id="changePasswordSettingTab"  class="tab-pane">
+                    <div class="box box-default paddingLeft0">
+                        <div class="box-header with-border paddingLeft0 marginBorderHead">
+                            <div class="formHeadDiv">
+                                <h1 class="formheading paddingLeft0">Change Password</h1>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <form id="changePasswordSettingForm">
+                                <div class="box-body">
+                                    <div class="form-group" style="min-height:67px;margin-bottom:0px">
+                                        <div class="row">
+                                            <div class="col-md-4" style="margin-top: 1%;">
+                                                <label class="mandatory">Old Password :</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input  id="oldPasswordSetting" type="password" class="form-control"  name="oldPasswordSetting" ng-model="stg.oldPasswordSetting" placeholder="Enter old password">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="min-height:67px;margin-bottom:0px">
+                                        <div class="row">
+                                            <div class="col-sm-4" style="margin-top: 1%;">
+                                                <label class="mandatory">New Password:</label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="password" class="form-control" id="newPasswordSetting" name="newPasswordSetting" ng-model="stg.newPasswordSetting" placeholder="Enter new password">
+                                            </div>
+                                        </div>
+                                    </div><!-- <br><br> -->
+
+                                    <div class="form-group" style="min-height:67px;margin-bottom:0px">
+                                        <div class="row">
+                                            <div class="col-sm-4" style="margin-top: 1%;">
+                                                <label class="mandatory">Confirm Password:</label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="password" class="form-control" id="repeatPasswordSetting" name="repeatPasswordSetting" ng-model="stg.repeatPasswordSetting" placeholder="Confirm password">
+                                                <span ng-if="stg.newPasswordSetting!=stg.repeatPasswordSetting" style="color: #dd4b39;border-color: #dd4b39;">{{stg.errMessage}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                              
+                                <div class="box-footer" style="border-top: 0px">
+                                    <div class="form-group pull pull-right">
+                                        <input type="submit" value="Save" data-ng-click="stg.changePasswordSetting(stg.logInUserId);" class="btn btn-success" style="outline: 0;"/> 
+                                        <!-- <input type="button" value="Cancel" class="btn btn-warning" data-ng-click="stg.cancelChangePasswordSetting()"  style="outline: 0;"/> --> 
+                                        <input type="reset" value="Reset" ng-click="stg.resetForm()" class="btn" style="outline: 0;"/>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- Designation block start here -->
+                <div id="designationSettingTab"  class="tab-pane">
+                    <div class="box box-default paddingLeft0">
+                        <div class="box-header with-border paddingLeft0 marginBorderHead">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="formHeadDiv">
+                                        <h1 class="formheading paddingLeft0">Designations</h1>
+                                    </div>
+                                </div>
+                                <div class="col-md-5" style="margin-top:1.4%;">
+                                    <div class="dataTables_length text-right" id="example_length">
+                                        <label>Show 
+                                            <select id="table_length" aria-controls="example" style="outline: 0;">
+                                                <option value="10">10</option>
+                                                <option value="25">25</option>
+                                                <option value="50">50</option>
+                                                <option value="100">100</option>
+                                            </select> 
+                                        entries</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="pull-right" style="margin-top: 5px; margin-right: 20px;">
+                                        <button type="button" class="btn btn-primary btn-circle btn-sm pull-right"  title="Add designation " data-toggle="collapse" data-target="#addDesignationTab" ng-click="stg.resetForm();" style="outline: 0;background-color:#428bca;border-color:#357ebd;"><i class="fa fa-plus" aria-hidden="true" style="padding-right:0.3px"></i>
+                                    </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="addDesignationTab"  class="row collapse" style="padding-left: 2%;">
+                            <div class="box box-primary paddingLeft0">
+                                <div class="box-header with-border paddingLeft0 marginBorderHead">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="formHeadDiv">
+                                                <h1 class="formheading paddingLeft0" style="font-size:16px">{{stg.designationTitle}}</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box-body">
+                                    <form  role="form" name="addDesignationForm" id="addDesignationForm">
+                                        <div class="box-body">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="mandatory" for="">Name</label>
+                                                        <input  id="designationName" type="text" class="form-control"  name="designationName" ng-model="stg.designationName" placeholder="Enter designation" style="">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6" style="margin-top: 3.5%;">  
+                                                    <input type="submit" value="Save" class="btn btn-success" data-ng-click="stg.createDesignation()" style="outline: 0;"/>
+                                                    <!-- <input type="submit" value="Update" class="btn btn-success" data-ng-click="stg.saveEditDesignation(stg.designationID)" ng-if="stg.designationTitle =='Edit Designation'" style="outline: 0;"/> -->
+                                                    <input type="reset" value="Reset" ng-click="stg.resetForm()" class="btn" style="outline: 0;"/>
+                                                    <!--  <input type="button" value="Cancel" class="btn btn-warning" data-ng-click="stg.cancelDesignation()"  style="outline: 0;"/> -->
+                                                </div>
+                                            </div>             
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div>
+                                <table class="table table-condensed table-hover table-responsive">
+                                    <thead class="thead-default">
+                                        <tr>
+                                            <th style="text-align: center;">Sr No.</th>
+                                            <th>Name</th>
+                                            <th style="text-align: center;">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <!-- <pre>{{stg.designationList|json}}</pre> -->
+                                    <tbody>
+                                        <tr ng-repeat="dl in stg.designationList ">
+                                            <td style="text-align: center;" ng-bind="(stg.pageno - 1) * stg.limit + ($index + 1)"></td>
+                                            <td> {{dl.designation}} </td>
+                                            <td style="text-align: center;"> 
+                                                <a type="button" class="btn" title="Edit" ng-click="stg.showEditDesignation(dl.id,dl.designation)" style="outline: 0;padding:0px"><i class="fa fa-pencil" aria-hidden="true" ></i></a>
+                                            </td>     
+                                        </tr>
+                                        <tr ng-if="stg.designationList == null || stg.designationList.length == 0">
+                                            <td style="text-align: center;" colspan="6">No Records Found</td> 
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="row col-sm-12" style="padding-right: 0px;height:50px">
+                                    <ul id="pagination-sec" class="pagination-sm" style="float: right;margin-top: 5px;margin-bottom:45px;margin-right:-1.2%"></ul>
+                                </div>
+                            </div>     
+                        </div>
+                    </div>
+                </div>
+                <!-- category block start here -->
+                <div id="categorySettingTab" class="tab-pane">
+                    <div class="box box-default paddingLeft0">
+                        <div class="box-header with-border paddingLeft0 marginBorderHead">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="formHeadDiv">
+                                        <h1 class="formheading paddingLeft0">Categories</h1>
+                                    </div>
+                                </div>
+                                <div class="col-md-5" style="margin-top:1.4%;">
+                                    <div class="dataTables_length text-right" id="example_length">
+                                        <label>Show 
+                                            <select id="table_length1" aria-controls="example" style="outline: 0;">
+                                                <option value="10">10</option>
+                                                <option value="25">25</option>
+                                                <option value="50">50</option>
+                                                <option value="100">100</option>
+                                            </select> 
+                                        entries</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="pull-right" style="margin-top: 5px; margin-right: 20px;">
+                                       <button type="button" class="btn btn-primary btn-circle btn-sm pull-right"  title="Add category" data-toggle="collapse" data-target="#addCategoryTab" ng-click="stg.resetForm();" style="outline: 0;background-color:#428bca;border-color:#357ebd;"><i class="fa fa-plus" aria-hidden="true" style="padding-right:0.3px"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="addCategoryTab" class="row collapse" style="padding-left: 2%;">
+                            <div class="box box-primary paddingLeft0">
+                                <div class="box-header with-border paddingLeft0 marginBorderHead">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="formHeadDiv">
+                                                <h1 class="formheading paddingLeft0" style="font-size:16px">{{stg.categoryTitle}}</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box-body">
+                                    <form  role="form" name="addCategoryForm" id="addCategoryForm">
+                                        <div class="box-body">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="mandatory" for="">Name</label>
+                                                        <input  id="categoryName" type="text" class="form-control"  name="categoryName" ng-model="stg.categoryName" placeholder="Enter category" style="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6" style="margin-top: 3.5%;">  
+                                                    <input type="submit" value="Save" class="btn btn-success" data-ng-click="stg.createCategory()" style="outline: 0;"/> 
+                                                   <!--  <input type="submit" value="Update" class="btn btn-success" data-ng-click="stg.saveEditCategory(stg.categoryID)" ng-if="stg.categoryTitle=='Edit Category'" style="outline: 0;"/> -->
+                                                    <!-- <input type="button" value="Cancel" class="btn btn-warning" data-ng-click="stg.cancelCategory()"  style="outline: 0;"/> --> 
+                                                    <input type="reset" value="Reset" ng-click="stg.resetForm()" class="btn" style="outline: 0;"/>
+                                                </div>
+                                            </div>             
+                                        </div>       
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div>
+                                <table class="table table-condensed table-hover table-responsive">
+                                    <thead class="thead-default">
+                                        <tr>
+                                            <th style="text-align: center;">Sr No.</th>
+                                            <th>Name</th>
+                                            <th style="text-align: center;">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <!-- <pre>{{stg.allCategoryList|json}}</pre> -->
+                                    <tbody>
+                                        <tr ng-repeat="cl in stg.allCategoryList ">
+                                            <td style="text-align: center;" ng-bind="(stg.pageno1 - 1) * stg.limit1 + ($index + 1)"></td>
+                                            <td> {{cl.name}} </td>
+                                            <td style="text-align: center;"> 
+                                                <a type="button" class="btn" title="Edit" ng-click="stg.showEditCategory(cl.id,cl.name)" style="outline: 0;padding:0px"><i class="fa fa-pencil" aria-hidden="true" ></i></a>
+                                            </td>     
+                                        </tr>
+                                        <tr ng-if="stg.allCategoryList == null || stg.allCategoryList.length == 0">
+                                            <td style="text-align: center;" colspan="6">No Records Found</td> 
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="row col-sm-12" style="padding-right: 0px;height:50px">
+                                    <ul id="pagination-sec1" class="pagination-sm" style="float: right;margin-top: 5px;margin-bottom:45px;margin-right:-1.2%"></ul>
+                                </div>
+                            </div>       
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade editDesignationModal" id="editDesignationModal" role="dialog">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content" style="border-radius: 0px!important;" >
+                <div class="modal-header" id="popUpModalHeader"> 
+                    <button type="button" class="close" data-dismiss="modal" ng-click="stg.resetForm()" style="margin-right: 5px;">&times;</button>
+                    <h4 class="modal-title popUpModalTitle">Edit Designation</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="editDesignationForm">
+                        <div class="form-group" style="min-height:67px;margin-bottom:0px">
+                            <div class="row">
+                                <div class="col-md-3" style="margin-top: 1%;padding-left:20px">
+                                    <label class="mandatory" style="font-size: 14px">Designation : </label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input  id="editDesignation" type="text" class="form-control"  name="editDesignation" ng-model="stg.editDesignation" placeholder="Enter designation">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer" style="margin-top: 0px;"> 
+                    <button type="button" class="btn btn-primary" ng-click="stg.saveEditDesignation(stg.designationID);" >Update</button>
+                    <button type="reset" id="closeModal" class="btn btn-warning"  ng-click="stg.resetForm()" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade editCategoryModal" id="editCategoryModal" role="dialog">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content" style="border-radius: 0px!important;" >
+                <div class="modal-header" id="popUpModalHeader"> 
+                    <button type="button" class="close" data-dismiss="modal" ng-click="stg.resetForm()" style="margin-right: 5px;">&times;</button>
+                    <h4 class="modal-title popUpModalTitle">Edit Category</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="editCategoryForm">
+                        <div class="form-group" style="min-height:67px;margin-bottom:0px">
+                            <div class="row">
+                                <div class="col-md-3" style="margin-top: 1%;padding-left:35px">
+                                    <label class="mandatory" style="font-size: 14px">Category : </label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input  id="editCategory" type="text" class="form-control"  name="editCategory" ng-model="stg.editCategory" placeholder="Enter category">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer" style="margin-top: 0px;"> 
+                    <button type="button" class="btn btn-primary" ng-click="stg.saveEditCategory(stg.categoryID);" >Update</button>
+                    <button type="reset" id="closeModal" class="btn btn-warning"  ng-click="stg.resetForm()" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+            var baseUrl = Utility.apiBaseUrl;
+            $("#addFundSettingForm").validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error',
+                errorPlacement: function (error, element) {
+
+                    var type = $(element).attr("type");
+                    if ($(element).attr("id") === "")
+                    {
+                        element.parent().append(error);
+
+                    } 
+                    else {
+                        error.insertAfter(element);
+                    }
+                },
+                rules: {
+                    minBalanceAmount: {
+                        required: true,
+                        number:true,
+                        range: [1, 100]   
+                    }
+                },
+                messages: {
+                    minBalanceAmount: {
+                        required: "Balance amount is required.",
+                        number:"Enter value in number.",
+                        range:"Enter value between 1 to 100.",
+                        
+                    }
+                },
+                highlight: function (element) { // hightlight error inputs
+                    $(element).closest('.form-group').addClass('has-error');
+
+                    $(element).next().children().children().attr('style', 'border-color:#dd4b39!important');
+                    // set error class to the control group
+                },
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                            .closest('.form-group').removeClass('has-error');
+                    $(element)
+                            .next().children().children().attr('style', 'border-color:'); // set error class to the control group
+                },
+                success: function (label) {
+                    label
+                            .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                }
+            });
+
+            $(document).ready(function () {
+                 //For form validations
+                $("#changePasswordSettingForm").validate({
+                    errorElement: 'span', //default input error message container
+                    errorClass: 'help-block help-block-error',
+                    focusInvalid: true, // set focus the last invalid input
+                    ignore: "", // validate all fields including form hidden input
+                    rules: {
+                        oldPasswordSetting: {
+                            required: true
+                            
+                        },
+                        newPasswordSetting: {
+                            required: true, 
+                             minlength:5
+                        },
+                        repeatPasswordSetting: {
+                            required: true
+                        }
+                    },
+                    messages: {
+                        oldPasswordSetting: {
+                            required: "Old Password is required." 
+                        },
+                        newPasswordSetting: {
+                            required: "New Password is required.",
+                            minlength:"Minimum 5 characters are required"
+                        },
+                        repeatPasswordSetting: {
+                            required: "Confirm Password is required"
+                        }
+                    },
+                    highlight: function (element) { // hightlight error inputs
+                        $(element)
+                                .closest('.form-group').addClass('has-error');
+                        $(element)
+                                .next().children().children().attr('style', 'border-color:#dd4b39!important');
+                        // set error class to the control group
+                    },
+                    unhighlight: function (element) { // revert the change done by hightlight
+                        $(element)
+                                .closest('.form-group').removeClass('has-error');
+                        $(element)
+                                .next().children().children().attr('style', 'border-color:'); // set error class to the control group
+                    },
+                    success: function (label) {
+                        label
+                                .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                    }
+                }); 
+            }); 
+
+            $("#addDesignationForm").validate({
+                    errorElement: 'span', //default input error message container
+                    errorClass: 'help-block help-block-error',
+                    focusInvalid: true, // set focus the last invalid input
+                    ignore: "", // validate all fields including form hidden input
+                    rules: {
+                        designationName: {
+                            required: true      
+                        }
+                    },
+                    messages: {
+                        designationName: {
+                            required: " Designation is required." 
+                        }
+                    },
+                    highlight: function (element) { // hightlight error inputs
+                        $(element)
+                                .closest('.form-group').addClass('has-error');
+                        $(element)
+                                .next().children().children().attr('style', 'border-color:#dd4b39!important');
+                        // set error class to the control group
+                    },
+                    unhighlight: function (element) { // revert the change done by hightlight
+                        $(element)
+                                .closest('.form-group').removeClass('has-error');
+                        $(element)
+                                .next().children().children().attr('style', 'border-color:'); // set error class to the control group
+                    },
+                    success: function (label) {
+                        label
+                                .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                    }
+                }); 
+
+            $("#addCategoryForm").validate({
+                    errorElement: 'span', //default input error message container
+                    errorClass: 'help-block help-block-error',
+                    focusInvalid: true, // set focus the last invalid input
+                    ignore: "", // validate all fields including form hidden input
+                    rules: {
+                        categoryName: {
+                            required: true     
+                        }
+                    },
+                    messages: {
+                        categoryName: {
+                            required: "Category is required." 
+                        }
+                    },
+                    highlight: function (element) { // hightlight error inputs
+                        $(element)
+                                .closest('.form-group').addClass('has-error');
+                        $(element)
+                                .next().children().children().attr('style', 'border-color:#dd4b39!important');
+                        // set error class to the control group
+                    },
+                    unhighlight: function (element) { // revert the change done by hightlight
+                        $(element)
+                                .closest('.form-group').removeClass('has-error');
+                        $(element)
+                                .next().children().children().attr('style', 'border-color:'); // set error class to the control group
+                    },
+                    success: function (label) {
+                        label
+                                .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                    }
+            }); 
+
+            $("#editDesignationForm").validate({
+                    errorElement: 'span', //default input error message container
+                    errorClass: 'help-block help-block-error',
+                    focusInvalid: true, // set focus the last invalid input
+                    ignore: "", // validate all fields including form hidden input
+                    rules: {
+                        editDesignation: {
+                            required: true
+                            
+                        }
+                    },
+                    messages: {
+                        editDesignation: {
+                            required: " Designation is required." 
+                        }
+                    },
+                    highlight: function (element) { // hightlight error inputs
+                        $(element)
+                                .closest('.form-group').addClass('has-error');
+                        $(element)
+                                .next().children().children().attr('style', 'border-color:#dd4b39!important');
+                        // set error class to the control group
+                    },
+                    unhighlight: function (element) { // revert the change done by hightlight
+                        $(element)
+                                .closest('.form-group').removeClass('has-error');
+                        $(element)
+                                .next().children().children().attr('style', 'border-color:'); // set error class to the control group
+                    },
+                    success: function (label) {
+                        label
+                                .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                    }
+                }); 
+
+            $("#editCategoryForm").validate({
+                    errorElement: 'span', //default input error message container
+                    errorClass: 'help-block help-block-error',
+                    focusInvalid: true, // set focus the last invalid input
+                    ignore: "", // validate all fields including form hidden input
+                    rules: {
+                        editCategory: {
+                            required: true     
+                        }
+                    },
+                    messages: {
+                        editCategory: {
+                            required: "Category is required." 
+                        }
+                    },
+                    highlight: function (element) { // hightlight error inputs
+                        $(element)
+                                .closest('.form-group').addClass('has-error');
+                        $(element)
+                                .next().children().children().attr('style', 'border-color:#dd4b39!important');
+                        // set error class to the control group
+                    },
+                    unhighlight: function (element) { // revert the change done by hightlight
+                        $(element)
+                                .closest('.form-group').removeClass('has-error');
+                        $(element)
+                                .next().children().children().attr('style', 'border-color:'); // set error class to the control group
+                    },
+                    success: function (label) {
+                        label
+                                .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                    }
+            }); 
+
+</script>
+<script>
+    $(document).ready(function () {
+        $("html, body").animate({scrollTop: 0}, "fast");
+        $('.modal').on('hidden.bs.modal', function (e) {
+            console.log("Modal is closed");
+            $('header').css('z-index', '1053');
+            $('footer').css('z-index', '1053');
+        })
+    });
+    function setCSS(){
+        if($('.modal').is(':visible') == true){
+            console.log("Modal is open");
+            $('header').css('z-index', '900');
+            $('footer').css('z-index', '900');
+        }else{
+            $('header').css('z-index', '1053');
+            $('footer').css('z-index', '1053');
+        }
+    }
+    setCSS();
+</script>
