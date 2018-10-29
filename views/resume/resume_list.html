@@ -1,0 +1,115 @@
+<section class="content" ng-cloak >
+    <div class="container-fluid" style="overflow-y: hidden;">
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Resumes</h4>
+            </div>
+            <div class="col-md-4" style="margin-top:1.5%;">                
+            </div>             
+        </div> 
+        <br>        
+        
+        <div>
+            <table class="table table-condensed table-hover table-responsive">
+                <thead class="thead-default">
+                    <tr>
+                        <th style="text-align: center;">Sr No.</th>
+                        <th>Name</th>                        
+                        <th style="text-align: center;">Action</th>
+                    </tr>
+                </thead>
+                <!-- <pre>{{usr.allUsersList|json}}</pre> -->
+                <tbody>
+                    <tr ng-repeat="data in rlc.resumeList ">
+                        <td style="text-align: center;" ng-bind="$index + 1"></td>
+                        <td> {{data.name}} </td>                        
+                        <td style="text-align: center;"> 
+                            <a type="button" class="btn" title="Download PDF" ng-click="rlc.downloadResumePDF(data.id)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px" class="fa fa-download" aria-hidden="true"></i></a>
+                        </td>     
+                    </tr>
+                    <tr ng-if="rlc.resumeList == null || rlc.resumeList.length == 0">
+                        <td style="text-align: center;" colspan="3">No Records Found</td> 
+                    </tr>
+                </tbody>
+            </table>
+            <!-- <div class="row col-sm-12" style="padding-right: 0px;">
+                <ul id="pagination-sec" class="pagination-sm" style="float: right;margin-top: 5px;margin-bottom:45px;margin-right:-1.2%"></ul>
+            </div> -->
+        </div> 
+    </div>
+
+    
+</section>
+
+<script>
+    $(document).ready(function () {
+        $("html, body").animate({scrollTop: 0}, "fast");
+        $('.modal').on('hidden.bs.modal', function (e) {
+            console.log("Modal is closed");
+            $('header').css('z-index', '1053');
+            $('footer').css('z-index', '1053');
+        });
+
+        //For form validations
+        $("#changePasswordForm").validate({
+            errorElement: 'span', //default input error message container
+            errorClass: 'help-block help-block-error',
+            focusInvalid: true, // set focus the last invalid input
+            ignore: "", // validate all fields including form hidden input
+            rules: {
+                // oldPassword: {
+                //     required: true
+                // },
+                newPassword: {
+                    required: true,
+                    minlength:5
+                },
+                    repeatPassword: {
+                    required: true
+                }
+            },
+            messages: {
+                // oldPassword: {
+                //     required: "Old Password is required."
+                // },
+                newPassword: {
+                    required: "New Password is required.",
+                    minlength:"Minimum 5 characters are required"
+                },
+                repeatPassword: {
+                    required: "Repeat Password is required"
+                }
+            },
+            highlight: function (element) { // hightlight error inputs
+                $(element)
+                    .closest('.form-group').addClass('has-error');
+                $(element)
+                    .next().children().children().attr('style', 'border-color:#dd4b39!important');
+                // set error class to the control group
+            },
+            unhighlight: function (element) { // revert the change done by hightlight
+                $(element)
+                    .closest('.form-group').removeClass('has-error');
+                $(element)
+                    .next().children().children().attr('style', 'border-color:'); // set error class to the control group
+            },
+            success: function (label) {
+                label
+                    .closest('.form-group').removeClass('has-error'); // set success class to the control group
+            }
+        }); 
+    }); 
+
+    function setCSS(){
+        if($('.modal').is(':visible') == true){
+            console.log("Modal is open");
+            $('header').css('z-index', '900');
+            $('footer').css('z-index', '900');
+        }else{
+            $('header').css('z-index', '1053');
+            $('footer').css('z-index', '1053');
+        }
+    }
+    setCSS();
+</script>

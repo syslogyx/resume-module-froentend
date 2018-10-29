@@ -290,6 +290,13 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
+    this.downloadResumePDF = function (request,productId) {
+        // var win =
+        window.open(RESOURCES.SERVER_API +'report/download/'+request.user_id+'/'+request.date+'/'+request.product_id+'/'+request.type+'?product_id='+productId);
+        // win.setTimeout(function(){this.close();},1500)
+        // win.focus();
+    };
+
 });
 
 app.config(function ($routeProvider, $locationProvider) {
@@ -412,10 +419,28 @@ app.config(function ($routeProvider, $locationProvider) {
                 }
             })
 
-            .when('/resume', {
-                templateUrl: 'views/resume/resume.html',
-                controller: 'resumeCtrl',
-                controllerAs: 'stg',
+            // .when('/resume', {
+            //     templateUrl: 'views/resume/resume.html',
+            //     controller: 'resumeCtrl',
+            //     controllerAs: 'stg',
+            //     resolve: {
+            //         'acl': ['$q', 'AclService', function ($q, AclService) {
+            //                 return true;
+            //                 //console.log(AclService.getRoles());
+            //                 if (AclService.can('view_dash')) {
+            //                     // Has proper permissions
+            //                     return true;
+            //                 } else {
+            //                     // Does not have permission
+            //                     return $q.reject('LoginRequired');
+            //                 }
+            //             }]
+            //     }
+            // })
+            .when('/resume_list', {
+                templateUrl: 'views/resume/resume_list.html',
+                controller: 'resumeListCtrl',
+                controllerAs: 'rlc',
                 resolve: {
                     'acl': ['$q', 'AclService', function ($q, AclService) {
                             return true;

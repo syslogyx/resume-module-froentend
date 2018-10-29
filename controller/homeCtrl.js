@@ -11,9 +11,9 @@ app.controller('homeCtrl', function ($scope,menuService,services,$cookieStore) {
 
         menuService.setMenu([
             {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"active"},
-            {"Title": "User Management", "Link": "user", "icon": "fa fa-user-plus", "active":"deactive"}
-            //{"Title": "Settings", "Link": "/setting", "icon": "fa fa-gear", "active":"deactive"},
-           ]);
+            {"Title": "User Management", "Link": "user", "icon": "fa fa-user-plus", "active":"deactive"},
+            {"Title": "Resume Management", "Link": "/resume_list", "icon": "fa fa-file-text", "active":"deactive"}
+        ]);
 
     $scope.init = function(){
 		$scope.$root.$broadcast("myEvent", {});
