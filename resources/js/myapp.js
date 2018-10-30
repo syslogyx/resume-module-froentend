@@ -1,9 +1,7 @@
 ﻿var Utility = {
- apiBaseUrl: "http://127.0.0.1:8000/api/",
-   // apiBaseUrl: "http://172.16.1.97:8000/api/",
-// apiBaseUrl: "http://finapi.syslogyx.com/api/",
-//    hrmsBaseUrl: "http://172.16.1.180:8765/",
-    hrmsBaseUrl: "http://hrms.syslogyx.com/",
+    // apiBaseUrl: "http://127.0.0.1:8000/api/",
+    apiBaseUrl: "http://172.16.1.97:8000/api/",
+     
     formatDate: function (date, format) {
         var tDate = null;
         if (format == "Y/m/d") {
@@ -296,6 +294,26 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         // win.setTimeout(function(){this.close();},1500)
         // win.focus();
     };
+
+    this.getAllCandidates = function(request){
+        if(request == undefined){
+            page = -1;
+            limit = -1;
+        }else{
+            page = request.page;
+            limit = request.limit;
+        }
+        Utility.startAnimation();
+        return $http({
+            method: 'GET',
+            // url: RESOURCES.SERVER_API + "candidate_details?page=" + page + "&limit=" + limit,
+            url: RESOURCES.SERVER_API + "candidate_details",
+            dataType: 'json',
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    }
 
 });
 

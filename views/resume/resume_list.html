@@ -5,8 +5,18 @@
             <div class="col-md-6">
                 <h4>Resumes</h4>
             </div>
-            <div class="col-md-4" style="margin-top:1.5%;">                
-            </div>             
+            <div class="col-md-4" style="margin-top:1.5%;">
+                <div class="dataTables_length text-right" id="example_length">
+                    <label>Show 
+                        <select id="table_length" aria-controls="example" style="outline: 0;">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select> 
+                    entries</label>
+                </div>
+            </div>            
         </div> 
         <br>        
         
@@ -16,6 +26,9 @@
                     <tr>
                         <th style="text-align: center;">Sr No.</th>
                         <th>Name</th>                        
+                        <th>Email</th>                        
+                        <th>Mobile No.</th>                        
+                        <th>Total Experience</th>                        
                         <th style="text-align: center;">Action</th>
                     </tr>
                 </thead>
@@ -23,9 +36,12 @@
                 <tbody>
                     <tr ng-repeat="data in rlc.resumeList ">
                         <td style="text-align: center;" ng-bind="$index + 1"></td>
-                        <td> {{data.name}} </td>                        
+                        <td ng-bind="data.name"></td>                        
+                        <td ng-bind="data.email"></td>                        
+                        <td ng-bind="data.mobile_no"></td>                        
+                        <td ng-bind="rlc.setTotalExperience(data.total_experience)"></td>
                         <td style="text-align: center;"> 
-                            <a type="button" class="btn" title="Download PDF" ng-click="rlc.downloadResumePDF(data.id)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px" class="fa fa-download" aria-hidden="true"></i></a>
+                            <a type="button" class="btn" title="Download PDF" ng-click="rlc.downloadResumePDF(data.id)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px" class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
                         </td>     
                     </tr>
                     <tr ng-if="rlc.resumeList == null || rlc.resumeList.length == 0">
