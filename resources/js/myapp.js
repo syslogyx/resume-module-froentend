@@ -330,30 +330,34 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
-    // this.uploadresumeFile = function (json) {
-    //     Utility.startAnimation();
-    //     return $http({  
-    //         method: 'POST',  
-    //         url:  RESOURCES.SERVER_API + "create_candidate?type='file'",  
-    //         headers: { 'Content-Type': undefined },  
-             
-    //         transformRequest: function (data) {  
-    //             var formData = new FormData();  
-    //             formData.append("model", angular.toJson(data.model));  
-    //             //for (var i = 0; i < data.files.length; i++) {  
-    //                 formData.append("file", data.files[0]);  
-    //             //}  
-    //             return formData;  
-    //         },  
-    //         data: json 
-    //     }).  
-    //     success(function (data, status, headers, config) {  
-    //         alert("success!");  
-    //     }).  
-    //     error(function (data, status, headers, config) {  
-    //         alert("failed!");  
-    //     });  
-    // };
+    this.downloadResumePDF = function (id) {
+        // var win =
+        window.open(RESOURCES.SERVER_API +'generate_pdf/'+id);
+        // win.setTimeout(function(){this.close();},1500)
+        // win.focus();
+    };
+
+    this.getAllCandidates = function(request){
+        if(request == undefined){
+            page = -1;
+            limit = -1;
+        }else{
+            page = request.page;
+            limit = request.limit;
+        }
+        Utility.startAnimation();
+        return $http({
+            method: 'GET',
+            // url: RESOURCES.SERVER_API + "candidate_details?page=" + page + "&limit=" + limit,
+            url: RESOURCES.SERVER_API + "candidate_details",
+            dataType: 'json',
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+
 
 });
 
@@ -494,6 +498,24 @@ app.config(function ($routeProvider, $locationProvider) {
                         }]
                 }
             })
+            .when('/resume_list', {
+                templateUrl: 'views/resume/resume_list.html',
+                controller: 'resumeListCtrl',
+                controllerAs: 'rlc',
+                resolve: {
+                    'acl': ['$q', 'AclService', function ($q, AclService) {
+                            return true;
+                            //console.log(AclService.getRoles());
+                            if (AclService.can('view_dash')) {
+                                // Has proper permissions
+                                return true;
+                            } else {
+                                // Does not have permission
+                                return $q.reject('LoginRequired');
+                            }
+                        }]
+                }
+            }) 
            
 
     $locationProvider.html5Mode(true);
