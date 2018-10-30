@@ -21,7 +21,15 @@
     .appendBtn{
         margin-top:-1%;
     }
-
+    .content-wrapper{
+        margin-left: 0px;
+    }
+    .main-footer,.menuSec{
+        display: none;
+    }
+.content {
+    margin-top:0; 
+}
 
 </style> 
 <!--     Fonts and icons     -->
@@ -64,7 +72,6 @@
                                 <li><a href="#industrialExperience" data-toggle="tab">INDUSTRIAL EXPERIENCE</a></li>
                                 <li><a href="#hobbies" data-toggle="tab">HOBBIES DETAILS</a></li>
                                 <li><a href="#uploadDocument" data-toggle="tab">UPLOAD DOCUMENT</a></li>
-                                <li><a href="#basicScreening" data-toggle="tab">BASIC SCREENING</a></li>
                             </ul>
                         </div>
 
@@ -81,6 +88,20 @@
                                           <h6>Choose Picture</h6>
                                       </div>
                                   </div> -->
+                                </div>
+                                <div class="row">
+                                  <div class="col-sm-12">
+                                    <div class="col-md-12">
+                                      <div class="form-group">
+                                                    <label class="mandatory">Job Code</label>
+                                                    <select required class="form-control" name="job_code" id="job_code" ng-model="job_id" ng-options="x.id as x.name for x in jobDetail" >
+                                                        <option value="" style="color:#ccc !important;">Select Job</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                  </div>
+                              </div>
+                              <div class="row">
                                   <div class="col-sm-12">
                                     <div class="col-md-4">
                                         <div class="form-group">
@@ -105,15 +126,12 @@
                                     <div class="col-md-4">  
                                       <div class="form-group">
                                         <label class="mandatory">Date of Birth</label>
-                                        <!-- <input id="dob" name="dob" type="text" class="form-control" placeholder="Select Date"> -->
-                                        <!-- <div> -->
                                             <div class="input-group date">
                                                 <div class="input-group-addon">
                                                     <i  class="fa fa-calendar"></i>
                                                 </div>  
                                                 <input type="text" class="form-control" id="dob" name="dob" placeholder="Enter date" ng-model="dateOfBirth"> 
                                             </div>
-                                        <!-- </div>style="cursor: default;background-color: white;" readonly='true' -->
                                       </div>
                                     </div>
                                     <div class="col-md-4">
@@ -133,13 +151,27 @@
                                       <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="mandatory">Corresponding Address</label>
-                                            <textarea class="form-control" id="correspondingAddress" name="corresponding_address" ng-model="correspondingAddr"></textarea>
+                                            <textarea class="form-control" id="correspondingAddress" name="corresponding_address" ng-model="correspondingAddr" rows="1"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-6">  
                                       <div class="form-group">
                                         <label class="mandatory">Permanent Address</label>
-                                        <textarea class="form-control" id="permanentAddress" name="permanent_address" ng-model="permanentAddr"></textarea>
+                                        <textarea class="form-control" id="permanentAddress" name="permanent_address" ng-model="permanentAddr" rows="1"></textarea>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-sm-12">
+                                      <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="mandatory">Objective</label>
+                                            <textarea class="form-control" id="objective" name="objective" ng-model="objectives" rows="1"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">  
+                                      <div class="form-group">
+                                        <label class="mandatory">Summary</label>
+                                        <textarea class="form-control" id="summary" name="summary" ng-model="summary" rows="1"></textarea>
                                       </div>
                                     </div>
                                   </div>
@@ -153,30 +185,78 @@
                                     </div>
                                     <br>
                                 </div>
-                                <div class="row" id="parentQualification">
-                                    <div class="col-sm-12" ng-repeat="q in qualifications">
-                                        <div class="col-sm-4">
-                                            <div class="form-group">
-                                                <label class="mandatory">Qualification</label>
-                                                <select class="form-control qualification" name="qualification_{{$index}}" id="qualification_{{$index}}" ng-model=" q.qualification" ng-options="x.id as x.name for x in allQualificationList" >
-                                                    <option value="" style="color:#ccc !important;">Select Qualification</option>
-                                                </select>
+                                <div ng-repeat="q in qualifications">
+                                    <div class="row" id="parentQualification">
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label class="mandatory">Qualification</label>
+                                                    <select class="form-control qualification" name="qualification_{{$index}}" id="qualification_{{$index}}" ng-model=" q.qualification_id" ng-options="x.id as x.name for x in allQualificationList" >
+                                                        <option value="" style="color:#ccc !important;">Select Qualification</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label class="mandatory">Stream</label>
+                                                    <input type='text' class="form-control stream" name="stream_{{$index}}" id="stream_{{$index}}" placeholder="Enter stream" ng-model="q.stream">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label class="mandatory">Percentage</label>
+                                                    <input id="percentage_{{$index}}" name="percentage_{{$index}}" type="text" class="form-control percentage" placeholder="Enter percentage" ng-model="q.percentage">
+                                                </div>
+                                            </div>
+                                            <!-- <div class="col-sm-1" style="margin-top:3.5%">
+                                                <button id="removeQualificationBtn" type="button" class="btn btn-sm btn-danger" ng-click="removeQualification($index)" ng-if="$index > 0" title="Remove qualification "><i class="fa fa-remove"></i></button>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12" >
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="mandatory">University</label>
+                                                    <input type='text' class="form-control university" name="university_{{$index}}" id="university_{{$index}}" placeholder="Enter university" ng-model="q.university">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="mandatory">College</label>
+                                                    <input type='text' class="form-control college" name="college_{{$index}}" id="college_{{$index}}" placeholder="Enter college" ng-model="q.college">
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-4">
-                                            <div class="form-group">
-                                                <label class="mandatory">Stream</label>
-                                                <input type='text' class="form-control stream" name="stream_{{$index}}" id="stream_{{$index}}" placeholder="Enter stream" ng-model="q.stream">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12" >
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="mandatory">Start Year</label>
+                                                     <div class="input-group date">
+                                                        <div class="input-group-addon">
+                                                            <i  class="fa fa-calendar"></i>
+                                                        </div>  
+                                                        <input type="text" class="form-control start_year" id="start_year_{{$index}}" name="start_year_{{$index}}" placeholder="Enter start year" ng-model="q.start_year"> 
+                                                        <!-- <pre>{{q.startYear}}</pre> -->
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label class="mandatory">Percentage/ CGPA</label>
-                                                <input id="percentage_{{$index}}" name="percentage_{{$index}}" type="text" class="form-control percentage" placeholder="Enter % / CGPA" ng-model="q.percentage">
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <label class="mandatory">End Year</label>
+                                                    <div class="input-group date">
+                                                        <div class="input-group-addon">
+                                                            <i  class="fa fa-calendar"></i>
+                                                        </div>  
+                                                        <input type="text" class="form-control end_year" id="end_year_{{$index}}" name="end_year_{{$index}}" placeholder="Enter end year" ng-model="q.end_year"> 
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-1" style="margin-top:3.5%">
-                                            <button id="removeQualificationBtn" type="button" class="btn btn-sm btn-danger" ng-click="removeQualification($index)" ng-if="$index > 0" title="Remove qualification "><i class="fa fa-remove"></i></button>
+                                            <div class="col-sm-1" style="margin-top:3.5%">
+                                                <button id="removeQualificationBtn" type="button" class="btn btn-sm btn-danger" ng-click="removeQualification($index)" ng-if="$index > 0" title="Remove qualification "><i class="fa fa-remove"></i></button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -193,7 +273,7 @@
                                         <div class="col-sm-10">
                                             <div class="form-group">
                                                 <label class="mandatory">Other Achievements</label>
-                                                <input id="other_achievements_{{$index}}" name="other_achievements_{{$index}}" type="text" class="form-control other_achievements" placeholder="Enter Achievements" ng-model="a.other_achievements">
+                                                <input id="other_achievements_{{$index}}" name="other_achievements_{{$index}}" type="text" class="form-control other_achievements" placeholder="Enter Achievements" ng-model="a.achivement">
                                             </div>
                                         </div>
                                         <div class="col-sm-2 form-group" style="margin-top:3.5%">
@@ -214,13 +294,12 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label class="mandatory">Technology</label>
-                                                <input type="text" id="technologyName_{{$index}}" name="technology_name_{{$index}}" class="form-control technology_name" placeholder="Enter technology name" ng-model="t.technologyName">
+                                                <input type="text" id="technologyName_{{$index}}" name="technology_name_{{$index}}" class="form-control technology_name" placeholder="Enter technology name" ng-model="t.technology_name">
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label class="mandatory">Relevance Experience (Years)</label>
-                                                <!-- <input type="text" id="relevanceYearExperience_{{$index}}" name="relevance_year_experience_{{$index}}" class="form-control relevance_year_experience" placeholder="Enter year experience" ng-model="t.relevanceYearExperience"> -->
                                                 <select id="relevanceYearExperience_{{$index}}" name="relevance_year_experience_{{$index}}" class="form-control relevance_year_experience" placeholder="Enter year experience" ng-model="t.relevanceYearExperience" ng-options="x.name as x.name for x in experienceYears" >
                                                     <option value="" style="color:#ccc !important;">Select Year</option>
                                                 </select>
@@ -229,7 +308,6 @@
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label class="mandatory">Relevance Experience (Months)</label>
-                                                <!-- <input type="text" id="relevanceExperience_{{$index}}" name="relevance_experience_{{$index}}" class="form-control relevance_experience" placeholder="Enter Experience" ng-model="t.relevanceExperience"> -->
                                                 <select id="relevanceMonthExperience_{{$index}}" name="relevance_month_experience_{{$index}}" class="form-control relevance_month_experience" placeholder="Enter month experience" ng-model="t.relevanceMonthExperience" ng-options="x.name as x.name for x in experienceMonths" >
                                                     <option value="" style="color:#ccc !important;">Select Month</option>
                                                 </select>
@@ -244,22 +322,19 @@
                             <div class="tab-pane" id="industrialExperience">
                                 <div class="row">
                                      <div class="col-sm-12 info-text">
-                                        <h4 class="sectionHeading"> Please enter industry experiance </h4>
-                                        <button id="addMoreIndustrialExperienceBtn" type="button" class="btn btn-sm btn-success pull-right appendBtn" ng-click="appendIndustrialExperienceDiv();" title="Add new industry experience "><i class="fa fa-plus"></i></button>
+                                        <h4 class="sectionHeading"> Please enter industry experience </h4>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="col-sm-4 form-group">
                                             <label class="mandatory">Total Experience (Years)</label>
-                                            <!-- <input id="total_experience" name="total_experience" type="text" class="form-control" placeholder="Enter total experience" ng-model="totalIndustryExperiance"> -->
                                             <select id="total_year_experience" name="total_year_experience" class="form-control total_year_experience" placeholder="Enter year experience" ng-model="totalYearIndustryExperiance" ng-options="x.name as x.name for x in experienceYears" >
                                                 <option value="" style="color:#ccc !important;">Select Year</option>
                                             </select>
                                         </div>
                                         <div class="col-sm-4 form-group">
                                             <label class="mandatory">Total Experience (Month)</label>
-                                            <!-- <input id="total_experience" name="total_experience" type="text" class="form-control" placeholder="Enter total experience" ng-model="totalIndustryExperiance"> -->
                                             <select id="total_month_experience" name="total_month_experience" class="form-control total_month_experience" placeholder="Enter month experience" ng-model="totalMonthIndustryExperiance" ng-options="x.name as x.name for x in experienceMonths" >
                                                 <option value="" style="color:#ccc !important;">Select Month</option>
                                             </select>
@@ -270,51 +345,47 @@
                                         </div>
                                     </div>
                                 </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="co-sm-12 form-group" style="margin-right:2.8%">
+                                        <button id="addMoreIndustrialExperienceBtn" type="button" class="btn btn-sm btn-success pull-right appendBtn" ng-click="appendIndustrialExperienceDiv();" title="Add new industry experience "><i class="fa fa-plus"></i></button>
+                                    </div>
+                                </div>
                                 <div id="parentIndustrialExperience" ng-repeat="ex in industryExperiance">
                                 <div class="row" >
                                     <div class="col-sm-12">
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label class="mandatory">Company Name</label>
-                                                <input id="companyName_{{$index}}" name="company_name_{{$index}}" type="text" class="form-control company_name" placeholder="Enter company name" ng-model="ex.companyName">
+                                                <input id="companyName_{{$index}}" name="company_name_{{$index}}" type="text" class="form-control company_name" placeholder="Enter company name" ng-model="ex.company_name">
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label class="mandatory">Project Name</label>
-                                                <input id="projectName_{{$index}}" name="project_name_{{$index}}" type="text" class="form-control project_name" placeholder="Enter project name" ng-model="ex.projectName">
+                                                <input id="projectName_{{$index}}" name="project_name_{{$index}}" type="text" class="form-control project_name" placeholder="Enter project name" ng-model="ex.project_name">
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label class="mandatory">Role</label>
-                                                <input id="projectRole_{{$index}}" name="project_role_{{$index}}" type="text" class="form-control project_role" placeholder="Enter role" ng-model="ex.projectRole">
+                                                <input id="projectRole_{{$index}}" name="project_role_{{$index}}" type="text" class="form-control project_role" placeholder="Enter role" ng-model="ex.role_in_project">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <div class="row">
-                                    <div class="col-sm-12"> 
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label class="mandatory">Languages/ Tools Used</label>
-                                                <textarea id="toolsUsed_{{$index}}" name="tools_used_{{$index}}" class="form-control tools_used" placeholder="Enter Languages/ Tools Used" ng-model="ex.toolsUsed" rows="1"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> -->
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label class="mandatory">Languages/ Tools Used</label>
-                                                <textarea id="toolsUsed_{{$index}}" name="tools_used_{{$index}}" class="form-control tools_used" placeholder="Enter Languages/ Tools Used" ng-model="ex.toolsUsed" rows="1"></textarea>
+                                                <textarea id="toolsUsed_{{$index}}" name="tools_used_{{$index}}" class="form-control tools_used" placeholder="Enter Languages/ Tools Used" ng-model="ex.language_or_tools" rows="1"></textarea>
                                             </div>
                                         </div>
                                         <div class="col-sm-7">
                                             <div class="form-group">
                                                 <label class="mandatory">Project Description</label>
-                                                <textarea id="projectDescription_{{$index}}" name="project_description_{{$index}}" class="form-control project_description" placeholder="Enter Project Description" ng-model="ex.projectDescription" rows="1"></textarea>
+                                                <textarea id="projectDescription_{{$index}}" name="project_description_{{$index}}" class="form-control project_description" placeholder="Enter Project Description" ng-model="ex.project_description" rows="1"></textarea>
                                             </div>
                                         </div>
                                         <div class="col-sm-1 form-group" style="margin-top:3%">
@@ -338,7 +409,7 @@
                                         <div class="col-sm-10">
                                              <div class="form-group">
                                                 <label class="mandatory">Hobby</label>
-                                                <input id="hobbie_{{$index}}" name="hobbie_{{$index}}" type="text" class="form-control hobbie" placeholder="Enter Hobby" ng-model="h.hobbie">
+                                                <input id="hobbie_{{$index}}" name="hobbie_{{$index}}" type="text" class="form-control hobbie" placeholder="Enter Hobby" ng-model="h.hobbie_name">
                                               </div>
                                         </div>
                                         <div class="col-sm-2" style="margin-top:3.5%">
@@ -353,12 +424,14 @@
                                 <div class="row">
                                     <div class="col-sm-12">
 
-                                        <form action="/uploadfile" method="post" enctype="multipart/form-data">
+                                        <form action="/uploadfile" method="post" enctype="multipart/form-data" id="fileUploadForm">
                                             <div class="col-sm-12">
                                                 <h5 class="info-text" style="text-align:left">Please upload a valid document or pdf file. Size of file should not be more than 1MB.</h5>
                                                 <br>
                                                 <div class="form-group">
-                                                    <input type="file" class="form-control" name="inputFile" id="inputFile" aria-describedby="fileHelp" ng-model="fileName">
+                                                    <input type="file" class="form-control" name="file" id="file" aria-describedby="fileHelp" >
+
+                                                     <!-- <input type="file" class="form-control" name="file" id="file" onchange="angular.element(this).scope().uploadFile(this.files)" aria-describedby="fileHelp"  upload-files > -->
                                                     
                                                     <span style="color:#dd4b39;">{{fileSizeError}}</span>
                                                 </div>
@@ -366,30 +439,6 @@
                                            
                                         </form>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="basicScreening">
-                                <!-- <h4 class="info-text">  Please enter hobbies  </h4> -->
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="col-sm-7">
-                                            <div class="form-group">
-                                                <label class="mandatory">Technology</label>
-                                                <select class="form-control" name="technology" id="technology" ng-model=" technology" ng-options="x.name as x.name for x in technologyList" >
-                                                    <option value="" style="color:#ccc !important;">Select Technology</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <!-- <div class="col-sm-3" style="margin-top:3.5%">
-                                            <div class="form-group">
-                                                <button id="removeHobbyBtn" type="button" class="btn btn-sm btn-danger"  ng-click="removeHobby($index)" ng-if="$index > 0"><i class="fa fa-remove"></i></button>
-                                            </div>
-                                        </div> -->
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    
                                 </div>
                             </div>
                         </div>
@@ -415,9 +464,7 @@
 
         <div class="modal fade" id="previewModal" role="dialog">
             <div class="modal-dialog" style="width:90%">
-
                 <div class="modal-content" style="border-radius: 0px!important;">
-
                     <div class="modal-header" style="text-align:center;">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">Preview
@@ -470,7 +517,7 @@
                                 <span>{{ correspondingAddr}}</span>
                             </div>
                         </div>
-                         <div class="row">
+                        <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class=""><b>Permanent Address:</b></label>
@@ -478,34 +525,69 @@
                                 </div>
                             </div>
                         </div>
-
-                        <hr>
-                        <h4>EDUCATIONAL DETAILS :</h4>
-                       <!--  <pre>{{qualifications |json}}</pre> -->
-                        <div class="row" ng-repeat="qu in qualifications">
-                            <div class="col-md-4 form-group">
-                                <label class=""><b>Qualification: </b></label>
-                                <span>{{ qu.qualificationName}}</span>
-                            </div>
-                            <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class=""><b>Stream:</b></label>
-                                    <span>{{ qu.stream}}</span>
+                                    <label class=""><b>Objective:</b></label>
+                                    <span>{{ objectives}}</span>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class=""><b>Percentage/ CGPA:</b></label>
-                                    <span>{{ qu.percentage}}</span>
+                                    <label class=""><b>Summary:</b></label>
+                                    <span>{{ summary}}</span>
                                 </div>
                             </div>
                         </div>
 
                         <hr>
+                        <h4>EDUCATIONAL DETAILS :</h4>
+                       <!--  <pre>{{qualifications |json}}</pre> -->
+                        <div ng-repeat="qu in qualifications">
+                            <div class="row">
+                                <div class="col-md-4 form-group">
+                                    <label class=""><b>Qualification: </b></label>
+                                    <span>{{ qu.qualificationName}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class=""><b>Stream:</b></label>
+                                        <span>{{ qu.stream}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class=""><b>Percentage:</b></label>
+                                        <span>{{ qu.percentage}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 form-group">
+                                    <label class=""><b>University: </b></label>
+                                    <span>{{ qu.university}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class=""><b>College:</b></label>
+                                        <span>{{ qu.college}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class=""><b>Duration:</b></label>
+                                        <span>{{ qu.start_year}} - {{qu.end_year}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
                         <h4>ACHIEVEMENTS DETAILS:</h4>
                         <div class="row" >
                             <ul ng-repeat="ac in achievements" style="margin-left: 3%;">
-                                <li>{{ac.other_achievements}}</li>
+                                <li>{{ac.achivement}}</li>
                             </ul>
                         </div>
 
@@ -514,12 +596,12 @@
                         <div class="row" ng-repeat="ts in technicalSkill">
                             <div class="col-md-6 form-group">
                                 <label class=""><b>Technology: </b></label>
-                                <span>{{ ts.technologyName}}</span>
+                                <span>{{ ts.technology_name}}</span>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class=""><b>Relevance Experience:</b></label>
-                                    <span>{{ ts.relevanceYearExperience}}, {{ts.relevanceMonthExperience}}</span>
+                                    <span>{{ ts.relevanceYearExperience}}.{{ts.relevanceMonthExperience}}</span>
                                 </div>
                             </div>
                         </div>
@@ -529,38 +611,38 @@
                         <div class="row">
                             <div class="col-md-12 form-group">
                                 <label class=""><b>Total Experience: </b></label>
-                                <span>{{ totalYearIndustryExperiance}}, {{totalMonthIndustryExperiance}}</span>
+                                <span>{{ totalYearIndustryExperiance}}.{{totalMonthIndustryExperiance}}</span>
                             </div>
                         </div>
                         <div ng-repeat="ie in industryExperiance">
                             <div class="row" >
                                 <div class="col-md-6 form-group">
                                     <label class=""><b>Company Name: </b></label>
-                                    <span>{{ ie.companyName}}</span>
+                                    <span>{{ ie.company_name}}</span>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class=""><b>Project Name:</b></label>
-                                        <span>{{ ie.projectName}}</span>
+                                        <span>{{ ie.project_name}}</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 form-group">
                                     <label class=""><b>Role: </b></label>
-                                    <span>{{ ie.projectRole}}</span>
+                                    <span>{{ ie.role_in_project}}</span>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class=""><b>Languages/ Tools Used:</b></label>
-                                        <span>{{ ie.toolsUsed}}</span>
+                                        <span>{{ ie.language_or_tools}}</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12 form-group">
                                     <label class=""><b>Project Description: </b></label>
-                                    <span>{{ ie.projectDescription}}</span>
+                                    <span>{{ ie.project_description}}</span>
                                 </div>
                             </div>
                         </div>
@@ -569,7 +651,7 @@
                         <h4>HOBBIES DETAILS :</h4>
                         <div class="row">
                             <ul ng-repeat="h in hobbyDiv" style="margin-left: 3%;">
-                                <li>{{h.hobbie}}</li>
+                                <li>{{h.hobbie_name}}</li>
                             </ul>
                         </div>
 
@@ -583,12 +665,10 @@
                         </div> -->
                     </div>
                     <div class="modal-footer">
-                        <!-- <button   data-ng-click="prc.saveNewManager()" class="btn btn-primary"> Save</button> -->
                         <button type='button' class='btn btn-warning' name='Submit' value='Submit' ng-click="saveResumeData();">Save</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
-                <!-- </form> -->
              </div>
         </div>
 
@@ -623,4 +703,28 @@
     }).on("changeDate", function () {
         $(this).valid();  
     }); 
+
+    function setDatepicker() {
+        $('.start_year').datepicker({
+            format: "yyyy",
+            autoclose: true,
+            minViewMode: "years"
+        }).on('changeDate', function(selected){
+             $(this).valid();
+             
+            startDate =  selected.date;
+            $('.end_year').datepicker('setStartDate', startDate);
+        }).on("show", function () {
+            $(this).valid();  
+        }); 
+
+        $('.end_year').datepicker({
+                format: "yyyy",
+                autoclose: true,
+                minViewMode: "years"
+        }).on("changeDate", function () {
+            $(this).valid();  
+        });
+    }
+    setTimeout(function() { setDatepicker();}, 500);
  </script>

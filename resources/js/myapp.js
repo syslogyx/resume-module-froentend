@@ -1,6 +1,6 @@
 ﻿var Utility = {
- apiBaseUrl: "http://127.0.0.1:8000/api/",
-   // apiBaseUrl: "http://172.16.1.97:8000/api/",
+ //apiBaseUrl: "http://127.0.0.1:8000/api/",
+   apiBaseUrl: "http://172.16.1.97:8000/api/",
 // apiBaseUrl: "http://finapi.syslogyx.com/api/",
 //    hrmsBaseUrl: "http://172.16.1.180:8765/",
     hrmsBaseUrl: "http://hrms.syslogyx.com/",
@@ -83,7 +83,21 @@ var app = angular.module("myapp", ['ngRoute', 'mm.acl', 'ngCookies' , 'ui.sortab
  }
  })*/
 
-
+// app.directive('uploadFiles', function () {  
+//     return {  
+//         scope: true,        //create a new scope  
+//         link: function (scope, el, attrs) {  
+//             el.bind('change', function (event) {  
+//                 var files = event.target.files;  
+//                 //iterate files since 'multiple' may be specified on the element  
+//                 for (var i = 0; i < files.length; i++) {  
+//                     //emit event upward  
+//                     scope.$emit("seletedFile", { file: files[i] });  
+//                 }  
+//             });  
+//         }  
+//     };  
+// });  
 app.factory("menuService", ["$rootScope", function ($rootScope) {
         "use strict";
         return {
@@ -290,6 +304,57 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
+    this.getAllQualificationList = function (request) {
+        Utility.startAnimation();
+        return $http({
+            method: 'GET',
+            url: RESOURCES.SERVER_API + "qualification_details",
+            dataType: 'json',
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+   
+    this.createCandidate = function (req) {
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "create_candidate?type='data'",
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE,
+                //'Content-Type': RESOURCES.CONTENT_FILE_TYPE,
+            }
+        })
+    };
+
+    // this.uploadresumeFile = function (json) {
+    //     Utility.startAnimation();
+    //     return $http({  
+    //         method: 'POST',  
+    //         url:  RESOURCES.SERVER_API + "create_candidate?type='file'",  
+    //         headers: { 'Content-Type': undefined },  
+             
+    //         transformRequest: function (data) {  
+    //             var formData = new FormData();  
+    //             formData.append("model", angular.toJson(data.model));  
+    //             //for (var i = 0; i < data.files.length; i++) {  
+    //                 formData.append("file", data.files[0]);  
+    //             //}  
+    //             return formData;  
+    //         },  
+    //         data: json 
+    //     }).  
+    //     success(function (data, status, headers, config) {  
+    //         alert("success!");  
+    //     }).  
+    //     error(function (data, status, headers, config) {  
+    //         alert("failed!");  
+    //     });  
+    // };
+
 });
 
 app.config(function ($routeProvider, $locationProvider) {
@@ -412,10 +477,9 @@ app.config(function ($routeProvider, $locationProvider) {
                 }
             })
 
-            .when('/resume', {
+            .when('/resume/:token', {
                 templateUrl: 'views/resume/resume.html',
                 controller: 'resumeCtrl',
-                controllerAs: 'stg',
                 resolve: {
                     'acl': ['$q', 'AclService', function ($q, AclService) {
                             return true;
@@ -430,6 +494,7 @@ app.config(function ($routeProvider, $locationProvider) {
                         }]
                 }
             })
+           
 
     $locationProvider.html5Mode(true);
 });
@@ -437,7 +502,9 @@ app.config(function ($routeProvider, $locationProvider) {
 app.run(function ($rootScope, AclService, $cookieStore, $location, services) {
     var authKey = services.getAuthKey();
     //console.log(authKey);
-    if (authKey == undefined) {
+    if(window.location.pathname.search("/resume/")==0){
+
+    }else if (authKey == undefined) {
         $location.path('/site/login');
     } else {
        

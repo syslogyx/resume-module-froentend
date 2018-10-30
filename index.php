@@ -177,7 +177,7 @@
                 <div id="viewPort" data-ng-view ></div>
             </div>
             <!-- /.content-wrapper -->
-            <div ng-controller="menuCtrl" style="min-height: 50px;">
+            <div class="menuSec" ng-controller="menuCtrl" style="min-height: 50px;">
                 <footer class="main-footer" style="height: 50px;">
                     <div class="pull-right hidden-xs">
                         <b>Version</b> 0
@@ -267,6 +267,7 @@
         <script src="/controller/menuCtrl.js"></script> 
         <script src="/controller/userCtrl.js"></script> 
         <script src="/controller/settingCtrl.js"></script> 
+        <script src="/controller/resumeCtrl.js"></script> 
 
          <script >
                     $( window ).scroll(function() {

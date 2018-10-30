@@ -78,18 +78,6 @@ $(document).ready(function(){
             number:true,
             range: [1, 100] 
         },
-        university: {
-            required: true, 
-        },
-        college: {
-            required: true, 
-        },
-        start_year: {
-            required: true, 
-        },
-        end_year: {
-            required: true, 
-        },
         other_achievements: {
             required: true
         },
@@ -141,15 +129,8 @@ $(document).ready(function(){
                     {
                 
                         element.parent().parent().append(error);
-                    } else if ($(element).attr("class") === "start_year")
-                    {
-                        element.parent().parent().append(error);
-                    } else if ($(element).attr("class") === "end_year")
-                    {
-                
-                        element.parent().parent().parent().append(error);
-                    }
-                    else if ($(element).attr("id") === "inputFile")
+                    } 
+                     else if ($(element).attr("id") === "inputFile")
                     {
                 
                         element.parent().append(error);
@@ -192,18 +173,6 @@ $(document).ready(function(){
             permanent_address:{
                 required: true,
             },
-            objective:{
-                required: true,
-            },
-            summary:{
-                required: true,
-            },
-            start_year: {
-                required: true, 
-            },
-            end_year: {
-                required: true, 
-            },
             total_year_experience :{
                 required: true,
             },
@@ -214,12 +183,12 @@ $(document).ready(function(){
                 required: true,
                 number:true,
             },
-            file: { 
+            inputFile: { 
                 required: true, 
                 accept: "png|jpe?g|gif", 
                 filesize: 1048576  
             },
-             file: { 
+             inputFile: { 
                 required: true, 
                 accept: "(docx?|doc|pdf)",
                 filesize: 1048576
@@ -250,12 +219,6 @@ $(document).ready(function(){
             permanent_address: {
                 required: "Permanent address is required.",
             },
-            objective: {
-                required: "Objective is required.",
-            },
-            summary: {
-                required: "Summary is required.",
-            },
             qualification:{
                 required: "Qualification is required.",
             },
@@ -264,18 +227,6 @@ $(document).ready(function(){
             },
              percentage:{
                 required: "percentage is required.",
-            },
-            university: {
-                required: "University is required.", 
-            },
-            college: {
-                required: "College is required.", 
-            },
-            start_year: {
-                required: "Startyear is required.", 
-            },
-            end_year: {
-                required: "End year is required.", 
             },
             other_achievements:{
                 required: "Achievements is required.",
@@ -317,7 +268,7 @@ $(document).ready(function(){
             hobbie:{
                 required: "Hobby is required.",
             },
-            file: {
+            inputFile: {
                 required: "File is required" ,
                 accept: "Select document or pdf file",
                 filesize: "File size must be less than 1MB"
@@ -348,7 +299,13 @@ $(document).ready(function(){
         'previousSelector': '.btn-previous',
 
         onNext: function(tab, navigation, index) {
-            // console.log('index',index);
+            console.log('index',index);
+            // imageURL =['resources/img/photo1.png','resources/img/photo1.png'];
+            // for(var i =0;i<imageURL.length;i++){
+            //     if(index == i){
+            //         $('#back_image').css('background-image', imageURL[i]);
+            //     }
+            // }
 
         	var $valid = $('.wizard-card form').valid();
         	if(!$valid) {
