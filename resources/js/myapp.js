@@ -1,6 +1,6 @@
 ﻿var Utility = {
-    // apiBaseUrl: "http://127.0.0.1:8000/api/",
-    apiBaseUrl: "http://172.16.1.97:8000/api/",
+    apiBaseUrl: "http://127.0.0.1:8000/api/",
+    // apiBaseUrl: "http://172.16.1.97:8000/api/",
      
     formatDate: function (date, format) {
         var tDate = null;
@@ -288,9 +288,9 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
-    this.downloadResumePDF = function (request,productId) {
+    this.downloadResumePDF = function (id) {
         // var win =
-        window.open(RESOURCES.SERVER_API +'report/download/'+request.user_id+'/'+request.date+'/'+request.product_id+'/'+request.type+'?product_id='+productId);
+        window.open(RESOURCES.SERVER_API +'generate_pdf/'+id);
         // win.setTimeout(function(){this.close();},1500)
         // win.focus();
     };
