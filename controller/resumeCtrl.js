@@ -1,13 +1,9 @@
 app.controller("resumeCtrl", function (services, AclService, $scope, $http, $location, RESOURCES, $cookieStore,menuService,$routeParams) {
 
     var rsm = this;
-    // menuService.setMenu([
-    //         {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"deactive"},
-    //         {"Title": "Resume", "Link": "/resume", "icon": "fa fa-plus", "active":"active"}     
-    // ]);
-
-console.log($routeParams.token);
-   $scope.jobDetail=[
+   
+    console.log($routeParams.token);
+    $scope.jobDetail=[
         {id: 1, name: "Android"},
         {id: 2, name: "Java"},
    ]
@@ -73,8 +69,7 @@ console.log($routeParams.token);
             //$scope.qualifications.start_year = $(this).val();
             //console.log($scope.qualifications);
         }).on("show", function (e) {
-            $(this).valid();  
-          
+            $(this).valid();         
         }); 
 
         $('.end_year').datepicker({
@@ -196,12 +191,13 @@ console.log($routeParams.token);
                     }
                 }
             }
-             $('#previewModal').modal('show');     
+            $scope.qualificatinData();
+            $('#previewModal').modal('show');     
         }
     }
 
     $scope.changeBackground =function(index){
-       // console.log("hii");
+      
     }
 
     // $scope.files = [];    
@@ -211,14 +207,8 @@ console.log($routeParams.token);
     //     });  
     // });  
 
-    $scope.saveResumeData = function(){
-    if($('.wizard-card form').valid()){
-        	console.log("Q", $scope.qualifications);
-            console.log("A", $scope.achievements);
-            console.log("T", $scope.technicalSkill);
-            console.log("I", $scope.industryExperiance);
-            console.log("H", $scope.hobbyDiv);
-var json=[];
+    $scope.qualificatinData = function(){
+        var json=[];
             
             $('html').find('.parentQualification').each(function(){
                 var jsonQ={qualification_id:"",stream:"",percentage:"",university:"",college:"",start_year:"",end_year:""};
@@ -232,7 +222,34 @@ var json=[];
 
                 json.push(jsonQ);
             })
-            // console.log(json);
+             console.log(json);
+             $scope.quaData = json;
+             return json;
+    }
+
+
+
+    $scope.saveResumeData = function(){
+    if($('.wizard-card form').valid()){
+            $('#previewModal').modal('hide');
+        	var json=$scope.qualificatinData();
+            // var json=[];
+            
+            // $('html').find('.parentQualification').each(function(){
+            //     var jsonQ={qualification_id:"",stream:"",percentage:"",university:"",college:"",start_year:"",end_year:""};
+            //     jsonQ.qualification_id=$(this).find('.qualification').val();
+            //     jsonQ.stream=$(this).find('.stream').val();
+            //     jsonQ.percentage=$(this).find('.percentage').val();
+            //     jsonQ.university=$(this).find('.university').val();
+            //     jsonQ.college=$(this).find('.college').val();
+            //     jsonQ.start_year=$(this).find('.start_year').val();
+            //     jsonQ.end_year=$(this).find('.end_year').val();
+
+            //     json.push(jsonQ);
+            // })
+              console.log(json);
+
+
             // $('#parentQualification').find('.stream').each(function(){
             //     jsonQ.qualification_id=$(this).val();
             // })
@@ -306,17 +323,29 @@ var json=[];
                             //    // console.log(r.data.errors.email);
                             //     Utility.stopAnimation();
                             // });
+
                     Utility.stopAnimation();
                     try {
-                        toastr.success('candidate  created successfully.');
+                      
+                        toastr.success("Thanks for showing your interest! Will get back to you soon!");
                         
                     } catch (e) {
-                        toastr.error("candidate not saved successfully.");
+                        toastr.error("Profile not saved successfully.");
                         Raven.captureException(e)
                     }
                 }, function myError(r) {
-                    toastr.error('something went wrong');
-                   // console.log(r.data.errors.email);
+                    // console.log(r.data.data.email[0]);
+                    if(r.data.data.email[0] !=''){
+                        toastr.error(r.data.data.email[0]);
+                    }else if(r.data.data.mobile_no[0] !=''){
+                        toastr.error(r.data.data.mobile_no[0]); 
+                    }
+                    else if(r.data.data.pan_number[0] !=''){
+                        toastr.error(r.data.data.pan_number[0]); 
+                    }else{
+                        toastr.error(r.data.message);  
+                    }
+
                     Utility.stopAnimation();
                 });
         }

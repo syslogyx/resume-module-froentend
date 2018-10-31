@@ -160,6 +160,9 @@ $(document).ready(function(){
                 },
 
 		rules: {
+            job_code:{
+                required: true
+            },
 		    full_name: {
 		      required: true,
               lettersonly: true
@@ -226,6 +229,9 @@ $(document).ready(function(){
             },
         },
         messages: {
+            job_code:{
+                required: "Jobe code is required.",
+            },
             full_name: {
                 required: "Name is required.",
                 // lettersonly:"Please enter valid name."
