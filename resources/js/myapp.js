@@ -1,6 +1,7 @@
 ﻿var Utility = {
- //apiBaseUrl: "http://127.0.0.1:8000/api/",
-   apiBaseUrl: "http://172.16.1.97:8000/api/",
+ // apiBaseUrl: "http://127.0.0.1:8000/api/",
+ apiBaseUrl: "http://recruitmentapi.syslogyx.com/api/",
+   // apiBaseUrl: "http://172.16.1.97:8000/api/",
 // apiBaseUrl: "http://finapi.syslogyx.com/api/",
 //    hrmsBaseUrl: "http://172.16.1.180:8765/",
     hrmsBaseUrl: "http://hrms.syslogyx.com/",
@@ -320,7 +321,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         Utility.startAnimation();
         return $http({
             method: 'POST',
-            url: RESOURCES.SERVER_API + "create_candidate?type='data'",
+            url: RESOURCES.SERVER_API + "create_candidate?type=data",
             dataType: 'json',
             data: $.param(req),
             headers: {

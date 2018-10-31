@@ -185,13 +185,13 @@
                                     </div>
                                     <br>
                                 </div>
-                                <div ng-repeat="q in qualifications">
+                                <div ng-repeat="q in qualifications" class="parentQualification">
                                     <div class="row" id="parentQualification">
                                         <div class="col-sm-12">
                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label class="mandatory">Qualification</label>
-                                                    <select class="form-control qualification" name="qualification_{{$index}}" id="qualification_{{$index}}" ng-model=" q.qualification_id" ng-options="x.id as x.name for x in allQualificationList" >
+                                                    <select class="form-control qualification" name="qualification_{{$index}}" id="qualification_{{$index}}" ng-model=" q.qualification_id" ng-options="x.id as x.name for x in allQualificationList track by x.id" >
                                                         <option value="" style="color:#ccc !important;">Select Qualification</option>
                                                     </select>
                                                 </div>
@@ -693,38 +693,5 @@
 <script src="/resources/js/app.min.js"></script>
  <script src="/resources/plugins/datepicker/bootstrap-datepicker.js"></script>
  <script>
-    $('#dob').datepicker({
-        autoclose: true,
-        todayHighlight: true
-    }).on('show', function(e){       
-        var date = new Date();
-        // console.log(date);
-        $('#dob').datepicker('setEndDate', date);
-    }).on("changeDate", function () {
-        $(this).valid();  
-    }); 
 
-    function setDatepicker() {
-        $('.start_year').datepicker({
-            format: "yyyy",
-            autoclose: true,
-            minViewMode: "years"
-        }).on('changeDate', function(selected){
-             $(this).valid();
-             
-            startDate =  selected.date;
-            $('.end_year').datepicker('setStartDate', startDate);
-        }).on("show", function () {
-            $(this).valid();  
-        }); 
-
-        $('.end_year').datepicker({
-                format: "yyyy",
-                autoclose: true,
-                minViewMode: "years"
-        }).on("changeDate", function () {
-            $(this).valid();  
-        });
-    }
-    setTimeout(function() { setDatepicker();}, 500);
  </script>

@@ -58,12 +58,61 @@ console.log($routeParams.token);
 
     $scope.hobbyDiv = [{hobbie_name:""}];
 
+    $scope.datepickerInit = function(){
+     console.log($scope.qualifications);
+
+        $('.start_year').datepicker({
+            format: "yyyy",
+            autoclose: true,
+            minViewMode: "years"
+        }).on('changeDate', function(selected){
+             $(this).valid();
+             $(this).val();
+            startDate =  selected.date;
+            $('.end_year').datepicker('setStartDate', startDate);
+            //$scope.qualifications.start_year = $(this).val();
+            //console.log($scope.qualifications);
+        }).on("show", function (e) {
+            $(this).valid();  
+          
+        }); 
+
+        $('.end_year').datepicker({
+                format: "yyyy",
+                autoclose: true,
+                minViewMode: "years"
+        }).on("changeDate", function (e) {
+            $(this).valid();  
+            //$scope.qualifications.end_year = $(this).val();
+           // console.log($scope.qualifications);
+        }); 
+    }
+
+
+   
     $scope.init = function(){
 		/* Getting all qualification list */
+
+        $('#dob').datepicker({
+            format: "yyyy-mm-dd",
+            autoclose: true,
+            todayHighlight: true
+        }).on('show', function(e){       
+            var date = new Date();            
+            $('#dob').datepicker('setEndDate', date);
+        }).on("changeDate", function (e) {
+            $(this).valid();
+            $scope.dateOfBirth = $(this).val();
+            console.log($scope.dateOfBirth);
+        });
+
         var promise = services.getAllQualificationList();
         promise.success(function (result) {
             Utility.stopAnimation();
             $scope.allQualificationList = result.data.data;
+            for (var i = 0; i < $scope.allQualificationList.length; i++) {
+                $scope.allQualificationList[i].id=$scope.allQualificationList[i].id.toString();
+            }
             console.log($scope.allQualificationList);
         }, function myError(r) {
             toastr.error(r.data.message, 'Sorry!');
@@ -71,10 +120,14 @@ console.log($routeParams.token);
         });
 	}
 
+
+
+    setTimeout(function() { $scope.datepickerInit();}, 500);
+
    	$scope.appendQualificationDiv = function(){
 
    		$scope.qualifications.push({qualification_id:"",stream:"",percentage:"",university:"",college:"",start_year:"",end_year:""})
-        setTimeout(function() { setDatepicker();}, 500);
+        setTimeout(function() { $scope.datepickerInit();}, 500);
     }
 
     $scope.appendAchievementDiv = function(){
@@ -135,6 +188,7 @@ console.log($routeParams.token);
 
     $scope.showPreview = function(){
         if($('.wizard-card form').valid()){
+            console.log()
             for(var i=0;i<$scope.allQualificationList.length;i++){
                 for(var j=0;j<$scope.qualifications.length;j++){
                     if($scope.allQualificationList[i].id==$scope.qualifications[j].qualification_id){
@@ -164,8 +218,42 @@ console.log($routeParams.token);
             console.log("T", $scope.technicalSkill);
             console.log("I", $scope.industryExperiance);
             console.log("H", $scope.hobbyDiv);
+var json=[];
             
-            $scope.qualifications1 = JSON.parse(angular.toJson( $scope.qualifications));
+            $('html').find('.parentQualification').each(function(){
+                var jsonQ={qualification_id:"",stream:"",percentage:"",university:"",college:"",start_year:"",end_year:""};
+                jsonQ.qualification_id=$(this).find('.qualification').val();
+                jsonQ.stream=$(this).find('.stream').val();
+                jsonQ.percentage=$(this).find('.percentage').val();
+                jsonQ.university=$(this).find('.university').val();
+                jsonQ.college=$(this).find('.college').val();
+                jsonQ.start_year=$(this).find('.start_year').val();
+                jsonQ.end_year=$(this).find('.end_year').val();
+
+                json.push(jsonQ);
+            })
+            // console.log(json);
+            // $('#parentQualification').find('.stream').each(function(){
+            //     jsonQ.qualification_id=$(this).val();
+            // })
+            // $('#parentQualification').find('.percentage').each(function(){
+            //     jsonQ.qualification_id=$(this).val();
+            // })
+            // $('#parentQualification').find('.university').each(function(){
+            //     jsonQ.qualification_id=$(this).val();
+            // })
+            // $('#parentQualification').find('.college').each(function(){
+            //     jsonQ.qualification_id=$(this).val();
+            // })
+            // $('#parentQualification').find('.start_year').each(function(){
+            //     jsonQ.qualification_id=$(this).val();
+            // })
+            // $('#parentQualification').find('.end_year').each(function(){
+            //     jsonQ.qualification_id=$(this).val();
+            // })
+
+            
+            $scope.qualifications1 = json;
             //$scope.qualifications1 = JSON.parse($scope.qualifications1);
             //console.log($scope.qualifications1);
             $scope.achievements1 = JSON.parse(angular.toJson( $scope.achievements ));
