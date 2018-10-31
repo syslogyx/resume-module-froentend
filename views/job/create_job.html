@@ -1,0 +1,255 @@
+<section class="content" ng-cloak>
+<br><br>
+    <form role="form" name="addForm" id="jobForm" >
+        <div class="box box-default" >
+            <div class="row">
+                <div class="col-md-6 boxhead">
+                    <div class="box-header with-border boxhead">
+                        <h1 class="formheading">
+                               <b> {{jb.title}}</b>
+                        </h1>
+                    </div> 
+                </div>
+
+                <div class="col-md-6">
+                    <div class="pull-right" style="margin-top: 5px; margin-right: 20px;">
+                        <a ng-href="/job_list"><button type="button" class="btn btn-default btn-sm" data-toggle="modal" title="Back" data-target="" data-ng-click="" style="border:white;color:#428bca;outline: 0;"><i class="fa fa-arrow-left" aria-hidden="true"></i></button></a>  
+                    </div> 
+                </div>                
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">  
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="mandatory" for="">Title</label>
+                            <input type="text" class="form-control" ng-model="jb.jobTitle" name="job_title" id="job_title" placeholder="Enter title" >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="mandatory" for="">Subtitle</label>
+                            <input type="text" class="form-control" ng-model="jb.subTitle" name="sub_title" id="sub_title" placeholder="Enter subtitle" >
+                        </div>
+                    </div>
+                     <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="mandatory" for="">Status</label>
+                            <input type="text" class="form-control" ng-model="jb.status" name="status" id="status"  placeholder="Enter status">
+                        </div>
+                    </div>
+                    
+                </div> 
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="mandatory" for="">No. of Requirement</label>
+                            <input type="text" class="form-control" ng-model="jb.requirementNo" name="requirement_no" id="requirement_no"  placeholder="Enter number of requirement">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="mandatory" for="">Experiance</label>
+                            <input type="text" class="form-control" ng-model="jb.experiance" name="experiance" id="experiance"  placeholder="Enter experiance">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="mandatory" for="">Job Location</label>
+                            <input type="text" class="form-control" ng-model="jb.jobLocation" name="job_location" id="job_location"  placeholder="Enter job location">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="mandatory" for="">Job Type</label>
+                            <input type="text" class="form-control" ng-model="jb.jobType" name="job_type" id="job_type"  placeholder="Enter job type">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="mandatory" for="">CTC</label>
+                            <input type="text" class="form-control" ng-model="jb.ctc" name="ctc" id="ctc"  placeholder="Enter ctc">
+                        </div>
+                    </div>
+                     <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="mandatory" for="">Notice Period</label>
+                            <input type="text" class="form-control" ng-model="jb.noticePeroid" name="notice_peroid" id="notice_peroid"  placeholder="Enter notice_peroid">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="mandatory" for="">Description</label>
+                           <textarea class="form-control" id="description" name="description" ng-model="jb.description" rows="2"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="mandatory" for="">Required Skills</label>
+                            <textarea class="form-control" id="required_skill" name="required_skill" ng-model="jb.requiredSkill" rows="2"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="mandatory" for="">Additional Skills</label>
+                           <textarea class="form-control" id="additional_skill" name="additional_skill" ng-model="jb.additionalSkill" rows="2"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="mandatory" for="">Roles And Responsibility</label>
+                            <textarea class="form-control" id="role_responsibility" name="role_responsibility" ng-model="jb.roleResponsibility" rows="2"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer" style="margin-right:14px!important">
+                <div class="pull pull-right">
+                    <input type="submit" value="Save" data-ng-click="jb.createJob()" class="btn btn-success" style="outline: 0;"/> 
+                    <input type="button" value="Cancel" class="btn btn-warning" data-ng-click="jb.cancelJob()"  style="outline: 0;"/> 
+                    <input  ng-if="jb.title == 'Add New Job'" type="reset" value="Reset" ng-click="jb.resetForm()" class="btn" style="outline: 0;"/> 
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+
+<script>
+
+            var baseUrl = Utility.apiBaseUrl;
+            $("#jobForm").validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error',
+                errorPlacement: function (error, element) {
+
+                    var type = $(element).attr("type");
+                    if ($(element).attr("id") === "")
+                    {
+                        element.parent().append(error);
+
+                    }
+                    else {
+                        error.insertAfter(element);
+                    }
+                },
+                rules: {
+                    job_title: {
+                        required: true
+                    },
+                    sub_title: {
+                        required: true
+                    },
+                     status: {
+                        required: true
+                    },
+                    requirement_no: {
+                        required: true
+                    },
+                     experiance: {
+                        required: true
+                    },
+                     job_location: {
+                        required: true
+                    },
+                     job_type: {
+                        required: true
+                    },
+                     ctc: {
+                        required: true
+                    },
+                     notice_peroid: {
+                        required: true
+                    },
+                     description: {
+                        required: true
+                    },
+                    required_skill: {
+                        required: true
+                    },
+                    additional_skill: {
+                        required: true
+                    },
+                    role_responsibility: {
+                        required: true
+                    }
+                },
+                messages: {
+                    job_title: {
+                        required: "Job title is required."
+                    },
+                    sub_title: {
+                        required: "Sub title is required."
+                    },
+                     status: {
+                        required: "Status is required."
+                    },
+                    requirement_no: {
+                        required: "Number of requirement is required."
+                    },
+                     experiance: {
+                        required: "Experiance is required."
+                    },
+                     job_location: {
+                        required: "Job location is required."
+                    },
+                     job_type: {
+                        required: "Job type is required."
+                    },
+                     ctc: {
+                        required: "CTC is required."
+                    },
+                     notice_peroid: {
+                        required: "Notice peroid is required."
+                    },
+                     description: {
+                        required: "Description is required."
+                    },
+                    required_skill: {
+                        required: "Skill is required."
+                    },
+                    additional_skill: {
+                        required: "Additional skill is required."
+                    },
+                    role_responsibility: {
+                        required: "Roles and responsibility is required."
+                    }
+                },
+                highlight: function (element) { // hightlight error inputs
+                    $(element).closest('.form-group').addClass('has-error');
+
+                    $(element).next().children().children().attr('style', 'border-color:#dd4b39!important');
+                    // set error class to the control group
+                },
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                            .closest('.form-group').removeClass('has-error');
+                    $(element)
+                            .next().children().children().attr('style', 'border-color:'); // set error class to the control group
+                },
+                success: function (label) {
+                    label
+                            .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                }
+            });
+
+            
+            $("#loading").remove();
+            //$("#userType").select2();
+            
+            $(".s2mn").on("change", function () { $(this).valid(); });
+</script>
+<script>
+            $(document).ready(function () {
+                $("html, body").animate({scrollTop: 0}, "fast");
+            });
+</script>
+

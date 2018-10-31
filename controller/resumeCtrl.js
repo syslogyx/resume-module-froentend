@@ -2,6 +2,8 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
 
     var rsm = this;
 
+    $scope.ctcKey='Lac';
+
     $scope.backImgUrls=[
         'resources/img/resumeimg/1_Personal_Details_img.jpg',
         'resources/img/resumeimg/2_Educational_Details_img.jpg',
@@ -17,7 +19,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
     console.log($routeParams.token);
     $scope.jobDetail=[
         {id: 1, name: "Android"},
-        {id: 2, name: "Java"},
+        {id: 2, name: "Java"}
    ]
     //Array for experience in months drop down options.
     $scope.experienceMonths = [
@@ -195,7 +197,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
 
     $scope.showPreview = function(){
         if($('.wizard-card form').valid()){
-            console.log()
+            $scope.qualificatinData();
             for(var i=0;i<$scope.allQualificationList.length;i++){
                 for(var j=0;j<$scope.qualifications.length;j++){
                     if($scope.allQualificationList[i].id==$scope.qualifications[j].qualification_id){
@@ -203,7 +205,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
                     }
                 }
             }
-            $scope.qualificatinData();
+            
             $('#previewModal').modal('show');
         }
     }
@@ -235,6 +237,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
 
                 json.push(jsonQ);
             })
+            $scope.qualifications = json;
              console.log(json);
              $scope.quaData = json;
              return json;
@@ -320,7 +323,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
 
                 var promise = services.createCandidate(req,type='Data');
                 promise.then(function mySuccess(response) {
-                            // var json={file:$scope.files,id:response.data.id,timestamp:response.data.timestamp}
+                             var json={file:$scope.files,id:response.data.id,timestamp:response.data.timestamp}
                             // var promise = services.uploadresumeFile(json);
                             // promise.then(function mySuccess(response) {
                             // Utility.stopAnimation();
@@ -339,25 +342,25 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
 
                     Utility.stopAnimation();
                     try {
-
                         toastr.success("Thanks for showing your interest! Will get back to you soon!");
-
                     } catch (e) {
                         toastr.error("Profile not saved successfully.");
                         Raven.captureException(e)
                     }
                 }, function myError(r) {
-                    // console.log(r.data.data.email[0]);
-                    if(r.data.data.email[0] !=''){
-                        toastr.error(r.data.data.email[0]);
-                    }else if(r.data.data.mobile_no[0] !=''){
-                        toastr.error(r.data.data.mobile_no[0]);
-                    }
-                    else if(r.data.data.pan_number[0] !=''){
-                        toastr.error(r.data.data.pan_number[0]);
-                    }else{
-                        toastr.error(r.data.message);
-                    }
+                    var htmlerror ='<ul style="list-style:none;"><li >';
+                    $.each(r.data.data, function(k, v) {
+                        if(k=='email'){
+                            htmlerror = htmlerror+v +'</li><li>';
+                        }
+                        if(k=='mobile_no'){
+                            htmlerror = htmlerror+v+'</li><li>';
+                        }
+                        if(k=='pan_number'){
+                            htmlerror = htmlerror+v+'</li></ul>';
+                        }
+                      });
+                     toastr.error(htmlerror);
 
                     Utility.stopAnimation();
                 });

@@ -61,6 +61,10 @@ $(document).ready(function(){
         return this.optional(element) || /^[a-z]+$/i.test(value);
     }, "Please enter only letters.");
 
+    $.validator.addMethod("mynumber", function (value, element) {
+            return this.optional(element) || /^\$?([0-9]{1,3},([0-9]{3},)*[0-9]{3}|[0-9]+)(.[0-9][0-9])?$/.test(value);
+        }, "Invalid ctc format.");
+
     // $.validator.addClassRules(
     //         "other_achivements", //your class name
     //         {required: true},
@@ -216,6 +220,7 @@ $(document).ready(function(){
             current_ctc:{
                 required: true,
                 number:true,
+                 mynumber :true  
             },
             file: {
                 required: true,
@@ -226,7 +231,7 @@ $(document).ready(function(){
                 required: true,
                 accept: "(docx?|doc|pdf)",
                 filesize: 1048576
-            },
+            }
         },
         messages: {
             job_code:{
@@ -304,6 +309,7 @@ $(document).ready(function(){
             current_ctc:{
                 required: "Current CTC is required.",
                 number:"Current CTC is in number",
+                mynumber:"Please enter only two digit after decimal."
             },
             company_name:{
                 required: "Company name is required.",
@@ -369,7 +375,7 @@ $(document).ready(function(){
           console.log('index',index);
           scope.$apply(function () {
               scope.backCurrentImg=scope.backImgUrls[index];
-              debugger
+             
           });
 
         },
@@ -406,7 +412,7 @@ $(document).ready(function(){
                 console.log('index',index);
                 scope.$apply(function () {
                     scope.backCurrentImg=scope.backImgUrls[index];
-                    debugger
+                    
                 });
                 return true;
             }

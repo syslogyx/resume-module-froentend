@@ -267,10 +267,9 @@
         <script src="/controller/menuCtrl.js"></script> 
         <script src="/controller/userCtrl.js"></script> 
         <script src="/controller/settingCtrl.js"></script> 
-
         <script src="/controller/resumeCtrl.js"></script> 
-
         <script src="/controller/resumeListCtrl.js"></script> 
+        <script src="/controller/jobCtrl.js"></script>
 
 
          <script >

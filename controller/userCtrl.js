@@ -32,7 +32,8 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
     menuService.setMenu([
         {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"deactive"},
         {"Title": "User Management", "Link": "user", "icon": "fa fa-user-plus", "active":"active"},
-            {"Title": "Resume Management", "Link": "/resume_list", "icon": "fa fa-file-text", "active":"deactive"}
+        {"Title": "Resume Management", "Link": "/resume_list", "icon": "fa fa-file-text", "active":"deactive"},
+        {"Title": "Job List", "Link": "/job_list", "icon": "fa fa-file-text", "active":"deactive"}
     ]);
             
 	usr.addNewUser = function () {

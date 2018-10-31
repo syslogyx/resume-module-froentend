@@ -338,21 +338,28 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <div class="col-sm-4 form-group">
+                                        <div class="col-sm-3 form-group">
                                             <label class="mandatory">Total Experience (Years)</label>
                                             <select id="total_year_experience" name="total_year_experience" class="form-control total_year_experience" placeholder="Enter year experience" ng-model="totalYearIndustryExperiance" ng-options="x.name as x.name for x in experienceYears" >
                                                 <option value="" style="color:#ccc !important;">Select Year</option>
                                             </select>
                                         </div>
-                                        <div class="col-sm-4 form-group">
+                                        <div class="col-sm-3 form-group">
                                             <label class="mandatory">Total Experience (Month)</label>
                                             <select id="total_month_experience" name="total_month_experience" class="form-control total_month_experience" placeholder="Enter month experience" ng-model="totalMonthIndustryExperiance" ng-options="x.name as x.name for x in experienceMonths" >
                                                 <option value="" style="color:#ccc !important;">Select Month</option>
                                             </select>
                                         </div>
-                                        <div class="col-sm-4 form-group">
-                                            <label class="mandatory">Current CTC</label>
+                                        <div class="col-sm-3 form-group">
+                                            <label class="mandatory">Current CTC(In Lac/Cr)</label>
                                             <input id="current_ctc" name="current_ctc" type="text" class="form-control" placeholder="Enter current CTC" ng-model="currentCTC">
+                                        </div>
+                                        <div class="col-sm-3 form-group">
+                                            <label class=""></label>
+                                            <select id="ctc_key" name="ctc_key" class="form-control" ng-model="ctcKey" style="margin-top: 3.5%;">
+                                                <option selected="selected" value="Lac">Lac</option>
+                                                <option value="Cr">Cr</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -620,9 +627,13 @@
                         <hr>
                         <h4>INDUSTRIAL EXPERIENCE :</h4>
                         <div class="row">
-                            <div class="col-md-12 form-group">
+                            <div class="col-md-6 form-group">
                                 <label class=""><b>Total Experience: </b></label>
                                 <span>{{ totalYearIndustryExperiance}}.{{totalMonthIndustryExperiance}}</span>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class=""><b>Current CTC: </b></label>
+                                <span>{{ currentCTC}} {{ctcKey}}</span>
                             </div>
                         </div>
                         <div ng-repeat="ie in industryExperiance">

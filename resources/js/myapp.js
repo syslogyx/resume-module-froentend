@@ -358,8 +358,6 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
-
-
 });
 
 app.config(function ($routeProvider, $locationProvider) {
@@ -517,6 +515,43 @@ app.config(function ($routeProvider, $locationProvider) {
                         }]
                 }
             }) 
+            .when('/job_list', {
+                templateUrl: 'views/job/job_list.html',
+                controller: 'jobCtrl',
+                controllerAs: 'jb',
+                resolve: {
+                    'acl': ['$q', 'AclService', function ($q, AclService) {
+                            return true;
+                            //console.log(AclService.getRoles());
+                            if (AclService.can('view_dash')) {
+                                // Has proper permissions
+                                return true;
+                            } else {
+                                // Does not have permission
+                                return $q.reject('LoginRequired');
+                            }
+                        }]
+                }
+            })
+
+            .when('/job/add_job', {
+                templateUrl: 'views/job/create_job.html',
+                controller: 'jobCtrl',
+                controllerAs: 'jb',
+                resolve: {
+                    'acl': ['$q', 'AclService', function ($q, AclService) {
+                            return true;
+                            //console.log(AclService.getRoles());
+                            if (AclService.can('view_dash')) {
+                                // Has proper permissions
+                                return true;
+                            } else {
+                                // Does not have permission
+                                return $q.reject('LoginRequired');
+                            }
+                        }]
+                }
+            })
            
 
     $locationProvider.html5Mode(true);
