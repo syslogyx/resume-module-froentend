@@ -10,7 +10,7 @@
     .moving-tab {
            display:none;
     }
-    
+
     .nav-pills>.active {
                background-color: #FF9500;
     }
@@ -28,10 +28,10 @@
         display: none;
     }
 .content {
-    margin-top:0; 
+    margin-top:0;
 }
 
-</style> 
+</style>
 <!--     Fonts and icons     -->
 <link href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
 
@@ -42,9 +42,9 @@
 <!-- CSS Just for demo purpose, don't include it in your project -->
 <link href="/resources/plugins/bootstrap-wizard-master/assets/css/demo.css" rel="stylesheet" />
 
-<section class="content" ng-cloak style="padding:0px" ng-controller="resumeCtrl">
+<section class="content" ng-cloak style="padding:0px" ng-controller="resumeCtrl" id="resumeCtrl">
 
-    <div id="back_image" class="image-container set-full-height" style="background-image: url('resources/img/wizard.jpg')">
+    <div id="back_image" class="image-container set-full-height" ng-style="{'background-image':'url({{backCurrentImg}})'}">
 
     <!--   Big container   -->
     <div class="container">
@@ -109,13 +109,13 @@
                                             <input id="fullName" name="full_name" type="text" class="form-control" placeholder="Enter full Name" ng-model="name">
                                         </div>
                                     </div>
-                                    <div class="col-md-4">  
+                                    <div class="col-md-4">
                                       <div class="form-group">
                                         <label class="mandatory">Email</label>
                                         <input id="email" name="email" type="email" class="form-control" placeholder="Enter email address" ng-model="email">
                                       </div>
                                     </div>
-                                    <div class="col-md-4">  
+                                    <div class="col-md-4">
                                       <div class="form-group">
                                         <label class="mandatory">Mobile Number</label>
                                         <input id="mobileNo" name="mobile_no" type="text" class="form-control" placeholder="Enter mobile number" ng-model="mobileNumber">
@@ -123,14 +123,14 @@
                                     </div>
                                   </div>
                                   <div class="col-sm-12">
-                                    <div class="col-md-4">  
+                                    <div class="col-md-4">
                                       <div class="form-group">
                                         <label class="mandatory">Date of Birth</label>
                                             <div class="input-group date">
                                                 <div class="input-group-addon">
                                                     <i  class="fa fa-calendar"></i>
-                                                </div>  
-                                                <input type="text" class="form-control" id="dob" name="dob" placeholder="Enter date" ng-model="dateOfBirth"> 
+                                                </div>
+                                                <input type="text" class="form-control" id="dob" name="dob" placeholder="Enter date" ng-model="dateOfBirth">
                                             </div>
                                       </div>
                                     </div>
@@ -140,7 +140,7 @@
                                             <input type="text" class="form-control" id="panNumber" name="pan_number" placeholder="Enter PAN number" ng-model="panNumber">
                                         </div>
                                     </div>
-                                    <div class="col-md-4">  
+                                    <div class="col-md-4">
                                       <div class="form-group">
                                         <label class="">Passport No.</label>
                                         <input type="text" class="form-control" id="passportNo" name="passport_no" placeholder="Enter passport number" ng-model="passportNumber">
@@ -154,7 +154,7 @@
                                             <textarea class="form-control" id="correspondingAddress" name="corresponding_address" ng-model="correspondingAddr" rows="1"></textarea>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">  
+                                    <div class="col-md-6">
                                       <div class="form-group">
                                         <label class="mandatory">Permanent Address</label>
                                         <textarea class="form-control" id="permanentAddress" name="permanent_address" ng-model="permanentAddr" rows="1"></textarea>
@@ -168,7 +168,7 @@
                                             <textarea class="form-control" id="objective" name="objective" ng-model="objectives" rows="1"></textarea>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">  
+                                    <div class="col-md-6">
                                       <div class="form-group">
                                         <label class="mandatory">Summary</label>
                                         <textarea class="form-control" id="summary" name="summary" ng-model="summary" rows="1"></textarea>
@@ -237,8 +237,8 @@
                                                      <div class="input-group date">
                                                         <div class="input-group-addon">
                                                             <i  class="fa fa-calendar"></i>
-                                                        </div>  
-                                                        <input type="text" class="form-control start_year" id="start_year_{{$index}}" name="start_year_{{$index}}" placeholder="Enter start year" ng-model="q.start_year"> 
+                                                        </div>
+                                                        <input type="text" class="form-control start_year" id="start_year_{{$index}}" name="start_year_{{$index}}" placeholder="Enter start year" ng-model="q.start_year">
                                                         <!-- <pre>{{q.startYear}}</pre> -->
                                                     </div>
                                                 </div>
@@ -249,8 +249,8 @@
                                                     <div class="input-group date">
                                                         <div class="input-group-addon">
                                                             <i  class="fa fa-calendar"></i>
-                                                        </div>  
-                                                        <input type="text" class="form-control end_year" id="end_year_{{$index}}" name="end_year_{{$index}}" placeholder="Enter end year" ng-model="q.end_year"> 
+                                                        </div>
+                                                        <input type="text" class="form-control end_year" id="end_year_{{$index}}" name="end_year_{{$index}}" placeholder="Enter end year" ng-model="q.end_year">
                                                     </div>
                                                 </div>
                                             </div>
@@ -282,14 +282,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane" id="technicalSkills"> 
+                            <div class="tab-pane" id="technicalSkills">
                                 <div class="row">
                                      <div class="col-sm-12 info-text">
                                         <h4 class="sectionHeading"> Please enter technical skill details </h4>
                                         <button id="addMoreTechnicalSkillBtn" type="button" class="btn btn-sm btn-success pull-right appendBtn" ng-click="appendTechnicalSkillDiv();" title="Add new technical skill "><i class="fa fa-plus"></i></button>
                                     </div>
                                 </div>
-                                <div class="row">  
+                                <div class="row">
                                     <div class="col-sm-12" ng-repeat="t in technicalSkill">
                                         <div class="col-sm-3">
                                             <div class="form-group">
@@ -316,7 +316,7 @@
                                         <div class="col-sm-1 form-group" style="margin-top:3.5%">
                                             <button id="removeTechnicalSkillBtn" type="button" class="btn btn-sm btn-danger"  ng-click="removeTechnicalSkill($index)" ng-if="$index > 0" title="Remove technical skill"><i class="fa fa-remove"></i></button>
                                         </div>
-                                    </div>        
+                                    </div>
                                 </div>
                             </div>
                             <div class="tab-pane" id="industrialExperience">
@@ -401,7 +401,7 @@
                                         <h4 class="sectionHeading">  Please enter hobbies  </h4>
                                        <div class="form-group">
                                             <button type="button" class="btn btn-sm btn-success  pull-right appendBtn" ng-click="appendHobbiesDiv();" title="Add new hobby "><i class="fa fa-plus"></i></button >
-                                        </div> 
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -432,11 +432,11 @@
                                                     <input type="file" class="form-control" name="file" id="file" aria-describedby="fileHelp" >
 
                                                      <!-- <input type="file" class="form-control" name="file" id="file" onchange="angular.element(this).scope().uploadFile(this.files)" aria-describedby="fileHelp"  upload-files > -->
-                                                    
+
                                                     <span style="color:#dd4b39;">{{fileSizeError}}</span>
                                                 </div>
                                             </div>
-                                           
+
                                         </form>
                                     </div>
                                 </div>
@@ -470,7 +470,7 @@
                         <h4 class="modal-title">Preview
                     </div>
                     <div class="modal-body" style="margin: 0 4% 0 4%;">
-                      
+
                         <h4>PERSONAL DETAILS :</h4>
                         <div class="row">
                             <div class="col-md-6 form-group">
@@ -646,7 +646,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <hr>
                         <h4>HOBBIES DETAILS :</h4>
                         <div class="row">

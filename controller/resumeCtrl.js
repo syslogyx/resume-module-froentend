@@ -3,8 +3,20 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
     var rsm = this;
     // menuService.setMenu([
     //         {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"deactive"},
-    //         {"Title": "Resume", "Link": "/resume", "icon": "fa fa-plus", "active":"active"}     
+    //         {"Title": "Resume", "Link": "/resume", "icon": "fa fa-plus", "active":"active"}
     // ]);
+
+    $scope.backImgUrls=[
+        'resources/img/wizard.jpg',
+        'resources/img/wizard.jpg',
+        'resources/img/wizard.jpg',
+        'resources/img/wizard.jpg',
+        'resources/img/wizard.jpg',
+        'resources/img/wizard.jpg',
+        'resources/img/wizard.jpg'
+    ];
+
+    $scope.backCurrentImg=$scope.backImgUrls[0];
 
 console.log($routeParams.token);
    $scope.jobDetail=[
@@ -73,23 +85,23 @@ console.log($routeParams.token);
             //$scope.qualifications.start_year = $(this).val();
             //console.log($scope.qualifications);
         }).on("show", function (e) {
-            $(this).valid();  
-          
-        }); 
+            $(this).valid();
+
+        });
 
         $('.end_year').datepicker({
                 format: "yyyy",
                 autoclose: true,
                 minViewMode: "years"
         }).on("changeDate", function (e) {
-            $(this).valid();  
+            $(this).valid();
             //$scope.qualifications.end_year = $(this).val();
            // console.log($scope.qualifications);
-        }); 
+        });
     }
 
 
-   
+
     $scope.init = function(){
 		/* Getting all qualification list */
 
@@ -97,8 +109,8 @@ console.log($routeParams.token);
             format: "yyyy-mm-dd",
             autoclose: true,
             todayHighlight: true
-        }).on('show', function(e){       
-            var date = new Date();            
+        }).on('show', function(e){
+            var date = new Date();
             $('#dob').datepicker('setEndDate', date);
         }).on("changeDate", function (e) {
             $(this).valid();
@@ -147,42 +159,42 @@ console.log($routeParams.token);
     }
 
     $scope.removeQualification = function(index){
-        for (var i = ($scope.qualifications.length - 1); i >= 0; i--) {   
+        for (var i = ($scope.qualifications.length - 1); i >= 0; i--) {
             if( i == index){
                 $scope.qualifications.splice(index, 1);
-            }              
+            }
         }
     }
 
     $scope.removeAchievements = function(index){
-        for (var i = ($scope.achievements.length - 1); i >= 0; i--) { 
-            if( i == index){ 
+        for (var i = ($scope.achievements.length - 1); i >= 0; i--) {
+            if( i == index){
                $scope.achievements.splice(index, 1);
-            }                     
+            }
         }
     }
 
     $scope.removeTechnicalSkill = function(index){
-        for (var i = ($scope.technicalSkill.length - 1); i >= 0; i--) { 
-            if( i == index){            
+        for (var i = ($scope.technicalSkill.length - 1); i >= 0; i--) {
+            if( i == index){
                $scope.technicalSkill.splice(index, 1);
-            }                     
+            }
         }
     }
 
     $scope.removeIndustrialExperience = function(index){
-        for (var i = ($scope.industryExperiance.length - 1); i >= 0; i--) { 
+        for (var i = ($scope.industryExperiance.length - 1); i >= 0; i--) {
             if( i == index){
-               $scope.industryExperiance.splice(index, 1);   
-            }                     
+               $scope.industryExperiance.splice(index, 1);
+            }
         }
     }
 
     $scope.removeHobby = function(index){
-        for (var i = ($scope.hobbyDiv.length - 1); i >= 0; i--) { 
+        for (var i = ($scope.hobbyDiv.length - 1); i >= 0; i--) {
             if( i == index){
                 $scope.hobbyDiv.splice(index, 1);
-            }                          
+            }
         }
     }
 
@@ -196,7 +208,7 @@ console.log($routeParams.token);
                     }
                 }
             }
-             $('#previewModal').modal('show');     
+             $('#previewModal').modal('show');
         }
     }
 
@@ -204,12 +216,12 @@ console.log($routeParams.token);
        // console.log("hii");
     }
 
-    // $scope.files = [];    
-    // $scope.$on("seletedFile", function (event, args) {  
-    //     $scope.$apply(function () {    
-    //         $scope.files.push(args.file);  
-    //     });  
-    // });  
+    // $scope.files = [];
+    // $scope.$on("seletedFile", function (event, args) {
+    //     $scope.$apply(function () {
+    //         $scope.files.push(args.file);
+    //     });
+    // });
 
     $scope.saveResumeData = function(){
     if($('.wizard-card form').valid()){
@@ -219,7 +231,7 @@ console.log($routeParams.token);
             console.log("I", $scope.industryExperiance);
             console.log("H", $scope.hobbyDiv);
 var json=[];
-            
+
             $('html').find('.parentQualification').each(function(){
                 var jsonQ={qualification_id:"",stream:"",percentage:"",university:"",college:"",start_year:"",end_year:""};
                 jsonQ.qualification_id=$(this).find('.qualification').val();
@@ -252,7 +264,7 @@ var json=[];
             //     jsonQ.qualification_id=$(this).val();
             // })
 
-            
+
             $scope.qualifications1 = json;
             //$scope.qualifications1 = JSON.parse($scope.qualifications1);
             //console.log($scope.qualifications1);
@@ -296,7 +308,7 @@ var json=[];
                             // Utility.stopAnimation();
                             // try {
                             //     toastr.success('file uploaded successfully.');
-                                
+
                             // } catch (e) {
                             //     toastr.error("file not uploaded successfully.");
                             //     Raven.captureException(e)
@@ -309,7 +321,7 @@ var json=[];
                     Utility.stopAnimation();
                     try {
                         toastr.success('candidate  created successfully.');
-                        
+
                     } catch (e) {
                         toastr.error("candidate not saved successfully.");
                         Raven.captureException(e)
@@ -329,6 +341,5 @@ var json=[];
     // }
 
     $scope.init();
-   
-});
 
+});

@@ -3,13 +3,13 @@
  =========================================================
  * Bootstrap Wizard - v1.1.1
  =========================================================
- 
+
  * Product Page: https://www.creative-tim.com/product/bootstrap-wizard
  * Copyright 2017 Creative Tim (http://www.creative-tim.com)
  * Licensed under MIT (https://github.com/creativetimofficial/bootstrap-wizard/blob/master/LICENSE.md)
- 
+
  =========================================================
- 
+
  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
  */
 
@@ -39,10 +39,10 @@ $(document).ready(function(){
 
     $.validator.addMethod("pan", function(value, element) {
         return this.optional(element) || /^[A-Z]{5}\d{4}[A-Z]{1}$/.test(value);
-    },'Please enter a valid Pan Number. Ex. ABCDE1234F'); 
+    },'Please enter a valid Pan Number. Ex. ABCDE1234F');
 
     // $.validator.addMethod('filesize', function(value, element, param) {
-    // return this.optional(element) || (element.files[0].size <= param); 
+    // return this.optional(element) || (element.files[0].size <= param);
     // },'File size must be less than 1MB');
 
     $.validator.addMethod('filesize', function (value, element, param) {
@@ -59,7 +59,7 @@ $(document).ready(function(){
 
     $.validator.addMethod("lettersonly", function(value, element) {
         return this.optional(element) || /^[a-z]+$/i.test(value);
-    }, "Please enter only letters."); 
+    }, "Please enter only letters.");
 
     // $.validator.addClassRules(
     //         "other_achivements", //your class name
@@ -76,19 +76,19 @@ $(document).ready(function(){
         percentage: {
             required: true,
             number:true,
-            range: [1, 100] 
+            range: [1, 100]
         },
         university: {
-            required: true, 
+            required: true,
         },
         college: {
-            required: true, 
+            required: true,
         },
         start_year: {
-            required: true, 
+            required: true,
         },
         end_year: {
-            required: true, 
+            required: true,
         },
         other_achievements: {
             required: true
@@ -134,24 +134,24 @@ $(document).ready(function(){
 
                     } else if ($(element).attr("id") === "qualification")
                     {
-                
+
                         element.parent().parent().append(error);
-                    } 
+                    }
                      else if ($(element).attr("id") === "dob")
                     {
-                
+
                         element.parent().parent().append(error);
                     } else if ($(element).attr("class") === "start_year")
                     {
                         element.parent().parent().append(error);
                     } else if ($(element).attr("class") === "end_year")
                     {
-                
+
                         element.parent().parent().parent().append(error);
                     }
                     else if ($(element).attr("id") === "inputFile")
                     {
-                
+
                         element.parent().append(error);
                     }
                     else {
@@ -199,10 +199,10 @@ $(document).ready(function(){
                 required: true,
             },
             start_year: {
-                required: true, 
+                required: true,
             },
             end_year: {
-                required: true, 
+                required: true,
             },
             total_year_experience :{
                 required: true,
@@ -214,13 +214,13 @@ $(document).ready(function(){
                 required: true,
                 number:true,
             },
-            file: { 
-                required: true, 
-                accept: "png|jpe?g|gif", 
-                filesize: 1048576  
+            file: {
+                required: true,
+                accept: "png|jpe?g|gif",
+                filesize: 1048576
             },
-             file: { 
-                required: true, 
+             file: {
+                required: true,
                 accept: "(docx?|doc|pdf)",
                 filesize: 1048576
             },
@@ -266,16 +266,16 @@ $(document).ready(function(){
                 required: "percentage is required.",
             },
             university: {
-                required: "University is required.", 
+                required: "University is required.",
             },
             college: {
-                required: "College is required.", 
+                required: "College is required.",
             },
             start_year: {
-                required: "Startyear is required.", 
+                required: "Startyear is required.",
             },
             end_year: {
-                required: "End year is required.", 
+                required: "End year is required.",
             },
             other_achievements:{
                 required: "Achievements is required.",
@@ -342,19 +342,29 @@ $(document).ready(function(){
 	});
 
     // Wizard Initialization
+
+
+    var scope = angular.element(document.querySelector("#resumeCtrl")).scope();
+
+
   	$('.wizard-card').bootstrapWizard({
         'tabClass': 'nav nav-pills',
         'nextSelector': '.btn-next',
         'previousSelector': '.btn-previous',
 
         onNext: function(tab, navigation, index) {
-            // console.log('index',index);
+
 
         	var $valid = $('.wizard-card form').valid();
         	if(!$valid) {
         		$validator.focusInvalid();
         		return false;
         	}
+          console.log('index',index);
+          scope.$apply(function () {
+              scope.backCurrentImg=scope.backImgUrls[index];
+          });
+
         },
 
         onInit : function(tab, navigation, index){
@@ -379,13 +389,17 @@ $(document).ready(function(){
        },
 
         onTabClick : function(tab, navigation, index){
-            console.log('index',index);
+
 
             var $valid = $('.wizard-card form').valid();
 
             if(!$valid){
                 return false;
             } else {
+                console.log('index',index);
+                scope.$apply(function () {
+                    scope.backCurrentImg=scope.backImgUrls[index];
+                });
                 return true;
             }
         },
