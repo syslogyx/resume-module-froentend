@@ -363,6 +363,7 @@ $(document).ready(function(){
           console.log('index',index);
           scope.$apply(function () {
               scope.backCurrentImg=scope.backImgUrls[index];
+              debugger
           });
 
         },
@@ -399,6 +400,7 @@ $(document).ready(function(){
                 console.log('index',index);
                 scope.$apply(function () {
                     scope.backCurrentImg=scope.backImgUrls[index];
+                    debugger
                 });
                 return true;
             }
