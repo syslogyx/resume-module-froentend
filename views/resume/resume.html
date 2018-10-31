@@ -45,7 +45,7 @@
 
 <section class="content" ng-cloak style="padding:0px" ng-controller="resumeCtrl" id="resumeCtrl">
 
-    <div id="" class="" style="background-image:url({{backCurrentImg}})">
+    <div id="back_image" class="image-container set-full-height" style="background-image:url({{backCurrentImg}})">
 
     <!--   Big container   -->
     <div class="container">
@@ -58,10 +58,20 @@
                 <div class="card wizard-card" data-color="orange" id="wizardProfile">
                     <form action="" method="" id="resumeForm">
                         <div class="wizard-header">
-                            <h3>
-                               <b>BUILD</b> YOUR PROFILE <br>
-                               <small>This information will let us know more about you.</small>
-                            </h3>
+                            <div class='row'>
+                                <div class='col-sm-12'>
+                                    <div class='col-md-4' style="padding-left:3%;padding-top:1%">
+                                        <img id="syslogo" src="resources/img/SyslogyxLogo.png" alt="" width=95% height=40%/>
+                                    </div>
+                                    <div class='col-md-8'>
+                                        <h3>
+                                           <b>BUILD</b> YOUR PROFILE <br>
+                                           <small>This information will let us know more about you.</small>
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
 
                         <div class="wizard-navigation">
@@ -693,5 +703,4 @@
 <script src="/resources/plugins/bootstrap-wizard-master/assets/js/jquery.validate.min.js"></script>
 <script src="/resources/js/app.min.js"></script>
  <script src="/resources/plugins/datepicker/bootstrap-datepicker.js"></script>
-
 <script src="/resources/js/sweetalert-master/dist/sweetalert.min.js"></script>
