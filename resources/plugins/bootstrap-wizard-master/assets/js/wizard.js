@@ -358,7 +358,7 @@ $(document).ready(function(){
 
     var scope = angular.element(document.querySelector("#resumeCtrl")).scope();
 
-
+    
   	$('.wizard-card').bootstrapWizard({
         'tabClass': 'nav nav-pills',
         'nextSelector': '.btn-next',
@@ -372,11 +372,11 @@ $(document).ready(function(){
         		$validator.focusInvalid();
         		return false;
         	}
-          console.log('index',index);
-          scope.$apply(function () {
-              scope.backCurrentImg=scope.backImgUrls[index];
-             
-          });
+            console.log('index',index);
+              scope.$apply(function () {
+                  scope.backCurrentImg=scope.backImgUrls[index];
+                 
+              });
 
         },
 
@@ -399,7 +399,7 @@ $(document).ready(function(){
            $('.wizard-card .wizard-navigation').append($moving_div);
            refreshAnimation($wizard, index);
            $('.moving-tab').css('transition','transform 0s');
-       },
+        },
 
         onTabClick : function(tab, navigation, index){
 
@@ -455,6 +455,16 @@ $(document).ready(function(){
             }
 
             refreshAnimation($wizard, index);
+        },
+
+        onPrevious: function(tab, navigation, index) {
+            // console.log('index',imgIndex);
+            // console.log('index',index);
+
+          scope.$apply(function () {
+              scope.backCurrentImg=scope.backImgUrls[index];
+             
+          });
         }
   	});
 

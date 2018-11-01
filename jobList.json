@@ -1,0 +1,53 @@
+﻿{
+  "status_code": 200,
+  "message": "",
+  "data": {
+    "current_page": 1,
+    "data": [
+      {
+        "id": 1,
+        "title": "test",
+        "sub_title": "test1",
+        "description": "test",
+        "no_of_requiremet": "40",
+        "experience": "4 year",
+        "skills_required": "qqq,wwww",
+        "additional_skills": "abc,pqr",
+        "roles_and_responsibility": "abc,xyz,mnp",
+        "job_location": "nagpur",
+        "job_type": "Full time",
+        "notice_period": "2 months",
+        "status": "Active",
+        "job_code": "java_0.1",
+        "created_at": "2018-10-16 00:00:00",
+        "updated_at": "2018-10-17 00:00:00"
+      },
+      {
+        "id": 2,
+        "title": "test2",
+        "sub_title": "test",
+        "description": "test2",
+        "no_of_requiremet": "40",
+        "experience": "4 year",
+        "skills_required": "qqq,wwww",
+        "additional_skills": "abc,pqr",
+        "roles_and_responsibility": "abc,xyz,mnp",
+        "job_location": "nagpur",
+        "job_type": "Full time",
+        "notice_period": "2 months",
+        "status": "Active",
+        "job_code": "java_0.1",
+        "created_at": "2018-10-16 00:00:00",
+        "updated_at": "2018-10-17 00:00:00"
+      }
+    ],
+    "from": 1,
+    "last_page": 1,
+    "next_page_url": null,
+    "path": "http://172.16.1.97:8000/api/job_list",
+    "per_page": 50,
+    "prev_page_url": null,
+    "to": 8,
+    "total": 8
+  }
+}

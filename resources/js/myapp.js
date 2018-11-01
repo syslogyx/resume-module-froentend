@@ -1,5 +1,5 @@
 ﻿var Utility = {
- // apiBaseUrl: "http://127.0.0.1:8000/api/",
+ //apiBaseUrl: "http://172.16.1.97:8000/api/",
  apiBaseUrl: "http://recruitmentapi.syslogyx.com/api/",
    // apiBaseUrl: "http://172.16.1.97:8000/api/",
 // apiBaseUrl: "http://finapi.syslogyx.com/api/",
@@ -357,6 +357,19 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             }
         })
     };
+
+    // this.getAllJobList = function (request) {
+    //     Utility.startAnimation();
+    //     return $http({
+    //         method: 'GET',
+    //         //url: RESOURCES.SERVER_API + "qualification_details",
+    //         url: "/joblist.json",
+    //         dataType: 'json',
+    //         // headers: {
+    //         //     'Content-Type': RESOURCES.CONTENT_TYPE
+    //         // }
+    //     })
+    // };
 
 });
 

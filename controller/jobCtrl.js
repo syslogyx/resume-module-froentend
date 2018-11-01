@@ -20,6 +20,19 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
     jb.cancelJob = function() {
          $location.path('/job_list');
     }
+
+    jb.init = function(){
+        // var promise = services.getAllJobList();
+        //     promise.success(function (result) {
+        //     Utility.stopAnimation();
+        //     jb.jobList = result.data;
+        //      //console.log( jb.jobList);    
+        // }, function myError(r) {
+        //     toastr.error(r.data.message, 'Sorry!');
+        //     Utility.stopAnimation();
+        // });
+    }
+
     jb.resetForm = function(){
     	$("div.form-group").each(function () {
             $(this).removeClass('has-error');
@@ -31,7 +44,25 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
     jb.createJob = function(){
         if ($("#jobForm").valid()) {
 
+            var req ={
+                "title":jb.jobTitle,
+                "sub_title":jb.subTitle,
+                "description":jb.description,
+                "no_of_requiremet":jb.requirementNo,
+                "experience":jb.experiance,
+                "skills_required":jb.requiredSkill,
+                "additional_skills":jb.additionalSkill,
+                "roles_and_responsibility":jb.roleResponsibility,
+                "job_location":jb.jobLocation,
+                "job_type":jb.jobType,
+                "ctc":jb.ctc,
+                "notice_period":jb.noticePeroid,
+                "status":jb.status
+            }
+
         }
-     }
+    }
+
+    jb.init();
 
 });
