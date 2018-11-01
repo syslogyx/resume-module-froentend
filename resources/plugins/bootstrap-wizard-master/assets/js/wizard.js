@@ -58,7 +58,8 @@ $(document).ready(function(){
     },'Please select document or pdf file.');
 
     $.validator.addMethod("lettersonly", function(value, element) {
-        return this.optional(element) || /^[a-z]+$/i.test(value);
+        // return this.optional(element) || /^[a-z]+$/i.test(value);
+        return this.optional(element) || /^[a-zA-Z\s]+$/.test(value);
     }, "Please enter only letters.");
 
     $.validator.addMethod("mynumber", function (value, element) {
@@ -235,7 +236,7 @@ $(document).ready(function(){
         },
         messages: {
             job_code:{
-                required: "Jobe code is required.",
+                required: "Job code is required.",
             },
             full_name: {
                 required: "Name is required.",
@@ -256,7 +257,7 @@ $(document).ready(function(){
                 required: "PAN number is required.",
             },
             corresponding_address: {
-                required: "Corresponding address is required.",
+                required: "Correspondence address is required.",
             },
             permanent_address: {
                 required: "Permanent address is required.",

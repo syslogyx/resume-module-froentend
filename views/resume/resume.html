@@ -82,7 +82,7 @@
                                 <li><a href="#technicalSkills" data-toggle="tab">TECHNICAL SKILLS</a></li>
                                 <li><a href="#industrialExperience" data-toggle="tab">INDUSTRIAL EXPERIENCE</a></li>
                                 <li><a href="#hobbies" data-toggle="tab">HOBBIES DETAILS</a></li>
-                                <li><a href="#uploadDocument" data-toggle="tab">UPLOAD DOCUMENT</a></li>
+                                <li><a href="#uploadDocument" data-toggle="tab">UPLOAD RESUME</a></li>
                             </ul>
                         </div>
 
@@ -311,16 +311,18 @@
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label class="mandatory">Relevance Experience (Years)</label>
-                                                <select id="relevanceYearExperience_{{$index}}" name="relevance_year_experience_{{$index}}" class="form-control relevance_year_experience" placeholder="Enter year experience" ng-model="t.relevanceYearExperience" ng-options="x.name as x.name for x in experienceYears" >
-                                                    <option value="" style="color:#ccc !important;">Select Year</option>
+                                                <select id="relevanceYearExperience_{{$index}}" name="relevance_year_experience_{{$index}}" class="form-control relevance_year_experience" placeholder="Enter year experience" ng-model="t.relevanceYearExperience">
+                                                   <!--  <option value="" style="color:#ccc !important;">Select Year</option> -->
+                                                   <option ng-repeat="x in experienceYears" value="{{x.id}}">{{x.name}}</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label class="mandatory">Relevance Experience (Months)</label>
-                                                <select id="relevanceMonthExperience_{{$index}}" name="relevance_month_experience_{{$index}}" class="form-control relevance_month_experience" placeholder="Enter month experience" ng-model="t.relevanceMonthExperience" ng-options="x.name as x.name for x in experienceMonths" >
-                                                    <option value="" style="color:#ccc !important;">Select Month</option>
+                                                <select id="relevanceMonthExperience_{{$index}}" name="relevance_month_experience_{{$index}}" class="form-control relevance_month_experience" placeholder="Enter month experience" ng-model="t.relevanceMonthExperience">
+                                                    <option ng-repeat="x in experienceMonths track by x.id" value="{{x.id}}">{{x.name}}</option>
+                                                    <!-- <option value="" style="color:#ccc !important;">Select Month</option> -->
                                                 </select>
                                             </div>
                                         </div>
@@ -340,14 +342,14 @@
                                     <div class="col-sm-12">
                                         <div class="col-sm-3 form-group">
                                             <label class="mandatory">Total Experience (Years)</label>
-                                            <select id="total_year_experience" name="total_year_experience" class="form-control total_year_experience" placeholder="Enter year experience" ng-model="totalYearIndustryExperiance" ng-options="x.name as x.name for x in experienceYears" >
-                                                <option value="" style="color:#ccc !important;">Select Year</option>
+                                            <select id="total_year_experience" name="total_year_experience" class="form-control total_year_experience" placeholder="Enter year experience" ng-model="totalYearIndustryExperiance" ng-options="x.id as x.name for x in experienceYears">
+                                               <!--  <option value="" style="color:#ccc !important;">Select Year</option> -->
                                             </select>
                                         </div>
                                         <div class="col-sm-3 form-group">
                                             <label class="mandatory">Total Experience (Month)</label>
-                                            <select id="total_month_experience" name="total_month_experience" class="form-control total_month_experience" placeholder="Enter month experience" ng-model="totalMonthIndustryExperiance" ng-options="x.name as x.name for x in experienceMonths" >
-                                                <option value="" style="color:#ccc !important;">Select Month</option>
+                                            <select id="total_month_experience" name="total_month_experience" class="form-control total_month_experience" placeholder="Enter month experience" ng-model="totalMonthIndustryExperiance" ng-options="x.id as x.name for x in experienceMonths">
+                                               <!--  <option value="" style="color:#ccc !important;">Select Month</option> -->
                                             </select>
                                         </div>
                                         <div class="col-sm-3 form-group">
@@ -474,6 +476,15 @@
                         </div>
 
                     </form>
+                </div>
+                <div class="card wizard-card" data-color="orange" id="wizardResumeSuccessmsg" style="display:none;min-height: 100px;">
+                    <div class="wizard-header">
+                        <div class='row'>
+                            <div class='col-sm-12'>
+                                <h3 style="text-align: center;color:#009900">Thanks for showing your interest! Will get back to you soon!</h3>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div> <!-- wizard container -->
 
