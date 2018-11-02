@@ -295,18 +295,18 @@ $(document).ready(function(){
             technology_name:{
                 required: "Technology is required.",
             },
-            relevance_year_experience:{
-                required: "Experiance is required.",
-            },
-            relevance_month_experience:{
-                required: "Experiance is required.",
-            },
-            total_year_experience :{
-                required: "Total experiance is required",
-            },
-            total_month_experience :{
-                required: "Total experiance is required",
-            },
+            // relevance_year_experience:{
+            //     required: "Experiance is required.",
+            // },
+            // relevance_month_experience:{
+            //     required: "Experiance is required.",
+            // },
+            // total_year_experience :{
+            //     required: "Total experiance is required",
+            // },
+            // total_month_experience :{
+            //     required: "Total experiance is required",
+            // },
             current_ctc:{
                 required: "Current CTC is required.",
                 number:"Current CTC is in number",
@@ -367,12 +367,20 @@ $(document).ready(function(){
 
         onNext: function(tab, navigation, index) {
 
+            // debugger;
+            // console.log($Spelling.SpellCheckInWindow('summary'));
+            var $valid = $('.wizard-card form').valid();
+            if(!$valid) {
+                $validator.focusInvalid();                
+                return false;
+            }else if(!$Spelling.BinSpellCheck('summary')){               
+                return false;
+            }else if(!$Spelling.BinSpellCheck('objective')){                
+                return false;
+            }
+             
+             
 
-        	var $valid = $('.wizard-card form').valid();
-        	if(!$valid) {
-        		$validator.focusInvalid();
-        		return false;
-        	}
             console.log('index',index);
               scope.$apply(function () {
                   scope.backCurrentImg=scope.backImgUrls[index];
@@ -409,7 +417,13 @@ $(document).ready(function(){
 
             if(!$valid){
                 return false;
-            } else {
+            // }else if(!$Spelling.BinSpellCheck('summary')){
+               
+            //     return false;
+            // }else if(!$Spelling.BinSpellCheck('objective')){
+                
+            //     return false;
+            }else {
                 console.log('index',index);
                 scope.$apply(function () {
                     scope.backCurrentImg=scope.backImgUrls[index];
