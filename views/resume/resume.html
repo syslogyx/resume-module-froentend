@@ -407,7 +407,8 @@
                                         <div class="col-sm-7">
                                             <div class="form-group">
                                                 <label class="mandatory">Project Description</label>
-                                                <textarea id="projectDescription_{{$index}}" name="project_description_{{$index}}" class="form-control project_description" placeholder="Enter Project Description" ng-model="ex.project_description" rows="1"></textarea>
+                                                <textarea id="projectDescription_{{$index}}" name="project_description_{{$index}}" ng-blur="callSpellchecker($index);" class="form-control project_description" placeholder="Enter Project Description" ng-model="ex.project_description" rows="1"></textarea>
+                                                <span id="project_msg{{$index}}" class="prod_msg" data-index="{{$index}}" ng-click="setSpellcheckMsg($index)" style="display: none;color: #dd4b39;">Click here to check Spelling of objectives.</span>
                                             </div>
                                         </div>
                                         <div class="col-sm-1 form-group" style="margin-top:3%">
@@ -736,10 +737,13 @@
 
         $Spelling.LiveFormValidation  ('summary', 'message1'  );
         $Spelling.LiveFormValidation  ('objective', 'message2'  );
+        
         // o = $Spelling.SpellCheckInWindow('objective');
         // o.onIgnoreAll = function(word){console.log(word)}
-
+        // $Spelling.LiveFormValidation  ('.project_description', '.prod_msg'  );
+        
 
      });
+
 
 </script>

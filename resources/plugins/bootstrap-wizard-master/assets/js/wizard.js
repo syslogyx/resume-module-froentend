@@ -66,6 +66,19 @@ $(document).ready(function(){
             return this.optional(element) || /^\$?([0-9]{1,3},([0-9]{3},)*[0-9]{3}|[0-9]+)(.[0-9][0-9])?$/.test(value);
         }, "Invalid ctc format.");
 
+    $.validator.addMethod("spellcheck", function (value, element) {
+        if($('#message1:visible').length > 0){
+            return false;
+        }else if($('#message2:visible').length > 0){
+            return false;
+        }else if($('.prod_msg:visible').length > 0){
+            return false;
+        }else{
+            return true;
+        }
+    },'');
+
+
     // $.validator.addClassRules(
     //         "other_achivements", //your class name
     //         {required: true},
@@ -101,12 +114,12 @@ $(document).ready(function(){
         technology_name: {
             required: true
         },
-        relevance_year_experience: {
-            required: true,
-        },
-        relevance_month_experience: {
-            required: true,
-        },
+        // relevance_year_experience: {
+        //     required: true,
+        // },
+        // relevance_month_experience: {
+        //     required: true,
+        // },
         company_name: {
             required: true
         },
@@ -128,41 +141,41 @@ $(document).ready(function(){
     });
     // Code for the Validator
     var $validator = $('.wizard-card form').validate({
-                errorElement: 'span', //default input error message container
-                errorClass: 'help-block help-block-error',
-                errorPlacement: function (error, element) {
+        errorElement: 'span', //default input error message container
+        errorClass: 'help-block help-block-error',
+        errorPlacement: function (error, element) {
 
-                    var type = $(element).attr("type");
-                    if ($(element).attr("id") === "")
-                    {
-                        element.parent().append(error);
+            var type = $(element).attr("type");
+            if ($(element).attr("id") === "")
+            {
+                element.parent().append(error);
 
-                    } else if ($(element).attr("id") === "qualification")
-                    {
+            } else if ($(element).attr("id") === "qualification")
+            {
 
-                        element.parent().parent().append(error);
-                    }
-                     else if ($(element).attr("id") === "dob")
-                    {
+                element.parent().parent().append(error);
+            }
+             else if ($(element).attr("id") === "dob")
+            {
 
-                        element.parent().parent().append(error);
-                    } else if ($(element).attr("class") === "start_year")
-                    {
-                        element.parent().parent().append(error);
-                    } else if ($(element).attr("class") === "end_year")
-                    {
+                element.parent().parent().append(error);
+            } else if ($(element).attr("class") === "start_year")
+            {
+                element.parent().parent().append(error);
+            } else if ($(element).attr("class") === "end_year")
+            {
 
-                        element.parent().parent().parent().append(error);
-                    }
-                    else if ($(element).attr("id") === "inputFile")
-                    {
+                element.parent().parent().parent().append(error);
+            }
+            else if ($(element).attr("id") === "inputFile")
+            {
 
-                        element.parent().append(error);
-                    }
-                    else {
-                        error.insertAfter(element);
-                    }
-                },
+                element.parent().append(error);
+            }
+            else {
+                error.insertAfter(element);
+            }
+        },
 
 		rules: {
             job_code:{
@@ -199,12 +212,15 @@ $(document).ready(function(){
             },
             permanent_address:{
                 required: true,
+                
             },
             objective:{
                 required: true,
+                spellcheck:true,
             },
             summary:{
                 required: true,
+                spellcheck:true,
             },
             start_year: {
                 required: true,
@@ -212,12 +228,12 @@ $(document).ready(function(){
             end_year: {
                 required: true,
             },
-            total_year_experience :{
-                required: true,
-            },
-            total_month_experience :{
-                required: true,
-            },
+            // total_year_experience :{
+            //     required: true,
+            // },
+            // total_month_experience :{
+            //     required: true,
+            // },
             current_ctc:{
                 required: true,
                 number:true,
@@ -368,14 +384,16 @@ $(document).ready(function(){
         onNext: function(tab, navigation, index) {
 
             // debugger;
-            // console.log($Spelling.SpellCheckInWindow('summary'));
+            // console.log($Spelling.BinSpellCheck('summary'));
             var $valid = $('.wizard-card form').valid();
+            // if(!$Spelling.BinSpellCheck('summary')){               
+            //     return false;
+            // }
+            // else if(!$Spelling.BinSpellCheck('objective')){                
+            //     return false;
+            // }else 
             if(!$valid) {
                 $validator.focusInvalid();                
-                return false;
-            }else if(!$Spelling.BinSpellCheck('summary')){               
-                return false;
-            }else if(!$Spelling.BinSpellCheck('objective')){                
                 return false;
             }
              

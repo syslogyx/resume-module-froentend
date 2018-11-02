@@ -379,6 +379,19 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
     //     $scope.file.append("file", files[0]);
     // }
 
+    $scope.setSpellcheckMsg = function(i){
+        console.log("index >>"+i);
+        $Spelling.SpellCheckInWindow('projectDescription_'+i); 
+        return false;
+    }
+
+    $scope.callSpellchecker = function(index){
+        console.log("index >>"+index);
+        $Spelling.LiveFormValidation  ('projectDescription_'+index, 'project_msg'+index );
+    }
+
+
+
     $scope.init();
 
 });
