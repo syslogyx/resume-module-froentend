@@ -13,7 +13,7 @@
 
                 <div class="col-md-6">
                     <div class="pull-right" style="margin-top: 5px; margin-right: 20px;">
-                        <a ng-href="/job_list"><button type="button" class="btn btn-default btn-sm" data-toggle="modal" title="Back" data-target="" data-ng-click="" style="border:white;color:#428bca;outline: 0;"><i class="fa fa-arrow-left" aria-hidden="true"></i></button></a>  
+                        <a ng-href="/jobs"><button type="button" class="btn btn-default btn-sm" data-toggle="modal" title="Back" data-target="" data-ng-click="" style="border:white;color:#428bca;outline: 0;"><i class="fa fa-arrow-left" aria-hidden="true"></i></button></a>  
                     </div> 
                 </div>                
             </div>
@@ -34,8 +34,8 @@
                     </div>
                      <div class="col-md-4">
                         <div class="form-group">
-                            <label class="mandatory" for="">Status</label>
-                            <input type="text" class="form-control" ng-model="jb.status" name="status" id="status"  placeholder="Enter status">
+                            <label class="mandatory" for="">Notice Period</label>
+                            <input type="text" class="form-control" ng-model="jb.noticePeroid" name="notice_peroid" id="notice_peroid"  placeholder="Enter notice peroid">
                         </div>
                     </div>
                     
@@ -66,7 +66,9 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="mandatory" for="">Job Type</label>
-                            <input type="text" class="form-control" ng-model="jb.jobType" name="job_type" id="job_type"  placeholder="Enter job type">
+                            <select id="job_type" name="job_type" class="form-control" placeholder="Enter job type" ng-model="jb.jobType" ng-options="x.name as x.name for x in jb.jobTypeData" >
+                                <option value="" style="color:#ccc !important;">Select job type</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -76,10 +78,10 @@
                         </div>
                     </div>
                      <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="mandatory" for="">Notice Period</label>
-                            <input type="text" class="form-control" ng-model="jb.noticePeroid" name="notice_peroid" id="notice_peroid"  placeholder="Enter notice peroid">
-                        </div>
+                        <!-- <div class="form-group">
+                            <label class="mandatory" for="">Status</label>
+                            <input type="text" class="form-control" ng-model="jb.status" name="status" id="status"  placeholder="Enter status">
+                        </div>  -->
                     </div>
                 </div>
                 <div class="row">
@@ -137,7 +139,11 @@
                         element.parent().append(error);
 
                     }
-                    else {
+                    else if ($(element).attr("id") === "job_type")
+                    {
+                        element.parent().append(error);
+
+                    }else{
                         error.insertAfter(element);
                     }
                 },
@@ -240,10 +246,6 @@
                             .closest('.form-group').removeClass('has-error'); // set success class to the control group
                 }
             });
-
-            
-            $("#loading").remove();
-            //$("#userType").select2();
             
             $(".s2mn").on("change", function () { $(this).valid(); });
 </script>

@@ -1,36 +1,127 @@
-app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $location, menuService, $cookieStore) {
+app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $location, menuService, $cookieStore,pagination,) {
 
     var jb = this;
 
     jb.id = null;
     jb.title = 'Add New Job';
+    jb.pageno = 0;
+    jb.limit = 0;
     jb.jobList ='';
+    jb.jobTypeData =[
+        {id: "Permanent-full time", name: "Permanent-full time"},
+        {id: "Permanent-part time", name: "Permanent-part time"},
+        {id: "Contract basis-full time", name: "Contract basis-full time"},
+        {id: "Contract basis-part time", name: "Contract basis-part time"},
+        {id: "Freelancer-full time", name: "Freelancer-full time"},
+        {id: "Freelancer-part time", name: "Freelancer-part time"}
+    ];
+    jb.jobType ="Permanent-full time";
+
+    jb.jobStatusData =[
+        {id:0, name: "Active"},
+        {id: 1, name: "Inactive"}
+    ];
+   // jb.changeStatus = 0;
+   // jb.changeStatus = jb.jobStatusData[0].id;
 
     menuService.setMenu([
         {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"deactive"},
         {"Title": "User Management", "Link": "user", "icon": "fa fa-user-plus", "active":"active"},
         {"Title": "Resume Management", "Link": "/resume_list", "icon": "fa fa-file-text", "active":"deactive"},
-        {"Title": "Job List", "Link": "/job_list", "icon": "fa fa-file-text", "active":"deactive"}
+        {"Title": "JD Management", "Link": "/jobs", "icon": "fa fa-file-text", "active":"deactive"}
     ]);
 
+    setTimeout(function(){
+        $('#table_length').on('change',function(){
+            jb.fetchList(-1);
+        });
+    },100);
+
     jb.addNewJob = function(){
-    	$location.path('/job/add_job');
+    	$location.path('/jobs/add_job');
     }
 
     jb.cancelJob = function() {
-         $location.path('/job_list');
+         $location.path('/jobs');
+    }
+
+    jb.fetchList = function(page){
+        jb.limit = $('#table_length').val();
+        if(jb.limit == undefined){
+            jb.limit = -1;
+        }
+        if(page == -1){
+            jb.pageno = 1;
+            console.log($('#pagination-sec').data("twbs-pagination"));
+            if($('#pagination-sec').data("twbs-pagination")){
+                    $('#pagination-sec').twbsPagination('destroy');
+            }
+        }
+        else{
+            jb.pageno = page;
+        }
+        var requestParam = {
+            page:jb.pageno,
+            // limit:pagination.getpaginationLimit(),
+            limit:jb.limit,
+        }
+
+        var promise = services.getAllJobList(requestParam);
+        promise.success(function (result) {
+            Utility.stopAnimation();
+            if(result.data != null){
+                jb.jobList = result.data.data;
+                pagination.applyPagination(result.data, jb);
+            }
+        }, function myError(r) {
+            toastr.error(r.data.message, 'Sorry!');
+            Utility.stopAnimation();
+
+        });
     }
 
     jb.init = function(){
+
+        jb.limit = $('#table_length').val();
+        jb.fetchList(-1);
+
         // var promise = services.getAllJobList();
         //     promise.success(function (result) {
         //     Utility.stopAnimation();
-        //     jb.jobList = result.data;
-        //      //console.log( jb.jobList);    
+        //     jb.jobList = result.data.data;
+        //      console.log( jb.jobList);    
         // }, function myError(r) {
         //     toastr.error(r.data.message, 'Sorry!');
         //     Utility.stopAnimation();
         // });
+
+        /* Editing perticular job*/
+        jb.id = $location.search()["id"];
+        if (jb.id > 0) {
+            var promise = services.getJobById(jb.id);
+            promise.then(function mySuccess(response) {
+                console.log(response.data);
+                Utility.stopAnimation();
+                jb.title = 'Update Job';
+                jb.jobTitle = response.data.data.title,
+                jb.subTitle = response.data.data.sub_title,
+                jb.description = response.data.data.description,
+                jb.requirementNo = response.data.data.no_of_requiremet,
+                jb.experiance = response.data.data.experience,
+                jb.requiredSkill = response.data.data.skills_required,
+                jb.additionalSkill = response.data.data.additional_skills,
+                jb.roleResponsibility = response.data.data.roles_and_responsibility,
+                jb.jobLocation = response.data.data.job_location,
+                jb.jobType = response.data.data.job_type,
+                jb.ctc = response.data.data.ctc,
+                jb.noticePeroid = response.data.data.notice_period,
+                jb.status = response.data.data.status
+                applySelect2();   
+            }, function myError(r) {
+                toastr.error(r.data.message, 'Sorry!');
+                Utility.stopAnimation();
+            });
+        }
     }
 
     jb.resetForm = function(){
@@ -39,6 +130,7 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
             $('span.help-block-error').remove();
             applySelect2();
         });
+        jb.changeStatus ='';
     }
 
     jb.createJob = function(){
@@ -56,10 +148,59 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
                 "job_location":jb.jobLocation,
                 "job_type":jb.jobType,
                 "ctc":jb.ctc,
-                "notice_period":jb.noticePeroid,
-                "status":jb.status
+                "notice_period":jb.noticePeroid
+                //"status":jb.status
             }
 
+            var promise;
+            if (jb.id) {
+                req.id = jb.id;
+                promise = services.updateJob(req);
+                var operationMessage = "updated";
+            } else {
+                promise = services.saveJob(req);
+                operationMessage = "created";
+            }
+            promise.then(function mySuccess(response) {
+                Utility.stopAnimation();
+                try {
+                    toastr.success('Job ' + operationMessage +' successfully.');
+                    $location.url('/jobs');
+                } catch (e) {
+                    toastr.error("Job not saved successfully.");
+                    Raven.captureException(e)
+                }
+            }, function myError(r) {
+                toastr.error('Something went wrong');
+                Utility.stopAnimation();
+            });
+        }
+    }
+
+    // jb.changeStatus = function(jobId){
+    //     $("#changeStatusModal").modal("toggle");
+    // }
+
+    jb.updateStatus = function(jobId){
+        if ($("#changeStatusForm").valid()) {
+            var req ={
+                "id":jobId,
+                "status":jb.changeStatus
+            }
+            console.log(req);
+            var promise = services.updateJobStatus(req);
+            promise.then(function mySuccess(response) {
+                Utility.stopAnimation();
+                try {
+                    toastr.success('Job status successfully.');
+                } catch (e) {
+                    toastr.error("Job status not saved successfully.");
+                    Raven.captureException(e)
+                }
+            }, function myError(r) {
+                toastr.error('Something went wrong');
+                Utility.stopAnimation();
+            });
         }
     }
 

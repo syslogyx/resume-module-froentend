@@ -1,9 +1,6 @@
 ﻿var Utility = {
- //apiBaseUrl: "http://172.16.1.97:8000/api/",
- apiBaseUrl: "http://recruitmentapi.syslogyx.com/api/",
-   // apiBaseUrl: "http://172.16.1.97:8000/api/",
-// apiBaseUrl: "http://finapi.syslogyx.com/api/",
-//    hrmsBaseUrl: "http://172.16.1.180:8765/",
+ apiBaseUrl: "http://172.16.1.97:8000/api/",
+ //apiBaseUrl: "http://recruitmentapi.syslogyx.com/api/",
     hrmsBaseUrl: "http://hrms.syslogyx.com/",
     formatDate: function (date, format) {
         var tDate = null;
@@ -137,6 +134,41 @@ app.constant('RESOURCES', (function () {
 //        CONTENT_TYPE: 'application/json; charset=UTF-8'
     }
 })());
+
+app.service('pagination', function (RESOURCES, $http, $cookieStore, $filter) {
+    //set pagination limit here
+    var paginationLimit = 10;
+    this.getpaginationLimit = function () {
+     return paginationLimit;
+    };
+
+    //apply pagination
+    this.applyPagination = function (pageData, ctrlscope, $source= null) {
+        console.log(pageData);
+        $('#pagination-sec').twbsPagination({
+            totalPages: pageData.last_page,
+            visiblePages: 5,
+            first: '',
+            last: '',
+            onPageClick: function (event, page) {
+                console.log('Page: ' + page);
+                //tec.pageno = page;
+                if (ctrlscope.skip) {
+                    ctrlscope.skip = false;
+                    return;
+                }
+                //tec.search(page);
+                if($source != null){
+
+                }else{
+                    ctrlscope.fetchList(page,$source);
+                }
+                
+                $("html, body").animate({ scrollTop: 0 }, "slow");
+            }
+        });
+    }
+});
 
 app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
     this.setIdentity = function (identity) {
@@ -358,18 +390,78 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
-    // this.getAllJobList = function (request) {
-    //     Utility.startAnimation();
-    //     return $http({
-    //         method: 'GET',
-    //         //url: RESOURCES.SERVER_API + "qualification_details",
-    //         url: "/joblist.json",
-    //         dataType: 'json',
-    //         // headers: {
-    //         //     'Content-Type': RESOURCES.CONTENT_TYPE
-    //         // }
-    //     })
-    // };
+    this.getAllJobList = function (request) {
+        if(request == undefined){
+            page = -1;
+            limit = -1;
+        }else{
+            page = request.page;
+            limit = request.limit;
+        }
+        Utility.startAnimation();
+        return $http({
+            method: 'GET',
+            url: RESOURCES.SERVER_API + "job_description?page=" + page + "&limit=" + limit,
+            //url: "/jobList.json",
+            dataType: 'json',
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+    this.saveJob = function (req) {
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "create_job",
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+                
+            }
+        })
+    };
+
+    this.updateJob = function (req) {
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "job/" + req.id + "/update?_method=PUT",
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+    this.getJobById = function (id) {
+        Utility.startAnimation();
+        return $http({
+            method: 'GET',
+            url: RESOURCES.SERVER_API + "jobInfoByID/" + id + "/view",
+            dataType: 'json',
+            //data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+    this.updateJobStatus = function (req) {
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "job_status/" + req.id + "/update?_method=PUT",
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
 
 });
 
@@ -528,7 +620,7 @@ app.config(function ($routeProvider, $locationProvider) {
                         }]
                 }
             }) 
-            .when('/job_list', {
+            .when('/jobs', {
                 templateUrl: 'views/job/job_list.html',
                 controller: 'jobCtrl',
                 controllerAs: 'jb',
@@ -547,7 +639,7 @@ app.config(function ($routeProvider, $locationProvider) {
                 }
             })
 
-            .when('/job/add_job', {
+            .when('/jobs/add_job', {
                 templateUrl: 'views/job/create_job.html',
                 controller: 'jobCtrl',
                 controllerAs: 'jb',
@@ -555,6 +647,25 @@ app.config(function ($routeProvider, $locationProvider) {
                     'acl': ['$q', 'AclService', function ($q, AclService) {
                             return true;
                             //console.log(AclService.getRoles());
+                            if (AclService.can('view_dash')) {
+                                // Has proper permissions
+                                return true;
+                            } else {
+                                // Does not have permission
+                                return $q.reject('LoginRequired');
+                            }
+                        }]
+                }
+            })
+
+            .when('/jobs/edit', {
+                templateUrl: 'views/job/create_job.html',
+                controller: 'jobCtrl',
+                controllerAs: 'jb',
+                resolve: {
+                    'acl': ['$q', 'AclService', function ($q, AclService) {
+                            return true;
+                            
                             if (AclService.can('view_dash')) {
                                 // Has proper permissions
                                 return true;
