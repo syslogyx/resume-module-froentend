@@ -1,7 +1,17 @@
 ﻿var Utility = {
+<<<<<<< HEAD
  apiBaseUrl: "http://172.16.1.97:8000/api/",
  //apiBaseUrl: "http://recruitmentapi.syslogyx.com/api/",
     hrmsBaseUrl: "http://hrms.syslogyx.com/",
+=======
+ //apiBaseUrl: "http://172.16.1.97:8000/api/",
+ // apiBaseUrl: "http://127.0.0.1:8000/api/",
+ apiBaseUrl: "https://recruitmentapi.syslogyx.com/api/",
+   // apiBaseUrl: "http://172.16.1.97:8000/api/",
+// apiBaseUrl: "http://finapi.syslogyx.com/api/",
+//    hrmsBaseUrl: "http://172.16.1.180:8765/",
+    hrmsBaseUrl: "https://hrms.syslogyx.com/",
+>>>>>>> 6cd2afa1be8203334a952f93546a48bedbf2bcb7
     formatDate: function (date, format) {
         var tDate = null;
         if (format == "Y/m/d") {

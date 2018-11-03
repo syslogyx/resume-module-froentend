@@ -82,7 +82,7 @@
                                 <li><a href="#technicalSkills" data-toggle="tab">TECHNICAL SKILLS</a></li>
                                 <li><a href="#industrialExperience" data-toggle="tab">INDUSTRIAL EXPERIENCE</a></li>
                                 <li><a href="#hobbies" data-toggle="tab">HOBBIES DETAILS</a></li>
-                                <li><a href="#uploadDocument" data-toggle="tab">UPLOAD DOCUMENT</a></li>
+                                <li><a href="#uploadDocument" data-toggle="tab">UPLOAD RESUME</a></li>
                             </ul>
                         </div>
 
@@ -177,12 +177,14 @@
                                         <div class="form-group">
                                             <label class="mandatory">Objective</label>
                                             <textarea class="form-control" id="objective" name="objective" ng-model="objectives" rows="1"></textarea>
+                                            <span id="message2" onclick="$Spelling.SpellCheckInWindow('objective'); return false;" style="display: none;    color: #dd4b39;">Click here to check spelling in objective.</span>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                       <div class="form-group">
                                         <label class="mandatory">Summary</label>
                                         <textarea class="form-control" id="summary" name="summary" ng-model="summary" rows="1"></textarea>
+                                        <span id="message1" onclick="$Spelling.SpellCheckInWindow('summary'); return false;" style="display: none;color: #dd4b39;">Click here to check spelling in summary.</span>
                                       </div>
                                     </div>
                                   </div>
@@ -310,17 +312,19 @@
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="form-group">
-                                                <label class="mandatory">Relevance Experience (Years)</label>
-                                                <select id="relevanceYearExperience_{{$index}}" name="relevance_year_experience_{{$index}}" class="form-control relevance_year_experience" placeholder="Enter year experience" ng-model="t.relevanceYearExperience" ng-options="x.name as x.name for x in experienceYears" >
-                                                    <option value="" style="color:#ccc !important;">Select Year</option>
+                                                <label class="">Relevance Experience (Years)</label>
+                                                <select id="relevanceYearExperience_{{$index}}" name="relevance_year_experience_{{$index}}" class="form-control relevance_year_experience" placeholder="Enter year experience" ng-model="t.relevanceYearExperience">
+                                                   <!--  <option value="" style="color:#ccc !important;">Select Year</option> -->
+                                                   <option ng-repeat="x in experienceYears" value="{{x.id}}">{{x.name}}</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="form-group">
-                                                <label class="mandatory">Relevance Experience (Months)</label>
-                                                <select id="relevanceMonthExperience_{{$index}}" name="relevance_month_experience_{{$index}}" class="form-control relevance_month_experience" placeholder="Enter month experience" ng-model="t.relevanceMonthExperience" ng-options="x.name as x.name for x in experienceMonths" >
-                                                    <option value="" style="color:#ccc !important;">Select Month</option>
+                                                <label class="">Relevance Experience (Months)</label>
+                                                <select id="relevanceMonthExperience_{{$index}}" name="relevance_month_experience_{{$index}}" class="form-control relevance_month_experience" placeholder="Enter month experience" ng-model="t.relevanceMonthExperience">
+                                                    <option ng-repeat="x in experienceMonths track by x.id" value="{{x.id}}">{{x.name}}</option>
+                                                    <!-- <option value="" style="color:#ccc !important;">Select Month</option> -->
                                                 </select>
                                             </div>
                                         </div>
@@ -339,15 +343,15 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="col-sm-3 form-group">
-                                            <label class="mandatory">Total Experience (Years)</label>
-                                            <select id="total_year_experience" name="total_year_experience" class="form-control total_year_experience" placeholder="Enter year experience" ng-model="totalYearIndustryExperiance" ng-options="x.name as x.name for x in experienceYears" >
-                                                <option value="" style="color:#ccc !important;">Select Year</option>
+                                            <label class="">Total Experience (Years)</label>
+                                            <select id="total_year_experience" name="total_year_experience" class="form-control total_year_experience" placeholder="Enter year experience" ng-model="totalYearIndustryExperiance" ng-options="x.id as x.name for x in experienceYears">
+                                               <!--  <option value="" style="color:#ccc !important;">Select Year</option> -->
                                             </select>
                                         </div>
                                         <div class="col-sm-3 form-group">
-                                            <label class="mandatory">Total Experience (Month)</label>
-                                            <select id="total_month_experience" name="total_month_experience" class="form-control total_month_experience" placeholder="Enter month experience" ng-model="totalMonthIndustryExperiance" ng-options="x.name as x.name for x in experienceMonths" >
-                                                <option value="" style="color:#ccc !important;">Select Month</option>
+                                            <label class="">Total Experience (Month)</label>
+                                            <select id="total_month_experience" name="total_month_experience" class="form-control total_month_experience" placeholder="Enter month experience" ng-model="totalMonthIndustryExperiance" ng-options="x.id as x.name for x in experienceMonths">
+                                               <!--  <option value="" style="color:#ccc !important;">Select Month</option> -->
                                             </select>
                                         </div>
                                         <div class="col-sm-3 form-group">
@@ -403,7 +407,8 @@
                                         <div class="col-sm-7">
                                             <div class="form-group">
                                                 <label class="mandatory">Project Description</label>
-                                                <textarea id="projectDescription_{{$index}}" name="project_description_{{$index}}" class="form-control project_description" placeholder="Enter Project Description" ng-model="ex.project_description" rows="1"></textarea>
+                                                <textarea id="projectDescription_{{$index}}" name="project_description_{{$index}}" ng-blur="callSpellchecker($index);" class="form-control project_description" placeholder="Enter Project Description" ng-model="ex.project_description" rows="1"></textarea>
+                                                <span id="project_msg{{$index}}" class="prod_msg" data-index="{{$index}}" ng-click="setSpellcheckMsg($index)" style="display: none;color: #dd4b39;">Click here to check spelling in project description.</span>
                                             </div>
                                         </div>
                                         <div class="col-sm-1 form-group" style="margin-top:3%">
@@ -474,6 +479,15 @@
                         </div>
 
                     </form>
+                </div>
+                <div class="card wizard-card" data-color="orange" id="wizardResumeSuccessmsg" style="display:none;min-height: 100px;">
+                    <div class="wizard-header">
+                        <div class='row'>
+                            <div class='col-sm-12'>
+                                <h4 style="text-align: center;color:#009900">Thanks for showing your interest! Will get back to you soon!</h4>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div> <!-- wizard container -->
 
@@ -709,9 +723,27 @@
 
 <!--  Plugin for the Wizard -->
 <script src="/resources/plugins/bootstrap-wizard-master/assets/js/wizard.js"></script>
+<!-- <script src="/resources/plugins/JavaScriptSpellCheck/include.js"></script> -->
+<script src="/resources/plugins/JavaScriptSpellCheck/include.js"></script>
 
 <!--  More information about jquery.validate here: http://jqueryvalidation.org/  -->
 <script src="/resources/plugins/bootstrap-wizard-master/assets/js/jquery.validate.min.js"></script>
 <script src="/resources/js/app.min.js"></script>
  <script src="/resources/plugins/datepicker/bootstrap-datepicker.js"></script>
 <script src="/resources/js/sweetalert-master/dist/sweetalert.min.js"></script>
+<script type="text/javascript">
+     $(function() {
+     //    $('#summary').binSpellCheckFields(options)
+
+        $Spelling.LiveFormValidation  ('summary', 'message1'  );
+        $Spelling.LiveFormValidation  ('objective', 'message2'  );
+        
+        // o = $Spelling.SpellCheckInWindow('objective');
+        // o.onIgnoreAll = function(word){console.log(word)}
+        // $Spelling.LiveFormValidation  ('.project_description', '.prod_msg'  );
+        
+
+     });
+
+
+</script>

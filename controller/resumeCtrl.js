@@ -56,13 +56,16 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
         {id: 15, name: "15"}
     ];
 
+    $scope.totalYearIndustryExperiance = $scope.experienceYears[0].id;
+    $scope.totalMonthIndustryExperiance = $scope.experienceMonths[0].id;
+
     $scope.technologyList =[{id:1,name:"Java"},{id:2,name:"Android"}];
 
     $scope.qualifications = [{qualification_id:"",stream:"",percentage:"",university:"",college:"",start_year:"",end_year:""}];
 
     $scope.achievements =[{achivement:""}];
 
-    $scope.technicalSkill =[{technology_name:"",relevanceYearExperience:"",relevanceMonthExperience:""}];
+    $scope.technicalSkill =[{technology_name:"",relevanceYearExperience:"0",relevanceMonthExperience:"0"}];
 
     $scope.industryExperiance = [{company_name:"",project_name:"",role_in_project:"",language_or_tools:"",project_description:""}];
 
@@ -101,7 +104,6 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
 
     $scope.init = function(){
 		/* Getting all qualification list */
-
         $('#dob').datepicker({
             format: "yyyy-mm-dd",
             autoclose: true,
@@ -144,7 +146,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
     }
 
     $scope.appendTechnicalSkillDiv = function(){
-        $scope.technicalSkill.push({technology_name:"",relevanceYearExperience:"",relevanceMonthExperience:""});
+        $scope.technicalSkill.push({technology_name:"",relevanceYearExperience:"0",relevanceMonthExperience:"0"});
     }
 
     $scope.appendIndustrialExperienceDiv = function(){
@@ -248,6 +250,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
     $scope.saveResumeData = function(){
     if($('.wizard-card form').valid()){
             $('#previewModal').modal('hide');
+            $("#wizardResumeSuccessmsg").css('display','none');
         	var json=$scope.qualificatinData();
             // var json=[];
 
@@ -319,7 +322,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
                 "industryExperiance":$scope.industryExperiance1,
                 "hobbyDetails":$scope.hobbyDiv1
             }
-            console.log(req);
+            // console.log(req);
 
                 var promise = services.createCandidate(req,type='Data');
                 promise.then(function mySuccess(response) {
@@ -342,8 +345,11 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
 
                     Utility.stopAnimation();
                     try {
-                        toastr.success("Thanks for showing your interest! Will get back to you soon!");
+                        // toastr.success("Thanks for showing your interest! Will get back to you soon!");   
+                        $("#wizardProfile").css('display','none');
+                        $("#wizardResumeSuccessmsg").css('display','');
                     } catch (e) {
+                        $("#wizardResumeSuccessmsg").css('display','none');
                         toastr.error("Profile not saved successfully.");
                         Raven.captureException(e)
                     }
@@ -372,6 +378,19 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
     //     $scope.file= new FormData();
     //     $scope.file.append("file", files[0]);
     // }
+
+    $scope.setSpellcheckMsg = function(i){
+        console.log("index >>"+i);
+        $Spelling.SpellCheckInWindow('projectDescription_'+i); 
+        return false;
+    }
+
+    $scope.callSpellchecker = function(index){
+        console.log("index >>"+index);
+        $Spelling.LiveFormValidation  ('projectDescription_'+index, 'project_msg'+index );
+    }
+
+
 
     $scope.init();
 
