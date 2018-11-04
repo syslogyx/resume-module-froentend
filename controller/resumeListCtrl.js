@@ -89,6 +89,10 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         var promise = services.downloadResumePDF(id);
     }
 
+    rlc.downloadResumeDoc = function(id){        
+        var promise = services.downloadResume(id);
+    }
+
 
     rlc.init();
 

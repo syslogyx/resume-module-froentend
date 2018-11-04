@@ -1,10 +1,10 @@
 ﻿var Utility = {
 
-    apiBaseUrl: "http://127.0.0.1:8000/api/",
+    // apiBaseUrl: "http://127.0.0.1:8000/api/",
     // apiBaseUrl: "http://172.16.1.97:8000/api/",
     // apiBaseUrl: "http://172.16.1.180:8000/api/",
-    //apiBaseUrl: "http://recruitmentapi.syslogyx.com/api/",
-    hrmsBaseUrl: "http://hrms.syslogyx.com/",
+    apiBaseUrl: "https://recruitmentapi.syslogyx.com/api/",
+    hrmsBaseUrl: "https://hrms.syslogyx.com/",
 
     formatDate: function (date, format) {
         var tDate = null;
@@ -138,6 +138,19 @@ app.constant('RESOURCES', (function () {
 //        CONTENT_TYPE: 'application/json; charset=UTF-8'
     }
 })());
+
+app.directive('ngFiles', ['$parse', function ($parse) {
+    function fn_link(scope, element, attrs) {
+        var onChange = $parse(attrs.ngFiles);
+        element.on('change', function (event) {
+            onChange(scope, { $files: event.target.files });
+        });
+    };
+
+    return {
+        link: fn_link
+    }
+} ])
 
 app.service('pagination', function (RESOURCES, $http, $cookieStore, $filter) {
     //set pagination limit here
@@ -374,6 +387,13 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         // win.focus();
     };
 
+    this.downloadResume = function (id) {
+        // var win =
+        window.open(RESOURCES.SERVER_API +'download/'+id);
+        // win.setTimeout(function(){this.close();},1500)
+        // win.focus();
+    };
+
     this.getAllCandidates = function(request){
         if(request == undefined){
             page = -1;
@@ -466,6 +486,20 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             }
         })
     };
+
+    this.uploadresumeFile  = function(request){
+      
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "upload_resume",
+            dataType: 'form-data',
+            data: request,
+            headers: {
+                'Content-Type': undefined
+            }
+        })
+    }
 
 });
 

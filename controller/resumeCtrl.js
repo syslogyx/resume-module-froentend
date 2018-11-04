@@ -245,53 +245,22 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
              return json;
     }
 
+    $scope.getTheFiles = function ($files) {
+        
+            $scope.file=$files[0];
+            console.log($scope.file);
+    };
 
 
     $scope.saveResumeData = function(){
     if($('.wizard-card form').valid()){
             $('#previewModal').modal('hide');
             $("#wizardResumeSuccessmsg").css('display','none');
-        	var json=$scope.qualificatinData();
-            // var json=[];
-
-            // $('html').find('.parentQualification').each(function(){
-            //     var jsonQ={qualification_id:"",stream:"",percentage:"",university:"",college:"",start_year:"",end_year:""};
-            //     jsonQ.qualification_id=$(this).find('.qualification').val();
-            //     jsonQ.stream=$(this).find('.stream').val();
-            //     jsonQ.percentage=$(this).find('.percentage').val();
-            //     jsonQ.university=$(this).find('.university').val();
-            //     jsonQ.college=$(this).find('.college').val();
-            //     jsonQ.start_year=$(this).find('.start_year').val();
-            //     jsonQ.end_year=$(this).find('.end_year').val();
-
-            //     json.push(jsonQ);
-            // })
-              console.log(json);
-
-
-            // $('#parentQualification').find('.stream').each(function(){
-            //     jsonQ.qualification_id=$(this).val();
-            // })
-            // $('#parentQualification').find('.percentage').each(function(){
-            //     jsonQ.qualification_id=$(this).val();
-            // })
-            // $('#parentQualification').find('.university').each(function(){
-            //     jsonQ.qualification_id=$(this).val();
-            // })
-            // $('#parentQualification').find('.college').each(function(){
-            //     jsonQ.qualification_id=$(this).val();
-            // })
-            // $('#parentQualification').find('.start_year').each(function(){
-            //     jsonQ.qualification_id=$(this).val();
-            // })
-            // $('#parentQualification').find('.end_year').each(function(){
-            //     jsonQ.qualification_id=$(this).val();
-            // })
-
+        	var json=$scope.qualificatinData();          
+           
 
             $scope.qualifications1 = json;
-            //$scope.qualifications1 = JSON.parse($scope.qualifications1);
-            //console.log($scope.qualifications1);
+            
             $scope.achievements1 = JSON.parse(angular.toJson( $scope.achievements ));
             $scope.technicalSkill1 = JSON.parse(angular.toJson( $scope.technicalSkill ));
             $scope.industryExperiance1 = JSON.parse(angular.toJson( $scope.industryExperiance ));
@@ -322,26 +291,33 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
                 "industryExperiance":$scope.industryExperiance1,
                 "hobbyDetails":$scope.hobbyDiv1
             }
-            // console.log(req);
+           
 
                 var promise = services.createCandidate(req,type='Data');
                 promise.then(function mySuccess(response) {
-                             var json={file:$scope.files,id:response.data.id,timestamp:response.data.timestamp}
-                            // var promise = services.uploadresumeFile(json);
-                            // promise.then(function mySuccess(response) {
-                            // Utility.stopAnimation();
-                            // try {
-                            //     toastr.success('file uploaded successfully.');
+                    if(response.data.status_code == 200){
+                        // debugger;
+                        var json= new FormData();
+                        json.append("file_name",$scope.file);
+                        json.append("candidate_id",response.data.data.id);
+                        json.append("timestamp",response.data.data.timestamp);
+                        
+                        var promise2 = services.uploadresumeFile(json);
+                        promise2.then(function mySuccess(response) {
+                        Utility.stopAnimation();
+                        try {
+                            toastr.success('file uploaded successfully.');
 
-                            // } catch (e) {
-                            //     toastr.error("file not uploaded successfully.");
-                            //     Raven.captureException(e)
-                            //     }
-                            // }, function myError(r) {
-                            //     toastr.error('something went wrong');
-                            //    // console.log(r.data.errors.email);
-                            //     Utility.stopAnimation();
-                            // });
+                        } catch (e) {
+                            toastr.error("file not uploaded successfully.");
+                            Raven.captureException(e)
+                            }
+                        }, function myError(r) {
+                            toastr.error('something went wrong');
+                           // console.log(r.data.errors.email);
+                            Utility.stopAnimation();
+                        });                                    
+                    }
 
                     Utility.stopAnimation();
                     try {
@@ -373,11 +349,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
         }
     }
 
-    // $scope.file=null;
-    // $scope.uploadFile = function(files) {
-    //     $scope.file= new FormData();
-    //     $scope.file.append("file", files[0]);
-    // }
+  
 
     $scope.setSpellcheckMsg = function(i){
         console.log("index >>"+i);
