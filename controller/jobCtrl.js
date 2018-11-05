@@ -29,7 +29,7 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
         {"Title": "User Management", "Link": "user", "icon": "fa fa-user-plus", "active":"deactive"},
         {"Title": "Resume Management", "Link": "/resume_list", "icon": "fa fa-file-text", "active":"deactive"},
         {"Title": "JD Management", "Link": "/jobs", "icon": "fa fa-file-text", "active":"active"},
-        {"Title": "Basic Screening", "Link": "/", "icon": "fa fa-file-text", "active":"deactive"}
+        {"Title": "Basic Screening", "Link": "/questions", "icon": "fa fa-file-text", "active":"deactive"}
     ]);
 
     
@@ -74,7 +74,7 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
             Utility.stopAnimation();
             if(result.data != null){
                 jb.jobList = result.data.data;
-                pagination.applyPagination(result.data, jb);
+                pagination.applyPagination(result.data,jb);
             }
         }, function myError(r) {
             toastr.error(r.data.message, 'Sorry!');
@@ -159,6 +159,7 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
 
             var promise;
             if (jb.id) {
+                console.log(jb);
                 req.id = jb.id;
                 req.job_code = jb.job_code;
                 promise = services.updateJob(req);

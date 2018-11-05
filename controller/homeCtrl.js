@@ -14,7 +14,7 @@ app.controller('homeCtrl', function ($scope,menuService,services,$cookieStore) {
             {"Title": "User Management", "Link": "user", "icon": "fa fa-user-plus", "active":"deactive"},
             {"Title": "Resume Management", "Link": "/resume_list", "icon": "fa fa-file-text", "active":"deactive"},
             {"Title": "JD Management", "Link": "/jobs", "icon": "fa fa-file-text", "active":"deactive"},
-            {"Title": "Basic Screening", "Link": "/", "icon": "fa fa-file-text", "active":"deactive"}
+            {"Title": "Basic Screening", "Link": "/questions", "icon": "fa fa-file-text", "active":"deactive"}
         ]);
 
     $scope.init = function(){
