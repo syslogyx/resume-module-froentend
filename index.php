@@ -61,11 +61,16 @@
         <!-- For toaster alert section -->
         <link rel="stylesheet" href="/resources/bower_components/toastr/toastr.min.css">
         
+        <!-- <link href="/resources/bower_components/bootstrap-toggle-master/css/bootstrap2-toggle.min.css" rel="stylesheet">
+        <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet"> -->
+        <link href="/resources/plugins/angular-bootstrap-toggle-master/dist/angular-bootstrap-toggle.min.css" rel="stylesheet">
+        <!-- <link href="https://gitcdn.github.io/bootstrap-toggle/2.1.0/css/bootstrap-toggle.min.css" rel="stylesheet"> -->
+        
         <!-- For panel in fund request section -->
         <link rel="stylesheet" type="text/css" href="/resources/css/ziehharmonika.css">
 
         <link rel="stylesheet" type="text/css" href="/resources/css/jquery-ui.css">
-
+        <link href="/resources/plugins/angular-ui-switch-master/angular-ui-switch.min.css" rel="stylesheet">
         <style>
             [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-    ng-cloak{
                 display: none !important;
@@ -148,7 +153,7 @@
                 <aside class="main-sidebar " ng-show="token">
                     <!-- sidebar: style can be found in sidebar.less -->
                     <section class="sidebar">
-                    	<!-- Sidebar user panel -->
+                        <!-- Sidebar user panel -->
                         <div class="user-panel push-menu">
                             <div class="pull-left image">
                               <img src="resources/img/default_profile.png" class="img-circle" alt="User Image">
@@ -215,7 +220,7 @@
         </div>
        
          <!-- jQuery 3 -->
- 		<script src="/resources/plugins/jQuery/jquery.min.js"></script>
+        <script src="/resources/plugins/jQuery/jquery.min.js"></script>
        
         <!-- SlimScroll -->
         <script src="/resources/plugins/slimScroll/jquery.slimscroll.min.js"></script>
@@ -258,7 +263,11 @@
         <script src="/resources/plugins/datepicker/bootstrap-datepicker.js"></script>
         <!-- Bootstrap 3.3.6 -->
         <script src="/resources/js/bootstrap.min.js"></script>
+        <!-- <script src="/resources/bower_components/bootstrap-toggle-master/js/bootstrap2-toggle.min.js"></script> -->
+        <script src="/resources/plugins/angular-bootstrap-toggle-master/dist/angular-bootstrap-toggle.min.js"></script>
+        <script src="/resources/plugins/angular-ui-switch-master/angular-ui-switch.min.js"></script>
          <!-- TwoPagination Plugin -->
+         <!-- <script src="https://gitcdn.github.io/bootstrap-toggle/2.1.0/js/bootstrap-toggle.min.js"></script> -->
         <script src="/resources/plugins/jquery.twbsPagination/jquery.twbsPagination.min.js"></script>
         <script src="/resources/js/ui-bootstrap-tpls.js"></script>
         <script src="/resources/js/myapp.js"></script>  

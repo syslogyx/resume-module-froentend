@@ -26,10 +26,13 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
 
     menuService.setMenu([
         {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"deactive"},
-        {"Title": "User Management", "Link": "user", "icon": "fa fa-user-plus", "active":"active"},
+        {"Title": "User Management", "Link": "user", "icon": "fa fa-user-plus", "active":"deactive"},
         {"Title": "Resume Management", "Link": "/resume_list", "icon": "fa fa-file-text", "active":"deactive"},
-        {"Title": "JD Management", "Link": "/jobs", "icon": "fa fa-file-text", "active":"deactive"}
+        {"Title": "JD Management", "Link": "/jobs", "icon": "fa fa-file-text", "active":"active"},
+        {"Title": "Basic Screening", "Link": "/", "icon": "fa fa-file-text", "active":"deactive"}
     ]);
+
+    
 
     setTimeout(function(){
         $('#table_length').on('change',function(){
@@ -181,27 +184,82 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
     //     $("#changeStatusModal").modal("toggle");
     // }
 
-    jb.updateStatus = function(jobId){
-        if ($("#changeStatusForm").valid()) {
-            var req ={
-                "id":jobId,
-                "status":jb.changeStatus
-            }
-            console.log(req);
-            var promise = services.updateJobStatus(req);
-            promise.then(function mySuccess(response) {
-                Utility.stopAnimation();
-                try {
-                    toastr.success('Job status successfully.');
-                } catch (e) {
-                    toastr.error("Job status not saved successfully.");
-                    Raven.captureException(e)
-                }
-            }, function myError(r) {
-                toastr.error('Something went wrong');
-                Utility.stopAnimation();
-            });
-        }
+    // jb.updateStatus = function(jobId){
+    //     if ($("#changeStatusForm").valid()) {
+    //         var req ={
+    //             "id":jobId,
+    //             "status":jb.changeStatus
+    //         }
+    //         console.log(req);
+    //         var promise = services.updateJobStatus(req);
+    //         promise.then(function mySuccess(response) {
+    //             Utility.stopAnimation();
+    //             try {
+    //                 toastr.success('Job status successfully.');
+    //             } catch (e) {
+    //                 toastr.error("Job status not saved successfully.");
+    //                 Raven.captureException(e)
+    //             }
+    //         }, function myError(r) {
+    //             toastr.error('Something went wrong');
+    //             Utility.stopAnimation();
+    //         });
+    //     }
+    // }
+
+    jb.changeJobStatus = function(status,id){
+        console.log(status);
+        console.log(id);       
+
+        var req = {
+            "id":id,
+            "status": status == true ? 1:0
+        };
+
+        console.log(req);
+        // swal({
+        //     title: "Sure?",
+        //     text: "Are you sure you want to change job status?",
+        //     type: "warning",
+        //     showCancelButton: true,
+        //     confirmButtonColor: '#3085d6',
+        //     cancelButtonColor: '#d33',
+        //     cancelButtonText: "No",
+        //     confirmButtonText: "Yes",
+        //     customClass: 'animated tada',
+        // }).then(function () {
+        // $.confirm({
+        //     title: 'Confirm Transfer',
+        //     content: 'Are you sure you want to change job status?',
+        //     type: 'red',
+        //     buttons: {
+        //         confirm: {
+        //         btnClass: 'btn-danger',
+        //         action: function(){
+                   // $scope.$apply(function(){
+                        var promise = services.updateJobStatus(req);
+                        promise.then(function mySuccess(response) {
+                            console.log(response.data.status_code);
+                            if(response.data.status_code == 200){
+                                toastr.success(response.data.message);
+                            }else{
+                                toastr.error(response.data.message, 'Sorry!');
+                            }
+                            jb.init();
+                            Utility.stopAnimation();
+                        }, function myError(r) {
+                            toastr.error(r.data.message, 'Sorry!');
+                            Utility.stopAnimation();
+                        });
+                   // });
+        //         }
+        //       },
+        //       cancel: function () {
+        //       },
+        //     }
+        // });
+
+    // });
     }
 
     jb.init();

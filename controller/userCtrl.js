@@ -33,7 +33,8 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
         {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"deactive"},
         {"Title": "User Management", "Link": "user", "icon": "fa fa-user-plus", "active":"active"},
         {"Title": "Resume Management", "Link": "/resume_list", "icon": "fa fa-file-text", "active":"deactive"},
-        {"Title": "JD Management", "Link": "/jobs", "icon": "fa fa-file-text", "active":"deactive"}
+        {"Title": "JD Management", "Link": "/jobs", "icon": "fa fa-file-text", "active":"deactive"},
+        {"Title": "Basic Screening", "Link": "/", "icon": "fa fa-file-text", "active":"deactive"}
     ]);
             
 	usr.addNewUser = function () {

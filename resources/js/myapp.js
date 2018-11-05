@@ -1,9 +1,9 @@
 ﻿var Utility = {
 
-    // apiBaseUrl: "http://127.0.0.1:8000/api/",
+    apiBaseUrl: "http://127.0.0.1:8000/api/",
     // apiBaseUrl: "http://172.16.1.97:8000/api/",
     // apiBaseUrl: "http://172.16.1.180:8000/api/",
-    apiBaseUrl: "https://recruitmentapi.syslogyx.com/api/",
+    // apiBaseUrl: "https://recruitmentapi.syslogyx.com/api/",
     hrmsBaseUrl: "https://hrms.syslogyx.com/",
 
     formatDate: function (date, format) {
@@ -75,8 +75,8 @@
 
 
 
-var app = angular.module("myapp", ['ngRoute', 'mm.acl', 'ngCookies' , 'ui.sortable' ]);
-
+var app = angular.module("myapp", ['ngRoute', 'mm.acl', 'ngCookies' , 'ui.sortable','ui.toggle']);
+//  ,'uiSwitch'
 /*app.directive('setHeight', function($window){
  return{
  link: function(scope, element, attrs){
@@ -100,6 +100,7 @@ var app = angular.module("myapp", ['ngRoute', 'mm.acl', 'ngCookies' , 'ui.sortab
 //         }  
 //     };  
 // });  
+
 app.factory("menuService", ["$rootScope", function ($rootScope) {
         "use strict";
         return {
@@ -150,7 +151,39 @@ app.directive('ngFiles', ['$parse', function ($parse) {
     return {
         link: fn_link
     }
-} ])
+} ]);
+
+// app.directive('toggleCheckbox', function() {
+//   // based on https://github.com/minhur/bootstrap-toggle/issues/19
+  
+//   return {
+//     restrict: 'A',
+//     require: 'ngModel',
+//     link: function (scope, element, attributes, ngModelController) {
+//       element.on('change.toggle', function(event) { // note that ".toogle" is our namespace, used further down to remove the handler again
+//         var checked = element.prop('checked');
+//         ngModelController.$setViewValue(checked);
+//       });
+                
+//       ngModelController.$render = function() {
+//         element.bootstrapToggle(ngModelController.$viewValue ? 'Inactive' : 'Active');
+//       };
+      
+//       scope.$on('$destroy', function() {
+//         // clean up
+//         element.off('change.toggle');
+//         element.bootstrapToggle('destroy');
+//       });
+              
+//       // we set the 'checked' property once so the Bootstrap toggle is initialized to the correct value, i.e.,  without flashing the 'off' state and then switch to the 'on' state in case of an initial value of 'true';
+//       // this is not needed if your markup already contains the correct 'checked' property;
+//       // note that we can't use ngModelController.$viewValue since at this stage, it's still uninitialized as NaN
+//       var initialValue = scope.$eval(attributes.ngModel);
+//       element.prop('checked', initialValue);
+//     }
+//   };
+// });
+
 
 app.service('pagination', function (RESOURCES, $http, $cookieStore, $filter) {
     //set pagination limit here
@@ -474,18 +507,31 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
-    this.updateJobStatus = function (req) {
+    this.updateJobStatus = function(req){
         Utility.startAnimation();
         return $http({
             method: 'POST',
-            url: RESOURCES.SERVER_API + "job_status/" + req.id + "/update?_method=PUT",
+            url: RESOURCES.SERVER_API + "job/changestatus/" + req.id,
             dataType: 'json',
             data: $.param(req),
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
             }
         })
-    };
+    }
+
+    // this.updateJobStatus = function (req) {
+    //     Utility.startAnimation();
+    //     return $http({
+    //         method: 'POST',
+    //         url: RESOURCES.SERVER_API + "job_status/" + req.id + "/update?_method=PUT",
+    //         dataType: 'json',
+    //         data: $.param(req),
+    //         headers: {
+    //             'Content-Type': RESOURCES.CONTENT_TYPE
+    //         }
+    //     })
+    // };
 
     this.uploadresumeFile  = function(request){
       
@@ -499,7 +545,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
                 'Content-Type': undefined
             }
         })
-    }
+    };
 
 });
 

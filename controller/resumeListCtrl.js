@@ -5,7 +5,8 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
             {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"deactive"},
             {"Title": "User Management", "Link": "user", "icon": "fa fa-user-plus", "active":"deactive"},
             {"Title": "Resume Management", "Link": "/resume_list", "icon": "fa fa-file-text", "active":"active"},
-            {"Title": "JD Management", "Link": "/jobs", "icon": "fa fa-file-text", "active":"deactive"}
+            {"Title": "JD Management", "Link": "/jobs", "icon": "fa fa-file-text", "active":"deactive"},
+            {"Title": "Basic Screening", "Link": "/", "icon": "fa fa-file-text", "active":"deactive"}
     ]);
 
     // rlc.resumeList = [{id:1,name:"TEST 1"},{id:2,name:"TEST 2"},{id:3,name:"TEST 3"},{id:4,name:"TEST 4"}];   
