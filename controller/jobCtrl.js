@@ -118,7 +118,9 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
                 jb.jobType = response.data.data.job_type,
                 jb.ctc = response.data.data.ctc,
                 jb.noticePeroid = response.data.data.notice_period,
-                jb.status = response.data.data.status
+                jb.status = response.data.data.status,                
+                jb.job_code = response.data.data.job_code,                
+
                 applySelect2();   
             }, function myError(r) {
                 toastr.error(r.data.message, 'Sorry!');
@@ -158,6 +160,7 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
             var promise;
             if (jb.id) {
                 req.id = jb.id;
+                req.job_code = jb.job_code;
                 promise = services.updateJob(req);
                 var operationMessage = "updated";
             } else {

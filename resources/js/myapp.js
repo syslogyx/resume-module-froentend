@@ -471,7 +471,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         Utility.startAnimation();
         return $http({
             method: 'POST',
-            url: RESOURCES.SERVER_API + "create_job",
+            url: RESOURCES.SERVER_API + "job/create",
             dataType: 'json',
             data: $.param(req),
             headers: {
@@ -485,7 +485,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         Utility.startAnimation();
         return $http({
             method: 'POST',
-            url: RESOURCES.SERVER_API + "job/" + req.id + "/update?_method=PUT",
+            url: RESOURCES.SERVER_API + "job/update/" + req.id,
             dataType: 'json',
             data: $.param(req),
             headers: {
