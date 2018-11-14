@@ -12,7 +12,7 @@ app.controller("loginCtrl", function (services, AclService, $scope, $http, $loca
       
         if ($("#loginForm").valid()) {
             Utility.startAnimation();
-            console.log(lgc.email)
+            // console.log(lgc.email)
             var promise = services.logIn(lgc.email, lgc.password);
             promise.then(function mySucces(r) {
                 if (r.data != null) {
@@ -21,7 +21,7 @@ app.controller("loginCtrl", function (services, AclService, $scope, $http, $loca
                     // $cookieStore.put('authkey', lgc.token);
                     services.setAuthKey(lgc.token);
                     var role = r.data.data.role;
-                    console.log(role);
+                    // console.log(role);
                     var abilities = [];
                     var data = r.data.data;
                     $.each(data.permissionGroupList, function (k, v) {

@@ -1,6 +1,9 @@
 app.controller("resumeListCtrl", function (services, AclService, $scope, $http, $location, RESOURCES, $cookieStore,menuService) {
 
     var rlc = this;
+    rlc.pageno = 0;
+    rlc.limit = 0;
+    rlc.skip = true;
     menuService.setMenu([
             {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"deactive"},
             {"Title": "User Management", "Link": "user", "icon": "fa fa-user-plus", "active":"deactive"},
@@ -15,7 +18,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     /*Record limit for Candidates in pagination*/
     setTimeout(function(){
         $('#table_length').on('change',function(){
-            usr.fetchAllCandidates(-1);
+            rlc.fetchAllCandidates(-1);
         });
     },100);
 
@@ -24,6 +27,24 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         rlc.fetchAllCandidates(-1);
     }
 
+
+    rlc.applyPagination = function (pageData) {
+        $('#pagination-sec').twbsPagination({
+            totalPages: pageData.last_page,
+            visiblePages: 5,
+            first: '',
+            last: '',
+            onPageClick: function (event, page) {
+                // console.log('Page: ' + page);
+                if (rlc.skip) {
+                    rlc.skip = false;
+                    return;
+                }
+                rlc.fetchAllCandidates(page);
+                $("html, body").animate({ scrollTop: 0 }, "slow");
+            }
+        });
+    }
 
     /*pagination for Candidates*/
     rlc.fetchAllCandidates = function(page){
@@ -59,23 +80,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         });
     }
 
-    rlc.applyPagination = function (pageData) {
-        $('#pagination-sec').twbsPagination({
-            totalPages: pageData.last_page,
-            visiblePages: 5,
-            first: '',
-            last: '',
-            onPageClick: function (event, page) {
-                console.log('Page: ' + page);
-                if (usr.skip) {
-                    usr.skip = false;
-                    return;
-                }
-                usr.fetchAllUsers(page);
-                $("html, body").animate({ scrollTop: 0 }, "slow");
-            }
-        });
-    }
+    
 
     rlc.setTotalExperience = function(exp){
         if(exp % 1 !== 0){

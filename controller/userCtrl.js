@@ -95,7 +95,7 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
             first: '',
             last: '',
             onPageClick: function (event, page) {
-                console.log('Page: ' + page);
+                // console.log('Page: ' + page);
                 if (usr.skip) {
                     usr.skip = false;
                     return;
@@ -131,13 +131,13 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
             // $('#passwordDiv').hide();
             var promise = services.getUserById(usr.id);
             promise.then(function mySuccess(response) {
-                console.log(response.data);
+                // console.log(response.data);
                 Utility.stopAnimation();
                 usr.title = 'Update User';
                 usr.userName = response.data.data.name;
                 usr.contactEmail = response.data.data.email;
                 usr.userType = response.data.data.role.id;
-                console.log(usr.userType);
+                // console.log(usr.userType);
                 usr.contactNo = response.data.data.mobile;
                 usr.comapnyName = response.data.data.company_name;
                 applySelect2();   

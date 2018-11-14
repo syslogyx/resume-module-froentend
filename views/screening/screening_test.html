@@ -1,0 +1,89 @@
+<section class="content" ng-cloak >
+    <br>
+    <br>
+    <form role="form" name="screeningTestForm" id="screeningTestForm">
+        <div class="box box-default">
+            <div class="row boxhead box-header with-border boxhead">
+                <div class="col-md-6">
+                    <h1 class="formheading">
+                           <b>Basic Screening</b>
+                    </h1>
+                </div> 
+                <div class="col-md-6">
+                    <div class="pull-right" style="margin-top: 5px; margin-right: 20px;">
+                        <a ng-href="/resume_list"><button type="button" class="btn btn-default btn-sm" data-toggle="modal" title="Back" data-target="" data-ng-click="" style="border:white;color:#428bca;outline: 0;"><i class="fa fa-arrow-left" aria-hidden="true"></i></button></a>  
+                    </div> 
+                </div> 
+            </div>
+            <div class="box-body">  
+                <div class="row" >
+                    <div class="col-md-12" >
+                        <div ng-repeat="q in st.questionList | filter:$even" class="col-md-6 duplicate">
+                            <strong><p style="font-size:15px">Ques {{$index+1}}: 
+                            {{q['question']}}</p></strong> 
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Answer</label>
+                                        <select ng-init="q.option = st.options[0].name" class="form-control" name="option[]" id="option{{$index}}" ng-model="q.option">
+                                            <option ng-repeat="x in st.options" value="{{x.name}}">{{x.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <label>Remark</label>
+                                        <textarea class="form-control" id="remark{{$index}}" name="remark[]" ng-model="q.remark" rows="1"></textarea>
+                                    </div>
+                                </div>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer" style="margin-right:14px!important">
+                <div class="pull pull-right">
+                    <input type="submit" value="Save" data-ng-click="st.onButtonsave()" class="btn btn-success" style="outline: 0;"/> 
+                    <input type="button" value="Cancel" class="btn btn-warning" data-ng-click="st.cancelTest()"  style="outline: 0;"/> 
+                    <input type="reset" value="Reset" ng-click="st.resetForm()" class="btn" style="outline: 0;"/> 
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="modal fade statusConfirmationModel" id="statusConfirmationModel" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content" style="border-radius: 0px!important;" >
+                <div class="modal-header" id="popUpModalHeader"> 
+                    <button type="button" class="close" data-dismiss="modal" ng-click="jb.resetForm()" style="margin-right: 5px;">&times;</button>
+                    <h4 class="modal-title popUpModalTitle">Select Status</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="changeStatusForm">
+                        <div class="form-group">
+                            <!-- <div class="row">
+                                <div class="col-md-12" style="margin-top: 1%;">
+                                    <span>Do you want to change job status?</span>
+                                </div>
+                            </div>
+                            <br> -->
+                            <div class="row">
+                                <div class="col-md-12" style="margin-top: 1%;">
+                                   <!--  <label class="" style="font-size: 14px">Status </label> -->
+                                    <select ng-init="st.status = st.statusData[0].name" id="changeStatus" name="changeStatus" class="form-control" placeholder="Enter status" ng-model="st.status" ng-options="x.name as x.name for x in st.statusData" >
+                                        <!-- <option value="" style="color:#ccc !important;">Select status</option> -->
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer" style="margin-top: 0px;"> 
+                    <button type="button" id="changeStatusBtn" class="btn btn-primary"  data-ng-click="st.submitResult();" >Save</button>
+                    <button type="reset" id="closeModal" class="btn btn-warning"  ng-click="st.resetForm()" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

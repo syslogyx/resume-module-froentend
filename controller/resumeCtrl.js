@@ -16,11 +16,23 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
 
     $scope.backCurrentImg=$scope.backImgUrls[0];
 
-    console.log($routeParams.token);
-    $scope.jobDetail=[
-        {id: 1, name: "Android"},
-        {id: 2, name: "Java"}
-   ]
+    // console.log($routeParams.token);
+    // $scope.jobDetail=[
+    //     {id: 1, name: "Android"},
+    //     {id: 2, name: "Java"}
+    // ];
+
+    $scope.getActiveJd = function(){
+         var promise = services.getAllActiveJDList();
+        promise.success(function (result) {
+            Utility.stopAnimation();
+            $scope.jobDetail = result.data; 
+        }, function myError(r) {
+            toastr.error(r.data.message, 'Sorry!');
+            Utility.stopAnimation();
+        });
+    }
+
     //Array for experience in months drop down options.
     $scope.experienceMonths = [
         {id: 0, name: "0"},
@@ -72,7 +84,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
     $scope.hobbyDiv = [{hobbie_name:""}];
 
     $scope.datepickerInit = function(){
-     console.log($scope.qualifications);
+     // console.log($scope.qualifications);
 
         $('.start_year').datepicker({
             format: "yyyy",
@@ -114,7 +126,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
         }).on("changeDate", function (e) {
             $(this).valid();
             $scope.dateOfBirth = $(this).val();
-            console.log($scope.dateOfBirth);
+            // console.log($scope.dateOfBirth);
         });
 
         var promise = services.getAllQualificationList();
@@ -124,11 +136,13 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
             for (var i = 0; i < $scope.allQualificationList.length; i++) {
                 $scope.allQualificationList[i].id=$scope.allQualificationList[i].id.toString();
             }
-            console.log($scope.allQualificationList);
+            // console.log($scope.allQualificationList);
         }, function myError(r) {
             toastr.error(r.data.message, 'Sorry!');
             Utility.stopAnimation();
         });
+
+        $scope.getActiveJd();
 	}
 
 
@@ -240,7 +254,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
                 json.push(jsonQ);
             })
             $scope.qualifications = json;
-             console.log(json);
+             // console.log(json);
              $scope.quaData = json;
              return json;
     }
@@ -248,7 +262,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
     $scope.getTheFiles = function ($files) {
         
             $scope.file=$files[0];
-            console.log($scope.file);
+            // console.log($scope.file);
     };
 
 
@@ -256,11 +270,12 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
     if($('.wizard-card form').valid()){
             $('#previewModal').modal('hide');
             $("#wizardResumeSuccessmsg").css('display','none');
-        	var json=$scope.qualificatinData();          
-           
 
-            $scope.qualifications1 = json;
-            
+            //to remove $$hashkey from array        	
+            for (var i = 0; i < $scope.quaData.length; i++) {
+                delete $scope.quaData[i]['$$hashKey'];
+            }
+
             $scope.achievements1 = JSON.parse(angular.toJson( $scope.achievements ));
             $scope.technicalSkill1 = JSON.parse(angular.toJson( $scope.technicalSkill ));
             $scope.industryExperiance1 = JSON.parse(angular.toJson( $scope.industryExperiance ));
@@ -285,14 +300,15 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
                 "unique_token":$routeParams.token,
                 "total_experience":$scope.totalYearIndustryExperiance+'.'+$scope.totalMonthIndustryExperiance,
                 "ctc":$scope.currentCTC,
-                "educationalDetails":$scope.qualifications1,
+                "educationalDetails":$scope.quaData,
                 "achivementDetails":$scope.achievements1,
                 "technicalSkill":$scope.technicalSkill1,
                 "industryExperiance":$scope.industryExperiance1,
                 "hobbyDetails":$scope.hobbyDiv1
             }
            
-
+            // console.log(req);
+            // debugger;
                 var promise = services.createCandidate(req,type='Data');
                 promise.then(function mySuccess(response) {
                     if(response.data.status_code == 200){
@@ -314,7 +330,6 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
                             }
                         }, function myError(r) {
                             toastr.error('something went wrong');
-                           // console.log(r.data.errors.email);
                             Utility.stopAnimation();
                         });                                    
                     }
@@ -352,13 +367,13 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
   
 
     $scope.setSpellcheckMsg = function(i){
-        console.log("index >>"+i);
+        // console.log("index >>"+i);
         $Spelling.SpellCheckInWindow('projectDescription_'+i); 
         return false;
     }
 
     $scope.callSpellchecker = function(index){
-        console.log("index >>"+index);
+        // console.log("index >>"+index);
         $Spelling.LiveFormValidation  ('projectDescription_'+index, 'project_msg'+index );
     }
 

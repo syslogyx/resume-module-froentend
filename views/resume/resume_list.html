@@ -5,7 +5,7 @@
             <div class="col-md-6">
                 <h4>Resumes</h4>
             </div>
-            <div class="col-md-4" style="margin-top:1.5%; visibility: hidden">
+            <div class="col-md-4" style="margin-top:1.5%;">
                 <div class="dataTables_length text-right" id="example_length">
                     <label>Show 
                         <select id="table_length" aria-controls="example" style="outline: 0;">
@@ -46,6 +46,7 @@
                         </td>
                         <td style="text-align: center;"> 
                             <a type="button" class="btn" title="Download PDF" ng-click="rlc.downloadResumePDF(data.id)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;color: red;" class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
+                            <a href="/screening/test?candidate_id={{data.id}}&token={{data.unique_token}}" type="button" class="btn" title="Screening" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-file-o" aria-hidden="true"></i></a>
                         </td>     
                     </tr>
                     <tr ng-if="rlc.resumeList == null || rlc.resumeList.length == 0">
@@ -53,9 +54,9 @@
                     </tr>
                 </tbody>
             </table>
-            <!-- <div class="row col-sm-12" style="padding-right: 0px;">
+            <div class="row col-sm-12" style="padding-right: 0px;">
                 <ul id="pagination-sec" class="pagination-sm" style="float: right;margin-top: 5px;margin-bottom:45px;margin-right:-1.2%"></ul>
-            </div> -->
+            </div>
         </div> 
     </div>
 

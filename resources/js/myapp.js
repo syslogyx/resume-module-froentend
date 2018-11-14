@@ -403,7 +403,8 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         Utility.startAnimation();
         return $http({
             method: 'POST',
-            url: RESOURCES.SERVER_API + "create_candidate?type=data",
+            //url: RESOURCES.SERVER_API + "create_candidate?type=data",
+            url: RESOURCES.SERVER_API + "create_candidate",
             dataType: 'json',
             data: $.param(req),
             headers: {
@@ -438,8 +439,8 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         Utility.startAnimation();
         return $http({
             method: 'GET',
-            // url: RESOURCES.SERVER_API + "candidate_details?page=" + page + "&limit=" + limit,
-            url: RESOURCES.SERVER_API + "candidate_details",
+            url: RESOURCES.SERVER_API + "candidate_details?page=" + page + "&limit=" + limit,
+            // url: RESOURCES.SERVER_API + "candidate_details",
             dataType: 'json',
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
@@ -615,6 +616,33 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             dataType: 'json',
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+    this.getAllActiveJDList = function () {
+        Utility.startAnimation();
+        return $http({
+            method: 'GET',
+            url: RESOURCES.SERVER_API + "getAllActiveJd",
+            dataType: 'json',
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+    this.saveResult = function (req) {
+        // console.log(req);
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "result/add",
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+                
             }
         })
     };
@@ -879,6 +907,25 @@ app.config(function ($routeProvider, $locationProvider) {
                     'acl': ['$q', 'AclService', function ($q, AclService) {
                             return true;
                             
+                            if (AclService.can('view_dash')) {
+                                // Has proper permissions
+                                return true;
+                            } else {
+                                // Does not have permission
+                                return $q.reject('LoginRequired');
+                            }
+                        }]
+                }
+            })
+
+            .when('/screening/test', {
+                templateUrl: 'views/screening/screening_test.html',
+                controller: 'screeningTestCtrl',
+                controllerAs: 'st',
+                resolve: {
+                    'acl': ['$q', 'AclService', function ($q, AclService) {
+                            return true;
+                            //console.log(AclService.getRoles());
                             if (AclService.can('view_dash')) {
                                 // Has proper permissions
                                 return true;

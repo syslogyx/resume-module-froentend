@@ -6,6 +6,7 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
     jb.title = 'Add New Job';
     jb.pageno = 0;
     jb.limit = 0;
+    jb.skip = true;
     jb.jobList ='';
     jb.jobTypeData =[
         {id: "Permanent-full time", name: "Permanent-full time"},
@@ -55,7 +56,7 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
         }
         if(page == -1){
             jb.pageno = 1;
-            console.log($('#pagination-sec').data("twbs-pagination"));
+            // console.log($('#pagination-sec').data("twbs-pagination"));
             if($('#pagination-sec').data("twbs-pagination")){
                     $('#pagination-sec').twbsPagination('destroy');
             }
@@ -86,24 +87,14 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
     jb.init = function(){
 
         jb.limit = $('#table_length').val();
-        jb.fetchList(-1);
-
-        // var promise = services.getAllJobList();
-        //     promise.success(function (result) {
-        //     Utility.stopAnimation();
-        //     jb.jobList = result.data.data;
-        //      console.log( jb.jobList);    
-        // }, function myError(r) {
-        //     toastr.error(r.data.message, 'Sorry!');
-        //     Utility.stopAnimation();
-        // });
+        jb.fetchList(-1);        
 
         /* Editing perticular job*/
         jb.id = $location.search()["id"];
         if (jb.id > 0) {
             var promise = services.getJobById(jb.id);
             promise.then(function mySuccess(response) {
-                console.log(response.data);
+                // console.log(response.data);
                 Utility.stopAnimation();
                 jb.title = 'Update Job';
                 jb.jobTitle = response.data.data.title,
@@ -159,7 +150,7 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
 
             var promise;
             if (jb.id) {
-                console.log(jb);
+                // console.log(jb);
                 req.id = jb.id;
                 req.job_code = jb.job_code;
                 promise = services.updateJob(req);
@@ -212,15 +203,15 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
     // }
 
     jb.changeJobStatus = function(status,id){
-        console.log(status);
-        console.log(id);       
+        // console.log(status);
+        // console.log(id);       
 
         var req = {
             "id":id,
             "status": status == true ? 1:0
         };
 
-        console.log(req);
+        // console.log(req);
         // swal({
         //     title: "Sure?",
         //     text: "Are you sure you want to change job status?",
@@ -243,7 +234,7 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
                    // $scope.$apply(function(){
                         var promise = services.updateJobStatus(req);
                         promise.then(function mySuccess(response) {
-                            console.log(response.data.status_code);
+                            //console.log(response.data.status_code);
                             if(response.data.status_code == 200){
                                 toastr.success(response.data.message);
                             }else{

@@ -30,6 +30,9 @@
 .content {
     margin-top:0;
 }
+body{
+    font-size: 14px !important;
+}
 
 </style>
 <!--     Fonts and icons     -->
@@ -99,14 +102,15 @@
                                           <h6>Choose Picture</h6>
                                       </div>
                                   </div> -->
-                                </div>
+                                </div>                                
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label class="mandatory">Job Code</label>
-                                                <select required class="form-control" name="job_code" id="job_code" ng-model="job_id" ng-options="x.id as x.name for x in jobDetail" >
+                                                <select required class="form-control" name="job_code" id="job_code" ng-model="job_id" ><!-- ng-options="x.id as x.job_code for x in jobDetail track by x.id" > -->
                                                     <option value="" style="color:#ccc !important;">Select Job</option>
+                                                    <option ng-repeat="jd in jobDetail" value="{{jd.id}}">{{jd.job_code}} {{jd.sub_title != '' ? (jd.sub_title) : ''}}</option>
                                                 </select>
                                             </div>
                                         </div>
