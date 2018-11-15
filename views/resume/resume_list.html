@@ -46,7 +46,7 @@
                         </td>
                         <td style="text-align: center;"> 
                             <a type="button" class="btn" title="Download PDF" ng-click="rlc.downloadResumePDF(data.id)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;color: red;" class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
-                            <a href="/screening/test?candidate_id={{data.id}}&token={{data.unique_token}}" type="button" class="btn" title="Screening" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-file-o" aria-hidden="true"></i></a>
+                            <a ng-if="data.status=='Active'" href="/screening/test?candidate_id={{data.id}}&token={{data.unique_token}}" type="button" class="btn" title="Screening" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-file-o" aria-hidden="true"></i></a>
                         </td>     
                     </tr>
                     <tr ng-if="rlc.resumeList == null || rlc.resumeList.length == 0">
