@@ -1,3 +1,8 @@
+<style type="text/css">
+    .select2-container--default {
+        width:100% !important;
+    }
+</style>
 <section class="content" ng-cloak >
     <div class="container-fluid" style="overflow-y: hidden;">
         <br>
@@ -5,7 +10,7 @@
             <div class="col-md-6">
                 <h4>Resumes</h4>
             </div>
-            <div class="col-md-4" style="margin-top:1.5%;">
+            <div class="col-md-6" style="margin-top:1.5%;">
                 <div class="dataTables_length text-right" id="example_length">
                     <label>Show 
                         <select id="table_length" aria-controls="example" style="outline: 0;">
@@ -16,9 +21,37 @@
                         </select> 
                     entries</label>
                 </div>
-            </div>            
+            </div>         
         </div> 
-        <br>        
+        <br> 
+
+         <div class="box box-default">
+            <div class="box-body">
+              <div class="row">
+                <div class="col-md-4">
+                      <div class="form-group">
+                          <label>Job Code</label>
+                          <select id="jobCode" name="jobCode" ng-model="rlc.jobCodeId" class="form-control" style="width: 100%;" ng-options="x.id as x.title for x in rlc.jobDetail track by x.id">
+                            <option value="">Select Job Code</option>
+                          </select>
+                      </div>
+                </div>
+                <div class="col-md-1" style="text-align: center;">
+                  <div class="form-group" >
+                    <br>
+                      <input type="button" value="Search" ng-click="rlc.searchCandidate(rlc.jobCodeId,-1)" class="btn btn-primary" style="margin-top:5px" />
+                  </div>
+                </div>
+                <div class="col-md-1 " style="text-align: center;">
+                  <div class="form-group" >
+                    <br>
+                    <button type="button" class="btn btn-block btn-primary fa fa-refresh" ng-click="rlc.searchCandidate($id = null, $page = -1)" style="margin-top:5px"></button>           
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>       
         
         <div>
             <table class="table table-condensed table-hover table-responsive">
@@ -29,6 +62,7 @@
                         <th>Email</th>                        
                         <th>Mobile No.</th>                        
                         <th>Total Experience</th>                        
+                        <th>Job Code</th>                        
                         <th>Uploaded Document</th>                        
                         <th style="text-align: center;">Action</th>
                     </tr>
@@ -41,16 +75,18 @@
                         <td ng-bind="data.email"></td>                        
                         <td ng-bind="data.mobile_no"></td>                        
                         <td ng-bind="rlc.setTotalExperience(data.total_experience)"></td>
+                        <td ng-bind="data.job_description.title"></td>                        
                         <td style="text-align: center">
                             <a type="button" class="btn" title="Download Resume" ng-click="rlc.downloadResumeDoc(data.id)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-download" aria-hidden="true"></i></a>
                         </td>
                         <td style="text-align: center;"> 
                             <a type="button" class="btn" title="Download PDF" ng-click="rlc.downloadResumePDF(data.id)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;color: red;" class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
                             <a ng-if="data.status=='Active'" href="/screening/test?candidate_id={{data.id}}&token={{data.unique_token}}" type="button" class="btn" title="Screening" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-file-o" aria-hidden="true"></i></a>
+                            <a ng-if="data.status=='Pass' || data.status=='Clear'" type="button" class="btn" title="Assign Interviewer" ng-click="rlc.openAssignInterviewerModal(data.id)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-cog" aria-hidden="true"></i></a>
                         </td>     
                     </tr>
                     <tr ng-if="rlc.resumeList == null || rlc.resumeList.length == 0">
-                        <td style="text-align: center;" colspan="6">No Records Found</td> 
+                        <td style="text-align: center;" colspan="8">No Records Found</td> 
                     </tr>
                 </tbody>
             </table>
@@ -60,66 +96,172 @@
         </div> 
     </div>
 
+    <div class="modal fade assignStatusModel" id="assignStatusModel" role="dialog">
+        <div class="modal-dialog modal-xs">
+            <div class="modal-content" style="border-radius: 0px!important;" >
+                <div class="modal-header" id="popUpModalHeader"> 
+                    <button type="button" class="close" data-dismiss="modal" ng-click="rlc.resetForm()" style="margin-right: 5px;">&times;</button>
+                    <h4 class="modal-title popUpModalTitle">Assign Interviewer</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="assignStatusForm">                            
+                            <div class="row">
+                                <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
+                                    <label class="" style="font-size: 14px"> Interviewer  </label>
+                                    <select id="interviewer" name="interviewer[]" class="form-control s2mn" ng-model="rlc.interviewer" data-placeholder="Select interviewer" ng-options="x.id as x.name for x in rlc.interviewerList" multiple="multiple" >
+                                        <option value="">Select Interviewer</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
+                                    <label class="" style="font-size: 14px"> Round  </label>
+                                    <select id="round" name="round" class="form-control" ng-model="round" data-placeholder="Select Round" ng-options="x.name as x.name for x in rlc.round">
+                                        <option value="">Select Round</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
+                                    <label class="" style="font-size: 14px"> Schedule date </label>
+                                    <input type="text" name="schedule_date" class="form-control" id="schedule_date" ng-model="scheduleDate" placeholder="Select Date">
+                                </div>
+                                <div class="col-md-6" style="margin-top: 1%;margin-bottom: 0px">
+                                        <label class="" style="font-size: 14px"> Time </label>
+                                    <div class="input-group bootstrap-timepicker timepicker">
+                                        <input type="text" name="schedule_time" class="form-control" id="schedule_time" ng-model="scheduleTime" placeholder="Select Time">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
+                                    <label class="" style="font-size: 14px"> Interview Type  </label>
+                                    <select id="interview_type" name="interview_type" class="form-control" ng-model="interviewType" data-placeholder="Select Type" ng-options="x.name as x.name for x in rlc.interviewType">
+                                        <option value="">Select Type</option>
+                                    </select>
+                                </div>
+                            </div>
+                    </form>
+                </div>
+                <div class="modal-footer" style="margin-top: 0px;"> 
+                    <button type="button" id="changeStatusBtn" class="btn btn-primary"  data-ng-click="rlc.assignedInterviewer();" >Save</button>
+                    <button type="reset" id="closeModal" class="btn btn-warning"  ng-click="rlc.resetForm()" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     
 </section>
+<script>
+    $("#assignStatusForm").validate({
+        errorElement: 'span', //default input error message container
+        errorClass: 'help-block help-block-error',
+        focusInvalid: true, // set focus the last invalid input
+        ignore: "", // validate all fields including form hidden input
+        errorPlacement: function (error, element) {
 
+            var type = $(element).attr("type");
+            console.log($(element).attr("id"));
+            if ($(element).attr("id") === "")
+            {
+                element.parent().append(error);
+
+            }
+            else if ($(element).attr("id") === "interviewer")
+            {
+                element.parent().append(error);
+
+            }else{
+                error.insertAfter(element);
+            }
+        },
+        rules: {
+            "interviewer[]": {
+                required: true
+            },
+            round: {
+                required: true
+            },
+            schedule_date: {
+                required: true
+            },
+            schedule_time: {
+                required: true
+            },
+            interview_type: {
+                required: true
+            }
+        },
+        messages: {
+            "interviewer[]": {
+                required: "Interviewer is required."
+            },
+            round: {
+                required: "Round is required."
+            },
+            schedule_date: {
+                required: "Date is required."
+            },
+            schedule_time: {
+                required: "Time is required."
+            },
+            interview_type: {
+                required: "Interview type is required."
+            }
+        },
+         highlight: function (element) { // hightlight error inputs
+            $(element)
+                .closest('.form-group').addClass('has-error');
+            $(element)
+                .next().children().children().attr('style', 'border-color:#dd4b39!important');
+            // set error class to the control group
+        },
+        unhighlight: function (element) { // revert the change done by hightlight
+            $(element)
+                .closest('.form-group').removeClass('has-error');
+            $(element)
+                .next().children().children().attr('style', 'border-color:'); // set error class to the control group
+        },
+        success: function (label) {
+            label
+                .closest('.form-group').removeClass('has-error'); // set success class to the control group
+        }
+    });
+
+    $(".s2mn").on("change", function () { $(this).valid(); });            
+</script>
 <script>
     $(document).ready(function () {
+        var date = new Date();
+        date.setDate(date.getDate());
+        $('#schedule_date').datepicker({
+            startDate: date,
+            autoclose: true
+        }).on('changeDate', function(selected){
+             $(this).valid();
+        });
+        $('#schedule_time').timepicker({
+            showInputs: false
+        });
+        $('#interviewer').select2();
+        $("#assignStatusModel").on('hidden.bs.modal',function(){
+            $(this).find('form').trigger('reset');
+        });
+        $(".s2mn").on("change", function () { $(this).valid(); });
         $("html, body").animate({scrollTop: 0}, "fast");
         $('.modal').on('hidden.bs.modal', function (e) {
-            console.log("Modal is closed");
+            //$("#assignStatusForm")[0].reset();
+            $("#interviewer").val([]).trigger("change");
+            // $('#schedule_time').timepicker();
+             $("div.form-group").each(function () {
+                $(this).removeClass('has-error');
+                $('span.help-block-error').remove();
+                applySelect2();
+            });
             $('header').css('z-index', '1053');
             $('footer').css('z-index', '1053');
         });
 
-        //For form validations
-        $("#changePasswordForm").validate({
-            errorElement: 'span', //default input error message container
-            errorClass: 'help-block help-block-error',
-            focusInvalid: true, // set focus the last invalid input
-            ignore: "", // validate all fields including form hidden input
-            rules: {
-                // oldPassword: {
-                //     required: true
-                // },
-                newPassword: {
-                    required: true,
-                    minlength:5
-                },
-                    repeatPassword: {
-                    required: true
-                }
-            },
-            messages: {
-                // oldPassword: {
-                //     required: "Old Password is required."
-                // },
-                newPassword: {
-                    required: "New Password is required.",
-                    minlength:"Minimum 5 characters are required"
-                },
-                repeatPassword: {
-                    required: "Repeat Password is required"
-                }
-            },
-            highlight: function (element) { // hightlight error inputs
-                $(element)
-                    .closest('.form-group').addClass('has-error');
-                $(element)
-                    .next().children().children().attr('style', 'border-color:#dd4b39!important');
-                // set error class to the control group
-            },
-            unhighlight: function (element) { // revert the change done by hightlight
-                $(element)
-                    .closest('.form-group').removeClass('has-error');
-                $(element)
-                    .next().children().children().attr('style', 'border-color:'); // set error class to the control group
-            },
-            success: function (label) {
-                label
-                    .closest('.form-group').removeClass('has-error'); // set success class to the control group
-            }
-        }); 
     }); 
 
     function setCSS(){

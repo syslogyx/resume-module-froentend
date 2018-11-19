@@ -785,3 +785,6 @@ textarea{
 /*th{
     text-align:center !important;
 }*/
+.bootstrap-timepicker-widget table td input{
+    width: 55px !important;
+}

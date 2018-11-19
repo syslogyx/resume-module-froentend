@@ -428,7 +428,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         // win.focus();
     };
 
-    this.getAllCandidates = function(request){
+    this.getAllCandidates = function(req,request){
         if(request == undefined){
             page = -1;
             limit = -1;
@@ -438,10 +438,12 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         }
         Utility.startAnimation();
         return $http({
-            method: 'GET',
-            url: RESOURCES.SERVER_API + "candidate_details?page=" + page + "&limit=" + limit,
+            method: 'POST',
+            // url: RESOURCES.SERVER_API + "candidate_details?page=" + page + "&limit=" + limit,
+            url: RESOURCES.SERVER_API + "candidate/filter?page=" + page + "&limit=" + limit,
             // url: RESOURCES.SERVER_API + "candidate_details",
             dataType: 'json',
+            data: $.param(req),
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
             }
@@ -638,6 +640,32 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         return $http({
             method: 'POST',
             url: RESOURCES.SERVER_API + "result/add",
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+                
+            }
+        })
+    };
+
+    this.getInterviewerList = function () {
+        Utility.startAnimation();
+        return $http({
+            method: 'GET',
+            url: RESOURCES.SERVER_API + "user/getUsersByInterviewerRoleId",
+            dataType: 'json',
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+    this.assignInterviewer = function(req){
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "assignInterviewer",
             dataType: 'json',
             data: $.param(req),
             headers: {

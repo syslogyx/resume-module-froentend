@@ -4,6 +4,8 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     rlc.pageno = 0;
     rlc.limit = 0;
     rlc.skip = true;
+    rlc.interviewerList='';
+    rlc.candidateId = null;
     menuService.setMenu([
             {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"deactive"},
             {"Title": "User Management", "Link": "user", "icon": "fa fa-user-plus", "active":"deactive"},
@@ -12,8 +14,35 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
             {"Title": "Screening Questions", "Link": "/questions", "icon": "fa fa-file-text", "active":"deactive"}
     ]);
 
-    // rlc.resumeList = [{id:1,name:"TEST 1"},{id:2,name:"TEST 2"},{id:3,name:"TEST 3"},{id:4,name:"TEST 4"}];   
+    rlc.round = [
+        {id:1,name:"Round 1"},
+        {id:2,name:"Round 2"}
+    ];   
+
+    rlc.interviewType = [
+        {id:1,name:"Telephone"},
+        {id:2,name:"Skype"},
+        {id:3,name:"Face-to-Face"}
+    ];
+
+    rlc.jobCodeId = null;
    
+    rlc.searchCandidate = function (id, page) {       
+        rlc.jobCodeId = id;
+        rlc.fetchAllCandidates(page);
+       
+    };
+
+    rlc.getActiveJd = function(){
+         var promise = services.getAllActiveJDList();
+        promise.success(function (result) {
+            Utility.stopAnimation();
+            rlc.jobDetail = result.data; 
+        }, function myError(r) {
+            toastr.error(r.data.message, 'Sorry!');
+            Utility.stopAnimation();
+        });
+    }
 
     /*Record limit for Candidates in pagination*/
     setTimeout(function(){
@@ -25,6 +54,8 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
 
     rlc.init = function(){
         rlc.fetchAllCandidates(-1);
+        rlc.getAllInterviewerList();
+        rlc.getActiveJd();
     }
 
 
@@ -62,12 +93,17 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         else{
             rlc.pageno = page;
         }
+
+        var req = {
+            'job_description_id':rlc.jobCodeId
+        }
+
         var requestParam = {
             page:rlc.pageno,
             limit:rlc.limit,
         }        
              
-        var promise = services.getAllCandidates(requestParam);        
+        var promise = services.getAllCandidates(req,requestParam);        
         promise.success(function (result) {
             if (result.data) {
                 Utility.stopAnimation();
@@ -78,9 +114,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
             toastr.error(r.data.message, 'Sorry!');
             Utility.stopAnimation();
         });
-    }
-
-    
+    }    
 
     rlc.setTotalExperience = function(exp){
         if(exp % 1 !== 0){
@@ -99,6 +133,67 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         var promise = services.downloadResume(id);
     }
 
+    rlc.getAllInterviewerList = function(){        
+        var promise = services.getInterviewerList();        
+        promise.success(function (result) {
+                // console.log(result);
+            if (result.data) {
+                rlc.interviewerList = result.data; 
+                // console.log(rlc.interviewerList);
+                Utility.stopAnimation();                
+            }    
+        }, function myError(r) {
+            toastr.error(r.data.message, 'Sorry!');
+            Utility.stopAnimation();
+        });
+    }    
+
+    rlc.openAssignInterviewerModal =function($candidateId){
+        rlc.candidateId = $candidateId;
+        $scope.scheduleTime = '';
+        $('#assignStatusModel').modal('show');
+    }
+
+    rlc.assignedInterviewer = function(){
+        // console.log(rlc.interviewer);
+        // console.log(rlc.candidateId);
+        if ($("#assignStatusForm").valid()) {
+            var req = {
+                "candidate_id":rlc.candidateId,
+                "technical_round":$scope.round,
+                "mode_of_interview":$scope.interviewType,
+                "schedule_date":$scope.scheduleDate.split("/").reverse().join("-"),
+                "schedule_time":$scope.scheduleTime,
+                "users_list":rlc.interviewer
+            };
+            var promise = services.assignInterviewer(req);
+            promise.then(function mySuccess(response) {
+                Utility.stopAnimation();
+                try {
+                    $('#assignStatusModel').modal('hide');
+                    toastr.success(response.data.message);
+                    rlc.init();
+                } catch (e) {
+                    toastr.error("User not saved successfully.");
+                    Raven.captureException(e)
+                }
+            }, function myError(r) { 
+                toastr.error(r.data.message);
+                Utility.stopAnimation();
+            });
+        }
+    }
+
+    rlc.resetForm = function(){
+        $("#assignStatusForm")[0].reset();
+        rlc.interviewerList = '';
+        rlc.getAllInterviewerList();
+        $("div.form-group").each(function () {
+            $(this).removeClass('has-error');
+            $('span.help-block-error').remove();
+            applySelect2();
+        });
+    }
 
     rlc.init();
 
