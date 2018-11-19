@@ -675,6 +675,27 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
+    this.getScheduledInterviewList = function(req,request){
+        if(request == undefined){
+            page = -1;
+            limit = -1;
+        }else{
+            page = request.page;
+            limit = request.limit;
+        }
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            // url: RESOURCES.SERVER_API + "candidate_details?page=" + page + "&limit=" + limit,
+            url: RESOURCES.SERVER_API + "interview/filter?page=" + page + "&limit=" + limit,
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
 });
 
 app.config(function ($routeProvider, $locationProvider) {
@@ -965,6 +986,24 @@ app.config(function ($routeProvider, $locationProvider) {
                 }
             })
            
+            .when('/interview_list', {
+                templateUrl: 'views/interview/interview_list.html',
+                controller: 'interviewListCtrl',
+                controllerAs: 'ilc',
+                resolve: {
+                    'acl': ['$q', 'AclService', function ($q, AclService) {
+                            return true;
+                            //console.log(AclService.getRoles());
+                            if (AclService.can('view_dash')) {
+                                // Has proper permissions
+                                return true;
+                            } else {
+                                // Does not have permission
+                                return $q.reject('LoginRequired');
+                            }
+                        }]
+                }
+            }) 
 
     $locationProvider.html5Mode(true);
 });

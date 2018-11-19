@@ -281,6 +281,7 @@
         <script src="/controller/jobCtrl.js"></script>
         <script src="/controller/screeningCtrl.js"></script>
         <script src="/controller/screeningTestCtrl.js"></script>
+        <script src="/controller/interviewListCtrl.js"></script>
 
 
          <script >
