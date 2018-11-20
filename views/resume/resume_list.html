@@ -63,7 +63,9 @@
                         <th>Mobile No.</th>                        
                         <th>Total Experience</th>                        
                         <th>Job Code</th>                        
-                        <th>Uploaded Document</th>                        
+                        <th style="text-align: center;">Uploaded Docs</th>                        
+                        <th style="text-align: center;">CV with contact</th>
+                        <th style="text-align: center;">CV w/o contact</th>
                         <th style="text-align: center;">Action</th>
                     </tr>
                 </thead>
@@ -81,12 +83,17 @@
                         </td>
                         <td style="text-align: center;"> 
                             <a type="button" class="btn" title="Download PDF" ng-click="rlc.downloadResumePDF(data.id)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;color: red;" class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
+                        </td>
+                        <td style="text-align: center;"> 
+                            <a type="button" class="btn" title="Download PDF" ng-click="rlc.downloadResumePDFWithoutContact(data.id)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;color: red;" class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
+                        </td> 
+                        <td style="text-align: center;">
                             <a ng-if="data.status=='Active'" href="/screening/test?candidate_id={{data.id}}&token={{data.unique_token}}" type="button" class="btn" title="Screening" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-file-o" aria-hidden="true"></i></a>
                             <a ng-if="data.status=='Pass' || data.status=='Clear'" type="button" class="btn" title="Assign Interviewer" ng-click="rlc.openAssignInterviewerModal(data.id)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-cog" aria-hidden="true"></i></a>
                         </td>     
                     </tr>
                     <tr ng-if="rlc.resumeList == null || rlc.resumeList.length == 0">
-                        <td style="text-align: center;" colspan="8">No Records Found</td> 
+                        <td style="text-align: center;" colspan="10">No Records Found</td> 
                     </tr>
                 </tbody>
             </table>

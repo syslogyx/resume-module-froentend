@@ -12,8 +12,8 @@ app.controller('screeningCtrl', function ($scope, $rootScope, $http, services, $
         {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"deactive"},
         {"Title": "User Management", "Link": "user", "icon": "fa fa-user-plus", "active":"deactive"},
         {"Title": "Resume Management", "Link": "/resume_list", "icon": "fa fa-file-text", "active":"deactive"},
-        {"Title": "JD Management", "Link": "/jobs", "icon": "fa fa-graduation-cap", "active":"deactive"},
-        {"Title": "Screening Questions", "Link": "/questions", "icon": "fa fa-file-text", "active":"active"},
+        {"Title": "JD Management", "Link": "/jobs", "icon": "fa fa-tasks", "active":"deactive"},
+        {"Title": "Screening Questions", "Link": "/questions", "icon": "fa fa-list", "active":"active"},
         {"Title": "Scheduled interview", "Link": "/interview_list", "icon": "fa fa-calendar", "active":"deactive"}
     ]);
 

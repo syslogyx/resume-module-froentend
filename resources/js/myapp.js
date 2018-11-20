@@ -421,6 +421,13 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         // win.focus();
     };
 
+    this.downloadResumePDFWithoutContact = function (id) {
+        // var win =
+        window.open(RESOURCES.SERVER_API +'generate_pdf_without_contact/'+id);
+        // win.setTimeout(function(){this.close();},1500)
+        // win.focus();
+    };
+
     this.downloadResume = function (id) {
         // var win =
         window.open(RESOURCES.SERVER_API +'download/'+id);
