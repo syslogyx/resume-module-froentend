@@ -6,7 +6,7 @@
             <div class="col-md-6">
                 <h4>Scheduled Interviews</h4>
             </div>
-            <div class="col-md-6" style="margin-top:1.5%;">
+            <div class="col-md-4" style="margin-top:1.5%;">
                 <div class="dataTables_length text-right" id="example_length">
                     <label>Show 
                         <select id="table_length" aria-controls="example" style="outline: 0;">
@@ -19,14 +19,13 @@
                     entries</label>
                 </div>
             </div>
-            <!-- <div class="col-md-2 pull-right" style="margin-top:1%;">
-                <button type="button" class="btn btn-primary btn-circle btn-sm pull-right"  title="Add New Job " data-target="" data-ng-click="jb.addNewJob()" style="outline: 0;background-color:#428bca;border-color:#357ebd;"><i class="fa fa-plus" aria-hidden="true" style="padding-right:0.3px"></i>
-                </button>
-            </div>  -->           
+            <div class="col-md-2 pull-right" style="margin-top:1%;">
+                <button type="button" class="btn btn-primary btn-circle btn-sm pull-right" data-toggle="collapse" title="Filter" data-target="#filter"><i class="fa fa-filter" aria-hidden="true" style="padding-right:0.3px"></i></button>
+            </div>            
         </div> 
         <br>        
 
-        <div class="box box-default">
+        <div class="box box-primary collapse" id="filter">
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-4">
@@ -64,6 +63,7 @@
                         <th>Candidate Name</th>
                         <th>Scheduled Date</th>                        
                         <th>Scheduled Time</th>           
+                        <th>Round</th>           
                         <th style="text-align: center;">Action</th>
                     </tr>
                 </thead>
@@ -75,8 +75,9 @@
                         <td>{{data.candidates.name}}</td>
                         <td>{{data.schedule_date | date: 'dd-MM-yyyy'}}</td>
                         <td>{{ilc.tConvert(data.schedule_time)}}</td>
+                        <td>{{data.technical_round}}</td>
                         <td style="text-align: center">
-                            <a ng-if="data.candidates.status=='Schedule'" type="button" class="btn" title="Feedback" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-comments" aria-hidden="true"></i></a>
+                            <a ng-href="/interview_feedback?cId={{data.candidate_id}}&uId={{data.user_id}}&round={{data.technical_round}}" ng-if="data.candidates.status=='Schedule'" type="button" class="btn" title="Feedback" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-comments" aria-hidden="true"></i></a>
                         </td>
                     </tr>
                     <tr ng-if="ilc.interviewList == null || ilc.interviewList.length == 0">

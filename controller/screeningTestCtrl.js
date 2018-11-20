@@ -1,9 +1,9 @@
-app.controller('screeningTestCtrl', function ($scope, $rootScope, $http, services, $location, menuService, $cookieStore,pagination) {
+app.controller('screeningTestCtrl', function ($scope, $rootScope, $http, services, $location, menuService, $cookieStore,pagination,RESOURCES) {
 
     var st = this;  
 
     st.id = null;
-    st.title = 'Add New Question';  
+    st.candidateName = $location.search()["name"]; 
     st.pageno = -1;
     st.limit = -1;
     st.questionList ='';
@@ -17,14 +17,8 @@ app.controller('screeningTestCtrl', function ($scope, $rootScope, $http, service
         {"Title": "Scheduled interview", "Link": "/interview_list", "icon": "fa fa-calendar", "active":"deactive"}
     ]);
 
-    st.options = [
-        {'id':2,'name':'No'},
-        {'id':1,'name':'Yes'}
-    ];
-    st.statusData = [
-            {'id':2,'name':'Fail'},
-            {'id':1,'name':'Pass'}
-    ];
+    st.options = RESOURCES.ANSWER_OPTIONS;
+    st.statusData = RESOURCES.RESULT_STATUS;
 
     st.getScreeningQuestion = function(){        
         var requestParam = {
@@ -62,43 +56,45 @@ app.controller('screeningTestCtrl', function ($scope, $rootScope, $http, service
         $('#statusConfirmationModel').modal('show');
     }
 
-    st.submitResult = function(){       
-    
-        $data = st.questionList;
-        st.candidateId = $location.search()["candidate_id"];
-        st.refereralToken = $location.search()["token"];
-        
-        var request = {
-            "result_data":[]
-        };
-        for (var i = 0; i < $data.length; i++) {
-            var obj= {
-                "candidate_id": st.candidateId,
-                "refereral_token":st.refereralToken,
-                "status": st.status,
-                "question_id": $data[i].id,
-                "answer": $data[i].option,
-                // "remark":  $data[i].remark == undefined ? '':$data[i].remark
-                "remark":  $data[i].remark
+    st.submitResult = function(){  
+        if($("#changeStatusForm").valid()){            
+            $data = st.questionList;
+            st.candidateId = $location.search()["candidate_id"];
+            st.refereralToken = $location.search()["token"];
+            
+            var request = {
+                "result_data":[]
+            };
+            for (var i = 0; i < $data.length; i++) {
+                var obj= {
+                    "candidate_id": st.candidateId,
+                    "refereral_token":st.refereralToken,
+                    "status": st.status,
+                    "question_id": $data[i].id,
+                    "answer": $data[i].option,
+                    // "remark":  $data[i].remark == undefined ? '':$data[i].remark
+                    "remark":  $data[i].remark
+                }
+                request.result_data.push(obj);
             }
-            request.result_data.push(obj);
+            console.log(request);
+            var promise = services.saveResult(request);
+            promise.then(function mySuccess(response) {
+                try {
+                    // $location.path('/resume_list');
+                    window.location = '/resume_list';
+                    toastr.success(response.data.message);
+                } catch (e) {
+                    toastr.error(response.data.message, 'Sorry!');
+                    Raven.captureException(e)
+                }
+                $('#statusConfirmationModel').modal('hide');
+                Utility.stopAnimation();
+            }, function myError(r) {
+                toastr.error('Something went wrong');
+                Utility.stopAnimation();
+            });
         }
-        console.log(request);
-        var promise = services.saveResult(request);
-        promise.then(function mySuccess(response) {
-            try {
-                toastr.success(response.data.message);
-                 $location.path('/resume_list');
-            } catch (e) {
-                toastr.error(response.data.message, 'Sorry!');
-                Raven.captureException(e)
-            }
-            $('#statusConfirmationModel').modal('hide');
-            Utility.stopAnimation();
-        }, function myError(r) {
-            toastr.error('Something went wrong');
-            Utility.stopAnimation();
-        });
     }
 
     st.cancelTest= function() {

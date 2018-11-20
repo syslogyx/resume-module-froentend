@@ -15,16 +15,9 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
             {"Title": "Scheduled interview", "Link": "/interview_list", "icon": "fa fa-calendar", "active":"deactive"}
     ]);
 
-    rlc.round = [
-        {id:1,name:"Round 1"},
-        {id:2,name:"Round 2"}
-    ];   
+    rlc.round = RESOURCES.TECHNICAL_ROUND;   
 
-    rlc.interviewType = [
-        {id:1,name:"Telephone"},
-        {id:2,name:"Skype"},
-        {id:3,name:"Face-to-Face"}
-    ];
+    rlc.interviewType = RESOURCES.INTERVIEW_TYPE;
 
     rlc.jobCodeId = null;
    

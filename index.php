@@ -16,8 +16,6 @@
         <link rel="stylesheet" href="/resources/lib/font-awesome-4.5.0/css/font-awesome.min.css">
         <!-- Ionicons -->
         <link rel="stylesheet" href="/resources/lib/ionicons-2.0.1/css/ionicons.min.css">
-
-        <link rel="stylesheet" href="/resources/lib/sweetalert2-6.6.0/sweetalert2.min.css">
         <!--iCheck -->
         <link rel="stylesheet" href="/resources/plugins/iCheck/square/blue.css">
 
@@ -45,13 +43,11 @@
         <link rel="stylesheet" type="text/css" href="/resources/plugins/timepicker/bootstrap-timepicker.min.css" />
         <!-- Select2 -->
         <link rel="stylesheet" href="/resources/plugins/select2/select2.min.css">
-
         <!-- Custom common style -->
         <link rel="stylesheet" type="text/css" href="/resources/css/commonStyle.css"/> 
+        <link rel="stylesheet" href="/resources/plugins/sweetalert2-6.6.0/sweetalert2.min.css">
 
-        <link rel="stylesheet" type="text/css" href="/resources/css/sweetalert-master/dist/sweetalert.css">
-
-        <script src="/resources/js/sweetalert-master/dist/sweetalert.min.js"></script>
+        
         <!-- Material design icons -->
         <link rel="stylesheet" type="text/css" href="/resources/node_modules/mdi/css/materialdesignicons.min.css">
 
@@ -251,6 +247,7 @@
         <script src="/resources/plugins/select2/select2.full.min.js"></script>
         <script src="https://cdn.ravenjs.com/3.17.0/raven.min.js" crossorigin="anonymous"></script>
         <!-- AdminLTE App -->
+        <script src="/resources/plugins/sweetalert2-6.6.0/sweetalert2.min.js"></script>
         <script src="/resources/js/app.min.js"></script>
         <script src="/resources/js/adminlte.min.js"></script>
         <script type="text/javascript" src="/resources/lib/ckeditor-new/ckeditor.js"></script>
@@ -282,6 +279,7 @@
         <script src="/controller/screeningCtrl.js"></script>
         <script src="/controller/screeningTestCtrl.js"></script>
         <script src="/controller/interviewListCtrl.js"></script>
+        <script src="/controller/resultCtrl.js"></script>
 
 
          <script >

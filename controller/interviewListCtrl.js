@@ -8,6 +8,7 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
     ilc.skip = true;
     ilc.interviewerList='';
     ilc.userId = null;
+    ilc.candidateId = null;
 
     menuService.setMenu([
         {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"deactive"},
@@ -85,7 +86,8 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
         promise.success(function (result) {
             if (result.data) {
                 Utility.stopAnimation();
-                ilc.interviewList = result.data.data; 
+                ilc.interviewList = result.data.data;
+                // ilc.checkForCandidate();
                 ilc.applyPagination(result.data);
             }    
         }, function myError(r) {
@@ -93,6 +95,35 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
             Utility.stopAnimation();
         });
     }  
+
+
+    // ilc.checkForCandidate = function(){
+    //     console.log(ilc.interviewList.length);
+    //     for (var i = 0; i < ilc.interviewList.length; i++) {
+    //                 // Things[i]
+    //         ilc.candidateId = ilc.interviewList[i].candidate_id;
+    //         var req = {
+    //             'candidate_id':ilc.candidateId
+    //         }
+    //         var requestParam = {
+    //             page:ilc.pageno,
+    //             limit:ilc.limit,
+    //         }  
+
+    //         var promise = services.getScheduledInterviewList(req,requestParam);        
+    //         promise.success(function (result) {
+    //             if (result.data) {
+    //                 Utility.stopAnimation();
+    //                 ilc.interviewList = result.data.data;
+    //                 ilc.applyPagination(result.data);
+    //             }    
+    //         }, function myError(r) {
+    //             toastr.error(r.data.message, 'Sorry!');
+    //             Utility.stopAnimation();
+    //         });
+            
+    //     }
+    // }
 
 
     ilc.getAllInterviewerList = function(){        

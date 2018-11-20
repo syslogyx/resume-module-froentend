@@ -6,7 +6,7 @@
             <div class="row boxhead box-header with-border boxhead">
                 <div class="col-md-6">
                     <h1 class="formheading">
-                           <b>Basic Screening</b>
+                           <b>Basic Screening of {{st.candidateName}}</b>
                     </h1>
                 </div> 
                 <div class="col-md-6">
@@ -61,20 +61,18 @@
                 </div>
                 <div class="modal-body">
                     <form id="changeStatusForm">
-                        <div class="form-group">
-                            <!-- <div class="row">
-                                <div class="col-md-12" style="margin-top: 1%;">
-                                    <span>Do you want to change job status?</span>
-                                </div>
+                        <!-- <div class="row">
+                            <div class="col-md-12" style="margin-top: 1%;">
+                                <span>Do you want to change job status?</span>
                             </div>
-                            <br> -->
-                            <div class="row">
-                                <div class="col-md-12" style="margin-top: 1%;">
-                                   <!--  <label class="" style="font-size: 14px">Status </label> -->
-                                    <select ng-init="st.status = st.statusData[0].name" id="changeStatus" name="changeStatus" class="form-control" placeholder="Enter status" ng-model="st.status" ng-options="x.name as x.name for x in st.statusData" >
-                                        <!-- <option value="" style="color:#ccc !important;">Select status</option> -->
-                                    </select>
-                                </div>
+                        </div>
+                        <br> -->
+                        <div class="row">
+                            <div class="col-md-12 form-group" style="margin-top: 1%;">
+                               <!--  <label class="" style="font-size: 14px">Status </label> ng-init="st.status = st.statusData[0].name" -->
+                                <select  id="changeStatus" name="changeStatus" class="form-control" placeholder="Enter status" ng-model="st.status" ng-options="x.name as x.name for x in st.statusData" >
+                                    <option value="" style="color:#ccc !important;">Select status</option>
+                                </select>
                             </div>
                         </div>
                     </form>
@@ -87,3 +85,49 @@
         </div>
     </div>
 </section>
+<script type="text/javascript">
+    $("#changeStatusForm").validate({
+        errorElement: 'span', //default input error message container
+        errorClass: 'help-block help-block-error',
+        errorPlacement: function (error, element) {
+
+            var type = $(element).attr("type");
+            if ($(element).attr("id") === "")
+            {
+                element.parent().append(error);
+
+            }
+            else{
+                error.insertAfter(element);
+            }
+        },
+        rules: {
+            changeStatus: {
+                required: true
+            },                    
+            
+        },
+        messages: {
+            stream: {
+                required: "Status is required."
+            },
+           
+        },
+        highlight: function (element) { // hightlight error inputs
+            $(element).closest('.form-group').addClass('has-error');
+
+            $(element).next().children().children().attr('style', 'border-color:#dd4b39!important');
+            // set error class to the control group
+        },
+        unhighlight: function (element) { // revert the change done by hightlight
+            $(element)
+                    .closest('.form-group').removeClass('has-error');
+            $(element)
+                    .next().children().children().attr('style', 'border-color:'); // set error class to the control group
+        },
+        success: function (label) {
+            label
+                    .closest('.form-group').removeClass('has-error'); // set success class to the control group
+        }
+    });
+</script>

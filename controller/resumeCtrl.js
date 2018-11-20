@@ -34,39 +34,11 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
     }
 
     //Array for experience in months drop down options.
-    $scope.experienceMonths = [
-        {id: 0, name: "0"},
-        {id: 1, name: "1"},
-        {id: 2, name: "2"},
-        {id: 3, name: "3"},
-        {id: 4, name: "4"},
-        {id: 5, name: "5"},
-        {id: 6, name: "6"},
-        {id: 7, name: "7"},
-        {id: 8, name: "8"},
-        {id: 9, name: "9"},
-        {id: 10, name: "10"},
-        {id: 11, name: "11"}
-    ];
+    $scope.experienceMonths = RESOURCES.MONTHS;
+    console.log($scope.experienceMonths);
     //Array for experience in years drop down options.
-    $scope.experienceYears = [
-        {id: 0, name: "0"},
-        {id: 1, name: "1"},
-        {id: 2, name: "2"},
-        {id: 3, name: "3"},
-        {id: 4, name: "4"},
-        {id: 5, name: "5"},
-        {id: 6, name: "6"},
-        {id: 7, name: "7"},
-        {id: 8, name: "8"},
-        {id: 9, name: "9"},
-        {id: 10, name: "10"},
-        {id: 11, name: "11"},
-        {id: 12, name: "12"},
-        {id: 13, name: "13"},
-        {id: 14, name: "14"},
-        {id: 15, name: "15"}
-    ];
+    $scope.experienceYears = RESOURCES.YEARS;
+    console.log($scope.experienceYears);
 
     $scope.totalYearIndustryExperiance = $scope.experienceYears[0].id;
     $scope.totalMonthIndustryExperiance = $scope.experienceMonths[0].id;

@@ -1,4 +1,4 @@
-app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $location, menuService, $cookieStore,pagination,) {
+app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $location, menuService, $cookieStore,pagination,RESOURCES) {
 
     var jb = this;
 
@@ -18,10 +18,7 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
     ];
     jb.jobType ="Permanent-full time";
 
-    jb.jobStatusData =[
-        {id:0, name: "Active"},
-        {id: 1, name: "Inactive"}
-    ];
+    jb.jobStatusData = RESOURCES.JOB_STATUS;
    // jb.changeStatus = 0;
    // jb.changeStatus = jb.jobStatusData[0].id;
 
@@ -205,57 +202,39 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
 
     jb.changeJobStatus = function(status,id){
         // console.log(status);
-        // console.log(id);       
-
-        var req = {
-            "id":id,
-            "status": status == true ? 1:0
-        };
-
-        // console.log(req);
-        // swal({
-        //     title: "Sure?",
-        //     text: "Are you sure you want to change job status?",
-        //     type: "warning",
-        //     showCancelButton: true,
-        //     confirmButtonColor: '#3085d6',
-        //     cancelButtonColor: '#d33',
-        //     cancelButtonText: "No",
-        //     confirmButtonText: "Yes",
-        //     customClass: 'animated tada',
-        // }).then(function () {
-        // $.confirm({
-        //     title: 'Confirm Transfer',
-        //     content: 'Are you sure you want to change job status?',
-        //     type: 'red',
-        //     buttons: {
-        //         confirm: {
-        //         btnClass: 'btn-danger',
-        //         action: function(){
-                   // $scope.$apply(function(){
-                        var promise = services.updateJobStatus(req);
-                        promise.then(function mySuccess(response) {
-                            //console.log(response.data.status_code);
-                            if(response.data.status_code == 200){
-                                toastr.success(response.data.message);
-                            }else{
-                                toastr.error(response.data.message, 'Sorry!');
-                            }
-                            jb.init();
-                            Utility.stopAnimation();
-                        }, function myError(r) {
-                            toastr.error(r.data.message, 'Sorry!');
-                            Utility.stopAnimation();
-                        });
-                   // });
-        //         }
-        //       },
-        //       cancel: function () {
-        //       },
-        //     }
-        // });
-
-    // });
+        // console.log(id); 
+        swal({
+            title: "Sure?",
+            text: "Are you sure you want to change job status?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "No",
+            confirmButtonText: "Yes",
+        }).then(function () {
+            var req = {
+                "id":id,
+                "status": status == true ? 1:0
+            };
+            console.log(req);
+            var promise = services.updateJobStatus(req);
+            promise.then(function mySuccess(response) {
+                //console.log(response.data.status_code);
+                if(response.data.status_code == 200){
+                    toastr.success(response.data.message);
+                }else{
+                    toastr.error(response.data.message, 'Sorry!');
+                }
+                jb.fetchList(-1);
+                Utility.stopAnimation();
+            }, function myError(r) {
+                toastr.error(r.data.message, 'Sorry!');
+                Utility.stopAnimation();
+            });            
+        }, function (dismiss) {
+            jb.fetchList(-1);
+        });
     }
 
     jb.init();

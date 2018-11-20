@@ -125,9 +125,7 @@ app.factory("sidebarFactory", ["$rootScope", function ($rootScope) {
 
 
 app.constant('RESOURCES', (function () {
-    // Use the variable in your constants
-
-    
+    // Use the variable in your constants    
     return {
         TOKEN: "null",
        
@@ -135,8 +133,74 @@ app.constant('RESOURCES', (function () {
         SERVER_API: Utility.apiBaseUrl,
         CONTENT_TYPE: 'application/x-www-form-urlencoded; charset=UTF-8',
         COMPANY_NAME: 'Syslogyx Technologies Pvt. Ltd.',
-        COMPANY_ID: 3
-//        CONTENT_TYPE: 'application/json; charset=UTF-8'
+        COMPANY_ID: 3,
+
+        // defined job status constants
+        JOB_STATUS: [
+            {id:0, name: "Active"},
+            {id: 1, name: "Inactive"}
+        ],
+        // defined Month constants
+        MONTHS: [
+            {id: 0, name: "0"},
+            {id: 1, name: "1"},
+            {id: 2, name: "2"},
+            {id: 3, name: "3"},
+            {id: 4, name: "4"},
+            {id: 5, name: "5"},
+            {id: 6, name: "6"},
+            {id: 7, name: "7"},
+            {id: 8, name: "8"},
+            {id: 9, name: "9"},
+            {id: 10, name: "10"},
+            {id: 11, name: "11"}
+        ],
+        // defined Year constants
+        YEARS: [
+            {id: 0, name: "0"},
+            {id: 1, name: "1"},
+            {id: 2, name: "2"},
+            {id: 3, name: "3"},
+            {id: 4, name: "4"},
+            {id: 5, name: "5"},
+            {id: 6, name: "6"},
+            {id: 7, name: "7"},
+            {id: 8, name: "8"},
+            {id: 9, name: "9"},
+            {id: 10, name: "10"},
+            {id: 11, name: "11"},
+            {id: 12, name: "12"},
+            {id: 13, name: "13"},
+            {id: 14, name: "14"},
+            {id: 15, name: "15"}
+        ],
+
+        // defined Technical round constants
+        TECHNICAL_ROUND: [
+            {id:1,name:"Round 1"},
+            {id:2,name:"Round 2"}
+        ],
+
+        // defined Interview type constants
+        INTERVIEW_TYPE: [
+            {id:1,name:"Telephone"},
+            {id:2,name:"Skype"},
+            {id:3,name:"Face-to-Face"}
+        ],
+
+        // defined Answer type constants
+        ANSWER_OPTIONS:[
+            {'id':2,'name':'No'},
+            {'id':1,'name':'Yes'}
+        ],
+
+        // defined result status constants
+        RESULT_STATUS: [
+            {'id':2,'name':'Fail'},
+            {'id':1,'name':'Pass'}
+        ]
+
+        //CONTENT_TYPE: 'application/json; charset=UTF-8'
     }
 })());
 
@@ -703,6 +767,21 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
+    this.saveTechnicalRoundFeedback = function (req) {
+        // console.log(req);
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "tech_feedback/add",
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+                
+            }
+        })
+    };
+
 });
 
 app.config(function ($routeProvider, $locationProvider) {
@@ -997,6 +1076,25 @@ app.config(function ($routeProvider, $locationProvider) {
                 templateUrl: 'views/interview/interview_list.html',
                 controller: 'interviewListCtrl',
                 controllerAs: 'ilc',
+                resolve: {
+                    'acl': ['$q', 'AclService', function ($q, AclService) {
+                            return true;
+                            //console.log(AclService.getRoles());
+                            if (AclService.can('view_dash')) {
+                                // Has proper permissions
+                                return true;
+                            } else {
+                                // Does not have permission
+                                return $q.reject('LoginRequired');
+                            }
+                        }]
+                }
+            }) 
+
+            .when('/interview_feedback', {
+                templateUrl: 'views/result/technical_interview_result.html',
+                controller: 'resultCtrl',
+                controllerAs: 'res',
                 resolve: {
                     'acl': ['$q', 'AclService', function ($q, AclService) {
                             return true;
