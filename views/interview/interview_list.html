@@ -19,23 +19,22 @@
                     entries</label>
                 </div>
             </div>
-            <div class="col-md-2 pull-right" style="margin-top:1%;">
+            <div class="col-md-2 pull-right" style="margin-top:1%;" ng-if="ilc.logInUserRole == '1'">
                 <button type="button" class="btn btn-primary btn-circle btn-sm pull-right" data-toggle="collapse" title="Filter" data-target="#filter"><i class="fa fa-filter" aria-hidden="true" style="padding-right:0.3px"></i></button>
             </div>            
         </div> 
         <br>        
 
-        <div class="box box-primary collapse" id="filter">
+        <div class="box box-primary collapse" id="filter" ng-if="ilc.logInUserRole == '1'">
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-4">
-
-                          <div class="form-group">
-                              <label>Interviewer</label>
-                              <select id="jobCode" name="jobCode" ng-model="ilc.userId" class="form-control" style="width: 100%;"  ng-options="x.id as x.name for x in ilc.interviewerList">
-                                <option value="">Select Interviwer</option>
-                              </select>
-                          </div>
+                        <div class="form-group">
+                          <label>Interviewer</label>
+                          <select id="jobCode" name="jobCode" ng-model="ilc.userId" class="form-control" style="width: 100%;"  ng-options="x.id as x.name for x in ilc.interviewerList">
+                            <option value="">Select Interviwer</option>
+                          </select>
+                        </div>
                     </div>
                     <div class="col-md-1" style="text-align: center;">
                       <div class="form-group" >
@@ -46,7 +45,7 @@
                     <div class="col-md-1 " style="text-align: center;">
                       <div class="form-group" >
                         <br>
-                        <button type="button" class="btn btn-block btn-primary fa fa-refresh" ng-click="ilc.search($id = null, $page = -1)" style="margin-top:5px"></button>           
+                        <button type="button" class="btn btn-block btn-primary fa fa-refresh" ng-click="ilc.search($id = '', $page = -1)" style="margin-top:5px"></button>           
 
                       </div>
                     </div>
@@ -77,7 +76,7 @@
                         <td>{{ilc.tConvert(data.schedule_time)}}</td>
                         <td>{{data.technical_round}}</td>
                         <td style="text-align: center">
-                            <a ng-href="/interview_feedback?cId={{data.candidate_id}}&uId={{data.user_id}}&round={{data.technical_round}}" ng-if="data.candidates.status=='Schedule'" type="button" class="btn" title="Feedback" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-comments" aria-hidden="true"></i></a>
+                            <a  ng-href="/interview_feedback?cId={{data.candidate_id}}&uId={{data.user_id}}&round={{data.technical_round}}" ng-if="data.candidates.candidate_technical_result[0].status != 'Pass' && data.candidates.candidate_technical_result[0].status != 'Fail'" type="button" class="btn" title="Feedback" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-comments" aria-hidden="true"></i></a>
                         </td>
                     </tr>
                     <tr ng-if="ilc.interviewList == null || ilc.interviewList.length == 0">

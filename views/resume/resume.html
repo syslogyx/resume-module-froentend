@@ -1,18 +1,18 @@
 <style>
     label.mandatory:after {
-            content: ' *';
-            color: #FB3A3A;
-            display: inline;
-            margin-bottom: 0px;
-            font-size: medium;
+        content: ' *';
+        color: #FB3A3A;
+        display: inline;
+        margin-bottom: 0px;
+        font-size: medium;
     }
 
     .moving-tab {
-           display:none;
+        display:none;
     }
 
     .nav-pills>.active {
-               background-color: #FF9500;
+        background-color: #FF9500;
     }
 
     .sectionHeading{
@@ -27,695 +27,671 @@
     .main-footer,.menuSec{
         display: none;
     }
-.content {
-    margin-top:0;
-}
-body{
-    font-size: 14px !important;
-}
+    .content {
+        margin-top:0;
+    }
+    body{
+        font-size: 14px !important;
+    }
 
 </style>
 <!--     Fonts and icons     -->
-<link href="/resources/lib/font-awesome-4.5.0/css/font-awesome.css" rel="stylesheet">
+<link href="/resources/lib/font-awesome-4.5.0/css/font-awesome.css" rel="stylesheet" />
 
 <!-- CSS Files -->
 <link href="/resources/plugins/bootstrap-wizard-master/assets/css/bootstrap.min.css" rel="stylesheet" />
+
 <link href="/resources/plugins/bootstrap-wizard-master/assets/css/gsdk-bootstrap-wizard.css" rel="stylesheet" />
-<link rel="stylesheet" href="/resources/plugins/datepicker/datepicker3.css">
+
+<link rel="stylesheet" href="/resources/plugins/datepicker/datepicker3.css"/>
+
 <!-- CSS Just for demo purpose, don't include it in your project -->
 <link href="/resources/plugins/bootstrap-wizard-master/assets/css/demo.css" rel="stylesheet" />
-<link rel="stylesheet" type="text/css" href="/resources/css/sweetalert-master/dist/sweetalert.css">
 
 <section class="content" ng-cloak style="padding:0px" ng-controller="resumeCtrl" id="resumeCtrl">
-
-    <div id="back_image" class="image-container set-full-height" style="background-image:url({{backCurrentImg}})">
-
+<div id="back_image" class="image-container set-full-height" style="background-image:url({{backCurrentImg}})">
     <!--   Big container   -->
     <div class="container">
         <div class="row">
-        <div class="col-sm-10 col-sm-offset-1">
+            <div class="col-sm-10 col-sm-offset-1">
+                <!-- Wizard container  -->
+                <div class="wizard-container">
 
-            <!--      Wizard container        -->
-            <div class="wizard-container">
-
-                <div class="card wizard-card" data-color="orange" id="wizardProfile">
-                    <form action="" method="" id="resumeForm">
-                        <div class="wizard-header">
-                            <div class='row'>
-                                <div class='col-sm-12'>
-                                    <div class='col-md-4' style="padding-left:3%;padding-top:1%">
-                                        <img id="syslogo" src="resources/img/SyslogyxLogo.png" alt="" width=95% height=40%/>
-                                    </div>
-                                    <div class='col-md-8'>
-                                        <h3>
-                                           <b>BUILD</b> YOUR PROFILE <br>
-                                           <small>This information will let us know more about you.</small>
-                                        </h3>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="wizard-navigation">
-                            <ul>
-                                <li><a href="#presonalDetails" data-toggle="tab">PERSONAL DETAILS</a></li>
-                                <li><a href="#educationalDetails" data-toggle="tab">EDUCATIONAL DETAILS</a></li>
-                                <li><a href="#otherAchievements" data-toggle="tab">OTHER ACHIEVEMENTS</a></li>
-                                <li><a href="#technicalSkills" data-toggle="tab">TECHNICAL SKILLS</a></li>
-                                <li><a href="#industrialExperience" data-toggle="tab">INDUSTRIAL EXPERIENCE</a></li>
-                                <li><a href="#hobbies" data-toggle="tab">HOBBIES DETAILS</a></li>
-                                <li><a href="#uploadDocument" data-toggle="tab">UPLOAD RESUME</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="tab-content">
-                            <div class="tab-pane" id="presonalDetails">
-                              <div class="row">
-                                  <h4 class="info-text"> Please enter personal details</h4>
-                                 <!--  <div class="col-sm-4 col-sm-offset-1">
-                                     <div class="picture-container">
-                                          <div class="picture">
-                                              <img src="/plugins/x-bootstrap-wizard-v1.1.1/x-bootstrap-wizard-v1.1.1/assets/img/default-avatar.png" class="picture-src" id="wizardPicturePreview" title=""/>
-                                              <input type="file" id="wizard-picture">
-                                          </div>
-                                          <h6>Choose Picture</h6>
-                                      </div>
-                                  </div> -->
-                                </div>                                
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label class="mandatory">Job Code</label>
-                                                <select required class="form-control" name="job_code" id="job_code" ng-model="job_id" ><!-- ng-options="x.id as x.job_code for x in jobDetail track by x.id" > -->
-                                                    <option value="" style="color:#ccc !important;">Select Job</option>
-                                                    <option ng-repeat="jd in jobDetail" value="{{jd.id}}">{{jd.job_code}} {{jd.sub_title != '' ? (jd.sub_title) : ''}}</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                  </div>
-                              </div>
-                              <div class="row">
-                                  <div class="col-sm-12">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="mandatory">Name</label>
-                                            <input id="fullName" name="full_name" type="text" class="form-control" placeholder="Enter full Name" ng-model="name">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                      <div class="form-group">
-                                        <label class="mandatory">Email</label>
-                                        <input id="email" name="email" type="email" class="form-control" placeholder="Enter email address" ng-model="email">
-                                      </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                      <div class="form-group">
-                                        <label class="mandatory">Mobile Number</label>
-                                        <input id="mobileNo" name="mobile_no" type="text" class="form-control" placeholder="Enter mobile number" ng-model="mobileNumber">
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="col-sm-12">
-                                    <div class="col-md-4">
-                                      <div class="form-group">
-                                        <label class="mandatory">Date of Birth</label>
-                                            <div class="input-group date">
-                                                <div class="input-group-addon">
-                                                    <i  class="fa fa-calendar"></i>
-                                                </div>
-                                                <input type="text" class="form-control" id="dob" name="dob" placeholder="Enter date" ng-model="dateOfBirth">
-                                            </div>
-                                      </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="mandatory">PAN No.</label>
-                                            <input type="text" class="form-control" id="panNumber" name="pan_number" placeholder="Enter PAN number" ng-model="panNumber">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                      <div class="form-group">
-                                        <label class="">Passport No.</label>
-                                        <input type="text" class="form-control" id="passportNo" name="passport_no" placeholder="Enter passport number" ng-model="passportNumber">
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="col-sm-12">
-                                      <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="mandatory">Correspondence Address</label>
-                                            <textarea class="form-control" id="correspondingAddress" name="corresponding_address" ng-model="correspondingAddr" rows="1"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                      <div class="form-group">
-                                        <label class="mandatory">Permanent Address</label>
-                                        <textarea class="form-control" id="permanentAddress" name="permanent_address" ng-model="permanentAddr" rows="1"></textarea>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="col-sm-12">
-                                      <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="mandatory">Objective</label>
-                                            <textarea class="form-control" id="objective" name="objective" ng-model="objectives" rows="1"></textarea>
-                                            <span id="message2" onclick="$Spelling.SpellCheckInWindow('objective'); return false;" style="display: none;    color: #dd4b39;">Click here to check spelling in objective.</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                      <div class="form-group">
-                                        <label class="mandatory">Summary</label>
-                                        <textarea class="form-control" id="summary" name="summary" ng-model="summary" rows="1"></textarea>
-                                        <span id="message1" onclick="$Spelling.SpellCheckInWindow('summary'); return false;" style="display: none;color: #dd4b39;">Click here to check spelling in summary.</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                              </div>
-                            </div>
-                            <div class="tab-pane" id="educationalDetails">
+                    <div class="card wizard-card" data-color="orange" id="wizardProfile">
+                        <form action="" method="" id="resumeForm" autocomplete="off">
+                            <div class="wizard-header">
                                 <div class='row'>
-                                    <div class="col-sm-12 info-text">
-                                        <h4 class="sectionHeading"> Please enter educational details </h4>
-                                        <button id="addMoreQualificationBtn" type="button" class="btn btn-sm btn-success pull-right appendBtn" ng-click="appendQualificationDiv();" title="Add new qualification"><i class="fa fa-plus"></i></button>
+                                    <div class='col-sm-12'>
+                                        <div class='col-md-4' style="padding-left:3%;padding-top:1%">
+                                            <img id="syslogo" src="resources/img/SyslogyxLogo.png" alt="" width=95% height=40%/>
+                                        </div>
+                                        <div class='col-md-8'>
+                                            <h3>
+                                               <b>BUILD</b> YOUR PROFILE <br>
+                                               <small>This information will let us know more about you.</small>
+                                            </h3>
+                                        </div>
                                     </div>
-                                    <br>
                                 </div>
-                                <div ng-repeat="q in qualifications" class="parentQualification">
-                                    <div class="row" id="parentQualification">
+                            </div>
+                            <div class="wizard-navigation">
+                                <ul>
+                                    <li><a href="#presonalDetails" data-toggle="tab">PERSONAL DETAILS</a></li>
+                                    <li><a href="#educationalDetails" data-toggle="tab">EDUCATIONAL DETAILS</a></li>
+                                    <li><a href="#otherAchievements" data-toggle="tab">OTHER ACHIEVEMENTS</a></li>
+                                    <li><a href="#technicalSkills" data-toggle="tab">TECHNICAL SKILLS</a></li>
+                                    <li><a href="#industrialExperience" data-toggle="tab">INDUSTRIAL EXPERIENCE</a></li>
+                                    <li><a href="#hobbies" data-toggle="tab">HOBBIES DETAILS</a></li>
+                                    <li><a href="#uploadDocument" data-toggle="tab">UPLOAD RESUME</a></li>
+                                </ul>
+                            </div>
+                            <div class="tab-content">
+                                <div class="tab-pane" id="presonalDetails">
+                                    <div class="row">
+                                      <h4 class="info-text"> Please enter personal details</h4>
+                                    </div>                                
+                                    <div class="row">
                                         <div class="col-sm-12">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="mandatory">Job Code</label>
+                                                    <select required class="form-control" name="job_code" id="job_code" ng-model="job_id" >
+                                                        <option value="" style="color:#ccc !important;">Select Job</option>
+                                                        <option ng-repeat="jd in jobDetail" value="{{jd.id}}">{{jd.job_code}} {{jd.sub_title != '' ? (jd.sub_title) : ''}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="mandatory">Name</label>
+                                                    <input id="fullName" name="full_name" type="text" class="form-control" placeholder="Enter full Name" ng-model="name">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                              <div class="form-group">
+                                                <label class="mandatory">Email</label>
+                                                <input id="email" name="email" type="email" class="form-control" placeholder="Enter email address" ng-model="email">
+                                              </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                              <div class="form-group">
+                                                <label class="mandatory">Mobile Number</label>
+                                                <input id="mobileNo" name="mobile_no" type="text" class="form-control" placeholder="Enter mobile number" ng-model="mobileNumber">
+                                              </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="col-md-4">
+                                              <div class="form-group">
+                                                <label class="mandatory">Date of Birth</label>
+                                                    <div class="input-group date">
+                                                        <div class="input-group-addon">
+                                                            <i  class="fa fa-calendar"></i>
+                                                        </div>
+                                                        <input type="text" class="form-control" id="dob" name="dob" placeholder="Enter date" ng-model="dateOfBirth">
+                                                    </div>
+                                              </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="mandatory">PAN No.</label>
+                                                    <input type="text" class="form-control" id="panNumber" name="pan_number" placeholder="Enter PAN number" ng-model="panNumber">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                              <div class="form-group">
+                                                <label class="">Passport No.</label>
+                                                <input type="text" class="form-control" id="passportNo" name="passport_no" placeholder="Enter passport number" ng-model="passportNumber">
+                                              </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="mandatory">Correspondence Address</label>
+                                                    <textarea class="form-control" id="correspondingAddress" name="corresponding_address" ng-model="correspondingAddr" rows="1"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                <label class="mandatory">Permanent Address</label>
+                                                <textarea class="form-control" id="permanentAddress" name="permanent_address" ng-model="permanentAddr" rows="1"></textarea>
+                                              </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="mandatory">Objective</label>
+                                                    <textarea class="form-control" id="objective" name="objective" ng-model="objectives" rows="1"></textarea>
+                                                    <span id="message2" onclick="$Spelling.SpellCheckInWindow('objective'); return false;" style="display: none;    color: #dd4b39;">Click here to check spelling in objective.</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                <label class="mandatory">Summary</label>
+                                                <textarea class="form-control" id="summary" name="summary" ng-model="summary" rows="1"></textarea>
+                                                <span id="message1" onclick="$Spelling.SpellCheckInWindow('summary'); return false;" style="display: none;color: #dd4b39;">Click here to check spelling in summary.</span>
+                                              </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="educationalDetails">
+                                    <div class='row'>
+                                        <div class="col-sm-12 info-text">
+                                            <h4 class="sectionHeading"> Please enter educational details </h4>
+                                            <button id="addMoreQualificationBtn" type="button" class="btn btn-sm btn-success pull-right appendBtn" ng-click="appendQualificationDiv();" title="Add new qualification"><i class="fa fa-plus"></i></button>
+                                        </div>
+                                        <br>
+                                    </div>
+                                    <div ng-repeat="q in qualifications" class="parentQualification">
+                                        <div class="row" id="parentQualification">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label class="mandatory">Qualification</label>
+                                                        <select class="form-control qualification" name="qualification_{{$index}}" id="qualification_{{$index}}" ng-model=" q.qualification_id" ng-options="x.id as x.name for x in allQualificationList track by x.id" >
+                                                            <option value="" style="color:#ccc !important;">Select Qualification</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label class="mandatory">Stream</label>
+                                                        <input type='text' class="form-control stream" name="stream_{{$index}}" id="stream_{{$index}}" placeholder="Enter stream" ng-model="q.stream">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label class="mandatory">Percentage</label>
+                                                        <input id="percentage_{{$index}}" name="percentage_{{$index}}" type="text" class="form-control percentage" placeholder="Enter percentage" ng-model="q.percentage">
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="col-sm-1" style="margin-top:3.5%">
+                                                    <button id="removeQualificationBtn" type="button" class="btn btn-sm btn-danger" ng-click="removeQualification($index)" ng-if="$index > 0" title="Remove qualification "><i class="fa fa-remove"></i></button>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12" >
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="mandatory">University</label>
+                                                        <input type='text' class="form-control university" name="university_{{$index}}" id="university_{{$index}}" placeholder="Enter university" ng-model="q.university">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="mandatory">College</label>
+                                                        <input type='text' class="form-control college" name="college_{{$index}}" id="college_{{$index}}" placeholder="Enter college" ng-model="q.college">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12" >
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="mandatory">Start Year</label>
+                                                         <div class="input-group date">
+                                                            <div class="input-group-addon">
+                                                                <i  class="fa fa-calendar"></i>
+                                                            </div>
+                                                            <input type="text" class="form-control start_year" id="start_year_{{$index}}" name="start_year_{{$index}}" placeholder="Enter start year" ng-model="q.start_year">
+                                                            <!-- <pre>{{q.startYear}}</pre> -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <div class="form-group">
+                                                        <label class="mandatory">End Year</label>
+                                                        <div class="input-group date">
+                                                            <div class="input-group-addon">
+                                                                <i  class="fa fa-calendar"></i>
+                                                            </div>
+                                                            <input type="text" class="form-control end_year" id="end_year_{{$index}}" name="end_year_{{$index}}" placeholder="Enter end year" ng-model="q.end_year">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-1" style="margin-top:3.5%">
+                                                    <button id="removeQualificationBtn" type="button" class="btn btn-sm btn-danger" ng-click="removeQualification($index)" ng-if="$index > 0" title="Remove qualification "><i class="fa fa-remove"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="otherAchievements">
+                                    <div class="row">
+                                         <div class="col-sm-12 info-text">
+                                            <h4 class="sectionHeading"> Please enter achievement details </h4>
+                                            <button id="addMoreAchievementBtn" type="button" class="btn btn-sm btn-success pull-right appendBtn" ng-click="appendAchievementDiv();" title="Add new achievement "><i class="fa fa-plus"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12" ng-repeat="a in achievements">
+                                            <div class="col-sm-10">
+                                                <div class="form-group">
+                                                    <label class="mandatory">Other Achievements</label>
+                                                    <input id="other_achievements_{{$index}}" name="other_achievements_{{$index}}" type="text" class="form-control other_achievements" placeholder="Enter Achievements" ng-model="a.achivement">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2 form-group" style="margin-top:3.5%">
+                                                <button id="removeAchievementBtn" type="button" class="btn btn-sm btn-danger" ng-if="$index > 0" ng-click="removeAchievements($index)" title="Remove achievement "><i class="fa fa-remove"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="technicalSkills">
+                                    <div class="row">
+                                         <div class="col-sm-12 info-text">
+                                            <h4 class="sectionHeading"> Please enter technical skill details </h4>
+                                            <button id="addMoreTechnicalSkillBtn" type="button" class="btn btn-sm btn-success pull-right appendBtn" ng-click="appendTechnicalSkillDiv();" title="Add new technical skill "><i class="fa fa-plus"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12" ng-repeat="t in technicalSkill">
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label class="mandatory">Technology</label>
+                                                    <input type="text" id="technologyName_{{$index}}" name="technology_name_{{$index}}" class="form-control technology_name" placeholder="Enter technology name" ng-model="t.technology_name">
+                                                </div>
+                                            </div>
                                             <div class="col-sm-4">
                                                 <div class="form-group">
-                                                    <label class="mandatory">Qualification</label>
-                                                    <select class="form-control qualification" name="qualification_{{$index}}" id="qualification_{{$index}}" ng-model=" q.qualification_id" ng-options="x.id as x.name for x in allQualificationList track by x.id" >
-                                                        <option value="" style="color:#ccc !important;">Select Qualification</option>
+                                                    <label class="">Relevance Experience (Years)</label>
+                                                    <select id="relevanceYearExperience_{{$index}}" name="relevance_year_experience_{{$index}}" class="form-control relevance_year_experience" placeholder="Enter year experience" ng-model="t.relevanceYearExperience">
+                                                       <!--  <option value="" style="color:#ccc !important;">Select Year</option> -->
+                                                       <option ng-repeat="x in experienceYears" value="{{x.id}}">{{x.name}}</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
                                                 <div class="form-group">
-                                                    <label class="mandatory">Stream</label>
-                                                    <input type='text' class="form-control stream" name="stream_{{$index}}" id="stream_{{$index}}" placeholder="Enter stream" ng-model="q.stream">
+                                                    <label class="">Relevance Experience (Months)</label>
+                                                    <select id="relevanceMonthExperience_{{$index}}" name="relevance_month_experience_{{$index}}" class="form-control relevance_month_experience" placeholder="Enter month experience" ng-model="t.relevanceMonthExperience">
+                                                        <option ng-repeat="x in experienceMonths track by x.id" value="{{x.id}}">{{x.name}}</option>
+                                                        <!-- <option value="" style="color:#ccc !important;">Select Month</option> -->
+                                                    </select>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label class="mandatory">Percentage</label>
-                                                    <input id="percentage_{{$index}}" name="percentage_{{$index}}" type="text" class="form-control percentage" placeholder="Enter percentage" ng-model="q.percentage">
-                                                </div>
+                                            <div class="col-sm-1 form-group" style="margin-top:3.5%">
+                                                <button id="removeTechnicalSkillBtn" type="button" class="btn btn-sm btn-danger"  ng-click="removeTechnicalSkill($index)" ng-if="$index > 0" title="Remove technical skill"><i class="fa fa-remove"></i></button>
                                             </div>
-                                            <!-- <div class="col-sm-1" style="margin-top:3.5%">
-                                                <button id="removeQualificationBtn" type="button" class="btn btn-sm btn-danger" ng-click="removeQualification($index)" ng-if="$index > 0" title="Remove qualification "><i class="fa fa-remove"></i></button>
-                                            </div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="industrialExperience">
+                                    <div class="row">
+                                         <div class="col-sm-12 info-text">
+                                            <h4 class="sectionHeading"> Please enter industry experience </h4>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-12" >
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label class="mandatory">University</label>
-                                                    <input type='text' class="form-control university" name="university_{{$index}}" id="university_{{$index}}" placeholder="Enter university" ng-model="q.university">
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-3 form-group">
+                                                <label class="">Total Experience (Years)</label>
+                                                <select id="total_year_experience" name="total_year_experience" class="form-control total_year_experience" placeholder="Enter year experience" ng-model="totalYearIndustryExperiance" ng-options="x.id as x.name for x in experienceYears">
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-3 form-group">
+                                                <label class="">Total Experience (Month)</label>
+                                                <select id="total_month_experience" name="total_month_experience" class="form-control total_month_experience" placeholder="Enter month experience" ng-model="totalMonthIndustryExperiance" ng-options="x.id as x.name for x in experienceMonths">
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-3 form-group">
+                                                <label class="mandatory">Current CTC</label>
+                                                <input id="current_ctc" name="current_ctc" type="text" class="form-control" placeholder="Enter current CTC" ng-model="currentCTC">
+                                            </div>
+                                            <div class="col-sm-3 form-group">
+                                                <label class="">CTC Unit</label>
+                                                <select id="ctc_key" name="ctc_key" class="form-control" ng-model="ctcKey" style="margin-top: 3.5%;">
+                                                    <option selected="selected" value="Lac">Lac</option>
+                                                    <option value="Cr">Cr</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="co-sm-12 form-group" style="margin-right:2.8%">
+                                            <button id="addMoreIndustrialExperienceBtn" type="button" class="btn btn-sm btn-success pull-right appendBtn" ng-click="appendIndustrialExperienceDiv();" title="Add new industry experience "><i class="fa fa-plus"></i></button>
+                                        </div>
+                                    </div>
+                                    <div id="parentIndustrialExperience" ng-repeat="ex in industryExperiance">
+                                        <div class="row" >
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label class="mandatory">Company Name</label>
+                                                        <input id="companyName_{{$index}}" name="company_name_{{$index}}" type="text" class="form-control company_name" placeholder="Enter company name" ng-model="ex.company_name">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label class="mandatory">Project Name</label>
+                                                        <input id="projectName_{{$index}}" name="project_name_{{$index}}" type="text" class="form-control project_name" placeholder="Enter project name" ng-model="ex.project_name">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label class="mandatory">Role</label>
+                                                        <input id="projectRole_{{$index}}" name="project_role_{{$index}}" type="text" class="form-control project_role" placeholder="Enter role" ng-model="ex.role_in_project">
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label class="mandatory">College</label>
-                                                    <input type='text' class="form-control college" name="college_{{$index}}" id="college_{{$index}}" placeholder="Enter college" ng-model="q.college">
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label class="mandatory">Languages/ Tools Used</label>
+                                                        <textarea id="toolsUsed_{{$index}}" name="tools_used_{{$index}}" class="form-control tools_used" placeholder="Enter Languages/ Tools Used" ng-model="ex.language_or_tools" rows="1"></textarea>
+                                                    </div>
                                                 </div>
+                                                <div class="col-sm-7">
+                                                    <div class="form-group">
+                                                        <label class="mandatory">Project Description</label>
+                                                        <textarea id="projectDescription_{{$index}}" name="project_description_{{$index}}" ng-blur="callSpellchecker($index);" class="form-control project_description" placeholder="Enter Project Description" ng-model="ex.project_description" rows="1"></textarea>
+                                                        <span id="project_msg{{$index}}" class="prod_msg" data-index="{{$index}}" ng-click="setSpellcheckMsg($index)" style="display: none;color: #dd4b39;">Click here to check spelling in project description.</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-1 form-group" style="margin-top:3%">
+                                                    <button id="removeIndustrialExperienceBtn" type="button" class="btn btn-sm btn-danger"  ng-click="removeIndustrialExperience($index)" ng-if="$index > 0" title="Remove industrial experiance"><i class="fa fa-remove"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="hobbies">
+                                    <div class="row">
+                                        <div class="col-sm-12 info-text">
+                                            <h4 class="sectionHeading">  Please enter hobbies  </h4>
+                                           <div class="form-group">
+                                                <button type="button" class="btn btn-sm btn-success  pull-right appendBtn" ng-click="appendHobbiesDiv();" title="Add new hobby "><i class="fa fa-plus"></i></button >
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-12" >
-                                            <div class="col-sm-6">
+                                        <div class="col-sm-12"  ng-repeat="h in hobbyDiv">
+                                            <div class="col-sm-10">
+                                                 <div class="form-group">
+                                                    <label class="mandatory">Hobby</label>
+                                                    <input id="hobbie_{{$index}}" name="hobbie_{{$index}}" type="text" class="form-control hobbie" placeholder="Enter Hobby" ng-model="h.hobbie_name">
+                                                  </div>
+                                            </div>
+                                            <div class="col-sm-2" style="margin-top:3.5%">
                                                 <div class="form-group">
-                                                    <label class="mandatory">Start Year</label>
-                                                     <div class="input-group date">
-                                                        <div class="input-group-addon">
-                                                            <i  class="fa fa-calendar"></i>
-                                                        </div>
-                                                        <input type="text" class="form-control start_year" id="start_year_{{$index}}" name="start_year_{{$index}}" placeholder="Enter start year" ng-model="q.start_year">
-                                                        <!-- <pre>{{q.startYear}}</pre> -->
-                                                    </div>
+                                                    <button id="removeHobbyBtn" type="button" class="btn btn-sm btn-danger"  ng-click="removeHobby($index)" ng-if="$index > 0" title="Remove hobby"><i class="fa fa-remove"></i></button>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-5">
-                                                <div class="form-group">
-                                                    <label class="mandatory">End Year</label>
-                                                    <div class="input-group date">
-                                                        <div class="input-group-addon">
-                                                            <i  class="fa fa-calendar"></i>
-                                                        </div>
-                                                        <input type="text" class="form-control end_year" id="end_year_{{$index}}" name="end_year_{{$index}}" placeholder="Enter end year" ng-model="q.end_year">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="uploadDocument">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+
+                                            <form action="/uploadfile" method="post" enctype="multipart/form-data" id="fileUploadForm">
+                                                <div class="col-sm-12">
+                                                    <h5 class="info-text" style="text-align:left">Please upload a Word or PDF file. File size should not exceed 1MB.</h5>
+                                                    <br>
+                                                    <div class="form-group">                                                     
+                                                        <input type="file" class="form-control" name="file" id="file" ng-model="file" ng-files="getTheFiles($files)" >                                        
+                                                        <!--  <input type="file" class="form-control" name="file" id="file" onchange="angular.element(this).scope().uploadFile(this.files)" aria-describedby="fileHelp"  upload-files > -->
+
+                                                        <span style="color:#dd4b39;">{{fileSizeError}}</span>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-sm-1" style="margin-top:3.5%">
-                                                <button id="removeQualificationBtn" type="button" class="btn btn-sm btn-danger" ng-click="removeQualification($index)" ng-if="$index > 0" title="Remove qualification "><i class="fa fa-remove"></i></button>
-                                            </div>
+
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane" id="otherAchievements">
-                                <div class="row">
-                                     <div class="col-sm-12 info-text">
-                                        <h4 class="sectionHeading"> Please enter achievement details </h4>
-                                        <button id="addMoreAchievementBtn" type="button" class="btn btn-sm btn-success pull-right appendBtn" ng-click="appendAchievementDiv();" title="Add new achievement "><i class="fa fa-plus"></i></button>
-                                    </div>
+                            <div class="wizard-footer height-wizard">
+                                <div class="pull-right">
+                                    <input type='button' class='btn btn-next btn-fill btn-warning btn-wd btn-sm' name='next' value='Next' ng-click="changeBackground($index)"/>
+                                    <input type='button' class='btn btn-finish btn-fill btn-warning btn-wd btn-sm' name='finish' value='Finish' ng-click="showPreview();"/>
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-12" ng-repeat="a in achievements">
-                                        <div class="col-sm-10">
-                                            <div class="form-group">
-                                                <label class="mandatory">Other Achievements</label>
-                                                <input id="other_achievements_{{$index}}" name="other_achievements_{{$index}}" type="text" class="form-control other_achievements" placeholder="Enter Achievements" ng-model="a.achivement">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2 form-group" style="margin-top:3.5%">
-                                            <button id="removeAchievementBtn" type="button" class="btn btn-sm btn-danger" ng-if="$index > 0" ng-click="removeAchievements($index)" title="Remove achievement "><i class="fa fa-remove"></i></button>
-                                        </div>
-                                    </div>
+
+                                <div class="pull-left">
+                                    <input type='button' class='btn btn-previous btn-fill btn-default btn-wd btn-sm' name='previous' value='Previous' />
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card wizard-card" data-color="orange" id="wizardResumeSuccessmsg" style="display:none;min-height: 100px;">
+                        <div class="wizard-header">
+                            <div class='row'>
+                                <div class='col-sm-12'>
+                                    <h4 style="text-align: center;color:#009900">Thanks for showing your interest! Will get back to you soon!</h4>
                                 </div>
                             </div>
-                            <div class="tab-pane" id="technicalSkills">
-                                <div class="row">
-                                     <div class="col-sm-12 info-text">
-                                        <h4 class="sectionHeading"> Please enter technical skill details </h4>
-                                        <button id="addMoreTechnicalSkillBtn" type="button" class="btn btn-sm btn-success pull-right appendBtn" ng-click="appendTechnicalSkillDiv();" title="Add new technical skill "><i class="fa fa-plus"></i></button>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12" ng-repeat="t in technicalSkill">
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label class="mandatory">Technology</label>
-                                                <input type="text" id="technologyName_{{$index}}" name="technology_name_{{$index}}" class="form-control technology_name" placeholder="Enter technology name" ng-model="t.technology_name">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="form-group">
-                                                <label class="">Relevance Experience (Years)</label>
-                                                <select id="relevanceYearExperience_{{$index}}" name="relevance_year_experience_{{$index}}" class="form-control relevance_year_experience" placeholder="Enter year experience" ng-model="t.relevanceYearExperience">
-                                                   <!--  <option value="" style="color:#ccc !important;">Select Year</option> -->
-                                                   <option ng-repeat="x in experienceYears" value="{{x.id}}">{{x.name}}</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="form-group">
-                                                <label class="">Relevance Experience (Months)</label>
-                                                <select id="relevanceMonthExperience_{{$index}}" name="relevance_month_experience_{{$index}}" class="form-control relevance_month_experience" placeholder="Enter month experience" ng-model="t.relevanceMonthExperience">
-                                                    <option ng-repeat="x in experienceMonths track by x.id" value="{{x.id}}">{{x.name}}</option>
-                                                    <!-- <option value="" style="color:#ccc !important;">Select Month</option> -->
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-1 form-group" style="margin-top:3.5%">
-                                            <button id="removeTechnicalSkillBtn" type="button" class="btn btn-sm btn-danger"  ng-click="removeTechnicalSkill($index)" ng-if="$index > 0" title="Remove technical skill"><i class="fa fa-remove"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
+                        </div>
+                    </div>
+                </div> <!-- wizard container -->
+
+                <!-- Modal for preview form data -->
+                <div class="modal fade" id="previewModal" role="dialog">
+                    <div class="modal-dialog" style="width:90%">
+                        <div class="modal-content" style="border-radius: 0px !important;">
+                            <div class="modal-header" style="text-align:center;">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Preview</h4>
                             </div>
-                            <div class="tab-pane" id="industrialExperience">
+                            <div class="modal-body" style="margin: 0 4% 0 4%;">
+                                <h4>PERSONAL DETAILS :</h4>
                                 <div class="row">
-                                     <div class="col-sm-12 info-text">
-                                        <h4 class="sectionHeading"> Please enter industry experience </h4>
+                                    <div class="col-md-6 form-group">
+                                        <label class=""><b>Name: </b></label>
+                                        <span>{{ name}}</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class=""><b>Email:</b></label>
+                                            <span>{{ email}}</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="col-sm-3 form-group">
-                                            <label class="">Total Experience (Years)</label>
-                                            <select id="total_year_experience" name="total_year_experience" class="form-control total_year_experience" placeholder="Enter year experience" ng-model="totalYearIndustryExperiance" ng-options="x.id as x.name for x in experienceYears">
-                                               <!--  <option value="" style="color:#ccc !important;">Select Year</option> -->
-                                            </select>
+                                    <div class="col-md-6 form-group">
+                                        <label class=""><b>Date of Birth:</b> </label>
+                                        <span>{{ dateOfBirth}}</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class=""><b>Mobile Number:</b></label>
+                                            <span>{{ mobileNumber}}</span>
                                         </div>
-                                        <div class="col-sm-3 form-group">
-                                            <label class="">Total Experience (Month)</label>
-                                            <select id="total_month_experience" name="total_month_experience" class="form-control total_month_experience" placeholder="Enter month experience" ng-model="totalMonthIndustryExperiance" ng-options="x.id as x.name for x in experienceMonths">
-                                               <!--  <option value="" style="color:#ccc !important;">Select Month</option> -->
-                                            </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label class=""><b>Passport No.: </b></label>
+                                        <span>{{ passportNumber}}</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class=""><b>PAN No.:</b></label>
+                                            <span>{{ panNumber}}</span>
                                         </div>
-                                        <div class="col-sm-3 form-group">
-                                            <label class="mandatory">Current CTC</label>
-                                            <input id="current_ctc" name="current_ctc" type="text" class="form-control" placeholder="Enter current CTC" ng-model="currentCTC">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 form-group">
+                                        <label class=""><b>Correspondence Address: </b></label>
+                                        <span>{{ correspondingAddr}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class=""><b>Permanent Address:</b></label>
+                                            <span>{{ permanentAddr}}</span>
                                         </div>
-                                        <div class="col-sm-3 form-group">
-                                            <label class="">CTC Unit</label>
-                                            <select id="ctc_key" name="ctc_key" class="form-control" ng-model="ctcKey" style="margin-top: 3.5%;">
-                                                <option selected="selected" value="Lac">Lac</option>
-                                                <option value="Cr">Cr</option>
-                                            </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class=""><b>Objective:</b></label>
+                                            <span>{{ objectives}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class=""><b>Summary:</b></label>
+                                            <span>{{ summary}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr>
+                                <h4>EDUCATIONAL DETAILS :</h4>
+                                <div ng-repeat="qu in quaData">
+                                    <div class="row">
+                                        <div class="col-md-4 form-group">
+                                            <label class=""><b>Qualification: </b></label>
+                                            <span>{{ qu.qualificationName}}</span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class=""><b>Stream:</b></label>
+                                                <span>{{ qu.stream}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class=""><b>Percentage:</b></label>
+                                                <span>{{ qu.percentage}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4 form-group">
+                                            <label class=""><b>University: </b></label>
+                                            <span>{{ qu.university}}</span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class=""><b>College:</b></label>
+                                                <span>{{ qu.college}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class=""><b>Duration:</b></label>
+                                                <span>{{ qu.start_year}} - {{qu.end_year}}</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <hr>
-                                <div class="row">
-                                    <div class="co-sm-12 form-group" style="margin-right:2.8%">
-                                        <button id="addMoreIndustrialExperienceBtn" type="button" class="btn btn-sm btn-success pull-right appendBtn" ng-click="appendIndustrialExperienceDiv();" title="Add new industry experience "><i class="fa fa-plus"></i></button>
-                                    </div>
-                                </div>
-                                <div id="parentIndustrialExperience" ng-repeat="ex in industryExperiance">
+                                <h4>ACHIEVEMENTS DETAILS:</h4>
                                 <div class="row" >
-                                    <div class="col-sm-12">
-                                        <div class="col-sm-4">
-                                            <div class="form-group">
-                                                <label class="mandatory">Company Name</label>
-                                                <input id="companyName_{{$index}}" name="company_name_{{$index}}" type="text" class="form-control company_name" placeholder="Enter company name" ng-model="ex.company_name">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="form-group">
-                                                <label class="mandatory">Project Name</label>
-                                                <input id="projectName_{{$index}}" name="project_name_{{$index}}" type="text" class="form-control project_name" placeholder="Enter project name" ng-model="ex.project_name">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="form-group">
-                                                <label class="mandatory">Role</label>
-                                                <input id="projectRole_{{$index}}" name="project_role_{{$index}}" type="text" class="form-control project_role" placeholder="Enter role" ng-model="ex.role_in_project">
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <ul ng-repeat="ac in achievements" style="margin-left: 3%;">
+                                        <li>{{ac.achivement}}</li>
+                                    </ul>
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="col-sm-4">
-                                            <div class="form-group">
-                                                <label class="mandatory">Languages/ Tools Used</label>
-                                                <textarea id="toolsUsed_{{$index}}" name="tools_used_{{$index}}" class="form-control tools_used" placeholder="Enter Languages/ Tools Used" ng-model="ex.language_or_tools" rows="1"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-7">
-                                            <div class="form-group">
-                                                <label class="mandatory">Project Description</label>
-                                                <textarea id="projectDescription_{{$index}}" name="project_description_{{$index}}" ng-blur="callSpellchecker($index);" class="form-control project_description" placeholder="Enter Project Description" ng-model="ex.project_description" rows="1"></textarea>
-                                                <span id="project_msg{{$index}}" class="prod_msg" data-index="{{$index}}" ng-click="setSpellcheckMsg($index)" style="display: none;color: #dd4b39;">Click here to check spelling in project description.</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-1 form-group" style="margin-top:3%">
-                                            <button id="removeIndustrialExperienceBtn" type="button" class="btn btn-sm btn-danger"  ng-click="removeIndustrialExperience($index)" ng-if="$index > 0" title="Remove industrial experiance"><i class="fa fa-remove"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="tab-pane" id="hobbies">
-                                <div class="row">
-                                    <div class="col-sm-12 info-text">
-                                        <h4 class="sectionHeading">  Please enter hobbies  </h4>
-                                       <div class="form-group">
-                                            <button type="button" class="btn btn-sm btn-success  pull-right appendBtn" ng-click="appendHobbiesDiv();" title="Add new hobby "><i class="fa fa-plus"></i></button >
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12"  ng-repeat="h in hobbyDiv">
-                                        <div class="col-sm-10">
-                                             <div class="form-group">
-                                                <label class="mandatory">Hobby</label>
-                                                <input id="hobbie_{{$index}}" name="hobbie_{{$index}}" type="text" class="form-control hobbie" placeholder="Enter Hobby" ng-model="h.hobbie_name">
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-2" style="margin-top:3.5%">
-                                            <div class="form-group">
-                                                <button id="removeHobbyBtn" type="button" class="btn btn-sm btn-danger"  ng-click="removeHobby($index)" ng-if="$index > 0" title="Remove hobby"><i class="fa fa-remove"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="uploadDocument">
-                                <div class="row">
-                                    <div class="col-sm-12">
 
-                                        <form action="/uploadfile" method="post" enctype="multipart/form-data" id="fileUploadForm">
-                                            <div class="col-sm-12">
-                                                <h5 class="info-text" style="text-align:left">Please upload a Word or PDF file. File size should not exceed 1MB.</h5>
-                                                <br>
-                                                <div class="form-group">                                                     
-                                                    <input type="file" class="form-control" name="file" id="file" ng-model="file" ng-files="getTheFiles($files)" >                                        
-                                                    <!--  <input type="file" class="form-control" name="file" id="file" onchange="angular.element(this).scope().uploadFile(this.files)" aria-describedby="fileHelp"  upload-files > -->
-
-                                                    <span style="color:#dd4b39;">{{fileSizeError}}</span>
-                                                </div>
-                                            </div>
-
-                                        </form>
+                                <hr>
+                                <h4>TECHNICAL SKILLS :</h4>
+                                <div class="row" ng-repeat="ts in technicalSkill">
+                                    <div class="col-md-6 form-group">
+                                        <label class=""><b>Technology: </b></label>
+                                        <span>{{ ts.technology_name}}</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class=""><b>Relevance Experience:</b></label>
+                                            <span>{{ ts.relevanceYearExperience}}.{{ts.relevanceMonthExperience}}</span>
+                                        </div>
                                     </div>
                                 </div>
+
+                                <hr>
+                                <h4>INDUSTRIAL EXPERIENCE :</h4>
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label class=""><b>Total Experience: </b></label>
+                                        <span>{{ totalYearIndustryExperiance}}.{{totalMonthIndustryExperiance}}</span>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label class=""><b>Current CTC: </b></label>
+                                        <span>{{ currentCTC}} {{ctcKey}}</span>
+                                    </div>
+                                </div>
+                                <div ng-repeat="ie in industryExperiance">
+                                    <div class="row" >
+                                        <div class="col-md-6 form-group">
+                                            <label class=""><b>Company Name: </b></label>
+                                            <span>{{ ie.company_name}}</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class=""><b>Project Name:</b></label>
+                                                <span>{{ ie.project_name}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 form-group">
+                                            <label class=""><b>Role: </b></label>
+                                            <span>{{ ie.role_in_project}}</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class=""><b>Languages/ Tools Used:</b></label>
+                                                <span>{{ ie.language_or_tools}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 form-group">
+                                            <label class=""><b>Project Description: </b></label>
+                                            <span>{{ ie.project_description}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr>
+                                <h4>HOBBIES DETAILS :</h4>
+                                <div class="row">
+                                    <ul ng-repeat="h in hobbyDiv" style="margin-left: 3%;">
+                                        <li>{{h.hobbie_name}}</li>
+                                    </ul>
+                                </div>
+
+                                <!-- <hr>
+                                <h4>UPLOAD DOCUMENT :</h4>
+                                <div class="row">
+                                    <div class="col-md-12 form-group">
+                                        <label class=""><b>Resume: </b></label>
+                                        <span>{{ fileName}}</span>
+                                    </div>
+                                </div> -->
+                            </div>
+                            <div class="modal-footer">
+                                <button type='button' class='btn btn-warning' name='Submit' value='Submit' ng-click="saveResumeData();">Save</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                             </div>
                         </div>
-                        <div class="wizard-footer height-wizard">
-                            <div class="pull-right">
-                                <input type='button' class='btn btn-next btn-fill btn-warning btn-wd btn-sm' name='next' value='Next' ng-click="changeBackground($index)"/>
-                                <input type='button' class='btn btn-finish btn-fill btn-warning btn-wd btn-sm' name='finish' value='Finish' ng-click="showPreview();"/>
-
-                            </div>
-
-                            <div class="pull-left">
-                                <input type='button' class='btn btn-previous btn-fill btn-default btn-wd btn-sm' name='previous' value='Previous' />
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-
-                    </form>
+                     </div>
                 </div>
-                <div class="card wizard-card" data-color="orange" id="wizardResumeSuccessmsg" style="display:none;min-height: 100px;">
-                    <div class="wizard-header">
-                        <div class='row'>
-                            <div class='col-sm-12'>
-                                <h4 style="text-align: center;color:#009900">Thanks for showing your interest! Will get back to you soon!</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> <!-- wizard container -->
-
-
-        <!-- Modal for preview form data -->
-
-        <div class="modal fade" id="previewModal" role="dialog">
-            <div class="modal-dialog" style="width:90%">
-                <div class="modal-content" style="border-radius: 0px!important;">
-                    <div class="modal-header" style="text-align:center;">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Preview
-                    </div>
-                    <div class="modal-body" style="margin: 0 4% 0 4%;">
-
-                        <h4>PERSONAL DETAILS :</h4>
-                        <div class="row">
-                            <div class="col-md-6 form-group">
-                                <label class=""><b>Name: </b></label>
-                                <span>{{ name}}</span>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class=""><b>Email:</b></label>
-                                    <span>{{ email}}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <!-- <h4>PERSONAL DETAILS :</h4> -->
-                            <div class="col-md-6 form-group">
-                                <label class=""><b>Date of Birth:</b> </label>
-                                <span>{{ dateOfBirth}}</span>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class=""><b>Mobile Number:</b></label>
-                                    <span>{{ mobileNumber}}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <!-- <h4>PERSONAL DETAILS :</h4> -->
-                            <div class="col-md-6 form-group">
-                                <label class=""><b>Passport No.: </b></label>
-                                <span>{{ passportNumber}}</span>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class=""><b>PAN No.:</b></label>
-                                    <span>{{ panNumber}}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <!-- <h4>PERSONAL DETAILS :</h4> -->
-                            <div class="col-md-12 form-group">
-                                <label class=""><b>Correspondence Address: </b></label>
-                                <span>{{ correspondingAddr}}</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class=""><b>Permanent Address:</b></label>
-                                    <span>{{ permanentAddr}}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class=""><b>Objective:</b></label>
-                                    <span>{{ objectives}}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class=""><b>Summary:</b></label>
-                                    <span>{{ summary}}</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <hr>
-                        <h4>EDUCATIONAL DETAILS :</h4>
-                        <!-- <pre>{{quaData |json}}</pre> -->
-                        <div ng-repeat="qu in quaData">
-                            <div class="row">
-                                <div class="col-md-4 form-group">
-                                    <label class=""><b>Qualification: </b></label>
-                                    <span>{{ qu.qualificationName}}</span>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class=""><b>Stream:</b></label>
-                                        <span>{{ qu.stream}}</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class=""><b>Percentage:</b></label>
-                                        <span>{{ qu.percentage}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4 form-group">
-                                    <label class=""><b>University: </b></label>
-                                    <span>{{ qu.university}}</span>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class=""><b>College:</b></label>
-                                        <span>{{ qu.college}}</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class=""><b>Duration:</b></label>
-                                        <span>{{ qu.start_year}} - {{qu.end_year}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <h4>ACHIEVEMENTS DETAILS:</h4>
-                        <div class="row" >
-                            <ul ng-repeat="ac in achievements" style="margin-left: 3%;">
-                                <li>{{ac.achivement}}</li>
-                            </ul>
-                        </div>
-
-                        <hr>
-                        <h4>TECHNICAL SKILLS :</h4>
-                        <div class="row" ng-repeat="ts in technicalSkill">
-                            <div class="col-md-6 form-group">
-                                <label class=""><b>Technology: </b></label>
-                                <span>{{ ts.technology_name}}</span>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class=""><b>Relevance Experience:</b></label>
-                                    <span>{{ ts.relevanceYearExperience}}.{{ts.relevanceMonthExperience}}</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <hr>
-                        <h4>INDUSTRIAL EXPERIENCE :</h4>
-                        <div class="row">
-                            <div class="col-md-6 form-group">
-                                <label class=""><b>Total Experience: </b></label>
-                                <span>{{ totalYearIndustryExperiance}}.{{totalMonthIndustryExperiance}}</span>
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label class=""><b>Current CTC: </b></label>
-                                <span>{{ currentCTC}} {{ctcKey}}</span>
-                            </div>
-                        </div>
-                        <div ng-repeat="ie in industryExperiance">
-                            <div class="row" >
-                                <div class="col-md-6 form-group">
-                                    <label class=""><b>Company Name: </b></label>
-                                    <span>{{ ie.company_name}}</span>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class=""><b>Project Name:</b></label>
-                                        <span>{{ ie.project_name}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 form-group">
-                                    <label class=""><b>Role: </b></label>
-                                    <span>{{ ie.role_in_project}}</span>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class=""><b>Languages/ Tools Used:</b></label>
-                                        <span>{{ ie.language_or_tools}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12 form-group">
-                                    <label class=""><b>Project Description: </b></label>
-                                    <span>{{ ie.project_description}}</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <hr>
-                        <h4>HOBBIES DETAILS :</h4>
-                        <div class="row">
-                            <ul ng-repeat="h in hobbyDiv" style="margin-left: 3%;">
-                                <li>{{h.hobbie_name}}</li>
-                            </ul>
-                        </div>
-
-                        <!-- <hr>
-                        <h4>UPLOAD DOCUMENT :</h4>
-                        <div class="row">
-                            <div class="col-md-12 form-group">
-                                <label class=""><b>Resume: </b></label>
-                                <span>{{ fileName}}</span>
-                            </div>
-                        </div> -->
-                    </div>
-                    <div class="modal-footer">
-                        <button type='button' class='btn btn-warning' name='Submit' value='Submit' ng-click="saveResumeData();">Save</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    </div>
-                </div>
-             </div>
+                <!-- End of Preview form -->
+            </div>
         </div>
-
-
-        </div>
-        </div><!-- end row -->
-    </div> <!--  big container -->
-
+        <!-- end row -->
+    </div> 
+    <!--  big container -->
 </div>
 </section>
 
@@ -732,20 +708,11 @@ body{
 <!--  More information about jquery.validate here: http://jqueryvalidation.org/  -->
 <script src="/resources/plugins/bootstrap-wizard-master/assets/js/jquery.validate.min.js"></script>
 <script src="/resources/js/app.min.js"></script>
- <script src="/resources/plugins/datepicker/bootstrap-datepicker.js"></script>
-<script src="/resources/js/sweetalert-master/dist/sweetalert.min.js"></script>
+<script src="/resources/plugins/datepicker/bootstrap-datepicker.js"></script>
 <script type="text/javascript">
      $(function() {
-     //    $('#summary').binSpellCheckFields(options)
-
         $Spelling.LiveFormValidation  ('summary', 'message1'  );
         $Spelling.LiveFormValidation  ('objective', 'message2'  );
-        
-        // o = $Spelling.SpellCheckInWindow('objective');
-        // o.onIgnoreAll = function(word){console.log(word)}
-        // $Spelling.LiveFormValidation  ('.project_description', '.prod_msg'  );
-        
-
      });
 
 

@@ -89,7 +89,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
     $scope.init = function(){
 		/* Getting all qualification list */
         $('#dob').datepicker({
-            format: "yyyy-mm-dd",
+            // format: "yyyy-mm-dd",
             autoclose: true,
             todayHighlight: true
         }).on('show', function(e){
@@ -258,7 +258,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
                 "name":$scope.name,
                 "email":$scope.email,
                 "mobile_no":$scope.mobileNumber,
-                "date_of_birth":$scope.dateOfBirth,
+                "date_of_birth":$scope.dateOfBirth.split("/").reverse().join("-"),
                 "pan_number":$scope.panNumber,
                 "passport":$scope.passportNumber,
                 "corresponding_address":$scope.correspondingAddr,

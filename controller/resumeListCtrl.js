@@ -1,4 +1,4 @@
-app.controller("resumeListCtrl", function (services, AclService, $scope, $http, $location, RESOURCES, $cookieStore,menuService) {
+app.controller("resumeListCtrl", function (services, AclService, $scope, $http, $location, RESOURCES, $cookieStore,menuService,pagination) {
 
     var rlc = this;
     rlc.pageno = 0;
@@ -23,7 +23,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
    
     rlc.searchCandidate = function (id, page) {       
         rlc.jobCodeId = id;
-        rlc.fetchAllCandidates(page);
+        rlc.fetchList(page);
        
     };
 
@@ -41,38 +41,34 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     /*Record limit for Candidates in pagination*/
     setTimeout(function(){
         $('#table_length').on('change',function(){
-            rlc.fetchAllCandidates(-1);
+            rlc.fetchList(-1);
         });
     },100);
 
 
-    rlc.init = function(){
-        rlc.fetchAllCandidates(-1);
-        rlc.getAllInterviewerList();
-        rlc.getActiveJd();
-    }
+    
 
 
-    rlc.applyPagination = function (pageData) {
-        $('#pagination-sec').twbsPagination({
-            totalPages: pageData.last_page,
-            visiblePages: 5,
-            first: '',
-            last: '',
-            onPageClick: function (event, page) {
-                // console.log('Page: ' + page);
-                if (rlc.skip) {
-                    rlc.skip = false;
-                    return;
-                }
-                rlc.fetchAllCandidates(page);
-                $("html, body").animate({ scrollTop: 0 }, "slow");
-            }
-        });
-    }
+    // rlc.applyPagination = function (pageData) {
+    //     $('#pagination-sec').twbsPagination({
+    //         totalPages: pageData.last_page,
+    //         visiblePages: 5,
+    //         first: '',
+    //         last: '',
+    //         onPageClick: function (event, page) {
+    //             // console.log('Page: ' + page);
+    //             if (rlc.skip) {
+    //                 rlc.skip = false;
+    //                 return;
+    //             }
+    //             rlc.fetchAllCandidates(page);
+    //             $("html, body").animate({ scrollTop: 0 }, "slow");
+    //         }
+    //     });
+    // }
 
     /*pagination for Candidates*/
-    rlc.fetchAllCandidates = function(page){
+    rlc.fetchList = function(page){
         rlc.limit = $('#table_length').val();
         if(rlc.limit == undefined){
             rlc.limit = -1;
@@ -99,16 +95,25 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
              
         var promise = services.getAllCandidates(req,requestParam);        
         promise.success(function (result) {
-            if (result.data) {
-                Utility.stopAnimation();
+            console.log(result.status_code);
+            if (result.status_code == 200) {                
                 rlc.resumeList = result.data.data; 
-                rlc.applyPagination(result.data);
-            }    
+                pagination.applyPagination(result.data,rlc);
+            }else{
+                rlc.resumeList = [];
+            }
+            Utility.stopAnimation();
         }, function myError(r) {
             toastr.error(r.data.message, 'Sorry!');
             Utility.stopAnimation();
         });
     }    
+
+    rlc.init = function(){
+        rlc.fetchList(-1);
+        rlc.getAllInterviewerList();
+        rlc.getActiveJd();
+    }
 
     rlc.setTotalExperience = function(exp){
         if(exp % 1 !== 0){

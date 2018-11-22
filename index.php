@@ -265,6 +265,7 @@
         <script src="/resources/plugins/angular-ui-switch-master/angular-ui-switch.min.js"></script>
          <!-- TwoPagination Plugin -->
          <!-- <script src="https://gitcdn.github.io/bootstrap-toggle/2.1.0/js/bootstrap-toggle.min.js"></script> -->
+        <!-- <script src="/resources/plugins/jquery.twbsPagination/jquery.twbsPagination.min.js"></script> -->
         <script src="/resources/plugins/jquery.twbsPagination/jquery.twbsPagination.min.js"></script>
         <script src="/resources/js/ui-bootstrap-tpls.js"></script>
         <script src="/resources/js/myapp.js"></script>  

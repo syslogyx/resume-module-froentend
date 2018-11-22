@@ -259,6 +259,7 @@ app.service('pagination', function (RESOURCES, $http, $cookieStore, $filter) {
     //apply pagination
     this.applyPagination = function (pageData, ctrlscope, $source= null) {
         console.log(pageData);
+        console.log(ctrlscope);
         $('#pagination-sec').twbsPagination({
             totalPages: pageData.last_page,
             visiblePages: 5,
@@ -285,8 +286,18 @@ app.service('pagination', function (RESOURCES, $http, $cookieStore, $filter) {
 });
 
 app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
+    // this.setIdentity = function (identity) {
+    //     this.user = identity;
+    // }
+
     this.setIdentity = function (identity) {
+        $cookieStore.put('identity', JSON.stringify(identity));
         this.user = identity;
+    }
+
+    this.getIdentity = function (identity) {
+        return $cookieStore.get('identity');
+        // return this.user;
     }
 
     this.setAuthKey = function (authkey) {

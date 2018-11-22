@@ -1,13 +1,17 @@
-app.controller('interviewListCtrl', function ($scope, $rootScope, $http, services, $location, menuService, $cookieStore,pagination,) {
+app.controller('interviewListCtrl', function ($scope, $rootScope, $http, services, $location, menuService, $cookieStore,pagination) {
 
     var ilc = this;    
 
+    var loggedInUser = JSON.parse(services.getIdentity());
+    console.log(loggedInUser.identity.role);
+    ilc.logInUserRole = loggedInUser.identity.role;
+    console.log(ilc.logInUserRole);
     var rlc = this;
     ilc.pageno = 0;
     ilc.limit = 0;
     ilc.skip = true;
     ilc.interviewerList='';
-    ilc.userId = null;
+    ilc.userId = loggedInUser.identity.role==1?null:loggedInUser.id;
     ilc.candidateId = null;
 
     menuService.setMenu([
@@ -38,24 +42,6 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
         ilc.getAllInterviewerList();
     }
 
-    ilc.applyPagination = function (pageData) {
-        $('#pagination-sec').twbsPagination({
-            totalPages: pageData.last_page,
-            visiblePages: 5,
-            first: '',
-            last: '',
-            onPageClick: function (event, page) {
-                // console.log('Page: ' + page);
-                if (ilc.skip) {
-                    ilc.skip = false;
-                    return;
-                }
-                ilc.fetchList(page);
-                $("html, body").animate({ scrollTop: 0 }, "slow");
-            }
-        });
-    }
-
     /*pagination for Candidates*/
     ilc.fetchList = function(page){
         ilc.limit = $('#table_length').val();
@@ -83,47 +69,20 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
         }        
              
         var promise = services.getScheduledInterviewList(req,requestParam);        
-        promise.success(function (result) {
-            if (result.data) {
-                Utility.stopAnimation();
+        promise.success(function (result) { 
+            // console.log(result.status_code);
+            if (result.status_code == 200) {                
                 ilc.interviewList = result.data.data;
-                // ilc.checkForCandidate();
-                ilc.applyPagination(result.data);
-            }    
+                pagination.applyPagination(result.data,rlc);
+            }else{
+                ilc.interviewList = [];
+            }
+            Utility.stopAnimation();  
         }, function myError(r) {
             toastr.error(r.data.message, 'Sorry!');
             Utility.stopAnimation();
         });
-    }  
-
-
-    // ilc.checkForCandidate = function(){
-    //     console.log(ilc.interviewList.length);
-    //     for (var i = 0; i < ilc.interviewList.length; i++) {
-    //                 // Things[i]
-    //         ilc.candidateId = ilc.interviewList[i].candidate_id;
-    //         var req = {
-    //             'candidate_id':ilc.candidateId
-    //         }
-    //         var requestParam = {
-    //             page:ilc.pageno,
-    //             limit:ilc.limit,
-    //         }  
-
-    //         var promise = services.getScheduledInterviewList(req,requestParam);        
-    //         promise.success(function (result) {
-    //             if (result.data) {
-    //                 Utility.stopAnimation();
-    //                 ilc.interviewList = result.data.data;
-    //                 ilc.applyPagination(result.data);
-    //             }    
-    //         }, function myError(r) {
-    //             toastr.error(r.data.message, 'Sorry!');
-    //             Utility.stopAnimation();
-    //         });
-            
-    //     }
-    // }
+    }
 
 
     ilc.getAllInterviewerList = function(){        
