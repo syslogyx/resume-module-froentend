@@ -49,7 +49,7 @@
 <link href="/resources/plugins/bootstrap-wizard-master/assets/css/demo.css" rel="stylesheet" />
 
 <section class="content" ng-cloak style="padding:0px" ng-controller="resumeCtrl" id="resumeCtrl">
-<div id="back_image" class="image-container set-full-height" style="background-image:url({{backCurrentImg}})">
+<div id="back_image" class="image-container set-full-height" style="background-image:url({{backCurrentImg}});background-size: auto;background-position:initial;">
     <!--   Big container   -->
     <div class="container">
         <div class="row">
@@ -82,6 +82,7 @@
                                     <li><a href="#technicalSkills" data-toggle="tab">TECHNICAL SKILLS</a></li>
                                     <li><a href="#industrialExperience" data-toggle="tab">INDUSTRIAL EXPERIENCE</a></li>
                                     <li><a href="#hobbies" data-toggle="tab">HOBBIES DETAILS</a></li>
+                                    <li><a href="#languageKnown" data-toggle="tab">LANGUAGE(s) KNOWN</a></li>
                                     <li><a href="#uploadDocument" data-toggle="tab">UPLOAD RESUME</a></li>
                                 </ul>
                             </div>
@@ -89,10 +90,10 @@
                                 <div class="tab-pane" id="presonalDetails">
                                     <div class="row">
                                       <h4 class="info-text"> Please enter personal details</h4>
-                                    </div>                                
+                                    </div>  
                                     <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="col-md-12">
+                                        <div class="col-sm-12">   
+                                            <div class="col-md-6">             
                                                 <div class="form-group">
                                                     <label class="mandatory">Job Code</label>
                                                     <select required class="form-control" name="job_code" id="job_code" ng-model="job_id" >
@@ -100,6 +101,37 @@
                                                         <option ng-repeat="jd in jobDetail" value="{{jd.id}}">{{jd.job_code}} {{jd.sub_title != '' ? (jd.sub_title) : ''}}</option>
                                                     </select>
                                                 </div>
+                                            </div> 
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="mandatory">Opportunity For</label>
+                                                    <select required class="form-control" name="opportunity_for" id="opportunity_for" ng-model="opportunityFor">
+                                                        <option value="" style="color:#ccc !important;">Select Opportunity</option>
+                                                        <option ng-repeat="opp in jobOpportunityFor" value="{{opp.name}}">{{opp.name}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>  
+                                        </div>                                        
+                                    </div>                              
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="mandatory">First Name</label>
+                                                    <input id="firstName" name="first_name" type="text" class="form-control" placeholder="Enter first name" ng-model="firstName">
+                                                </div>          
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="mandatory">Middle Name</label>
+                                                    <input id="middleName" name="middle_name" type="text" class="form-control" placeholder="Enter middle name" ng-model="middleName" >
+                                                </div>          
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="mandatory">Last Name</label>
+                                                    <input id="lastName" name="last_name" type="text" class="form-control" placeholder="Enter last name" ng-model="lastName" >
+                                                </div>          
                                             </div>
                                         </div>
                                     </div>
@@ -107,78 +139,120 @@
                                         <div class="col-sm-12">
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label class="mandatory">Name</label>
-                                                    <input id="fullName" name="full_name" type="text" class="form-control" placeholder="Enter full Name" ng-model="name">
+                                                    <label class="mandatory">Email</label>
+                                                    <input id="email" name="email" type="email" class="form-control" placeholder="Enter email address" ng-model="email">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                              <div class="form-group">
-                                                <label class="mandatory">Email</label>
-                                                <input id="email" name="email" type="email" class="form-control" placeholder="Enter email address" ng-model="email">
-                                              </div>
+                                                <div class="form-group">
+                                                    <label class="mandatory">Mobile Number</label>
+                                                    <input id="mobileNo" name="mobile_no" type="text" class="form-control" placeholder="Enter mobile number" ng-model="mobileNumber">
+                                                </div>
                                             </div>
                                             <div class="col-md-4">
-                                              <div class="form-group">
-                                                <label class="mandatory">Mobile Number</label>
-                                                <input id="mobileNo" name="mobile_no" type="text" class="form-control" placeholder="Enter mobile number" ng-model="mobileNumber">
-                                              </div>
+                                                <div class="form-group">
+                                                    <label class="mandatory">Date of Birth</label>
+                                                        <div class="input-group date">
+                                                            <div class="input-group-addon">
+                                                                <i  class="fa fa-calendar"></i>
+                                                            </div>
+                                                            <input type="text" class="form-control" id="dob" name="dob" placeholder="Enter date" ng-model="dateOfBirth">
+                                                        </div>
+                                                  </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12">
-                                            <div class="col-md-4">
-                                              <div class="form-group">
-                                                <label class="mandatory">Date of Birth</label>
-                                                    <div class="input-group date">
-                                                        <div class="input-group-addon">
-                                                            <i  class="fa fa-calendar"></i>
-                                                        </div>
-                                                        <input type="text" class="form-control" id="dob" name="dob" placeholder="Enter date" ng-model="dateOfBirth">
-                                                    </div>
-                                              </div>
-                                            </div>
+                                    </div>
+                                    <div class="row">                      
+                                        <div class="col-sm-12"> 
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="mandatory">PAN No.</label>
                                                     <input type="text" class="form-control" id="panNumber" name="pan_number" placeholder="Enter PAN number" ng-model="panNumber">
                                                 </div>
-                                            </div>
+                                            </div>                  
                                             <div class="col-md-4">
                                               <div class="form-group">
                                                 <label class="">Passport No.</label>
                                                 <input type="text" class="form-control" id="passportNo" name="passport_no" placeholder="Enter passport number" ng-model="passportNumber">
                                               </div>
                                             </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="mandatory">Gender</label>
+                                                    <select class="form-control" name="gender" id="gender" ng-model="gender">
+                                                        <option value="" style="color:#ccc !important;">Select Gender</option>
+                                                        <option ng-repeat="gen in genderOptions" value="{{gen.name}}">{{gen.name}}</option>
+                                                    </select>          
+                                                </div>
+                                            </div>
                                         </div>
+                                    </div>
+                                    <div class="row">    
                                         <div class="col-sm-12">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="mandatory">Marital Status</label>
+                                                    <select class="form-control" name="marital_status" id="marital_status" ng-model="martialStatus">
+                                                        <option value="" style="color:#ccc !important;">Select Status</option>
+                                                        <option ng-repeat="ms in martialStatusOptions" value="{{ms.name}}">{{ms.name}}</option>
+                                                    </select>          
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="mandatory">Correspondence Address</label>
                                                     <textarea class="form-control" id="correspondingAddress" name="corresponding_address" ng-model="correspondingAddr" rows="1"></textarea>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                               <div class="form-group">
                                                 <label class="mandatory">Permanent Address</label>
                                                 <textarea class="form-control" id="permanentAddress" name="permanent_address" ng-model="permanentAddr" rows="1"></textarea>
                                               </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row">    
                                         <div class="col-sm-12">
                                             <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="mandatory">Objective</label>
-                                                    <textarea class="form-control" id="objective" name="objective" ng-model="objectives" rows="1"></textarea>
-                                                    <span id="message2" onclick="$Spelling.SpellCheckInWindow('objective'); return false;" style="display: none;    color: #dd4b39;">Click here to check spelling in objective.</span>
-                                                </div>
+                                                <label class="mandatory">Objective</label>
                                             </div>
                                             <div class="col-md-6">
-                                              <div class="form-group">
                                                 <label class="mandatory">Summary</label>
-                                                <textarea class="form-control" id="summary" name="summary" ng-model="summary" rows="1"></textarea>
-                                                <span id="message1" onclick="$Spelling.SpellCheckInWindow('summary'); return false;" style="display: none;color: #dd4b39;">Click here to check spelling in summary.</span>
-                                              </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row">    
+                                        <div class="col-sm-12">     
+                                            <div class="col-md-6" style="padding: 0px"> 
+                                                <div ng-repeat="o in objectiveDiv">
+                                                    <div class="col-sm-10">
+                                                        <div class="form-group">
+                                                           <textarea placeholder="Enter Objective" class="form-control objectives" id="objective_{{$index}}" name="objective_{{$index}}" ng-model="o.objective" rows="1" ng-blur="callSpellchecker($index,'objective');"></textarea>
+                                                           <span id="objective_msg{{$index}}" class="objective_msg" data-index="{{$index}}" ng-click="setSpellcheckMsg($index,'objective')" style="display: none;color: #dd4b39;">Click here to check spelling in objective.</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2"> 
+                                                        <button type="button" class="btn btn-sm btn-success  pull-right appendBtn" ng-click="appendObjectiveDiv()" title="Add new objective"  ng-if="$index == 0"><i class="fa fa-plus"></i></button >             
+                                                        <button id="removeObjectiveBtn" type="button" class="btn btn-sm btn-danger pull-right"  ng-click="removeObjective($index)" ng-if="$index > 0" title="Remove Objective"><i class="fa fa-remove"></i></button>
+                                                    </div>
+                                                </div>     
+                                            </div>                     
+                                            <div class="col-sm-6" style="padding: 0px">
+                                                <div ng-repeat="s in summaryDiv">
+                                                    <div class="col-sm-10">
+                                                        <div class="form-group">
+                                                            <textarea placeholder="Enter Summary" class="form-control summary" id="summary_{{$index}}" name="summary_{{$index}}" ng-model="s.summary" rows="1" ng-blur="callSpellchecker($index,'summary');"></textarea>
+                                                            <span id="summary_msg{{$index}}" class="summary_msg" data-index="{{$index}}" ng-click="setSpellcheckMsg($index,'summary')" style="display: none;color: #dd4b39;">Click here to check spelling in summary.</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2"> 
+                                                        <button type="button" class="btn btn-sm btn-success  pull-right appendBtn" ng-click="appendSummaryDiv()" title="Add new summary"  ng-if="$index == 0"><i class="fa fa-plus"></i></button >
+                                                        <button id="removeSummaryBtn" type="button" class="btn btn-sm btn-danger pull-right"  ng-click="removeSummary($index)" ng-if="$index > 0" title="Remove hobby"><i class="fa fa-remove"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                    
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="educationalDetails">
@@ -274,13 +348,22 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-12" ng-repeat="a in achievements">
-                                            <div class="col-sm-10">
+                                            <div class="col-sm-5">
                                                 <div class="form-group">
-                                                    <label class="mandatory">Other Achievements</label>
+                                                    <label class="mandatory"> Achievements Type</label>
+                                                    <select required class="form-control" name="achievement_type_{{$index}}" id="achievement_type_{{$index}}" ng-model="a.achievement_type">
+                                                        <option value="" style="color:#ccc !important;">Select Type</option>
+                                                        <option ng-repeat="ache in achivementTypesOptions" value="{{ache.name}}">{{ache.name}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <label class="mandatory">Achievements Details</label>
                                                     <input id="other_achievements_{{$index}}" name="other_achievements_{{$index}}" type="text" class="form-control other_achievements" placeholder="Enter Achievements" ng-model="a.achivement">
                                                 </div>
                                             </div>
-                                            <div class="col-sm-2 form-group" style="margin-top:3.5%">
+                                            <div class="col-sm-2 form-group" style="margin-top:2.5%">
                                                 <button id="removeAchievementBtn" type="button" class="btn btn-sm btn-danger" ng-if="$index > 0" ng-click="removeAchievements($index)" title="Remove achievement "><i class="fa fa-remove"></i></button>
                                             </div>
                                         </div>
@@ -335,21 +418,21 @@
                                         <div class="col-sm-12">
                                             <div class="col-sm-3 form-group">
                                                 <label class="">Total Experience (Years)</label>
-                                                <select id="total_year_experience" name="total_year_experience" class="form-control total_year_experience" placeholder="Enter year experience" ng-model="totalYearIndustryExperiance" ng-options="x.id as x.name for x in experienceYears">
+                                                <select id="total_year_experience" name="total_year_experience" class="form-control total_year_experience addDisabledProperty" placeholder="Enter year experience" ng-model="totalYearIndustryExperiance" ng-options="x.id as x.name for x in experienceYears">
                                                 </select>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="">Total Experience (Month)</label>
-                                                <select id="total_month_experience" name="total_month_experience" class="form-control total_month_experience" placeholder="Enter month experience" ng-model="totalMonthIndustryExperiance" ng-options="x.id as x.name for x in experienceMonths">
+                                                <select id="total_month_experience" name="total_month_experience" class="form-control total_month_experience addDisabledProperty" placeholder="Enter month experience" ng-model="totalMonthIndustryExperiance" ng-options="x.id as x.name for x in experienceMonths">
                                                 </select>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="mandatory">Current CTC</label>
-                                                <input id="current_ctc" name="current_ctc" type="text" class="form-control" placeholder="Enter current CTC" ng-model="currentCTC">
+                                                <input id="current_ctc" name="current_ctc" type="text" class="form-control addDisabledProperty" placeholder="Enter current CTC" ng-model="currentCTC">
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="">CTC Unit</label>
-                                                <select id="ctc_key" name="ctc_key" class="form-control" ng-model="ctcKey" style="margin-top: 3.5%;">
+                                                <select id="ctc_key" name="ctc_key" class="form-control addDisabledProperty" ng-model="ctcKey" style="margin-top: 3.5%;">
                                                     <option selected="selected" value="Lac">Lac</option>
                                                     <option value="Cr">Cr</option>
                                                 </select>
@@ -359,28 +442,35 @@
                                     <hr>
                                     <div class="row">
                                         <div class="co-sm-12 form-group" style="margin-right:2.8%">
-                                            <button id="addMoreIndustrialExperienceBtn" type="button" class="btn btn-sm btn-success pull-right appendBtn" ng-click="appendIndustrialExperienceDiv();" title="Add new industry experience "><i class="fa fa-plus"></i></button>
+                                            <button id="addMoreIndustrialExperienceBtn" type="button" class="btn btn-sm btn-success pull-right appendBtn addDisabledProperty" ng-click="appendIndustrialExperienceDiv();" title="Add new industry experience "><i class="fa fa-plus"></i></button>
                                         </div>
                                     </div>
                                     <div id="parentIndustrialExperience" ng-repeat="ex in industryExperiance">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-1 pull-right form-group" style="margin-top:3%">
+                                                    <button id="removeIndustrialExperienceBtn" type="button" class="btn btn-sm btn-danger"  ng-click="removeIndustrialExperience($index)" ng-if="$index > 0" title="Remove industrial experiance"><i class="fa fa-remove"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="row" >
                                             <div class="col-sm-12">
                                                 <div class="col-sm-4">
                                                     <div class="form-group">
                                                         <label class="mandatory">Company Name</label>
-                                                        <input id="companyName_{{$index}}" name="company_name_{{$index}}" type="text" class="form-control company_name" placeholder="Enter company name" ng-model="ex.company_name">
+                                                        <input id="companyName_{{$index}}" name="company_name_{{$index}}" type="text" class="form-control company_name addDisabledProperty" placeholder="Enter company name" ng-model="ex.company_name">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <div class="form-group">
                                                         <label class="mandatory">Project Name</label>
-                                                        <input id="projectName_{{$index}}" name="project_name_{{$index}}" type="text" class="form-control project_name" placeholder="Enter project name" ng-model="ex.project_name">
+                                                        <input id="projectName_{{$index}}" name="project_name_{{$index}}" type="text" class="form-control project_name addDisabledProperty" placeholder="Enter project name" ng-model="ex.project_name">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <div class="form-group">
                                                         <label class="mandatory">Role</label>
-                                                        <input id="projectRole_{{$index}}" name="project_role_{{$index}}" type="text" class="form-control project_role" placeholder="Enter role" ng-model="ex.role_in_project">
+                                                        <input id="projectRole_{{$index}}" name="project_role_{{$index}}" type="text" class="form-control project_role addDisabledProperty" placeholder="Enter role" ng-model="ex.role_in_project">
                                                     </div>
                                                 </div>
                                             </div>
@@ -389,19 +479,22 @@
                                             <div class="col-sm-12">
                                                 <div class="col-sm-4">
                                                     <div class="form-group">
-                                                        <label class="mandatory">Languages/ Tools Used</label>
-                                                        <textarea id="toolsUsed_{{$index}}" name="tools_used_{{$index}}" class="form-control tools_used" placeholder="Enter Languages/ Tools Used" ng-model="ex.language_or_tools" rows="1"></textarea>
+                                                        <label class="mandatory">Languages Used</label>
+                                                        <textarea id="languagesUsed_{{$index}}" name="language_used_{{$index}}" class="form-control language_used addDisabledProperty" placeholder="Enter Languages Used" ng-model="ex.languages" rows="1"></textarea>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-7">
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label class="mandatory"> Tools Used</label>
+                                                        <textarea id="toolsUsed_{{$index}}" name="tools_used_{{$index}}" class="form-control tools_used addDisabledProperty" placeholder="Enter Tools Used" ng-model="ex.tools" rows="1"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
                                                     <div class="form-group">
                                                         <label class="mandatory">Project Description</label>
-                                                        <textarea id="projectDescription_{{$index}}" name="project_description_{{$index}}" ng-blur="callSpellchecker($index);" class="form-control project_description" placeholder="Enter Project Description" ng-model="ex.project_description" rows="1"></textarea>
-                                                        <span id="project_msg{{$index}}" class="prod_msg" data-index="{{$index}}" ng-click="setSpellcheckMsg($index)" style="display: none;color: #dd4b39;">Click here to check spelling in project description.</span>
+                                                        <textarea id="projectDescription_{{$index}}" name="project_description_{{$index}}" ng-blur="callSpellchecker($index,'project');" class="form-control project_description addDisabledProperty" placeholder="Enter Project Description" ng-model="ex.project_description" rows="1"></textarea>
+                                                        <span id="project_msg{{$index}}" class="prod_msg" data-index="{{$index}}" ng-click="setSpellcheckMsg($index,'project')" style="display: none;color: #dd4b39;">Click here to check spelling in project description.</span>
                                                     </div>
-                                                </div>
-                                                <div class="col-sm-1 form-group" style="margin-top:3%">
-                                                    <button id="removeIndustrialExperienceBtn" type="button" class="btn btn-sm btn-danger"  ng-click="removeIndustrialExperience($index)" ng-if="$index > 0" title="Remove industrial experiance"><i class="fa fa-remove"></i></button>
                                                 </div>
                                             </div>
                                         </div>
@@ -428,6 +521,29 @@
                                                 <div class="form-group">
                                                     <button id="removeHobbyBtn" type="button" class="btn btn-sm btn-danger"  ng-click="removeHobby($index)" ng-if="$index > 0" title="Remove hobby"><i class="fa fa-remove"></i></button>
                                                 </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="languageKnown">
+                                    <div class="row">
+                                        <div class="col-sm-12 info-text">
+                                            <h4 class="sectionHeading">  Please enter Language Details  </h4>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-6">
+                                                 <div class="form-group">
+                                                    <label class="mandatory">Indian language (s)</label>
+                                                    <input id="indianLanguage" name="indian_lang" type="text" class="form-control" placeholder="Enter comma seperated language" ng-model="indianLang">
+                                                  </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                 <div class="form-group">
+                                                    <label class="mandatory">Foreign language (s)</label>
+                                                    <input id="foreignLanguage" name="foreign_lang" type="text" class="form-control" placeholder="Enter comma seperated language" ng-model="foreignLang">
+                                                  </div>
                                             </div>
                                         </div>
                                     </div>
@@ -490,7 +606,7 @@
                                 <div class="row">
                                     <div class="col-md-6 form-group">
                                         <label class=""><b>Name: </b></label>
-                                        <span>{{ name}}</span>
+                                        <span>{{ firstName +' '+ middleName +' '+ lastName}}</span>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -710,10 +826,10 @@
 <script src="/resources/js/app.min.js"></script>
 <script src="/resources/plugins/datepicker/bootstrap-datepicker.js"></script>
 <script type="text/javascript">
-     $(function() {
-        $Spelling.LiveFormValidation  ('summary', 'message1'  );
-        $Spelling.LiveFormValidation  ('objective', 'message2'  );
-     });
+     // $(function() {
+     //    $Spelling.LiveFormValidation  ('summary', 'message1'  );
+     //    $Spelling.LiveFormValidation  ('objective', 'message2'  );
+     // });
 
 
 </script>

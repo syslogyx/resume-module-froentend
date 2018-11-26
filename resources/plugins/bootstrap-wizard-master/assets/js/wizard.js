@@ -67,9 +67,9 @@ $(document).ready(function(){
         }, "Invalid ctc format.");
 
     $.validator.addMethod("spellcheck", function (value, element) {
-        if($('#message1:visible').length > 0){
+        if($('.objective_msg:visible').length > 0){
             return false;
-        }else if($('#message2:visible').length > 0){
+        }else if($('.summary_msg:visible').length > 0){
             return false;
         }else if($('.prod_msg:visible').length > 0){
             return false;
@@ -78,11 +78,16 @@ $(document).ready(function(){
         }
     },'');
 
+    // $.validator.addMethod("objmsg", $.validator.methods.required,"Objective is required.");
+
+
 
     // $.validator.addClassRules(
     //         "other_achivements", //your class name
     //         {required: true},
     // );
+
+    
 
     $.validator.addClassRules({
         qualification: {
@@ -94,7 +99,8 @@ $(document).ready(function(){
         percentage: {
             required: true,
             number:true,
-            range: [1, 100]
+            range: [1, 100],
+            min: 60
         },
         university: {
             required: true,
@@ -137,8 +143,24 @@ $(document).ready(function(){
         },
         hobbie: {
             required: true
+        },
+        objectives:{
+            required: true,
+            // objmsg:true,
+            // spellcheck:true,
+        },
+        summary:{
+            required: true,
+            // spellcheck:true,
         }
     });
+
+    // $.validator.addClassMessages({
+    //     objectives:{
+    //         required: "Objective is required.",
+    //     },
+    // });
+    
     // Code for the Validator
     var $validator = $('.wizard-card form').validate({
         errorElement: 'span', //default input error message container
@@ -146,6 +168,7 @@ $(document).ready(function(){
         errorPlacement: function (error, element) {
 
             var type = $(element).attr("type");
+            console.log(type);
             if ($(element).attr("id") === "")
             {
                 element.parent().append(error);
@@ -179,12 +202,32 @@ $(document).ready(function(){
 
 		rules: {
             job_code:{
-                required: true
+                required: true,
             },
-		    full_name: {
+		    first_name: {
 		      required: true,
-              lettersonly: true
+              lettersonly: true,
+              maxlength: 25,
 		    },
+            middle_name: {
+              required: true,
+              lettersonly: true,
+              maxlength: 25,
+            },
+            last_name: {
+              required: true,
+              lettersonly: true,
+              maxlength: 25,
+            },
+            opportunity_for:{
+                required: true,
+            },
+            gender:{
+                required:true,
+            },
+            marital_status:{
+                required:true,
+            },
 		    mobile_no: {
 		      required: {
                     depends:function(){
@@ -214,14 +257,14 @@ $(document).ready(function(){
                 required: true,
                 
             },
-            objective:{
-                required: true,
-                spellcheck:true,
-            },
-            summary:{
-                required: true,
-                spellcheck:true,
-            },
+            // objective:{
+            //     required: true,
+            //     spellcheck:true,
+            // },
+            // summary:{
+            //     required: true,
+            //     spellcheck:true,
+            // },
             start_year: {
                 required: true,
             },
@@ -237,29 +280,55 @@ $(document).ready(function(){
             current_ctc:{
                 required: true,
                 number:true,
-                 mynumber :true  
+                mynumber :true  
             },
+            // file: {
+            //     required: true,
+            //     accept: "png|jpe?g|gif",
+            //     filesize: 1048576
+            // },
             file: {
-                required: true,
-                accept: "png|jpe?g|gif",
-                filesize: 1048576
-            },
-             file: {
                 required: true,
                 accept: "(docx?|doc|pdf)",
                 filesize: 1048576
+            },
+            indian_lang:{
+                required: true,
+            },
+            foreign_lang:{
+                required: true,
             }
         },
         messages: {
             job_code:{
                 required: "Job code is required.",
             },
-            full_name: {
-                required: "Name is required.",
+            first_name: {
+                required: "First name is required.",
+                maxlength:"First name cannot exceed more than 25 characters."
                 // lettersonly:"Please enter valid name."
+            },
+            middle_name: {
+                required: "Middle name is required.",
+                maxlength:"Middle name cannot exceed more than 25 characters."
+                // lettersonly:"Please enter valid name."
+            },
+            last_name: {
+                required: "Last name is required.",
+                maxlength:"Last name cannot exceed more than 25 characters."
+                // lettersonly:"Please enter valid name."
+            },
+            opportunity_for:{
+                required: "Opportunity is required.",
             },
             mobile_no: {
                 required: "Mobile number is required.",
+            },
+            gender:{
+                required:"Gender is required",
+            },
+            marital_status:{
+                required:"Marital status is required",
             },
             email: {
                 required: "Email is required.",
@@ -292,6 +361,7 @@ $(document).ready(function(){
             },
              percentage:{
                 required: "percentage is required.",
+                min: "Please enter a value greater than or equal to 60."
             },
             university: {
                 required: "University is required.",

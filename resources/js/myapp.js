@@ -175,6 +175,31 @@ app.constant('RESOURCES', (function () {
             {id: 15, name: "15"}
         ],
 
+        OPPORTUNITYFOR:[
+            {id: 0, name: "Experience"},
+            {id: 1, name: "Fresher"}
+        ],
+
+        GENDER:[
+            {id: 0, name: "Male"},
+            {id: 1, name: "Female"},
+            {id: 2, name: "Other"}
+        ],
+
+        MARITAL_STATUS:[
+            {id: 0, name: "Unmarried"},
+            {id: 1, name: "Married"},
+            {id: 2, name: "Divorced"},
+            {id: 3, name: "Widowed"}
+        ],
+
+        ACHIVEMENT_TYPES:[
+            {id: 0, name: "Professional Training"},
+            {id: 1, name: "Certification"},
+            {id: 2, name: "Sports"},
+            {id: 3, name: "Others"}
+        ],
+
         // defined Technical round constants
         TECHNICAL_ROUND: [
             {id:1,name:"Round 1"},
