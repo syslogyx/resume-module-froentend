@@ -33,6 +33,12 @@
     body{
         font-size: 14px !important;
     }
+    .languagestools_padding{
+        padding:0px !important;
+    }
+    .languagestools_btn_margin{
+        margin-top: 11%;
+    }
 
 </style>
 <!--     Fonts and icons     -->
@@ -97,7 +103,7 @@
                                                 <div class="form-group">
                                                     <label class="mandatory">Job Code</label>
                                                     <select required class="form-control" name="job_code" id="job_code" ng-model="job_id" >
-                                                        <option value="" style="color:#ccc !important;">Select Job</option>
+                                                        <option value="" style="color:#ccc !important;">Select job code</option>
                                                         <option ng-repeat="jd in jobDetail" value="{{jd.id}}">{{jd.job_code}} {{jd.sub_title != '' ? (jd.sub_title) : ''}}</option>
                                                     </select>
                                                 </div>
@@ -106,7 +112,7 @@
                                                 <div class="form-group">
                                                     <label class="mandatory">Opportunity For</label>
                                                     <select required class="form-control" name="opportunity_for" id="opportunity_for" ng-model="opportunityFor">
-                                                        <option value="" style="color:#ccc !important;">Select Opportunity</option>
+                                                        <option value="" style="color:#ccc !important;">Select opportunity</option>
                                                         <option ng-repeat="opp in jobOpportunityFor" value="{{opp.name}}">{{opp.name}}</option>
                                                     </select>
                                                 </div>
@@ -180,7 +186,7 @@
                                                 <div class="form-group">
                                                     <label class="mandatory">Gender</label>
                                                     <select class="form-control" name="gender" id="gender" ng-model="gender">
-                                                        <option value="" style="color:#ccc !important;">Select Gender</option>
+                                                        <option value="" style="color:#ccc !important;">Select gender</option>
                                                         <option ng-repeat="gen in genderOptions" value="{{gen.name}}">{{gen.name}}</option>
                                                     </select>          
                                                 </div>
@@ -193,7 +199,7 @@
                                                 <div class="form-group">
                                                     <label class="mandatory">Marital Status</label>
                                                     <select class="form-control" name="marital_status" id="marital_status" ng-model="martialStatus">
-                                                        <option value="" style="color:#ccc !important;">Select Status</option>
+                                                        <option value="" style="color:#ccc !important;">Select status</option>
                                                         <option ng-repeat="ms in martialStatusOptions" value="{{ms.name}}">{{ms.name}}</option>
                                                     </select>          
                                                 </div>
@@ -201,13 +207,13 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="mandatory">Correspondence Address</label>
-                                                    <textarea class="form-control" id="correspondingAddress" name="corresponding_address" ng-model="correspondingAddr" rows="1"></textarea>
+                                                    <textarea class="form-control" id="correspondingAddress" placeholder="Enter address" name="corresponding_address" ng-model="correspondingAddr" rows="1"></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                               <div class="form-group">
                                                 <label class="mandatory">Permanent Address</label>
-                                                <textarea class="form-control" id="permanentAddress" name="permanent_address" ng-model="permanentAddr" rows="1"></textarea>
+                                                <textarea class="form-control" id="permanentAddress" placeholder="Enter address" name="permanent_address" ng-model="permanentAddr" rows="1"></textarea>
                                               </div>
                                             </div>
                                         </div>
@@ -228,8 +234,8 @@
                                                 <div ng-repeat="o in objectiveDiv">
                                                     <div class="col-sm-10">
                                                         <div class="form-group">
-                                                           <textarea placeholder="Enter Objective" class="form-control objectives" id="objective_{{$index}}" name="objective_{{$index}}" ng-model="o.objective" rows="1" ng-blur="callSpellchecker($index,'objective');"></textarea>
-                                                           <span id="objective_msg{{$index}}" class="objective_msg" data-index="{{$index}}" ng-click="setSpellcheckMsg($index,'objective')" style="display: none;color: #dd4b39;">Click here to check spelling in objective.</span>
+                                                           <textarea placeholder="Enter objective" class="form-control objectives" id="objective_{{$index}}" name="objective_{{$index}}" ng-model="o.objective" rows="1" ng-blur="callSpellchecker($index,'objective',null);"></textarea>
+                                                           <span id="objective_msg{{$index}}" class="objective_msg" data-index="{{$index}}" ng-click="setSpellcheckMsg($index,'objective',null)" style="display: none;color: #dd4b39;">Click here to check spelling in objective.</span>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-2"> 
@@ -242,8 +248,8 @@
                                                 <div ng-repeat="s in summaryDiv">
                                                     <div class="col-sm-10">
                                                         <div class="form-group">
-                                                            <textarea placeholder="Enter Summary" class="form-control summary" id="summary_{{$index}}" name="summary_{{$index}}" ng-model="s.summary" rows="1" ng-blur="callSpellchecker($index,'summary');"></textarea>
-                                                            <span id="summary_msg{{$index}}" class="summary_msg" data-index="{{$index}}" ng-click="setSpellcheckMsg($index,'summary')" style="display: none;color: #dd4b39;">Click here to check spelling in summary.</span>
+                                                            <textarea placeholder="Enter summary" class="form-control summary" id="summary_{{$index}}" name="summary_{{$index}}" ng-model="s.summary" rows="1" ng-blur="callSpellchecker($index,'summary',null);"></textarea>
+                                                            <span id="summary_msg{{$index}}" class="summary_msg" data-index="{{$index}}" ng-click="setSpellcheckMsg($index,'summary',null)" style="display: none;color: #dd4b39;">Click here to check spelling in summary.</span>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-2"> 
@@ -360,7 +366,7 @@
                                             <div class="col-sm-5">
                                                 <div class="form-group">
                                                     <label class="mandatory">Achievements Details</label>
-                                                    <input id="other_achievements_{{$index}}" name="other_achievements_{{$index}}" type="text" class="form-control other_achievements" placeholder="Enter Achievements" ng-model="a.achivement">
+                                                    <input id="other_achievements_{{$index}}" name="other_achievements_{{$index}}" type="text" class="form-control other_achievements" placeholder="Enter achievements" ng-model="a.achivement">
                                                 </div>
                                             </div>
                                             <div class="col-sm-2 form-group" style="margin-top:2.5%">
@@ -432,7 +438,7 @@
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="">CTC Unit</label>
-                                                <select id="ctc_key" name="ctc_key" class="form-control addDisabledProperty" ng-model="ctcKey" style="margin-top: 3.5%;">
+                                                <select id="ctc_key" name="ctc_key" class="form-control addDisabledProperty" ng-model="ctcKey">
                                                     <option selected="selected" value="Lac">Lac</option>
                                                     <option value="Cr">Cr</option>
                                                 </select>
@@ -445,11 +451,11 @@
                                             <button id="addMoreIndustrialExperienceBtn" type="button" class="btn btn-sm btn-success pull-right appendBtn addDisabledProperty" ng-click="appendIndustrialExperienceDiv();" title="Add new industry experience "><i class="fa fa-plus"></i></button>
                                         </div>
                                     </div>
-                                    <div id="parentIndustrialExperience" ng-repeat="ex in industryExperiance">
+                                    <div id="parentIndustrialExperience" ng-repeat="ex in industryExperiance" ng-init="firstIndex = $index">
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="col-sm-1 pull-right form-group" style="margin-top:3%">
-                                                    <button id="removeIndustrialExperienceBtn" type="button" class="btn btn-sm btn-danger"  ng-click="removeIndustrialExperience($index)" ng-if="$index > 0" title="Remove industrial experiance"><i class="fa fa-remove"></i></button>
+                                                    <button id="removeIndustrialExperienceBtn" type="button" class="btn btn-sm btn-danger"  ng-click="removeIndustrialExperience(firstIndex)" ng-if="firstIndex > 0" title="Remove industrial experiance"><i class="fa fa-remove"></i></button>
                                                 </div>
                                             </div>
                                         </div>
@@ -478,26 +484,68 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="col-sm-4">
-                                                    <div class="form-group">
+                                                    <!-- <div class="form-group">
                                                         <label class="mandatory">Languages Used</label>
-                                                        <textarea id="languagesUsed_{{$index}}" name="language_used_{{$index}}" class="form-control language_used addDisabledProperty" placeholder="Enter Languages Used" ng-model="ex.languages" rows="1"></textarea>
+                                                        <textarea id="languagesUsed_{{$index}}" name="language_used_{{$index}}" class="form-control language_used addDisabledProperty" placeholder="Enter languages used" ng-model="ex.languages" rows="1"></textarea>
+                                                    </div> -->
+                                                    <div ng-repeat="ld in ex.languages">
+                                                        <div class="col-sm-10 languagestools_padding">
+                                                            <div class="form-group">
+                                                                <label class="mandatory">Languages Used</label>
+                                                                <textarea placeholder="Enter language" class="form-control language_used addDisabledProperty" id="languagesUsed_{{$index}}" name="language_used_{{$index}}" ng-model="ld.language" rows="1"></textarea>
+                                                                <span id="language_used_msg{{$index}}" class="language_used_msg" data-index="{{$index}}" style="display: none;color: #dd4b39;">Click here to check spelling in language.</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-2 languagestools_padding languagestools_btn_margin"> 
+                                                            <button type="button" class="btn btn-sm btn-success  pull-right appendBtn addDisabledProperty" ng-click="appendLanguagesDiv(firstIndex)" title="Add new language"  ng-if="$index == 0"><i class="fa fa-plus"></i></button >
+                                                            <button id="removeSummaryBtn" type="button" class="btn btn-sm btn-danger pull-right"  ng-click="removeLanguagesDiv(firstIndex,$index)" ng-if="$index > 0" title="Remove language"><i class="fa fa-remove"></i></button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    <div class="form-group">
+                                                    <!-- <div class="form-group">
                                                         <label class="mandatory"> Tools Used</label>
-                                                        <textarea id="toolsUsed_{{$index}}" name="tools_used_{{$index}}" class="form-control tools_used addDisabledProperty" placeholder="Enter Tools Used" ng-model="ex.tools" rows="1"></textarea>
+                                                        <textarea id="toolsUsed_{{$index}}" name="tools_used_{{$index}}" class="form-control tools_used addDisabledProperty" placeholder="Enter tools used" ng-model="ex.tools" rows="1"></textarea>
+                                                    </div> -->
+                                                    <div ng-repeat="td in ex.tools">
+                                                        <div class="col-sm-10 languagestools_padding">
+                                                            <div class="form-group">
+                                                                <label class="mandatory"> Tools Used</label>
+                                                                <textarea placeholder="Enter tool" class="form-control tools_used addDisabledProperty" id="toolsUsed_{{$index}}" name="language_used_{{$index}}" ng-model="td.tool" rows="1"></textarea>
+                                                                <span id="tool_used_msg{{$index}}" class="tool_used_msg" data-index="{{$index}}" style="display: none;color: #dd4b39;">Click here to check spelling in tool.</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-2 languagestools_padding languagestools_btn_margin"> 
+                                                            <button type="button" class="btn btn-sm btn-success  pull-right appendBtn addDisabledProperty" ng-click="appendToolsDiv(firstIndex)" title="Add new tool"  ng-if="$index == 0"><i class="fa fa-plus"></i></button >
+                                                            <button id="removeToolBtn" type="button" class="btn btn-sm btn-danger pull-right"  ng-click="removeToolsDiv(firstIndex,$index)" ng-if="$index > 0" title="Remove tool"><i class="fa fa-remove"></i></button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    <div class="form-group">
+                                                    <!-- <div class="form-group">
                                                         <label class="mandatory">Project Description</label>
-                                                        <textarea id="projectDescription_{{$index}}" name="project_description_{{$index}}" ng-blur="callSpellchecker($index,'project');" class="form-control project_description addDisabledProperty" placeholder="Enter Project Description" ng-model="ex.project_description" rows="1"></textarea>
+                                                        <textarea id="projectDescription_{{$index}}" name="project_description_{{$index}}" ng-blur="callSpellchecker($index,'project');" class="form-control project_description addDisabledProperty" placeholder="Enter project description" ng-model="ex.project_description" rows="1"></textarea>
                                                         <span id="project_msg{{$index}}" class="prod_msg" data-index="{{$index}}" ng-click="setSpellcheckMsg($index,'project')" style="display: none;color: #dd4b39;">Click here to check spelling in project description.</span>
+                                                    </div> -->
+                                                    <!-- {{ex.project_descriptions}} -->
+                                                    <div ng-repeat="pd in ex.project_descriptions">
+                                                        <div class="col-sm-10 languagestools_padding">
+                                                            <div class="form-group">
+                                                                <label class="mandatory">Project Description</label>
+                                                                <textarea id="projectDescription_{{$index}}_{{firstIndex}}" name="project_description_{{$index}}" ng-blur="callSpellchecker($index,'project',firstIndex);" class="form-control project_description addDisabledProperty" placeholder="Enter project description" ng-model="pd.project_description" rows="1"></textarea>
+                                                                <span id="project_msg{{$index}}_{{firstIndex}}" class="prod_msg" data-index="{{$index}}" ng-click="setSpellcheckMsg($index,'project',firstIndex)" style="display: none;color: #dd4b39;">Click here to check spelling in project description.</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-2 languagestools_padding languagestools_btn_margin"> 
+                                                            <button type="button" class="btn btn-sm btn-success  pull-right appendBtn addDisabledProperty" ng-click="appendprojectDescriptionDiv(firstIndex)" title="Add new description"  ng-if="$index == 0"><i class="fa fa-plus"></i></button >
+                                                            <button id="removeToolBtn" type="button" class="btn btn-sm btn-danger pull-right"  ng-click="removeprojectDescriptionDiv(firstIndex,$index)" ng-if="$index > 0" title="Remove description"><i class="fa fa-remove"></i></button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <hr>
+                                        {{ex}}
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="hobbies">
@@ -514,7 +562,7 @@
                                             <div class="col-sm-10">
                                                  <div class="form-group">
                                                     <label class="mandatory">Hobby</label>
-                                                    <input id="hobbie_{{$index}}" name="hobbie_{{$index}}" type="text" class="form-control hobbie" placeholder="Enter Hobby" ng-model="h.hobbie_name">
+                                                    <input id="hobbie_{{$index}}" name="hobbie_{{$index}}" type="text" class="form-control hobbie" placeholder="Enter hobby" ng-model="h.hobbie_name">
                                                   </div>
                                             </div>
                                             <div class="col-sm-2" style="margin-top:3.5%">
@@ -603,6 +651,18 @@
                             </div>
                             <div class="modal-body" style="margin: 0 4% 0 4%;">
                                 <h4>PERSONAL DETAILS :</h4>
+                                <!-- <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label class=""><b>Job Code: </b></label>
+                                        <span>{{ job_id}}</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class=""><b>Opportunity For:</b></label>
+                                            <span>{{ opportunityFor}}</span>
+                                        </div>
+                                    </div>
+                                </div> -->
                                 <div class="row">
                                     <div class="col-md-6 form-group">
                                         <label class=""><b>Name: </b></label>
@@ -640,13 +700,11 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-12 form-group">
+                                    <div class="col-md-6 form-group">
                                         <label class=""><b>Correspondence Address: </b></label>
                                         <span>{{ correspondingAddr}}</span>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label class=""><b>Permanent Address:</b></label>
                                             <span>{{ permanentAddr}}</span>
@@ -654,18 +712,35 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-6 form-group">
+                                        <label class=""><b>Marital Status: </b></label>
+                                        <span>{{ martialStatus}}</span>
+                                    </div>
+                                    <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class=""><b>Objective:</b></label>
-                                            <span>{{ objectives}}</span>
+                                            <label class=""><b>Gender:</b></label>
+                                            <span>{{ gender}}</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class=""><b>Summary:</b></label>
-                                            <span>{{ summary}}</span>
+                                            <label class=""><b>Objective:</b></label>
+                                            <!-- <span>{{ objectives}}</span> -->
+                                            <ul style="margin-left: 3%;">
+                                                <li ng-repeat="o in objectiveDiv">{{o.objective}}</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class=""><b>Summary:</b></label>   
+                                            <ul style="margin-left: 3%;">
+                                                <li ng-repeat="s in summaryDiv">{{s.summary}}</li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
@@ -714,7 +789,8 @@
                                 <h4>ACHIEVEMENTS DETAILS:</h4>
                                 <div class="row" >
                                     <ul ng-repeat="ac in achievements" style="margin-left: 3%;">
-                                        <li>{{ac.achivement}}</li>
+
+                                        <li><strong>{{ac.achievement_type}}:</strong> {{ac.achivement}}</li>
                                     </ul>
                                 </div>
 
@@ -777,6 +853,20 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <hr>
+                                <h4>LANGUAGE(s) KNOWN :</h4>
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label class=""><b>Indian language(s): </b></label>
+                                        <span>{{ indianLang}}</span>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label class=""><b>Foreign language(s): </b></label>
+                                        <span>{{ foreignLang}}</span>
+                                    </div>
+                                </div>
+                                
 
                                 <hr>
                                 <h4>HOBBIES DETAILS :</h4>

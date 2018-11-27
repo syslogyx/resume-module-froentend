@@ -957,6 +957,7 @@ app.config(function ($routeProvider, $locationProvider) {
                         }]
                 }
             })
+            
             .when('/resume_list', {
                 templateUrl: 'views/resume/resume_list.html',
                 controller: 'resumeListCtrl',

@@ -1,7 +1,6 @@
 app.controller("resumeCtrl", function (services, AclService, $scope, $http, $location, RESOURCES, $cookieStore,menuService,$routeParams) {
 
     var rsm = this;
-
     $scope.ctcKey='Lac';
 
     $scope.backImgUrls=[
@@ -10,6 +9,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
         'resources/img/resumeimg/3_Other_Achievements_img.jpg',
         'resources/img/resumeimg/4_Technical_Skills_img.jpg',
         'resources/img/resumeimg/5_Industrial_Experience_img.jpg',
+        'resources/img/resumeimg/6_Hobbies_Details_img.jpg',
         'resources/img/resumeimg/6_Hobbies_Details_img.jpg',
         'resources/img/resumeimg/7_Upload_Document_img.jpg'
     ];
@@ -58,7 +58,15 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
 
     $scope.technicalSkill =[{technology_name:"",relevanceYearExperience:"0",relevanceMonthExperience:"0"}];
 
-    $scope.industryExperiance = [{company_name:"",project_name:"",role_in_project:"",language_or_tools:"",project_description:""}];
+    $scope.industryExperiance = [{
+            company_name:"",
+            project_name:"",
+            role_in_project:"",
+            language_or_tools:"",
+            languages:[{language:""}],
+            tools:[{tool:""}],
+            project_descriptions:[{project_description:""}]
+    }];
 
     $scope.hobbyDiv = [{hobbie_name:""}];
 
@@ -66,7 +74,6 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
     $scope.objectiveDiv = [{objective:""}];
 
     $scope.datepickerInit = function(){
-     // console.log($scope.qualifications);
 
         $('.start_year').datepicker({
             format: "yyyy",
@@ -77,8 +84,6 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
              $(this).val();
             startDate =  selected.date;
             $('.end_year').datepicker('setStartDate', startDate);
-            //$scope.qualifications.start_year = $(this).val();
-            //console.log($scope.qualifications);
         }).on("show", function (e) {
             $(this).valid();
         });
@@ -89,13 +94,11 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
                 minViewMode: "years"
         }).on("changeDate", function (e) {
             $(this).valid();
-            //$scope.qualifications.end_year = $(this).val();
-           // console.log($scope.qualifications);
         });
     }
 
     $('#opportunity_for').on('change',function(){
-        console.log($(this).val());
+        //console.log($(this).val());
         //if user select freshers (1 is constant for fresher)
         if($(this).val() == 'Fresher'){
             $scope.currentCTC = 0;
@@ -105,7 +108,9 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
             $scope.industryExperiance[0].project_name = "NA";
             $scope.industryExperiance[0].role_in_project = "NA";
             $scope.industryExperiance[0].language_or_tools = "NA";
-            $scope.industryExperiance[0].project_description = "NA";
+            $scope.industryExperiance[0].project_descriptions[0].project_description="NA";
+            $scope.industryExperiance[0].languages[0].language="NA";
+            $scope.industryExperiance[0].tools[0].tool="NA";
             $(".addDisabledProperty").each(function() {
               $(this).prop('disabled', true);
             });
@@ -113,11 +118,22 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
             $scope.currentCTC = null;
             $scope.totalYearIndustryExperiance = $scope.experienceYears[0].id;
             $scope.totalMonthIndustryExperiance = $scope.experienceMonths[0].id;
-            $scope.industryExperiance[0].company_name = "";
-            $scope.industryExperiance[0].project_name = "";
-            $scope.industryExperiance[0].role_in_project = "";
-            $scope.industryExperiance[0].language_or_tools = "";
-            $scope.industryExperiance[0].project_description = "";
+            // $scope.industryExperiance[0].company_name = "";
+            // $scope.industryExperiance[0].project_name = "";
+            // $scope.industryExperiance[0].role_in_project = "";
+            // $scope.industryExperiance[0].language_or_tools = "";
+            // $scope.industryExperiance[0].project_descriptions = [{project_description:""}];
+            // $scope.industryExperiance[0].languages=[{language:""}];
+            // $scope.industryExperiance[0].tools=[{tool:""}];
+            $scope.industryExperiance = [{
+                    company_name:"",
+                    project_name:"",
+                    role_in_project:"",
+                    language_or_tools:"",
+                    languages:[{language:""}],
+                    tools:[{tool:""}],
+                    project_descriptions:[{project_description:""}]
+            }];
             $(".addDisabledProperty").each(function() {
               $(this).prop('disabled', false);
             });
@@ -138,7 +154,6 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
         }).on("changeDate", function (e) {
             $(this).valid();
             $scope.dateOfBirth = $(this).val();
-            // console.log($scope.dateOfBirth);
         });
 
         var promise = services.getAllQualificationList();
@@ -148,7 +163,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
             for (var i = 0; i < $scope.allQualificationList.length; i++) {
                 $scope.allQualificationList[i].id=$scope.allQualificationList[i].id.toString();
             }
-            console.log($scope.allQualificationList);
+            //console.log($scope.allQualificationList);
         }, function myError(r) {
             toastr.error(r.data.message, 'Sorry!');
             Utility.stopAnimation();
@@ -184,11 +199,30 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
     }
 
     $scope.appendIndustrialExperienceDiv = function(){
-        $scope.industryExperiance.push({company_name:"",project_name:"",role_in_project:"",language_or_tools:"",project_description:""});
+        $scope.industryExperiance.push({company_name:"",
+            project_name:"",
+            role_in_project:"",
+            language_or_tools:"",
+            languages:[{language:""}],
+            tools:[{tool:""}],
+            project_descriptions:[{project_description:""}]
+        });
     }
 
     $scope.appendHobbiesDiv = function(){
          $scope.hobbyDiv.push({hobbie_name:""});
+    }
+
+    $scope.appendLanguagesDiv = function(i){
+         $scope.industryExperiance[i].languages.push({language:""});
+    }
+
+    $scope.appendToolsDiv = function(i){
+         $scope.industryExperiance[i].tools.push({tool:""});
+    }
+
+    $scope.appendprojectDescriptionDiv = function(i){
+        $scope.industryExperiance[i].project_descriptions.push({project_description:""});
     }
 
     $scope.removeQualification = function(index){
@@ -247,6 +281,30 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
         }
     }
 
+    $scope.removeLanguagesDiv = function(exIndex,cIndex){
+        for (var i = ($scope.industryExperiance[exIndex].languages.length - 1); i >= 0; i--) {
+            if( i == cIndex){
+                $scope.industryExperiance[exIndex].languages.splice(cIndex, 1);
+            }
+        }
+    }
+
+    $scope.removeToolsDiv = function(exIndex,cIndex){
+        for (var i = ($scope.industryExperiance[exIndex].tools.length - 1); i >= 0; i--) {
+            if( i == cIndex){
+                $scope.industryExperiance[exIndex].tools.splice(cIndex, 1);
+            }
+        }
+    }
+
+    $scope.removeprojectDescriptionDiv = function(exIndex,cIndex){
+        for (var i = ($scope.industryExperiance[exIndex].project_descriptions.length - 1); i >= 0; i--) {
+            if( i == cIndex){
+                $scope.industryExperiance[exIndex].project_descriptions.splice(cIndex, 1);
+            }
+        }
+    }
+
     $scope.showPreview = function(){
         if($('.wizard-card form').valid()){
             $scope.qualificatinData();
@@ -261,18 +319,6 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
             $('#previewModal').modal('show');
         }
     }
-
-    $scope.changeBackground =function(index){
-
-
-    }
-
-    // $scope.files = [];
-    // $scope.$on("seletedFile", function (event, args) {
-    //     $scope.$apply(function () {
-    //         $scope.files.push(args.file);
-    //     });
-    // });
 
     $scope.qualificatinData = function(){
         var json=[];
@@ -290,21 +336,69 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
                 json.push(jsonQ);
             })
             $scope.qualifications = json;
-             // console.log(json);
              $scope.quaData = json;
              return json;
     }
 
-    $scope.getTheFiles = function ($files) {
-        
+    $scope.setIndustrialExpData = function(){
+       //console.log($scope.industryExperiance); 
+       var indExpData = $scope.industryExperiance;
+       
+       for (var i = 0; i < indExpData.length; i++) {
+
+           var languagesData = indExpData[i].languages;
+
+           var toolsData = indExpData[i].tools;
+
+           var projectData = indExpData[i].project_descriptions;
+
+           var languageArray = [];
+
+           var toolArray = [];           
+
+           // var lang_tools_Array = "";
+
+           var prodArray = [];
+
+           var langTool=[];
+
+           for (var j = 0; j < languagesData.length; j++) {
+               languageArray.push(languagesData[j].language);
+           }
+
+           for (var k = 0; k < toolsData.length; k++) {
+               toolArray.push(toolsData[k].tool);
+           }
+
+           for (var l = 0; l < projectData.length; l++) {
+                prodArray.push(projectData[l].project_description);
+            }
+
+            langTool[0]=languageArray;
+            langTool[1]=toolArray;
+
+          // lang_tools_Array = JSON.stringify(languageArray) + JSON.stringify(toolArray);
+          // ["[lang 1,lang 2]","[tool 1,tool 2,tool 3]"]
+           $scope.industryExperiance[i].language_or_tools = '["['+langTool[0]+']","['+langTool[1]+']"]';
+           $scope.industryExperiance[i].project_description = JSON.stringify(prodArray);
+
+            delete indExpData[i]["languages"];
+            delete indExpData[i]["tools"];
+            delete indExpData[i]["project_descriptions"];
+            delete indExpData[i]["$$hashKey"];
+       }
+
+       //console.log($scope.industryExperiance);
+    }
+
+    $scope.getTheFiles = function ($files) {        
             $scope.file=$files[0];
-            // console.log($scope.file);
     };
 
     $scope.saveResumeData = function(){
-        console.log($scope.summaryDiv);
     if($('.wizard-card form').valid()){
             $('#previewModal').modal('hide');
+            $scope.setIndustrialExpData();
             $("#wizardResumeSuccessmsg").css('display','none');
 
             var cSummaryArray = [];           
@@ -313,13 +407,13 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
             }
 
             var cObjectivesArray = [];           
-            for (var i = 0; i < $scope.objectiveDiv.length; i++) {
-                cObjectivesArray.push($scope.objectiveDiv[i].objective);
+            for (var j = 0; j < $scope.objectiveDiv.length; j++) {
+                cObjectivesArray.push($scope.objectiveDiv[j].objective);
             }
-            // console.log(summaryArray);
+            
             //to remove $$hashkey from array        	
-            for (var i = 0; i < $scope.quaData.length; i++) {
-                delete $scope.quaData[i]['$$hashKey'];
+            for (var k = 0; k < $scope.quaData.length; k++) {
+                delete $scope.quaData[k]['$$hashKey'];
             }
 
             $scope.achievements1 = JSON.parse(angular.toJson( $scope.achievements ));
@@ -361,7 +455,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
             }
            
             console.log(req);
-            debugger;
+            // debugger;
                 var promise = services.createCandidate(req,type='Data');
                 promise.then(function mySuccess(response) {
                     if(response.data.status_code == 200){
@@ -417,26 +511,26 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
         }
     }  
 
-    $scope.setSpellcheckMsg = function(i,type){
+    $scope.setSpellcheckMsg = function(i,type,exIndex){
         // console.log("index >>"+i);
-        if(type == 'project'){
-            $Spelling.SpellCheckInWindow('projectDescription_'+i); 
-        }else if(type == 'objective'){
+        if(type == 'project' && exIndex != null){
+            $Spelling.SpellCheckInWindow('projectDescription_'+i+'_'+exIndex); 
+        }else if(type == 'objective' && exIndex == null){
             $Spelling.SpellCheckInWindow('objective_'+i); 
-        }else if(type == 'summary'){
+        }else if(type == 'summary' && exIndex == null){
             $Spelling.SpellCheckInWindow('summary_'+i); 
         }
         return false;
     }
 
-    $scope.callSpellchecker = function(index,type){
-        console.log("index >>"+index);
-        console.log("type >>"+type);
-        if(type == 'project'){
-            $Spelling.LiveFormValidation  ('projectDescription_'+index, 'project_msg'+index );
-        }else if(type == 'summary'){
+    $scope.callSpellchecker = function(index,type,exIndex){
+        // console.log("index >>"+index);
+        // console.log("type >>"+type);
+        if(type == 'project' && exIndex != null){
+            $Spelling.LiveFormValidation  ('projectDescription_'+index+'_'+exIndex, 'project_msg'+index+'_'+exIndex);
+        }else if(type == 'summary' && exIndex == null){
             $Spelling.LiveFormValidation  ('summary_'+index, 'summary_msg'+index );
-        }else if(type == 'objective'){
+        }else if(type == 'objective' && exIndex == null){
             $Spelling.LiveFormValidation  ('objective_'+index, 'objective_msg'+index );
         }
     }

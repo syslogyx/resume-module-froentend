@@ -453,21 +453,12 @@ $(document).ready(function(){
 
         onNext: function(tab, navigation, index) {
 
-            // debugger;
-            // console.log($Spelling.BinSpellCheck('summary'));
             var $valid = $('.wizard-card form').valid();
-            // if(!$Spelling.BinSpellCheck('summary')){               
-            //     return false;
-            // }
-            // else if(!$Spelling.BinSpellCheck('objective')){                
-            //     return false;
-            // }else 
+            
             if(!$valid) {
                 $validator.focusInvalid();                
                 return false;
-            }
-             
-             
+            }  
 
             console.log('index',index);
               scope.$apply(function () {
@@ -506,20 +497,14 @@ $(document).ready(function(){
             if(!$valid){
                 $validator.focusInvalid();         
                 return false;
-            // }else if(!$Spelling.BinSpellCheck('summary')){
-               
-            //     return false;
-            // }else if(!$Spelling.BinSpellCheck('objective')){
-                
-            //     return false;
-            }else {
-                console.log('index',index);
-                scope.$apply(function () {
-                    scope.backCurrentImg=scope.backImgUrls[index];
-                    
-                });
-                return true;
             }
+
+            console.log('index',index);
+            scope.$apply(function () {
+                scope.backCurrentImg=scope.backImgUrls[index];
+                
+            });
+
         },
 
         onTabShow: function(tab, navigation, index) {
@@ -562,9 +547,6 @@ $(document).ready(function(){
         },
 
         onPrevious: function(tab, navigation, index) {
-            // console.log('index',imgIndex);
-            // console.log('index',index);
-
           scope.$apply(function () {
               scope.backCurrentImg=scope.backImgUrls[index];
              

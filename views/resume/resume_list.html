@@ -95,6 +95,7 @@
                             <a ng-if="data.status=='Pass' || data.status=='Clear'" type="button" class="btn" title="Assign Interviewer" ng-click="rlc.openAssignInterviewerModal(data.id)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-cog" aria-hidden="true"></i></a>
                             <a ng-if="data.status=='Schedule'" type="button" class="btn" title="Reschedule Interviewer" ng-click="rlc.openRescheduleModal()" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-clock-o" aria-hidden="true"></i></a>
                             <a ng-if="data.status=='Pass'" type="button" class="btn" title="Change Status" ng-click="rlc.openRescheduleModal()" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-exchange" aria-hidden="true"></i></a>
+                            <a href="/resume/{{data.unique_token}}?id={{data.id}}" type="button" class="btn" title="Edit" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-pencil" aria-hidden="true"></i></a>
                         </td>     
                     </tr>
                     <tr ng-if="rlc.resumeList == null || rlc.resumeList.length == 0">
