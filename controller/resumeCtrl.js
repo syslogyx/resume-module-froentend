@@ -1,8 +1,13 @@
 app.controller("resumeCtrl", function (services, AclService, $scope, $http, $location, RESOURCES, $cookieStore,menuService,$routeParams) {
 
     var rsm = this;
+    $scope.candidateId = $location.search()["id"] !== undefined ? $location.search()["id"] : null;
     $scope.ctcKey='Lac';
+    $scope.title = '';
 
+    var authKey = services.getIdentity()==undefined?undefined:JSON.parse(services.getIdentity());
+  
+    // console.log(authKey);
     $scope.backImgUrls=[
         'resources/img/resumeimg/1_Personal_Details_img.jpg',
         'resources/img/resumeimg/2_Educational_Details_img.jpg',
@@ -97,34 +102,33 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
         });
     }
 
-    $('#opportunity_for').on('change',function(){
-        //console.log($(this).val());
-        //if user select freshers (1 is constant for fresher)
-        if($(this).val() == 'Fresher'){
+    $scope.opportunityForChange=function(){
+        if($scope.opportunityFor == 'Fresher'){                            
             $scope.currentCTC = 0;
             $scope.totalYearIndustryExperiance = $scope.experienceYears[0].id;
-            $scope.totalMonthIndustryExperiance = $scope.experienceMonths[0].id;
-            $scope.industryExperiance[0].company_name = "NA";
-            $scope.industryExperiance[0].project_name = "NA";
-            $scope.industryExperiance[0].role_in_project = "NA";
-            $scope.industryExperiance[0].language_or_tools = "NA";
-            $scope.industryExperiance[0].project_descriptions[0].project_description="NA";
-            $scope.industryExperiance[0].languages[0].language="NA";
-            $scope.industryExperiance[0].tools[0].tool="NA";
-            $(".addDisabledProperty").each(function() {
-              $(this).prop('disabled', true);
-            });
-        }else{
+            $scope.totalMonthIndustryExperiance = $scope.experienceMonths[0].id;            
+                $scope.industryExperiance[0].company_name = "NA";
+                $scope.industryExperiance[0].project_name = "NA";
+                $scope.industryExperiance[0].role_in_project = "NA";
+                $scope.industryExperiance[0].language_or_tools = "NA";
+                $scope.industryExperiance[0].project_descriptions[0].project_description="NA";
+                $scope.industryExperiance[0].languages[0].language="NA";
+                $scope.industryExperiance[0].tools[0].tool="NA";
+                if($scope.candidateId > 0){
+                    $scope.industryExperiance = [{
+                            company_name:"NA",
+                            project_name:"NA",
+                            role_in_project:"NA",
+                            language_or_tools:"NA",
+                            languages:[{language:"NA"}],
+                            tools:[{tool:"NA"}],
+                            project_descriptions:[{project_description:"NA"}]
+                    }];
+                }
+        }else if($scope.opportunityFor == 'Experience'){
             $scope.currentCTC = null;
             $scope.totalYearIndustryExperiance = $scope.experienceYears[0].id;
-            $scope.totalMonthIndustryExperiance = $scope.experienceMonths[0].id;
-            // $scope.industryExperiance[0].company_name = "";
-            // $scope.industryExperiance[0].project_name = "";
-            // $scope.industryExperiance[0].role_in_project = "";
-            // $scope.industryExperiance[0].language_or_tools = "";
-            // $scope.industryExperiance[0].project_descriptions = [{project_description:""}];
-            // $scope.industryExperiance[0].languages=[{language:""}];
-            // $scope.industryExperiance[0].tools=[{tool:""}];
+            $scope.totalMonthIndustryExperiance = $scope.experienceMonths[0].id;           
             $scope.industryExperiance = [{
                     company_name:"",
                     project_name:"",
@@ -134,18 +138,19 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
                     tools:[{tool:""}],
                     project_descriptions:[{project_description:""}]
             }];
-            $(".addDisabledProperty").each(function() {
-              $(this).prop('disabled', false);
-            });
+            // console.log($scope.industrialExpData);
+            // console.log($scope.oldOpprtunityFor);
+            if($scope.candidateId > 0 && $scope.oldOpprtunityFor != 'Fresher'){
+                $scope.populateIndustrialData($scope.industrialExpData);
+            }
         }        
-    });
+    };
 
 
 
     $scope.init = function(){
 		/* Getting all qualification list */
         $('#dob').datepicker({
-            // format: "yyyy-mm-dd",
             autoclose: true,
             todayHighlight: true
         }).on('show', function(e){
@@ -163,16 +168,198 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
             for (var i = 0; i < $scope.allQualificationList.length; i++) {
                 $scope.allQualificationList[i].id=$scope.allQualificationList[i].id.toString();
             }
-            //console.log($scope.allQualificationList);
         }, function myError(r) {
             toastr.error(r.data.message, 'Sorry!');
             Utility.stopAnimation();
         });
 
         $scope.getActiveJd();
+        
+        if ($scope.candidateId > 0) {
+            $scope.title = 'Update';
+            $scope.setCandidateDataById($scope.candidateId);
+        }
+
 	}
 
+    $scope.setCandidateDataById = function(id){
+        $('body').addClass('sidebar-collapse');
+        $('#menuCtrl').css('display','none');
+        // $('.main-header').css('display','none');
+        $('#cWrapper').css('margin-left','0px!important');        
+        $("#file").prop('disabled', true);
+        $("#fileEditError").css('display', 'block');
 
+            var promise = services.getCandidateDetailsById(id);
+            promise.then(function mySuccess(response) {
+                var res = response.data;
+                console.log(res);
+                $totalExpArray = "";
+                if(res.status_code == 200){
+                    $scope.job_id = res.data.job_description_id.toString();
+                    $scope.opportunityFor = res.data.opprtunity_for;
+                    $scope.firstName = res.data.first_name;
+                    $scope.middleName = res.data.middle_name;
+                    $scope.lastName = res.data.last_name;
+                    $scope.email = res.data.email;
+                    $scope.mobileNumber = res.data.mobile_no;
+                    $scope.dateOfBirth = res.data.date_of_birth.split("-").reverse().join("/");
+                    $scope.panNumber = res.data.pan_number;
+                    $scope.passportNumber = res.data.passport;
+                    $scope.gender = res.data.gender;
+                    $scope.martialStatus = res.data.marital_status;
+                    $scope.correspondingAddr = res.data.corresponding_address;
+                    $scope.permanentAddr = res.data.permanent_address;
+                    $scope.populateObjectiveData(res.data.objective);
+                    $scope.populateSummaryData(res.data.summary);
+                    $scope.populateQualificationData(res.data.candidate_qualification);
+                    $scope.populateAchivementData(res.data.candidate_achievements);
+                    $scope.populateTechSkillData(res.data.candidate_tech_skill);
+                    $totalExpArray = res.data.total_experience.split('.');
+                    $scope.totalYearIndustryExperiance = parseInt($totalExpArray[0]);
+                    $scope.totalMonthIndustryExperiance = parseInt($totalExpArray[1]);
+                    $scope.currentCTC = res.data.ctc;
+                    $scope.populateIndustrialData(res.data.candidate_ind_exp);
+                    $scope.populateHobbieData(res.data.candidate_hobbies);
+                    $scope.indianLang = res.data.indian_languages;
+                    $scope.foreignLang = res.data.foreign_languages;
+                    $scope.timeStamp = res.data.timestamp;
+                    $scope.status = res.data.status;
+                    //$("#opportunity_for").trigger("change");
+                    $scope.industrialExpData  = res.data.candidate_ind_exp;
+                    $scope.oldOpprtunityFor  = res.data.opprtunity_for;
+                }
+            }, function myError(r) {
+                toastr.error(r.data.message, 'Sorry!');
+                Utility.stopAnimation();
+            });
+    }
+
+    $scope.populateObjectiveData = function(data){
+        if(data != ""){
+            $cdata = JSON.parse(data);
+            $scope.objectiveDiv.splice(0, 1);
+            for (var i = 0; i < $cdata.length; i++) {
+                $scope.objectiveDiv.push({objective:$cdata[i]});
+            }
+        }
+    }
+
+    $scope.populateSummaryData = function(data){
+        if(data != ""){
+            $cdata = JSON.parse(data);
+            $scope.summaryDiv.splice(0, 1);
+            for (var i = 0; i < $cdata.length; i++) {
+                $scope.summaryDiv.push({summary:$cdata[i]});
+            }
+        }
+    }
+
+    $scope.populateQualificationData = function(data){
+        if(data.length > 0){
+            $scope.qualifications.splice(0, 1);
+            for (var i = 0; i < data.length; i++) {
+                $scope.qualifications.push({
+                    qualification_id:data[i].qualification_id.toString(),
+                    stream:data[i].stream,
+                    percentage:data[i].percentage,
+                    university:data[i].university,
+                    college:data[i].college,
+                    start_year:data[i].start_year,
+                    end_year:data[i].end_year
+                });
+            }
+        }
+    }
+
+    $scope.populateAchivementData = function(data){
+        if(data.length > 0){
+            $scope.achievements.splice(0, 1);
+            for (var i = 0; i < data.length; i++) {
+                $scope.achievements.push({
+                    achivement:data[i].achivement,
+                    achievement_type:data[i].achievement_type
+                });
+            }
+        }
+    }
+
+    $scope.populateTechSkillData = function(data){
+        if(data.length > 0){
+            $scope.technicalSkill.splice(0, 1);
+            for (var i = 0; i < data.length; i++) {
+                $tech_exp_year = "",
+                $tech_exp_month = "";
+                $expArray = data[i].technology_experience.split('.');
+                $tech_exp_year = $expArray[0];
+                $tech_exp_month = $expArray[1];
+                $scope.technicalSkill.push({
+                    technology_name:data[i].technology_name,
+                    relevanceYearExperience:$tech_exp_year,
+                    relevanceMonthExperience:$tech_exp_month
+                });
+            }
+        }
+    }
+
+    $scope.populateIndustrialData = function(data){
+        if(data.length > 0){
+            $scope.industryExperiance.splice(0, 1);
+            for (var i = 0; i < data.length; i++) {
+                $languageToolsUsedArray = JSON.parse(data[i].language_or_tools);
+                $languagesArray = $languageToolsUsedArray[0];
+                $toolsArray = $languageToolsUsedArray[1];
+                $projectArray = JSON.parse(data[i].project_description);
+
+                var langStringSplit1 = $languagesArray.split('[');
+                var langStringSplit2 = langStringSplit1[1].split(']');
+                $finalLanguagesArray = langStringSplit2[0].split(',');
+
+                var toolStringSplit1 = $toolsArray.split('[');
+                var toolStringSplit2 = toolStringSplit1[1].split(']');
+                $finalToolsArray = toolStringSplit2[0].split(',');
+
+                $scope.industryExperiance.push({
+                    company_name:data[i].company_name,
+                    project_name:data[i].project_name,
+                    role_in_project:data[i].role_in_project,
+                    language_or_tools:data[i].language_or_tools,
+                    languages:[{language:""}],
+                    tools:[{tool:""}],
+                    project_descriptions:[{project_description:""}]
+                });
+
+                $scope.industryExperiance[i].languages.splice(0,1);
+
+                for (var j = 0; j < $finalLanguagesArray.length; j++) {
+                     $scope.industryExperiance[i].languages.push({language:$finalLanguagesArray[j]});
+                }
+
+                $scope.industryExperiance[i].tools.splice(0,1);
+
+                for (var l = 0; l < $finalToolsArray.length; l++) {
+                     $scope.industryExperiance[i].tools.push({tool:$finalToolsArray[l]});
+                }
+
+                $scope.industryExperiance[i].project_descriptions.splice(0,1);
+
+                for (var k = 0; k < $projectArray.length; k++) {
+                    $scope.industryExperiance[i].project_descriptions.push({project_description:$projectArray[k]});
+                }
+            }
+        }
+    }
+
+    $scope.populateHobbieData = function(data){
+        if(data.length > 0){
+            $scope.hobbyDiv.splice(0, 1);
+            for (var i = 0; i < data.length; i++) {
+                $scope.hobbyDiv.push({
+                    hobbie_name:data[i].hobbie_name
+                });
+            }
+        }
+    }
 
     setTimeout(function() { $scope.datepickerInit();}, 500);
 
@@ -185,7 +372,6 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
     }
 
    	$scope.appendQualificationDiv = function(){
-
    		$scope.qualifications.push({qualification_id:"",stream:"",percentage:"",university:"",college:"",start_year:"",end_year:""})
         setTimeout(function() { $scope.datepickerInit();}, 500);
     }
@@ -341,7 +527,6 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
     }
 
     $scope.setIndustrialExpData = function(){
-       //console.log($scope.industryExperiance); 
        var indExpData = $scope.industryExperiance;
        
        for (var i = 0; i < indExpData.length; i++) {
@@ -354,9 +539,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
 
            var languageArray = [];
 
-           var toolArray = [];           
-
-           // var lang_tools_Array = "";
+           var toolArray = [];
 
            var prodArray = [];
 
@@ -382,21 +565,21 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
            $scope.industryExperiance[i].language_or_tools = '["['+langTool[0]+']","['+langTool[1]+']"]';
            $scope.industryExperiance[i].project_description = JSON.stringify(prodArray);
 
-            delete indExpData[i]["languages"];
-            delete indExpData[i]["tools"];
-            delete indExpData[i]["project_descriptions"];
+            // delete indExpData[i]["languages"];
+            // delete indExpData[i]["tools"];
+            // delete indExpData[i]["project_descriptions"];
             delete indExpData[i]["$$hashKey"];
        }
 
        //console.log($scope.industryExperiance);
     }
 
-    $scope.getTheFiles = function ($files) {        
-            $scope.file=$files[0];
+    $scope.getTheFiles = function ($files) {
+        $scope.file=$files[0];
     };
 
     $scope.saveResumeData = function(){
-    if($('.wizard-card form').valid()){
+        if($('.wizard-card form').valid()){
             $('#previewModal').modal('hide');
             $scope.setIndustrialExpData();
             $("#wizardResumeSuccessmsg").css('display','none');
@@ -420,7 +603,6 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
             $scope.technicalSkill1 = JSON.parse(angular.toJson( $scope.technicalSkill ));
             $scope.industryExperiance1 = JSON.parse(angular.toJson( $scope.industryExperiance ));
             $scope.hobbyDiv1 = JSON.parse(angular.toJson( $scope.hobbyDiv ));
-
 
             var req = {
                 "first_name":$scope.firstName,
@@ -453,12 +635,29 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
                 "foreign_languages":$scope.foreignLang,
                 "indian_languages":$scope.indianLang
             }
-           
             console.log(req);
+            var promise = '';
+            $isAuthkeyExist = false;
+            if ($scope.candidateId > 0) {
+                console.log(authKey);
+                if(authKey != undefined){
+                    req.id = $scope.candidateId;
+                    req.timestamp = $scope.timeStamp;
+                    req.status = $scope.status;
+                    promise = services.updateCandidate(req);
+                    $isAuthkeyExist = true;
+                }else{
+                    $isAuthkeyExist = false;
+                    toastr.error("You are not authorized user to perform this activity");
+                }
+            }else{
+                $isAuthkeyExist = true;
+                promise = services.createCandidate(req);
+            }
             // debugger;
-                var promise = services.createCandidate(req,type='Data');
+            if($isAuthkeyExist){                
                 promise.then(function mySuccess(response) {
-                    if(response.data.status_code == 200){
+                    if(response.data.status_code == 200 && $scope.candidateId == null){
                         // debugger;
                         var json= new FormData();
                         json.append("file_name",$scope.file);
@@ -484,8 +683,15 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
                     Utility.stopAnimation();
                     try {
                         // toastr.success("Thanks for showing your interest! Will get back to you soon!");   
-                        $("#wizardProfile").css('display','none');
-                        $("#wizardResumeSuccessmsg").css('display','');
+                        if($scope.candidateId > 0){
+                            // toastr.success("Candidate Details Updated Successfully...!!");                            
+                            $("#wizardProfile").css('display','none');
+                            $("#wizardResumeSuccessmsg").css('display','none');
+                            $("#updateWizardResumeSuccessmsg").css('display','');
+                        }else{
+                            $("#wizardProfile").css('display','none');
+                            $("#wizardResumeSuccessmsg").css('display','');
+                        }
                     } catch (e) {
                         $("#wizardResumeSuccessmsg").css('display','none');
                         toastr.error("Profile not saved successfully.");
@@ -508,6 +714,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
 
                     Utility.stopAnimation();
                 });
+            }
         }
     }  
 

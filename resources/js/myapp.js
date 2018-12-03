@@ -283,8 +283,8 @@ app.service('pagination', function (RESOURCES, $http, $cookieStore, $filter) {
 
     //apply pagination
     this.applyPagination = function (pageData, ctrlscope, $source= null) {
-        console.log(pageData);
-        console.log(ctrlscope);
+        // console.log(pageData);
+        // console.log(ctrlscope);
         $('#pagination-sec').twbsPagination({
             totalPages: pageData.last_page,
             visiblePages: 5,
@@ -514,6 +514,31 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
+    this.updateCandidate = function (req) {
+        Utility.startAnimation();
+        // return $http({
+        //     method: 'POST',
+        //     //url: RESOURCES.SERVER_API + "create_candidate?type=data",
+        //     url: RESOURCES.SERVER_API + "update_candidate",
+        //     dataType: 'json',
+        //     data: $.param(req),
+        //     headers: {
+        //         'Content-Type': RESOURCES.CONTENT_TYPE,
+        //         //'Content-Type': RESOURCES.CONTENT_FILE_TYPE,
+        //     }
+        // })
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "candidate/" + req.id + "/update?_method=PUT",
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
     this.downloadResumePDF = function (id) {
         // var win =
         window.open(RESOURCES.SERVER_API +'generate_pdf/'+id);
@@ -551,6 +576,19 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             // url: RESOURCES.SERVER_API + "candidate_details",
             dataType: 'json',
             data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+
+    this.getCandidateDetailsById = function (id) {
+        Utility.startAnimation();
+        return $http({
+            method: 'GET',
+            url: RESOURCES.SERVER_API + "candidateInfoByID/" + id,
+            dataType: 'json',
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
             }
@@ -1090,7 +1128,7 @@ app.config(function ($routeProvider, $locationProvider) {
                 }
             })
 
-            .when('/screening/test', {
+            .when('/basic_screening_test', {
                 templateUrl: 'views/screening/screening_test.html',
                 controller: 'screeningTestCtrl',
                 controllerAs: 'st',
@@ -1152,7 +1190,7 @@ app.config(function ($routeProvider, $locationProvider) {
 
 app.run(function ($rootScope, AclService, $cookieStore, $location, services) {
     var authKey = services.getAuthKey();
-    //console.log(authKey);
+    console.log(authKey);
     if(window.location.pathname.search("/resume/")==0){
 
     }else if (authKey == undefined) {

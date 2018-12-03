@@ -39,7 +39,7 @@
                     <div class="col-md-1" style="text-align: center;">
                       <div class="form-group" >
                         <br>
-                          <input type="button" value="Search" ng-click="ilc.search(ilc.userId,-1)" class="btn btn-primary" style="margin-top:5px" />
+                          <input type="button" value="Search" ng-click="ilc.fetchList(-1)" class="btn btn-primary" style="margin-top:5px" />
                       </div>
                     </div>
                     <div class="col-md-1 " style="text-align: center;">
@@ -52,7 +52,6 @@
                 </div>
             </div>
         </div>  
-        
         <div>
             <table class="table table-condensed table-hover table-responsive">
                 <thead class="thead-default">
@@ -63,7 +62,7 @@
                         <th>Scheduled Date</th>                        
                         <th>Scheduled Time</th>           
                         <th>Round</th>           
-                        <th style="text-align: center;">Action</th>
+                        <th style="text-align: center;" ng-if="ilc.logInUserRole != '1'">Action</th>
                     </tr>
                 </thead>
                 <!-- <pre>{{ilc.interviewList|json}}</pre> -->
@@ -71,11 +70,11 @@
                     <tr ng-repeat="data in ilc.interviewList">
                         <td style="text-align: center;" ng-bind="(ilc.pageno - 1) * ilc.limit + ($index + 1)"></td>
                         <td>{{data.users.name}}</td>
-                        <td>{{data.candidates.name}}</td>
+                        <td>{{data.candidates.first_name +' '+ data.candidates.middle_name +' '+ data.candidates.last_name}}</td>
                         <td>{{data.schedule_date | date: 'dd-MM-yyyy'}}</td>
                         <td>{{ilc.tConvert(data.schedule_time)}}</td>
                         <td>{{data.technical_round}}</td>
-                        <td style="text-align: center">
+                        <td style="text-align: center"  ng-if="ilc.logInUserRole != '1'">
                             <a  ng-href="/interview_feedback?cId={{data.candidate_id}}&uId={{data.user_id}}&round={{data.technical_round}}" ng-if="data.candidates.candidate_technical_result[0].status != 'Pass' && data.candidates.candidate_technical_result[0].status != 'Fail'" type="button" class="btn" title="Feedback" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-comments" aria-hidden="true"></i></a>
                         </td>
                     </tr>

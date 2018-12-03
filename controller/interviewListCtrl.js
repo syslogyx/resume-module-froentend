@@ -3,10 +3,10 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
     var ilc = this;    
 
     var loggedInUser = JSON.parse(services.getIdentity());
-    console.log(loggedInUser.identity.role);
+    // console.log(loggedInUser.identity.role);
     ilc.logInUserRole = loggedInUser.identity.role;
     console.log(ilc.logInUserRole);
-    var rlc = this;
+
     ilc.pageno = 0;
     ilc.limit = 0;
     ilc.skip = true;
@@ -24,7 +24,7 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
     ]);
 
    
-    rlc.search = function (id, page) {       
+    ilc.search = function (id, page) {       
         ilc.userId = id;
         ilc.fetchList(page);
        
@@ -60,7 +60,7 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
         }
 
         var req = {
-            'user_id':ilc.userId
+            "user_id":ilc.userId
         }
 
         var requestParam = {
@@ -73,7 +73,7 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
             // console.log(result.status_code);
             if (result.status_code == 200) {                
                 ilc.interviewList = result.data.data;
-                pagination.applyPagination(result.data,rlc);
+                pagination.applyPagination(result.data,ilc);
             }else{
                 ilc.interviewList = [];
             }

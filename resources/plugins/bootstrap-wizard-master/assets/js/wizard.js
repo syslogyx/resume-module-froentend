@@ -138,6 +138,9 @@ $(document).ready(function(){
         tools_used: {
             required: true
         },
+        language_used: {
+            required: true
+        },
         project_description: {
             required: true
         },
@@ -168,7 +171,9 @@ $(document).ready(function(){
         errorPlacement: function (error, element) {
 
             var type = $(element).attr("type");
-            console.log(type);
+            // console.log($(element));
+            // console.log($(element).attr('class'));
+            // console.log($(element).hasClass('form-control end_year ng-pristine ng-untouched ng-valid'));
             if ($(element).attr("id") === "")
             {
                 element.parent().append(error);
@@ -182,15 +187,20 @@ $(document).ready(function(){
             {
 
                 element.parent().parent().append(error);
-            } else if ($(element).attr("class") === "start_year")
+            } else if ($(element).hasClass('start_year'))
             {
-                element.parent().parent().append(error);
-            } else if ($(element).attr("class") === "end_year")
-            {
-
                 element.parent().parent().parent().append(error);
-            }
-            else if ($(element).attr("id") === "inputFile")
+            // } else if ($(element).attr("class") === "end_year")
+            // {
+
+            //     element.parent().parent().parent().append(error);
+            }else if ($(element).hasClass('end_year'))
+            {
+                 element.parent().parent().parent().append(error);
+            }else if ($(element).hasClass('qualification'))
+            {
+                 element.parent().parent().append(error);
+            }else if ($(element).attr("id") === "inputFile")
             {
 
                 element.parent().append(error);
@@ -460,7 +470,7 @@ $(document).ready(function(){
                 return false;
             }  
 
-            console.log('index',index);
+            // console.log('index',index);
               scope.$apply(function () {
                   scope.backCurrentImg=scope.backImgUrls[index];
                  
@@ -499,7 +509,7 @@ $(document).ready(function(){
                 return false;
             }
 
-            console.log('index',index);
+            // console.log('index',index);
             scope.$apply(function () {
                 scope.backCurrentImg=scope.backImgUrls[index];
                 

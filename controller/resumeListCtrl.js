@@ -19,13 +19,34 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
 
     rlc.interviewType = RESOURCES.INTERVIEW_TYPE;
 
+     //Array for experience in months drop down options.
+    rlc.experienceMonths = RESOURCES.MONTHS;
+
+    //Array for experience in years drop down options.
+    rlc.experienceYears = RESOURCES.YEARS;
+
+    rlc.totalYearExperiance = "";
+    rlc.totalMonthExperiance = "";
+
     rlc.jobCodeId = null;
+    rlc.ctcFrom = null;
+    rlc.ctcTo = null;
    
-    rlc.searchCandidate = function (id, page) {       
-        rlc.jobCodeId = id;
-        rlc.fetchList(page);
-       
+    rlc.searchCandidate = function () {
+        if($('#candidateResumeFilterForm').valid()){
+            rlc.fetchList(-1);       
+        }
     };
+
+    rlc.resetFilter = function(){
+        rlc.jobCodeId = null;
+        rlc.ctcFrom = null;
+        rlc.ctcTo = null;
+        rlc.total_experience = null;
+        rlc.totalYearExperiance = "";
+        rlc.totalMonthExperiance = "";
+        rlc.fetchList(-1);
+    }
 
     rlc.getActiveJd = function(){
          var promise = services.getAllActiveJDList();
@@ -84,8 +105,20 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
             rlc.pageno = page;
         }
 
+        if((rlc.totalYearExperiance != '') && (rlc.totalMonthExperiance != '')){
+            $total_Exp = rlc.totalYearExperiance+'.'+rlc.totalMonthExperiance;
+        }else if(rlc.totalYearExperiance == '0' && rlc.totalMonthExperiance == '0'){
+            $total_Exp = '0.0'; 
+        }else{
+           $total_Exp = ''; 
+        }
+
         var req = {
-            'job_description_id':rlc.jobCodeId
+            'job_description_id':rlc.jobCodeId,
+            // 'ctc':rlc.ctcKey,
+            'from_ctc':rlc.ctcFrom,
+            'to_ctc':rlc.ctcTo,
+            'total_experience':$total_Exp
         }
 
         var requestParam = {
@@ -116,9 +149,9 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     }
 
     rlc.setTotalExperience = function(exp){
-        if(exp % 1 !== 0){
+        if(exp % 1 !== '0'){
             expArray = exp.split('.');
-            return expArray[0] +' Year ' + expArray[1] +' Month'
+            return expArray[0] +' Year ' + expArray[1] +' Month';
         }else{
             return exp +' Year';
         }

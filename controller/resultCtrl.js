@@ -11,7 +11,9 @@ app.controller("resultCtrl", function (services, AclService, $scope, $http, $loc
     	"user_id":null,
     	"feedback":null,
     	"technical_round":null,
-    	"status":null
+        "duration_of_interview":null,
+        "observation":null,
+        "status":null
     }
 
     menuService.setMenu([
@@ -26,13 +28,10 @@ app.controller("resultCtrl", function (services, AclService, $scope, $http, $loc
     res.init = function(){
     	res.getCandidateList();
     	res.getAllInterviewerList();
-    	res.candidateId = parseInt($location.search()["cId"]);
-	    res.userId = parseInt($location.search()["uId"]);
+    	res.tecForm.candidate_id = $location.search()["cId"];
+	    res.tecForm.user_id = parseInt($location.search()["uId"]);
 	    res.tecForm.technical_round = $location.search()["round"].toString();
-	    res.tecForm.candidate_id = res.candidateId;
-	    res.tecForm.user_id = res.userId;
-	    // console.log(res.tecForm.candidate_id);
-	    // console.log(res.tecForm.round);
+	    
 	    // console.log(res.tecForm.user_id);
     }
 

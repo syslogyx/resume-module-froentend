@@ -53,7 +53,9 @@ app.controller('screeningTestCtrl', function ($scope, $rootScope, $http, service
     }
 
     st.onButtonsave = function(){
-        $('#statusConfirmationModel').modal('show');
+        if($("#screeningTestForm").valid()){
+            $('#statusConfirmationModel').modal('show');
+        }
     }
 
     st.submitResult = function(){  
@@ -73,13 +75,18 @@ app.controller('screeningTestCtrl', function ($scope, $rootScope, $http, service
                     "question_id": $data[i].id,
                     "answer": $data[i].option,
                     // "remark":  $data[i].remark == undefined ? '':$data[i].remark
-                    "remark":  $data[i].remark
+                    "remark":  $data[i].remark,
+                    "observation":st.observation,
+                    "duration_of_interview":st.interview_duration
                 }
                 request.result_data.push(obj);
             }
             console.log(request);
             var promise = services.saveResult(request);
             promise.then(function mySuccess(response) {
+                // console.log(response);
+                // console.log(response.data.message);
+                // debugger;
                 try {
                     // $location.path('/resume_list');
                     window.location = '/resume_list';
@@ -101,11 +108,5 @@ app.controller('screeningTestCtrl', function ($scope, $rootScope, $http, service
          $location.path('/resume_list');
     }
 
-    st.resetForm = function(){
-        $("div.form-group").each(function () {
-            $(this).removeClass('has-error');
-            $('span.help-block-error').remove();
-            // applySelect2();
-        });
-    }
+    
 });

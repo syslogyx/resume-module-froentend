@@ -30,29 +30,65 @@
 
         <div class="box box-primary collapse" id="filter">
             <div class="box-body">
-                <div class="row">
-                    <div class="col-md-4">
-                          <div class="form-group">
+                <form id="candidateResumeFilterForm">                    
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
                               <label>Job Code</label>
-                              <select id="jobCode" name="jobCode" ng-model="rlc.jobCodeId" class="form-control" style="width: 100%;" ng-options="x.id as x.title for x in rlc.jobDetail track by x.id">
+                              <!-- <select id="jobCode" name="jobCode" ng-model="rlc.jobCodeId" class="form-control" style="width: 100%;" ng-options="x.id as x.title for x in rlc.jobDetail track by x.id">
                                 <option value="">Select Job Code</option>
-                              </select>
+                              </select> -->
+                                <select id="jobCode" name="jobCode" ng-model="rlc.jobCodeId" class="form-control" >
+                                    <option value="" style="color:#ccc !important;">Select job code</option>
+                                    <option ng-repeat="jd in rlc.jobDetail" value="{{jd.id}}">{{jd.job_code}} {{jd.sub_title != '' ? (jd.sub_title) : ''}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                              <label>From CTC</label>
+                              <input id="ctc_from" name="ctc_from" class="form-control" ng-model="rlc.ctcFrom" placeholder="Enter From ctc">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                              <label>To CTC</label>
+                              <input id="ctc_to" name="ctc_to" class="form-control" ng-model="rlc.ctcTo" placeholder="Enter To ctc">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                              <label>Total Exp. Year</label>
+                              <select id="total_year_experience" name="total_year_experience" class="form-control" placeholder="Enter year experience" ng-model="rlc.totalYearExperiance" ng-options="x.id as x.name for x in rlc.experienceYears">
+                                <option value="">Select Year</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                              <label>Total Exp. Month</label>
+                              <select id="total_month_experience" name="total_month_experience" class="form-control" placeholder="Enter month experience" ng-model="rlc.totalMonthExperiance" ng-options="x.id as x.name for x in rlc.experienceMonths">
+                                 <option value="">Select Month</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-1" style="text-align: center;">
+                          <div class="form-group" >
+                            <br>
+                              <input type="button" value="Search" ng-click="rlc.searchCandidate()" class="btn btn-primary" style="margin-top:5px" />
                           </div>
-                    </div>
-                    <div class="col-md-1" style="text-align: center;">
-                      <div class="form-group" >
-                        <br>
-                          <input type="button" value="Search" ng-click="rlc.searchCandidate(rlc.jobCodeId,-1)" class="btn btn-primary" style="margin-top:5px" />
-                      </div>
-                    </div>
-                    <div class="col-md-1 " style="text-align: center;">
-                      <div class="form-group" >
-                        <br>
-                        <button type="button" class="btn btn-block btn-primary fa fa-refresh" ng-click="rlc.searchCandidate($id = null, $page = -1)" style="margin-top:5px"></button>           
+                        </div>
+                        <div class="col-md-1 " style="text-align: center;">
+                          <div class="form-group" >
+                            <br>
+                            <button type="button" class="btn btn-block btn-primary fa fa-refresh" ng-click="rlc.resetFilter()" style="margin-top:5px"></button>           
 
-                      </div>
+                          </div>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>       
         
@@ -66,7 +102,8 @@
                         <th>Mobile No.</th>                        
                         <th>Total Experience</th>                        
                         <th>Job Code</th>                        
-                        <th style="text-align: center;">Uploaded Docs</th>                        
+                        <th>CTC</th>                        
+                        <th style="text-align: center;display: none">Uploaded Docs</th>                        
                         <th style="text-align: center;">CV with contact</th>
                         <th style="text-align: center;">CV w/o contact</th>
                         <th style="text-align: center;">Action</th>
@@ -76,12 +113,14 @@
                 <tbody>
                     <tr ng-repeat="data in rlc.resumeList ">
                         <td style="text-align: center;" ng-bind="(rlc.pageno - 1) * rlc.limit + ($index + 1)"></td>
-                        <td ng-bind="data.name"></td>                        
+                        <td ng-bind="data.first_name+' '+data.middle_name+' '+data.last_name"></td>                        
                         <td ng-bind="data.email"></td>                        
                         <td ng-bind="data.mobile_no"></td>                        
                         <td ng-bind="rlc.setTotalExperience(data.total_experience)"></td>
-                        <td ng-bind="data.job_description.title"></td>                        
-                        <td style="text-align: center">
+                        <!-- <td ng-bind="data.job_description.title"></td> -->
+                        <td>{{data.job_description.job_code}} {{data.job_description.sub_title != '' ? (data.job_description.sub_title) : ''}}</td>
+                        <td ng-bind="data.ctc"></td>                        
+                        <td style="text-align: center;display: none">
                             <a type="button" class="btn" title="Download Resume" ng-click="rlc.downloadResumeDoc(data.id)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-download" aria-hidden="true"></i></a>
                         </td>
                         <td style="text-align: center;"> 
@@ -91,11 +130,11 @@
                             <a type="button" class="btn" title="Download PDF" ng-click="rlc.downloadResumePDFWithoutContact(data.id)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;color: red;" class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
                         </td> 
                         <td style="text-align: center;">
-                            <a ng-if="data.status=='Active'" href="/screening/test?candidate_id={{data.id}}&token={{data.unique_token}}&name={{data.name}}" type="button" class="btn" title="Screening" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-file-o" aria-hidden="true"></i></a>
+                            <a ng-if="data.status=='Active'" href="/basic_screening_test?candidate_id={{data.id}}&token={{data.unique_token}}&name={{data.name}}" type="button" class="btn" title="Screening" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-file-o" aria-hidden="true"></i></a>
                             <a ng-if="data.status=='Pass' || data.status=='Clear'" type="button" class="btn" title="Assign Interviewer" ng-click="rlc.openAssignInterviewerModal(data.id)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-cog" aria-hidden="true"></i></a>
                             <a ng-if="data.status=='Schedule'" type="button" class="btn" title="Reschedule Interviewer" ng-click="rlc.openRescheduleModal()" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-clock-o" aria-hidden="true"></i></a>
                             <a ng-if="data.status=='Pass'" type="button" class="btn" title="Change Status" ng-click="rlc.openRescheduleModal()" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-exchange" aria-hidden="true"></i></a>
-                            <a href="/resume/{{data.unique_token}}?id={{data.id}}" type="button" class="btn" title="Edit" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="/resume/{{data.unique_token}}?id={{data.id}}" type="button" target="_blank" class="btn" title="Edit" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-pencil" aria-hidden="true"></i></a>
                         </td>     
                     </tr>
                     <tr ng-if="rlc.resumeList == null || rlc.resumeList.length == 0">
@@ -120,13 +159,13 @@
                     <form id="assignStatusForm">                            
                             <div class="row">
                                 <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
-                                    <label class="" style="font-size: 14px"> Interviewer  </label>
+                                    <label> Interviewer  </label>
                                     <select id="interviewer" name="interviewer[]" class="form-control s2mn" ng-model="rlc.interviewer" data-placeholder="Select interviewer" ng-options="x.id as x.name for x in rlc.interviewerList" multiple="multiple" >
                                         <option value="">Select Interviewer</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
-                                    <label class="" style="font-size: 14px"> Round  </label>
+                                    <label> Round  </label>
                                     <select id="round" name="round" class="form-control" ng-model="round" data-placeholder="Select Round" ng-options="x.name as x.name for x in rlc.round">
                                         <option value="">Select Round</option>
                                     </select>
@@ -134,11 +173,11 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
-                                    <label class="" style="font-size: 14px"> Schedule date </label>
+                                    <label> Schedule date </label>
                                     <input type="text" name="schedule_date" class="form-control" id="schedule_date" ng-model="scheduleDate" placeholder="Select Date">
                                 </div>
-                                <div class="col-md-6" style="margin-top: 1%;margin-bottom: 0px">
-                                        <label class="" style="font-size: 14px"> Time </label>
+                                <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
+                                        <label> Time </label>
                                     <div class="input-group bootstrap-timepicker timepicker">
                                         <input type="text" name="schedule_time" class="form-control" id="schedule_time" ng-model="scheduleTime" placeholder="Select Time">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
@@ -147,7 +186,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
-                                    <label class="" style="font-size: 14px"> Interview Type  </label>
+                                    <label class=""> Interview Type  </label>
                                     <select id="interview_type" name="interview_type" class="form-control" ng-model="interviewType" data-placeholder="Select Type" ng-options="x.name as x.name for x in rlc.interviewType">
                                         <option value="">Select Type</option>
                                     </select>
@@ -219,6 +258,10 @@
     
 </section>
 <script>
+    $.validator.addMethod("mynumber", function (value, element) {
+        return this.optional(element) || /^\$?([0-9]{1,3},([0-9]{3},)*[0-9]{3}|[0-9]+)(.[0-9][0-9])?$/.test(value);
+    }, "Invalid ctc format.");
+
     $("#assignStatusForm").validate({
         errorElement: 'span', //default input error message container
         errorClass: 'help-block help-block-error',
@@ -273,6 +316,88 @@
             },
             interview_type: {
                 required: "Interview type is required."
+            }
+        },
+         highlight: function (element) { // hightlight error inputs
+            $(element)
+                .closest('.form-group').addClass('has-error');
+            $(element)
+                .next().children().children().attr('style', 'border-color:#dd4b39!important');
+            // set error class to the control group
+        },
+        unhighlight: function (element) { // revert the change done by hightlight
+            $(element)
+                .closest('.form-group').removeClass('has-error');
+            $(element)
+                .next().children().children().attr('style', 'border-color:'); // set error class to the control group
+        },
+        success: function (label) {
+            label
+                .closest('.form-group').removeClass('has-error'); // set success class to the control group
+        }
+    });
+
+    $("#candidateResumeFilterForm").validate({
+        errorElement: 'span', //default input error message container
+        errorClass: 'help-block help-block-error',
+        focusInvalid: true, // set focus the last invalid input
+        ignore: "", // validate all fields including form hidden input
+        errorPlacement: function (error, element) {
+
+            var type = $(element).attr("type");
+            // console.log($(element).attr("id"));
+            // if ($(element).attr("id") === "")
+            // {
+            //     element.parent().append(error);
+
+            // }
+            // else if ($(element).attr("id") === "interviewer")
+            // {
+            //     element.parent().append(error);
+
+            // }else{
+                error.insertAfter(element);
+            // }
+        },
+        rules: {
+            // ctc_key:{
+            //     mynumber :true  
+            // },
+            ctc_from:{
+                mynumber :true,
+                required: function(element){
+                    return $("#ctc_to").val()!="";
+                }
+            },
+            ctc_to:{
+                mynumber :true,
+                required: function(element){
+                    return $("#ctc_from").val()!="";
+                }
+            },            
+            total_year_experience: {
+                required: function(element){
+                        return $("#total_month_experience").val()!="";
+                    }
+            },
+            total_month_experience: {
+                required: function(element){
+                        return $("#total_year_experience").val()!="";
+                    }
+            }
+        },
+        messages: {
+            ctc_from:{
+                required: "From CTC is required."
+            },
+            ctc_to:{
+                required: "To CTC is required."
+            },          
+            total_year_experience: {
+                required: "Year is required."
+            },
+            total_month_experience: {
+                required: "Month is required."
             }
         },
          highlight: function (element) { // hightlight error inputs

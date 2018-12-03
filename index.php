@@ -88,12 +88,12 @@
 
     <body ng-app="myapp" class="hold-transition skin-blue sidebar-mini ng-cloak" ng-cloak="" ui-view autoscroll="false" >
         <div id="loading" ng-if="logInUserRole != 0"style="display:none;">
-            <pre>{{token}}</pre>
             <img id="loading-image" src="resources/img/loader.gif" alt="Loading..." />
         </div>
+        <!-- <pre>{{token}}</pre> -->
         <!-- Site wrapper -->
         <div class="wrapper">
-            <div ng-controller="menuCtrl" >
+            <div id="menuCtrl" ng-controller="menuCtrl" >
                 <!-- style="display:none;" -->
                 <header class="main-header" ng-show="token">
 
