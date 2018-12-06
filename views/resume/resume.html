@@ -445,21 +445,21 @@
                                         <div class="col-sm-12">
                                             <div class="col-sm-3 form-group">
                                                 <label class="">Total Experience (Years)</label>
-                                                <select id="total_year_experience" name="total_year_experience" class="form-control total_year_experience addDisabledProperty" placeholder="Enter year experience" ng-model="totalYearIndustryExperiance" ng-options="x.id as x.name for x in experienceYears">
+                                                <select id="total_year_experience" name="total_year_experience" class="form-control total_year_experience addDisabledProperty" placeholder="Enter year experience" ng-model="totalYearIndustryExperiance" ng-options="x.id as x.name for x in experienceYears" ng-disabled="(opportunityFor!='Fresher') ? false : true">
                                                 </select>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="">Total Experience (Month)</label>
-                                                <select id="total_month_experience" name="total_month_experience" class="form-control total_month_experience addDisabledProperty" placeholder="Enter month experience" ng-model="totalMonthIndustryExperiance" ng-options="x.id as x.name for x in experienceMonths">
+                                                <select id="total_month_experience" name="total_month_experience" class="form-control total_month_experience addDisabledProperty" placeholder="Enter month experience" ng-model="totalMonthIndustryExperiance" ng-options="x.id as x.name for x in experienceMonths" ng-disabled="(opportunityFor!='Fresher') ? false : true">
                                                 </select>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="mandatory">Current CTC</label>
-                                                <input id="current_ctc" name="current_ctc" type="text" class="form-control addDisabledProperty" placeholder="Enter current CTC" ng-model="currentCTC">
+                                                <input id="current_ctc" name="current_ctc" type="text" class="form-control addDisabledProperty" placeholder="Enter current CTC" ng-model="currentCTC" ng-disabled="(opportunityFor!='Fresher') ? false : true">
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="">CTC Unit</label>
-                                                <select id="ctc_key" name="ctc_key" class="form-control addDisabledProperty" ng-model="ctcKey">
+                                                <select id="ctc_key" name="ctc_key" class="form-control addDisabledProperty" ng-model="currency_unit" disabled="">
                                                     <option selected="selected" value="Lac">Lac</option>
                                                     <option value="Cr">Cr</option>
                                                 </select>
@@ -849,7 +849,7 @@
                                     </div>
                                     <div class="col-md-6 form-group">
                                         <label class=""><b>Current CTC: </b></label>
-                                        <span>{{ currentCTC}} {{ctcKey}}</span>
+                                        <span>{{ currentCTC}} {{currency_unit}}</span>
                                     </div>
                                 </div>
                                 <div ng-repeat="ie in industryExperiance">

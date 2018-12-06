@@ -4,7 +4,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     rlc.pageno = 0;
     rlc.limit = 0;
     rlc.skip = true;
-    rlc.interviewerList='';
+    rlc.interviewerList=null;
     rlc.candidateId = null;
     menuService.setMenu([
             {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"deactive"},
@@ -184,8 +184,10 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         });
     }    
 
-    rlc.openAssignInterviewerModal =function($candidateId){
+    rlc.openAssignInterviewerModal =function($candidateId,$status){
         rlc.candidateId = $candidateId;
+        rlc.candidateStatus = $status;
+        $scope.round = $status == 'Clear' ? 'Round 1' : 'Round 2';
         $scope.scheduleTime = '';
         $('#assignStatusModel').modal('show');
     }
@@ -200,8 +202,11 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
                 "mode_of_interview":$scope.interviewType,
                 "schedule_date":$scope.scheduleDate.split("/").reverse().join("-"),
                 "schedule_time":$scope.scheduleTime,
-                "users_list":rlc.interviewer
+                // "users_list":rlc.interviewer
+                "user_id":rlc.interviewer
             };
+            console.log(req);
+            debugger;
             var promise = services.assignInterviewer(req);
             promise.then(function mySuccess(response) {
                 Utility.stopAnimation();
@@ -222,13 +227,22 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
 
     rlc.resetForm = function(){
         $("#assignStatusForm")[0].reset();
-        rlc.interviewerList = '';
+        rlc.interviewerList = null;
         rlc.getAllInterviewerList();
         $("div.form-group").each(function () {
             $(this).removeClass('has-error');
             $('span.help-block-error').remove();
             applySelect2();
         });
+    }
+
+    rlc.openChangeStatusModal = function(){
+        $('#changeStatusModel').modal('show');
+    }
+
+    rlc.openRescheduleModal = function(){
+        $('#rescheduleModel').modal('show');
+
     }
 
     rlc.init();

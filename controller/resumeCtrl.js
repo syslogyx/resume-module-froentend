@@ -2,7 +2,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
 
     var rsm = this;
     $scope.candidateId = $location.search()["id"] !== undefined ? $location.search()["id"] : null;
-    $scope.ctcKey='Lac';
+    $scope.currency_unit='Lac';
     $scope.title = '';
 
     var authKey = services.getIdentity()==undefined?undefined:JSON.parse(services.getIdentity());
@@ -103,8 +103,9 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
     }
 
     $scope.opportunityForChange=function(){
-        if($scope.opportunityFor == 'Fresher'){                            
-            $scope.currentCTC = 0;
+        if($scope.opportunityFor == 'Fresher'){                       
+            $scope.currentCTC = '0';
+            $scope.currency_unit='Lac';
             $scope.totalYearIndustryExperiance = $scope.experienceYears[0].id;
             $scope.totalMonthIndustryExperiance = $scope.experienceMonths[0].id;            
                 $scope.industryExperiance[0].company_name = "NA";
@@ -125,8 +126,14 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
                             project_descriptions:[{project_description:"NA"}]
                     }];
                 }
+                $("div.form-group").each(function () {
+                    $(this).removeClass('has-error');
+                    $('span.help-block-error').remove();
+                    // applySelect2();
+                });
         }else if($scope.opportunityFor == 'Experience'){
             $scope.currentCTC = null;
+            $scope.currency_unit='Lac';
             $scope.totalYearIndustryExperiance = $scope.experienceYears[0].id;
             $scope.totalMonthIndustryExperiance = $scope.experienceMonths[0].id;           
             $scope.industryExperiance = [{
@@ -203,6 +210,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
                     $scope.lastName = res.data.last_name;
                     $scope.email = res.data.email;
                     $scope.mobileNumber = res.data.mobile_no;
+                    $scope.currency_unit = res.data.currency_unit;
                     $scope.dateOfBirth = res.data.date_of_birth.split("-").reverse().join("/");
                     $scope.panNumber = res.data.pan_number;
                     $scope.passportNumber = res.data.passport;
@@ -627,6 +635,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
                 "unique_token":$routeParams.token,
                 "total_experience":$scope.totalYearIndustryExperiance+'.'+$scope.totalMonthIndustryExperiance,
                 "ctc":$scope.currentCTC,
+                "currency_unit":$scope.currency_unit,
                 "educationalDetails":$scope.quaData,
                 "achivementDetails":$scope.achievements1,
                 "technicalSkill":$scope.technicalSkill1,

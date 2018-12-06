@@ -100,7 +100,7 @@ $(document).ready(function(){
             required: true,
             number:true,
             range: [1, 100],
-            min: 60
+            min: 50
         },
         university: {
             required: true,
@@ -289,7 +289,7 @@ $(document).ready(function(){
             // },
             current_ctc:{
                 required: true,
-                number:true,
+                // number:true,
                 mynumber :true  
             },
             // file: {
@@ -371,7 +371,7 @@ $(document).ready(function(){
             },
              percentage:{
                 required: "percentage is required.",
-                min: "Please enter a value greater than or equal to 60."
+                min: "Please enter a value greater than or equal to 50."
             },
             university: {
                 required: "University is required.",
@@ -405,8 +405,8 @@ $(document).ready(function(){
             // },
             current_ctc:{
                 required: "Current CTC is required.",
-                number:"Current CTC is in number",
-                mynumber:"Please enter only two digit after decimal."
+                // number:"Current CTC is in number",
+                // mynumber:"Please enter only two digit after decimal."
             },
             company_name:{
                 required: "Company name is required.",
