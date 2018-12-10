@@ -15,7 +15,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
         'resources/img/resumeimg/4_Technical_Skills_img.jpg',
         'resources/img/resumeimg/5_Industrial_Experience_img.jpg',
         'resources/img/resumeimg/6_Hobbies_Details_img.jpg',
-        'resources/img/resumeimg/6_Hobbies_Details_img.jpg',
+        'resources/img/resumeimg/7_Language_Known_img.jpg',
         'resources/img/resumeimg/7_Upload_Document_img.jpg'
     ];
 
@@ -193,7 +193,8 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
         $('body').addClass('sidebar-collapse');
         $('#menuCtrl').css('display','none');
         // $('.main-header').css('display','none');
-        $('#cWrapper').css('margin-left','0px!important');        
+        // $('.content-wrapper').css('margin-left','0px !important');  
+        $("#cw").css('margin-left','0px');     
         $("#file").prop('disabled', true);
         $("#fileEditError").css('display', 'block');
 

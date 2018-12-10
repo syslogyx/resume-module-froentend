@@ -85,8 +85,8 @@ app.controller('screeningTestCtrl', function ($scope, $rootScope, $http, service
             var promise = services.saveResult(request);
             promise.then(function mySuccess(response) {
                 // console.log(response);
-                // console.log(response.data.message);
-                // debugger;
+                console.log(response.data.message);
+                debugger;
                 try {
                     // $location.path('/resume_list');
                     window.location = '/resume_list';

@@ -24,6 +24,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
 
     //Array for experience in years drop down options.
     rlc.experienceYears = RESOURCES.YEARS;
+    rlc.candidateStatusOptions = RESOURCES.CANDIDATE_STATUS;
 
     rlc.totalYearExperiance = "";
     rlc.totalMonthExperiance = "";
@@ -37,6 +38,33 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
             rlc.fetchList(-1);       
         }
     };
+    
+
+    rlc.datepickerInit = function(){
+        var date = new Date();
+        date.setDate(date.getDate());
+        $('#schedule_date').datepicker({
+            startDate: date,
+            autoclose: true
+        }).on('changeDate', function(selected){
+             $(this).valid();
+        });
+        $('#schedule_time').timepicker({
+            showInputs: false
+        });
+
+        var date = new Date();
+        date.setDate(date.getDate());
+        $('#reschedule_date').datepicker({
+            startDate: date,
+            autoclose: true
+        }).on('changeDate', function(selected){
+             $(this).valid();
+        });
+        $('#reschedule_time').timepicker({
+            showInputs: false
+        });
+    }
 
     rlc.resetFilter = function(){
         rlc.jobCodeId = null;
@@ -66,7 +94,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         });
     },100);
 
-
+    setTimeout(function() { rlc.datepickerInit();}, 500);
     
 
 
@@ -192,9 +220,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         $('#assignStatusModel').modal('show');
     }
 
-    rlc.assignedInterviewer = function(){
-        // console.log(rlc.interviewer);
-        // console.log(rlc.candidateId);
+    rlc.scheduleInterview = function(){
         if ($("#assignStatusForm").valid()) {
             var req = {
                 "candidate_id":rlc.candidateId,
@@ -205,9 +231,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
                 // "users_list":rlc.interviewer
                 "user_id":rlc.interviewer
             };
-            console.log(req);
-            debugger;
-            var promise = services.assignInterviewer(req);
+            var promise = services.scheduleInterviewer(req);
             promise.then(function mySuccess(response) {
                 Utility.stopAnimation();
                 try {
@@ -215,7 +239,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
                     toastr.success(response.data.message);
                     rlc.init();
                 } catch (e) {
-                    toastr.error("User not saved successfully.");
+                    toastr.error("Unable to schedule Interview.");
                     Raven.captureException(e)
                 }
             }, function myError(r) { 
@@ -236,14 +260,93 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         });
     }
 
-    rlc.openChangeStatusModal = function(){
-        $('#changeStatusModel').modal('show');
+    rlc.openRescheduleModal = function(data){
+        $scope.interviewRescheduleData = data;
+        if($scope.interviewRescheduleData.length != null){
+            rlc.interviewer = $scope.interviewRescheduleData[0].user_id;
+            rlc.candidateId = $scope.interviewRescheduleData[0].candidate_id;
+            $scope.round = $scope.interviewRescheduleData[0].technical_round;
+            $scope.scheduleDate = $scope.interviewRescheduleData[0].schedule_date.split("-").reverse().join("/");;
+            $scope.scheduleTime = $scope.interviewRescheduleData[0].schedule_time;
+            $scope.interviewType = $scope.interviewRescheduleData[0].mode_of_interview;
+            $scope.assoc_id = $scope.interviewRescheduleData[0].id;
+            $('#rescheduleModel').modal('show');
+            setTimeout(function() { rlc.datepickerInit();}, 500);
+        }
+
     }
 
-    rlc.openRescheduleModal = function(){
-        $('#rescheduleModel').modal('show');
 
+    rlc.reScheduleInterview = function(){
+        if ($("#rescheduleForm").valid()) {
+            var req = {
+                "id":$scope.assoc_id,
+                "candidate_id":rlc.candidateId,
+                "technical_round":$scope.round,
+                "mode_of_interview":$scope.interviewType,
+                "schedule_date":$scope.scheduleDate.split("/").reverse().join("-"),
+                "schedule_time":$scope.scheduleTime,
+                "user_id":rlc.interviewer
+            };
+            var promise = services.rescheduleInterview(req);
+            promise.then(function mySuccess(response) {
+                Utility.stopAnimation();
+                try {
+                    $('#rescheduleModel').modal('hide');
+                    toastr.success(response.data.message);
+                    rlc.init();
+                } catch (e) {
+                    toastr.error("Unable to reschedule Interview");
+                    Raven.captureException(e)
+                }
+            }, function myError(r) { 
+                toastr.error(r.data.message);
+                Utility.stopAnimation();
+            });
+        }
     }
+
+    rlc.openChangeStatusModal = function(data){
+        // $('#changeStatusModel').modal('show');
+        console.log(data['candidate_technical_result']);
+        if(data){
+            rlc.interviewer_name = data['candidate_user_assocs'][0]['users']['name'];
+            rlc.roundDetails = data['candidate_user_assocs'][0]['technical_round'];
+            rlc.change_candidate_id = data.id;
+            // rlc.candidate_status = data['status'];
+            $('#changeStatusModel').modal('show');
+            setTimeout(function() { rlc.datepickerInit();}, 500);
+        }
+    }
+
+    rlc.changeStatus = function(){
+        if($('#changeStatusForm').valid()){
+            var req = {
+                "status":rlc.candidate_status,
+                "id":rlc.change_candidate_id
+            };
+            var promise = services.updateCandidateStatus(req);
+            // debugger;
+            promise.then(function mySuccess(response) {
+                console.log(response);
+                Utility.stopAnimation();
+                try {
+                    $('#changeStatusModel').modal('hide');
+                    toastr.success(response.data.message);
+                    rlc.init();
+                    // $("#changeStatusForm")[0].reset();
+                } catch (e) {
+                    toastr.error("Unable to save data");
+                    Raven.captureException(e)
+                }
+            }, function myError(r) { 
+                toastr.error(r.data.message);
+                Utility.stopAnimation();
+            });
+        }
+    }
+    
+
 
     rlc.init();
 

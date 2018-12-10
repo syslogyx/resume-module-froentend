@@ -45,7 +45,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="col-md-6 form-group">
-                            <label class="mandatory">Duration of Interview</label>
+                            <label class="mandatory">Duration of Interview (Hours)</label>
                             <input class="form-control" id="interview_duration" name="interview_duration" placeholder="Enter duration" ng-model="st.interview_duration" rows="1">
                         </div>
                         <div class="col-md-6 form-group">
@@ -172,7 +172,8 @@
         },
         rules: {
             interview_duration: {
-                required: true
+                required: true,
+                number:true
             },
             observation: {
                 required: true

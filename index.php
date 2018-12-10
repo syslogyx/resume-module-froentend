@@ -174,7 +174,7 @@
             </div>
             <!-- =============================================== -->
             <!-- Content Wrapper. Contains page content -->
-            <div class="content-wrapper" >
+            <div class="content-wrapper" id="cw">
                 <div id="viewPort" data-ng-view ></div>
             </div>
             <!-- /.content-wrapper -->

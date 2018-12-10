@@ -46,7 +46,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4 form-group">
-                        <label class="mandatory">Duration of Interview</label>
+                        <label class="mandatory">Duration of Interview (Hours)</label>
                         <input class="form-control" id="interview_duration" name="interview_duration" placeholder="Enter duration" ng-model="res.tecForm.duration_of_interview" rows="1">
                     </div>
                     <div class="col-md-4 form-group">
@@ -116,7 +116,8 @@
                         required: true
                     },
                     interview_duration: {
-                        required: true
+                        required: true,
+                        number:true
                     },
                     observation: {
                         required: true

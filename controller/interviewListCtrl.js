@@ -40,7 +40,19 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
     ilc.init = function(){
         ilc.fetchList(-1);
         ilc.getAllInterviewerList();
+        // ilc.getActiveJd();
     }
+
+    // ilc.getActiveJd = function(){
+    //      var promise = services.getAllActiveJDList();
+    //     promise.success(function (result) {
+    //         Utility.stopAnimation();
+    //         $scope.jobDetail = result.data; 
+    //     }, function myError(r) {
+    //         toastr.error(r.data.message, 'Sorry!');
+    //         Utility.stopAnimation();
+    //     });
+    // }
 
     /*pagination for Candidates*/
     ilc.fetchList = function(page){
@@ -111,6 +123,32 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
         time[0] = +time[0] % 12 || 12; // Adjust hours
       }
       return time.join (''); // return adjusted time or original string
+    }
+
+    ilc.openChangeJdStatusModel = function($candidateId){
+        if($candidateId){
+            var promise = services.getJDListByCandidateId($candidateId);
+            promise.success(function (result) {
+                Utility.stopAnimation();
+                ilc.jobDetail = result.data; 
+            }, function myError(r) {
+                toastr.error(r.data.message, 'Sorry!');
+                Utility.stopAnimation();
+            });
+        }
+        $('#changeJdStatusModal').modal('show');
+    }
+
+    ilc.changeJobDescription = function(){
+        var promise = services.changeJobDescriptionByCandidateId($candidateId);
+        promise.success(function (result) {
+            Utility.stopAnimation();
+            console.log(result);
+            // ilc.jobDetail = result.data; 
+        }, function myError(r) {
+            toastr.error(r.data.message, 'Sorry!');
+            Utility.stopAnimation();
+        });
     }
 
     ilc.init();

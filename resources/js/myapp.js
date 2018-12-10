@@ -223,7 +223,15 @@ app.constant('RESOURCES', (function () {
         RESULT_STATUS: [
             {'id':2,'name':'Fail'},
             {'id':1,'name':'Pass'}
-        ]
+        ],
+
+        // defined result status constants
+        CANDIDATE_STATUS: [
+            {'id':1,'name':'Selected'},
+            {'id':2,'name':'On Hold'},
+            {'id':3,'name':'Block'},
+            {'id':4,'name':'Joined'}
+        ],
 
         //CONTENT_TYPE: 'application/json; charset=UTF-8'
     }
@@ -539,6 +547,32 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
+    this.updateCandidateStatus = function(req){
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "candidate/changestatus/" + req.id,
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    }
+
+    this.changeJobDescriptionByCandidateId = function(req){
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "candidate/changestatus/" + req.id,
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    }
+
     this.downloadResumePDF = function (id) {
         // var win =
         window.open(RESOURCES.SERVER_API +'generate_pdf/'+id);
@@ -806,7 +840,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
-    this.assignInterviewer = function(req){
+    this.scheduleInterviewer = function(req){
         Utility.startAnimation();
         return $http({
             method: 'POST',
@@ -816,6 +850,19 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
                 
+            }
+        })
+    };
+
+    this.rescheduleInterview = function(req){
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "reschedule_interview/" + req.id + "/update?_method=PUT",
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
             }
         })
     };
@@ -852,6 +899,19 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
                 
+            }
+        })
+    };
+
+    this.getJDListByCandidateId = function (id) {
+        Utility.startAnimation();
+        return $http({
+            method: 'GET',
+            url: RESOURCES.SERVER_API + "candidate/getJDListByCandidateId/" + id,
+            dataType: 'json',
+            //data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
             }
         })
     };
