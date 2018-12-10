@@ -560,18 +560,18 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     }
 
-    this.changeJobDescriptionByCandidateId = function(req){
-        Utility.startAnimation();
-        return $http({
-            method: 'POST',
-            url: RESOURCES.SERVER_API + "candidate/changestatus/" + req.id,
-            dataType: 'json',
-            data: $.param(req),
-            headers: {
-                'Content-Type': RESOURCES.CONTENT_TYPE
-            }
-        })
-    }
+    // this.changeJobDescriptionByCandidateId = function(req){
+    //     Utility.startAnimation();
+    //     return $http({
+    //         method: 'POST',
+    //         url: RESOURCES.SERVER_API + "candidate/changeJobDescription/" + req.id,
+    //         dataType: 'json',
+    //         data: $.param(req),
+    //         headers: {
+    //             'Content-Type': RESOURCES.CONTENT_TYPE
+    //         }
+    //     })
+    // }
 
     this.downloadResumePDF = function (id) {
         // var win =

@@ -140,15 +140,15 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
     }
 
     ilc.changeJobDescription = function(){
-        var promise = services.changeJobDescriptionByCandidateId($candidateId);
-        promise.success(function (result) {
-            Utility.stopAnimation();
-            console.log(result);
-            // ilc.jobDetail = result.data; 
-        }, function myError(r) {
-            toastr.error(r.data.message, 'Sorry!');
-            Utility.stopAnimation();
-        });
+        // var promise = services.changeJobDescriptionByCandidateId($candidateId);
+        // promise.success(function (result) {
+        //     Utility.stopAnimation();
+        //     console.log(result);
+        //     // ilc.jobDetail = result.data; 
+        // }, function myError(r) {
+        //     toastr.error(r.data.message, 'Sorry!');
+        //     Utility.stopAnimation();
+        // });
     }
 
     ilc.init();
