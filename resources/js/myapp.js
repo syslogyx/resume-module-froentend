@@ -1019,25 +1019,6 @@ app.config(function ($routeProvider, $locationProvider) {
                 }
             })
 
-            .when('/setting', {
-                templateUrl: 'views/settings/setting.html',
-                controller: 'settingCtrl',
-                controllerAs: 'stg',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                            //console.log(AclService.getRoles());
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            })
-
             .when('/resume/:token', {
                 templateUrl: 'views/resume/resume.html',
                 controller: 'resumeCtrl',
