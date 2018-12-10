@@ -73,11 +73,11 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
         }
       
         var promise = '';
-        if(usr.logInUserRole==1){
+        // if(usr.logInUserRole==1){
             promise = services.getAllUsers(requestParam);
-        }else if(usr.logInUserRole==2) {
-            promise = services.getSelectedUsers(requestParam);;   
-        }
+        // }else if(usr.logInUserRole==2) {
+        //     promise = services.getSelectedUsers(requestParam);;   
+        // }
         promise.success(function (result) {
             if (result.data) {
                 Utility.stopAnimation();
@@ -89,6 +89,7 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
             Utility.stopAnimation();
         });
     }
+    
     usr.applyPagination = function (pageData) {
         $('#pagination-sec').twbsPagination({
             totalPages: pageData.last_page,
@@ -112,11 +113,11 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
 
         /* Getting all user roles */
         var promise = '';
-        if(usr.logInUserRole==1){
+        //if(usr.logInUserRole==1){
             promise = services.getAllRoles();
-        }else if(usr.logInUserRole==2) {
-            promise = services.getSelectedRoles();   
-        }
+        // }else if(usr.logInUserRole==2) {
+        //     promise = services.getSelectedRoles();   
+        // }
         promise.success(function (result) {
             Utility.stopAnimation();
             usr.roleList = result.data;
