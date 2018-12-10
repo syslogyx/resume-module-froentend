@@ -210,10 +210,10 @@
             </div>
             <!-- ./wrapper -->          
         </div>
-        <div data-ng-controller="sidebarCtrl" id="sidebarComponent">          
+        <!-- <div data-ng-controller="sidebarCtrl" id="sidebarComponent">          
                 <div ng-include="'resources/templates/fund_request_info.html'"></div>
                 <div ng-include="'resources/templates/login_user_fund_request_list_info.html'"></div>
-        </div>
+        </div> -->
        
          <!-- jQuery 3 -->
         <script src="/resources/plugins/jQuery/jquery.min.js"></script>

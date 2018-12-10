@@ -126,6 +126,7 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
     }
 
     ilc.openChangeJdStatusModel = function($candidateId){
+        ilc.candidate_id = $candidateId;
         if($candidateId){
             var promise = services.getJDListByCandidateId($candidateId);
             promise.success(function (result) {
@@ -140,15 +141,20 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
     }
 
     ilc.changeJobDescription = function(){
-        // var promise = services.changeJobDescriptionByCandidateId($candidateId);
-        // promise.success(function (result) {
-        //     Utility.stopAnimation();
-        //     console.log(result);
-        //     // ilc.jobDetail = result.data; 
-        // }, function myError(r) {
-        //     toastr.error(r.data.message, 'Sorry!');
-        //     Utility.stopAnimation();
-        // });
+        var req = {
+            "job_description_id":ilc.job_id,
+            "id":ilc.candidate_id
+        };
+        // debugger;
+        var promise = services.changeJobDescriptionByCandidateId(req);
+        promise.success(function (result) {
+            Utility.stopAnimation();
+            console.log(result);
+            // ilc.jobDetail = result.data; 
+        }, function myError(r) {
+            toastr.error(r.data.message, 'Sorry!');
+            Utility.stopAnimation();
+        });
     }
 
     ilc.init();
