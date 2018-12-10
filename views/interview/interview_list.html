@@ -155,52 +155,63 @@
         // });
 
             // var baseUrl = Utility.apiBaseUrl;
-            // $("#changeStatusForm").validate({
-            //     errorElement: 'span', //default input error message container
-            //     errorClass: 'help-block help-block-error',
-            //     errorPlacement: function (error, element) {
+            $("#changeJdStatusForm").validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error',
+                errorPlacement: function (error, element) {
 
-            //         var type = $(element).attr("type");
-            //         if ($(element).attr("id") === "")
-            //         {
-            //             element.parent().append(error);
+                    var type = $(element).attr("type");
+                    if ($(element).attr("id") === "")
+                    {
+                        element.parent().append(error);
 
-            //         }
-            //         else if ($(element).attr("id") === "changeStatus")
-            //         {
-            //             element.parent().append(error);
+                    }
+                    else if ($(element).attr("id") === "job_code")
+                    {
+                        element.parent().append(error);
 
-            //         }else{
-            //             error.insertAfter(element);
-            //         }
-            //     },
-            //     rules: {
-            //         changeStatus: {
-            //             required: true
-            //         }
-            //     },
-            //     messages: {
-            //         changeStatus: {
-            //             required: "Status is required."
-            //         }
-            //     },
-            //     highlight: function (element) { // hightlight error inputs
-            //         $(element).closest('.form-group').addClass('has-error');
+                    }else{
+                        error.insertAfter(element);
+                    }
+                },
+                rules: {
+                    job_code: {
+                        required: true
+                    }
+                },
+                messages: {
+                    job_code: {
+                        required: "Job code is required."
+                    }
+                },
+                highlight: function (element) { // hightlight error inputs
+                    $(element).closest('.form-group').addClass('has-error');
 
-            //         $(element).next().children().children().attr('style', 'border-color:#dd4b39!important');
-            //         // set error class to the control group
-            //     },
-            //     unhighlight: function (element) { // revert the change done by hightlight
-            //         $(element)
-            //                 .closest('.form-group').removeClass('has-error');
-            //         $(element)
-            //                 .next().children().children().attr('style', 'border-color:'); // set error class to the control group
-            //     },
-            //     success: function (label) {
-            //         label
-            //                 .closest('.form-group').removeClass('has-error'); // set success class to the control group
-            //     }
-            // });
+                    $(element).next().children().children().attr('style', 'border-color:#dd4b39!important');
+                    // set error class to the control group
+                },
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                            .closest('.form-group').removeClass('has-error');
+                    $(element)
+                            .next().children().children().attr('style', 'border-color:'); // set error class to the control group
+                },
+                success: function (label) {
+                    label
+                            .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                }
+            });
+
+            $('#changeJdStatusModal.modal').on('hidden.bs.modal', function (e) {
+                $(this).find('form').trigger('reset'); 
+                $("div.form-group").each(function () {
+                    $(this).removeClass('has-error');
+                    $('span.help-block-error').remove();
+                    applySelect2();
+                });
+                $('header').css('z-index', '1053');
+                $('footer').css('z-index', '1053');
+            });
 
             $(".s2mn").on("change", function () { $(this).valid(); });
 </script>

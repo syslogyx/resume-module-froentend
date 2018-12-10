@@ -141,20 +141,30 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
     }
 
     ilc.changeJobDescription = function(){
-        var req = {
-            "job_description_id":ilc.job_id,
-            "id":ilc.candidate_id
-        };
-        // debugger;
-        var promise = services.changeJobDescriptionByCandidateId(req);
-        promise.success(function (result) {
-            Utility.stopAnimation();
-            console.log(result);
-            // ilc.jobDetail = result.data; 
-        }, function myError(r) {
-            toastr.error(r.data.message, 'Sorry!');
-            Utility.stopAnimation();
-        });
+        if($("#changeJdStatusForm").valid()){
+            var req = {
+                "job_description_id":ilc.job_id,
+                "id":ilc.candidate_id
+            };
+            var promise = services.changeJobDescriptionByCandidateId(req);
+            promise.success(function (result) {
+                Utility.stopAnimation();
+                console.log(result);
+                    Utility.stopAnimation();
+                    try {
+                        $('#changeJdStatusModal').modal('hide');
+                        toastr.success(result.data.message);
+                        ilc.init();
+                        // $("#changeStatusForm")[0].reset();
+                    } catch (e) {
+                        toastr.error("Unable to save data");
+                        Raven.captureException(e)
+                    }
+            }, function myError(r) {
+                toastr.error(r.data.message, 'Sorry!');
+                Utility.stopAnimation();
+            });
+        }
     }
 
     ilc.init();

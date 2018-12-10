@@ -308,8 +308,8 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
 
     rlc.openChangeStatusModal = function(data){
         // $('#changeStatusModel').modal('show');
-        console.log(data['candidate_technical_result']);
-        if(data){
+        // console.log(data['candidate_technical_result']);
+        if(data['candidate_technical_result'].length > 0){
             rlc.interviewer_name = data['candidate_user_assocs'][0]['users']['name'];
             rlc.roundDetails = data['candidate_user_assocs'][0]['technical_round'];
             rlc.change_candidate_id = data.id;
