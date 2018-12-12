@@ -17,7 +17,7 @@
         <!-- Ionicons -->
         <link rel="stylesheet" href="/resources/lib/ionicons-2.0.1/css/ionicons.min.css">
         <!--iCheck -->
-        <link rel="stylesheet" href="/resources/plugins/iCheck/square/blue.css">
+        <link rel="stylesheet" href="/resources/plugins/icheck-1.x/skins/square/blue.css">
 
         <!-- Theme style -->
         <link rel="stylesheet" href="/resources/css/AdminLTE.min.css">
@@ -129,8 +129,12 @@
                                             </p>
                                         </li>
 
-                                        <!-- Menu Footer-->
+                                         <!-- Menu Footer-->
                                         <li class="user-footer">
+                                            <div class="pull-left">
+                                                <button type="button" class="btn btn-default btn-md" title="Update Profile" data-ng-click="getUserData();setCSS();">Update Profile
+                                                </button>
+                                            </div>
                                             <div class="pull-right">
                                                 <button type="button" class="btn btn-default btn-md" title="Logout" data-ng-click="clearToken()">Logout
                                                 </button>
@@ -171,7 +175,64 @@
                     </section>
                     <!-- /.sidebar -->
                 </aside>
+                <!-- Modal to update user profile -->
+                <div class="modal fade" id="updateUserModal" role="dialog">
+                    <div class="modal-dialog modal-md">
+                        <form role="form" name="updateUserForm" id="updateUserForm">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Update User Profile</h4>
+                                </div>
+
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="mandatory" for="">Name</label>
+                                                    <input type="text" class="form-control" name="userName" ng-model="userName" placeholder="Enter user name">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="mandatory" for="">Email</label>
+                                                    <input type="text" class="form-control" name="userEmail" ng-model="userEmail" placeholder="Enter email">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="mandatory" for="">Mobile</label>
+                                                    <input type="text" class="form-control" id="mobileNo" name="mobileNo" ng-model="mobileNo" placeholder="Enter mobile number">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="" for="">Password</label>
+                                                    <input type="text" class="form-control" name="userProfilePassword"  id="userProfilePassword" ng-model="userpassword" placeholder="Enter password">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <div class="pull pull-right">
+                                        <input type="submit" value="Save" data-ng-click="saveUser()" class="btn btn-success"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
+
             <!-- =============================================== -->
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper" id="cw">
@@ -234,7 +295,7 @@
         <script src="/resources/bower_components/angular-acl/angular-acl.js"></script>
         <script src="/resources/bower_components/angular-cookies/angular-cookies.js"></script>
         <!--<script src="/resources/plugins/jquery-validation/dist/jquery.validate.min.js"></script>-->
-       <!-- <script src="/resources/plugins/iCheck/icheck.min.js"></script>-->
+        <script src="/resources/plugins/icheck-1.x/icheck.js"></script>
     
         <!-- For toaster alert -->
         <script src="/resources/bower_components/toastr/toastr.min.js"></script>
@@ -307,6 +368,98 @@
                 if( clickedOnScrollbar(e.clientX) ){
                     $(".date-picker").blur();
                 }
+            });
+        </script>
+
+        <script>
+            $(document).ready(function () {
+                $("html, body").animate({scrollTop: 0}, "fast");
+                $('.modal').on('hidden.bs.modal', function (e) {
+                    console.log("Modal is closed");
+                    $('header').css('z-index', '1053');
+                    $('footer').css('z-index', '1053');
+                })
+            });
+            function setCSS(){
+                if($('.modal').is(':visible') == true){
+                    console.log("Modal is open");
+                    $('header').css('z-index', '900');
+                    $('footer').css('z-index', '900');
+                }else{
+                    $('header').css('z-index', '1053');
+                    $('footer').css('z-index', '1053');
+                }
+            }
+            setCSS();
+        </script>
+        <script>
+            $(document).ready(function () {
+
+                $.validator.addMethod('regex', function (value, element, regexp) {
+                    if (regexp.constructor != RegExp)
+                        regexp = new RegExp(regexp);
+                    else if (regexp.global)
+                        regexp.lastIndex = 0;
+                    return this.optional(element) || regexp.test(value);
+                }, 'Please enter a valid Email Address.');
+
+                $("#updateUserForm").validate({
+                    errorElement: 'span', //default input error message container
+                    errorClass: 'help-block help-block-error',
+                    errorPlacement: function (error, element) {
+
+                        var type = $(element).attr("type");
+                        if ($(element).attr("id") === "mobileNo")
+                        {
+                            // custom placement
+                            element.parent().append(error);
+                        } else {
+                            error.insertAfter(element);
+                        }
+                    },
+                    focusInvalid: true, // set focus the last invalid input
+                    ignore: [], // validate all fields including form hidden input
+                    rules: {
+                        userName: {
+                            required: true
+                        },
+                        userEmail: {
+                            required: true,
+                            regex: /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i
+                        },
+                        mobileNo: {
+                            required: true
+                        }
+                    },
+                    messages: {
+                        userName: {
+                            required: "User name is required."
+                        },
+                        userEmail: {
+                            required: "Email is required."
+                        },
+                        mobileNo: {
+                            required: "Mobile No. is required"
+                        }
+                    },
+                    highlight: function (element) { // hightlight error inputs
+                        $(element)
+                                .closest('.form-group').addClass('has-error');
+                        $(element)
+                                .next().children().children().attr('style', 'border-color:#dd4b39!important');
+                        // set error class to the control group
+                    },
+                    unhighlight: function (element) { // revert the change done by hightlight
+                        $(element)
+                                .closest('.form-group').removeClass('has-error');
+                        $(element)
+                                .next().children().children().attr('style', 'border-color:'); // set error class to the control group
+                    },
+                    success: function (label) {
+                        label
+                                .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                    }
+                });
             });
         </script>
     </body>

@@ -281,6 +281,44 @@ app.directive('ngFiles', ['$parse', function ($parse) {
 //   };
 // });
 
+/**
+**  This Directive used to apply check box on Pdf Setting for section modal
+**/
+app.directive('applyCheckBox', function () {
+    return function (scope, element, attrs) {
+
+        $('.icheckBox').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+        });
+
+        $('.icheckBox').on('ifChecked', function (event) {
+            $ele = $("#" + event.target.id);
+            // console.log($ele.attr("data-index"));
+            //Getting the scope of main controller where the icheck plugin is applied
+            var index = parseInt($ele.attr("data-index"));
+            var scope = angular.element(document.querySelector("#resumeListCtrl")).scope();
+
+            scope.$apply(function () {
+               scope.toggleSelection(index);
+            });
+        });
+
+        $('.icheckBox').on('ifUnchecked', function (event) {
+            $ele = $("#" + event.target.id);
+            //Getting the scope of main controller where the icheck plugin is applied
+           var scope = angular.element(document.querySelector("#resumeListCtrl")).scope();
+            var index = parseInt($ele.attr("data-index"));
+            scope.$apply(function () {
+               scope.toggleSelection(index);
+            });
+        });
+
+
+    }
+});
+
+
 
 app.service('pagination', function (RESOURCES, $http, $cookieStore, $filter) {
     //set pagination limit here
@@ -390,6 +428,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             }
         })
     };
+
     this.getSelectedUsers = function (request) {
         if(request == undefined){
             page = -1;
@@ -468,7 +507,6 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             }
         })
     };
-   
 
     this.getAllRoles = function (req) {
         Utility.startAnimation();
@@ -482,6 +520,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             }
         })
     };
+
     this.getSelectedRoles = function (req) {
         Utility.startAnimation();
         return $http({
@@ -524,18 +563,6 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
 
     this.updateCandidate = function (req) {
         Utility.startAnimation();
-        // return $http({
-        //     method: 'POST',
-        //     //url: RESOURCES.SERVER_API + "create_candidate?type=data",
-        //     url: RESOURCES.SERVER_API + "update_candidate",
-        //     dataType: 'json',
-        //     data: $.param(req),
-        //     headers: {
-        //         'Content-Type': RESOURCES.CONTENT_TYPE,
-        //         //'Content-Type': RESOURCES.CONTENT_FILE_TYPE,
-        //     }
-        // })
-        Utility.startAnimation();
         return $http({
             method: 'POST',
             url: RESOURCES.SERVER_API + "candidate/" + req.id + "/update?_method=PUT",
@@ -573,11 +600,8 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     }
 
-    this.downloadResumePDF = function (id) {
-        // var win =
-        window.open(RESOURCES.SERVER_API +'generate_pdf/'+id);
-        // win.setTimeout(function(){this.close();},1500)
-        // win.focus();
+    this.downloadResumePDF = function (id,sectionNames) {       
+        window.open(RESOURCES.SERVER_API +'generate_pdf/'+id+'?section_names='+sectionNames);
     };
 
     this.downloadResumePDFWithoutContact = function (id) {
@@ -587,11 +611,8 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         // win.focus();
     };
 
-    this.downloadResume = function (id) {
-        // var win =
-        window.open(RESOURCES.SERVER_API +'download/'+id);
-        // win.setTimeout(function(){this.close();},1500)
-        // win.focus();
+    this.downloadResume = function (id) {        
+        window.open(RESOURCES.SERVER_API +'download/'+id);        
     };
 
     this.getAllCandidates = function(req,request){
@@ -641,7 +662,6 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         return $http({
             method: 'GET',
             url: RESOURCES.SERVER_API + "job_description?page=" + page + "&limit=" + limit,
-            //url: "/jobList.json",
             dataType: 'json',
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
@@ -682,7 +702,6 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             method: 'GET',
             url: RESOURCES.SERVER_API + "jobInfoByID/" + id + "/view",
             dataType: 'json',
-            //data: $.param(req),
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
             }
@@ -715,8 +734,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
     //     })
     // };
 
-    this.uploadresumeFile  = function(request){
-      
+    this.uploadresumeFile  = function(request){      
         Utility.startAnimation();
         return $http({
             method: 'POST',
@@ -787,7 +805,6 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             }
         })
     };
-
 
     this.getAllStreamList = function () {
         Utility.startAnimation();
@@ -910,6 +927,18 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             url: RESOURCES.SERVER_API + "candidate/getJDListByCandidateId/" + id,
             dataType: 'json',
             //data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+    this.getPdfSettingList = function () {
+        Utility.startAnimation();
+        return $http({
+            method: 'GET',
+            url: RESOURCES.SERVER_API + "pdf_setting",
+            dataType: 'json',
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
             }

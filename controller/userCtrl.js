@@ -1,4 +1,4 @@
-app.controller('userCtrl', function ($scope, $rootScope, $http, services, $location, menuService, $cookieStore) {
+app.controller('userCtrl', function ($scope, $rootScope, $http, services, $location, menuService, $cookieStore,pagination) {
 
     var usr = this;
 
@@ -11,16 +11,8 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
     usr.skip = true;
     usr.comapnyName='Syslogyx Pvt. Ltd.'
 
-    usr.filterStatusType=[
-        {id: "1", type: "Rejected"},
-        {id: "2", type: "Approved"},
-        {id: "3", type: "Postponed"},
-        {id: "4", type: "Closed"},
-        {id: "5", type:"Pending"}
-    ];
-
     var viewPath = $location.path().split("/")[1];
-    // console.log(viewPath);
+
      /* Getting login user info*/
     var loggedInUserName = JSON.parse($cookieStore.get('identity'));
     usr.logInUser  =  loggedInUserName.identity.name;
@@ -48,30 +40,29 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
     /*Record limit for Users in pagination*/
     setTimeout(function(){
         $('#table_length').on('change',function(){
-            usr.fetchAllUsers(-1);
+            usr.fetchList(-1);
         });
     },100);
 
-    /*pagination for Users*/
-    usr.fetchAllUsers = function(page){
+    usr.fetchList = function(page){
         usr.limit = $('#table_length').val();
         if(usr.limit == undefined){
             usr.limit = -1;
         }
         if(page == -1){
             usr.pageno = 1;
-            //console.log($('#pagination-sec').data("twbs-pagination"));
             if($('#pagination-sec').data("twbs-pagination")){
-                    $('#pagination-sec').twbsPagination('destroy');
+                $('#pagination-sec').twbsPagination('destroy');
             }
-        }else{
+        }
+        else{
             usr.pageno = page;
         }
         var requestParam = {
             page:usr.pageno,
             limit:usr.limit,
         }
-      
+
         var promise = '';
         // if(usr.logInUserRole==1){
             promise = services.getAllUsers(requestParam);
@@ -79,37 +70,21 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
         //     promise = services.getSelectedUsers(requestParam);;   
         // }
         promise.success(function (result) {
+            Utility.stopAnimation();
             if (result.data) {
-                Utility.stopAnimation();
-                usr.allUsersList = result.data.data; 
-                usr.applyPagination(result.data);
-            }    
+                usr.allUsersList = result.data.data;
+                pagination.applyPagination(result.data,usr);
+            }else{
+                usr.allUsersList = [];
+            }
         }, function myError(r) {
             toastr.error(r.data.message, 'Sorry!');
             Utility.stopAnimation();
         });
     }
-    
-    usr.applyPagination = function (pageData) {
-        $('#pagination-sec').twbsPagination({
-            totalPages: pageData.last_page,
-            visiblePages: 5,
-            first: '',
-            last: '',
-            onPageClick: function (event, page) {
-                // console.log('Page: ' + page);
-                if (usr.skip) {
-                    usr.skip = false;
-                    return;
-                }
-                usr.fetchAllUsers(page);
-                $("html, body").animate({ scrollTop: 0 }, "slow");
-            }
-        });
-    }
 
     usr.init = function () {
-        usr.fetchAllUsers(-1);
+        usr.fetchList(-1);
 
         /* Getting all user roles */
         var promise = '';
@@ -120,8 +95,7 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
         // }
         promise.success(function (result) {
             Utility.stopAnimation();
-            usr.roleList = result.data;
-            // console.log( usr.roleList);    
+            usr.roleList = result.data;    
         }, function myError(r) {
             toastr.error(r.data.message, 'Sorry!');
             Utility.stopAnimation();
@@ -130,16 +104,13 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
         /* Editing perticular user*/
         usr.id = $location.search()["id"];
         if (usr.id > 0) {
-            // $('#passwordDiv').hide();
             var promise = services.getUserById(usr.id);
             promise.then(function mySuccess(response) {
-                // console.log(response.data);
                 Utility.stopAnimation();
                 usr.title = 'Update User';
                 usr.userName = response.data.data.name;
                 usr.contactEmail = response.data.data.email;
                 usr.userType = response.data.data.role.id;
-                // console.log(usr.userType);
                 usr.contactNo = response.data.data.mobile;
                 usr.comapnyName = response.data.data.company_name;
                 applySelect2();   
@@ -155,43 +126,42 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
     usr.createUser = function(){
         if ($("#userForm").valid()) {
             var req = {
-                    "name" : usr.userName,
-                    "email": usr.contactEmail,
-                    "password" : usr.password,
-                    "role_id":usr.userType,
-                    "status":"Active",
-                    "company_name" :usr.comapnyName,
-                    "mobile" : usr.contactNo,
-                    "unique_token":usr.uniqueToken
-                };
-            
-                var promise;
-                if (usr.id) {
-                    req.id = usr.id;
-                    if(req.password.trim()==''){
-                        delete req.password;
-                    }
-                    promise = services.updateUser(req);
-                    var operationMessage = "updated";
-                } else {
-                    promise = services.saveUser(req);
-                    operationMessage = "created";
-                }
+                "name" : usr.userName,
+                "email": usr.contactEmail,
+                "password" : usr.password,
+                "role_id":usr.userType,
+                "status":"Active",
+                "company_name" :usr.comapnyName,
+                "mobile" : usr.contactNo,
+                "unique_token":usr.uniqueToken
+            };
+        
+            var promise;
+            if (usr.id) {
+                req.id = usr.id;
+                // if(req.password.trim()==''){
+                //     delete req.password;
+                // }
+                promise = services.updateUser(req);
+                var operationMessage = "updated";
+            } else {
+                promise = services.saveUser(req);
+                operationMessage = "created";
+            }
 
-                promise.then(function mySuccess(response) {
-                    Utility.stopAnimation();
-                    try {
-                        toastr.success('User ' + operationMessage +' successfully.');
-                        $location.url('/user');
-                    } catch (e) {
-                        toastr.error("User not saved successfully.");
-                        Raven.captureException(e)
-                    }
-                }, function myError(r) {
-                    toastr.error('Email Id already taken. Please try another.');
-                   // console.log(r.data.errors.email);
-                    Utility.stopAnimation();
-                });
+            promise.then(function mySuccess(response) {
+                Utility.stopAnimation();
+                try {
+                    toastr.success('User ' + operationMessage +' successfully.');
+                    $location.url('/user');
+                } catch (e) {
+                    toastr.error("User not saved successfully.");
+                    Raven.captureException(e)
+                }
+            }, function myError(r) {
+                toastr.error(r.data.message);
+                Utility.stopAnimation();
+            });
         }
     }
 
@@ -222,7 +192,6 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
     }
 
     usr.updatePassword=function(id){ 
-        //console.log(id);
         if(usr.newPassword!=usr.repeatPassword){
             usr.errMessage="Password not matched.";
             usr.highlightcolor2="#dd4b39";
@@ -299,7 +268,6 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
         var promise = services.findUser(req,requestParam);
         promise.then(function mySuccess(response) {
             Utility.stopAnimation();
-            // console.log(response);
             try {   
                 if(response.data.data){
                     usr.allUsersList = response.data.data.data;

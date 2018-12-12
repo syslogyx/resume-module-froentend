@@ -6,6 +6,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     rlc.skip = true;
     rlc.interviewerList=null;
     rlc.candidateId = null;
+    rlc.seletedSection = [];
     menuService.setMenu([
             {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"deactive"},
             {"Title": "User Management", "Link": "user", "icon": "fa fa-user-plus", "active":"deactive"},
@@ -174,6 +175,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         rlc.fetchList(-1);
         rlc.getAllInterviewerList();
         rlc.getActiveJd();
+        rlc.getPdfSetting();
     }
 
     rlc.setTotalExperience = function(exp){
@@ -183,10 +185,6 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         }else{
             return exp +' Year';
         }
-    }
-
-    rlc.downloadResumePDF = function(id){        
-        var promise = services.downloadResumePDF(id);
     }
 
     rlc.downloadResumePDFWithoutContact = function(id){        
@@ -345,8 +343,55 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
             });
         }
     }
+
+    rlc.downloadResumePDF = function(id){        
+        // var promise = services.downloadResumePDF(id);
+        rlc.Cid = id;
+        $('#pdfSettingModel').modal('show');
+    }
+
     
 
+    rlc.getPdfSetting = function(){
+        rlc.seletedSection=[];
+        var promise = services.getPdfSettingList();
+        promise.success(function (result) {
+            Utility.stopAnimation();
+            rlc.pdfSectionsNameList = result.data.data;
+
+            for(var i=0;i<rlc.pdfSectionsNameList.length;i++){
+                rlc.seletedSection.push(rlc.pdfSectionsNameList[i].id);
+            }
+            console.log(rlc.pdfSectionsNameList);
+        }, function myError(r) {
+            toastr.error(r.data.message, 'Sorry!');
+            Utility.stopAnimation();
+        });
+    }
+
+
+    // Toggle selection for a given fruit by name
+    $scope.toggleSelection = function(sectionName) {
+        console.log(sectionName);        
+        var idx = rlc.seletedSection.indexOf(sectionName);
+        // Is currently selected
+        if (idx > -1) {
+          rlc.seletedSection.splice(idx, 1);
+        }
+
+        // Is newly selected
+        else {
+          rlc.seletedSection.push(sectionName);
+        }
+    };
+
+    rlc.downloadPdfWithSectionSetting = function(){
+        if($('#pdfSettingForm').valid()){
+            console.log(rlc.seletedSection.toString());
+            var promise = services.downloadResumePDF(rlc.Cid,rlc.seletedSection.toString());
+        }
+        $('#pdfSettingModel').modal('hide');
+    }
 
     rlc.init();
 

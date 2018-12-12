@@ -57,4 +57,56 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
       $scope.selectedIndex=i;
     };
 
+    $scope.getUserData = function () {
+        $scope.userpassword = '';
+        var promise = services.getUserById($scope.userId);
+        promise.success(function (result) {
+            Utility.stopAnimation();
+            if(result.status_code == 200){
+                $scope.id = result.data.id;
+                $scope.userName = result.data.name;
+                $scope.userRole = result.data.role_id;
+                $scope.userEmail = result.data.email;
+                $scope.mobileNo = result.data.mobile;
+                $scope.comapnyName = result.data.company_name;
+                $scope.status =result.data.status;
+                $("#updateUserModal").modal("toggle");
+                setTimeout(function(){
+                    setCSS();
+                },500);
+            }else{
+                toastr.error(result.message, 'Sorry!');
+            }
+        });
+    }
+
+    $scope.saveUser = function () {setCSS();
+        if ($("#updateUserForm").valid()) {
+            var req = {
+                "name": $scope.userName,
+                "email": $scope.userEmail,
+                "password":$scope.userpassword,
+                "role_id": $scope.userRole,
+                "mobile": $scope.mobileNo,
+                "status":$scope.status,
+                "company_name" :$scope.comapnyName,
+            }
+            req.id = $scope.id;
+
+            var promise = services.updateUser(req);
+
+            promise.then(function mySuccess(result) {
+                Utility.stopAnimation();
+                if(result.data.status_code == 200){
+                    $("#updateUserModal").modal("toggle");
+                    toastr.success('User profile updated successfully..');
+                }else{
+                    toastr.error(result.data.data.email[0], 'Sorry!');
+                }
+            }, function myError(r) {
+                toastr.error(r.data.data.email[0], 'Sorry!');
+                Utility.stopAnimation();
+            });
+        }
+    }
 });
