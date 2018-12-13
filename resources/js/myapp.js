@@ -298,6 +298,9 @@ app.directive('applyCheckBox', function () {
             var index = parseInt($ele.attr("data-index"));
             var scope = angular.element(document.querySelector("#resumeListCtrl")).scope();
             $('#chk_'+index).attr('checked', true);
+            // if ($('.icheckBox').filter(':checked').length == $('.icheckBox').length) {
+            //     $('#chk_all').iCheck('check');
+            // }
             scope.$apply(function () {
                scope.toggleSelection(index);
             });
@@ -310,7 +313,7 @@ app.directive('applyCheckBox', function () {
             var index = parseInt($ele.attr("data-index"));
             console.log($('#chk_'+index));
             $('#chk_'+index).attr('checked', false);
-            // $('#chk_'+index).iCheck('uncheck');
+            // $('#chk_all').iCheck('uncheck');
             scope.$apply(function () {
                scope.toggleSelection(index);
             });
@@ -319,6 +322,39 @@ app.directive('applyCheckBox', function () {
 
     }
 });
+// app.directive('applyCheckallBox', function () {
+//     return function (scope, element, attrs) {
+
+//         $('.icheckAllBox').iCheck({
+//             checkboxClass: 'icheckbox_square-blue',
+//             radioClass: 'iradio_square-blue',
+//         });
+
+//         $('.icheckAllBox').on('ifChecked', function (event) {
+//             $ele = $("#" + event.target.id);
+//             // console.log($ele);            
+//             $('.icheckBox').parent().addClass('checked');
+//             $('.icheckBox').attr('checked', true);
+//             var scope = angular.element(document.querySelector("#resumeListCtrl")).scope();
+//             scope.$apply(function () {
+//                scope.toggleAllSelected();
+//             });
+
+//         });
+
+//         $('.icheckAllBox').on('ifUnchecked', function (event) {
+//             $ele = $("#" + event.target.id);
+//             $('.icheckBox').parent().removeClass('checked');
+//             $('.icheckBox').attr('checked', false);
+//             var scope = angular.element(document.querySelector("#resumeListCtrl")).scope();
+//             scope.$apply(function () {
+//                scope.toggleUnSelected();
+//             });
+//         });
+
+
+//     }
+// });
 
 
 

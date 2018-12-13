@@ -348,10 +348,19 @@
                 <div class="modal-body">
                     <form id="pdfSettingForm">   
                         <div class="form-group">
-                            <div class="row">                        
-                                <label  class="col-xs-3 " ng-repeat="section in rlc.pdfSectionsNameList" style="margin-bottom: 15px;">
-                                  <input class="icheckBox" apply-check-box data-index="{{section.id}}"  id="chk_{{section.id}}" type="checkbox"  name="selectedSectionNames[]" value="{{section.id}}" checked> &nbsp;&nbsp;&nbsp;{{section.section_name}}
+                            <!-- <div>
+                                <label  style="margin-bottom: 15px;">
+                                    <input class="icheckBox" apply-check-box id="chk_all" type="checkbox"  name="chk_all" checked> &nbsp;&nbsp;&nbsp;
+                                    Check All
                                 </label>
+                            </div> -->
+                            <div class="row">                        
+                                <!-- <label  class="col-xs-3 " ng-repeat="section in rlc.pdfSectionsNameList" style="margin-bottom: 15px;">
+                                  <input class="icheckBox" apply-check-box data-index="{{section.id}}"  id="chk_{{section.id}}" type="checkbox"  name="selectedSectionNames[]" value="{{section.id}}" checked> &nbsp;&nbsp;&nbsp;{{section.section_name}}
+                                </label> -->
+                                <select name="langOpt[]" multiple id="langOpt">
+                                    <option value="C++">C++</option>
+                                </select>
                             </div>
                         </div>                        
                     </form>
@@ -380,7 +389,7 @@
             return true;
           }
           return this.optional(element) || parseInt(value, 10) > $otherElement;
-    },'');
+    });
 
     $.validator.addMethod("checkLessThan",function (value, element, param) {
           var $otherElement = $(param).val();
@@ -390,7 +399,7 @@
             return true;
           }         
           return parseInt(value, 10) < $otherElement|| this.optional(element);
-    },'');
+    });
 
     $("#assignStatusForm").validate({
         errorElement: 'span', //default input error message container
@@ -651,26 +660,10 @@
         ignore: "", // validate all fields including form hidden input
         errorPlacement: function (error, element) {
 
-            var type = $(element).attr("type");
-            // console.log($(element).attr("id"));
-            // if ($(element).attr("id") === "")
-            // {
-            //     element.parent().append(error);
-
-            // }
-            // else if ($(element).attr("id") === "interviewer")
-            // {
-            //     element.parent().append(error);
-
-            // }else{
-                error.insertAfter(element);
-            // }
+            var type = $(element).attr("type");            
+            error.insertAfter(element);
         },
         rules: {
-            // ctc_key:{
-            //     mynumber :true  
-            // },
-            
             change_status: {
                 required: true
             }
@@ -751,24 +744,9 @@
 <script>
     $(document).ready(function () {
 
-          // setTimeout(function(){            
-          //     $('.section').iCheck({
-          //       checkboxClass: 'icheckbox_square-blue',
-          //       radioClass: 'iradio_square-blue',
-          //       // increaseArea: '20%' // optional
-          //     });
-          // },500);
-        // $('#interviewer').select2();
-        // $("#assignStatusModel").on('hidden.bs.modal',function(){
-        //     $(this).find('form').trigger('reset');            
-        // });
-        // $(".s2mn").on("change", function () { $(this).valid(); });
         $("html, body").animate({scrollTop: 0}, "fast");
         $('#assignStatusModel.modal,#changeStatusModel.modal').on('hidden.bs.modal', function (e) {
             $(this).find('form').trigger('reset'); 
-            //$("#assignStatusForm")[0].reset();
-            // $("#interviewer").val([]).trigger("change");
-            // $('#schedule_time').timepicker();
              $("div.form-group").each(function () {
                 $(this).removeClass('has-error');
                 $('span.help-block-error').remove();
