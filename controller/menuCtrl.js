@@ -1,7 +1,53 @@
-app.controller("menuCtrl", function ($scope, services, $http, $location, $cookieStore, RESOURCES) {
+app.controller("menuCtrl", function ($scope, services, $http, $location, $cookieStore, RESOURCES,menuService) {
 
     //$scope.token = null;
-    $scope.menuList = []; 
+     if(services.getIdentity()==undefined){
+      return false;
+    }
+
+    var loggedInUser = JSON.parse(services.getIdentity());
+
+    if(loggedInUser.identity.role==1){
+        $scope.menuList = [
+            {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"active"},
+            {"Title": "User Management", "Link": "user", "icon": "fa fa-user-plus", "active":"deactive"},
+            {"Title": "Resume Management", "Link": "/resume_list", "icon": "fa fa-file-text", "active":"deactive"},
+            {"Title": "JD Management", "Link": "/jobs", "icon": "fa fa-tasks", "active":"deactive"},
+            {"Title": "Screening Questions", "Link": "/questions", "icon": "fa fa-list", "active":"deactive"},
+            {"Title": "Scheduled interview", "Link": "/interview_list", "icon": "fa fa-calendar", "active":"deactive"}
+        ];
+    }else if (loggedInUser.identity.role==2) {
+        $scope.menuList = [
+            {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"active"}, 
+            {"Title": "User Management", "Link": "user", "icon": "fa fa-user-plus", "active":"deactive"},   
+            {"Title": "Resume Management", "Link": "/resume_list", "icon": "fa fa-file-text", "active":"deactive"},
+        ];      
+    }else if (loggedInUser.identity.role==3) {
+        $scope.menuList = [
+            {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"active"}, 
+            {"Title": "Resume Management", "Link": "/resume_list", "icon": "fa fa-file-text", "active":"deactive"}
+        ];
+    }else if (loggedInUser.identity.role==4) {
+        $scope.menuList = [
+            {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"active"}, 
+            {"Title": "Scheduled interview", "Link": "/interview_list", "icon": "fa fa-calendar", "active":"deactive"}
+        ];
+    }else{
+
+    }
+
+    menuService.setMenu($scope.menuList);
+
+    /*Function to active selected menu */
+    $scope.menuClick=function(link){
+      for (var i = 0; i < $scope.menuList.length; i++) {
+        if(link==$scope.menuList[i].Link){
+          $scope.menuList[i].active='active';
+        }else{
+          $scope.menuList[i].active='deactive';
+        }
+      }
+    }
 
     $scope.$on("myEvent", function (event, args) {
         projectId = $location.path().split("/")[2] || "Unknown";
@@ -53,9 +99,9 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
    
     //function to show menu as active on click
    /* $scope.selectedIndex=0;*/
-    $scope.select= function(i) {
-      $scope.selectedIndex=i;
-    };
+    // $scope.select= function(i) {
+    //   $scope.selectedIndex=i;
+    // };
 
     $scope.getUserData = function () {
         $scope.userpassword = '';

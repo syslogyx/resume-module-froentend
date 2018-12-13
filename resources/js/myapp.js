@@ -4,7 +4,6 @@
     // apiBaseUrl: "http://172.16.1.97:8000/api/",
     // apiBaseUrl: "http://172.16.1.180:8000/api/",
     // apiBaseUrl: "https://recruitmentapi.syslogyx.com/api/",
-    hrmsBaseUrl: "https://hrms.syslogyx.com/",
 
     formatDate: function (date, format) {
         var tDate = null;
@@ -298,7 +297,7 @@ app.directive('applyCheckBox', function () {
             //Getting the scope of main controller where the icheck plugin is applied
             var index = parseInt($ele.attr("data-index"));
             var scope = angular.element(document.querySelector("#resumeListCtrl")).scope();
-
+            $('#chk_'+index).attr('checked', true);
             scope.$apply(function () {
                scope.toggleSelection(index);
             });
@@ -309,6 +308,9 @@ app.directive('applyCheckBox', function () {
             //Getting the scope of main controller where the icheck plugin is applied
            var scope = angular.element(document.querySelector("#resumeListCtrl")).scope();
             var index = parseInt($ele.attr("data-index"));
+            console.log($('#chk_'+index));
+            $('#chk_'+index).attr('checked', false);
+            // $('#chk_'+index).iCheck('uncheck');
             scope.$apply(function () {
                scope.toggleSelection(index);
             });

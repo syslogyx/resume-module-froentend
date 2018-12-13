@@ -20,18 +20,7 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
 
     jb.jobStatusData = RESOURCES.JOB_STATUS;
    // jb.changeStatus = 0;
-   // jb.changeStatus = jb.jobStatusData[0].id;
-
-    menuService.setMenu([
-        {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"deactive"},
-        {"Title": "User Management", "Link": "user", "icon": "fa fa-user-plus", "active":"deactive"},
-        {"Title": "Resume Management", "Link": "/resume_list", "icon": "fa fa-file-text", "active":"deactive"},
-        {"Title": "JD Management", "Link": "/jobs", "icon": "fa fa-tasks", "active":"active"},
-        {"Title": "Screening Questions", "Link": "/questions", "icon": "fa fa-list", "active":"deactive"},
-        {"Title": "Scheduled interview", "Link": "/interview_list", "icon": "fa fa-calendar", "active":"deactive"}
-    ]);
-
-    
+   // jb.changeStatus = jb.jobStatusData[0].id;   
 
     setTimeout(function(){
         $('#table_length').on('change',function(){

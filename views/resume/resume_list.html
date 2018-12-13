@@ -58,18 +58,35 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <div class="form-group">
-                              <label>Total Exp. Year</label>
-                              <select id="total_year_experience" name="total_year_experience" class="form-control" placeholder="Enter year experience" ng-model="rlc.totalYearExperiance" ng-options="x.id as x.name for x in rlc.experienceYears">
+                              <label>From Total Exp.</label>
+                              <select id="from_total_year_experience" name="from_total_year_experience" class="form-control" placeholder="Enter year experience" ng-model="rlc.fromTotalYearExperiance" ng-options="x.id as x.name for x in rlc.experienceYears">
                                 <option value="">Select Year</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <div class="form-group">
-                              <label>Total Exp. Month</label>
-                              <select id="total_month_experience" name="total_month_experience" class="form-control" placeholder="Enter month experience" ng-model="rlc.totalMonthExperiance" ng-options="x.id as x.name for x in rlc.experienceMonths">
+                              <label>&nbsp;</label>
+                              <select id="from_total_month_experience" name="from_total_month_experience" class="form-control" placeholder="Enter month experience" ng-model="rlc.fromTotalMonthExperiance" ng-options="x.id as x.name for x in rlc.experienceMonths">
+                                 <option value="">Select Month</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                              <label>To Total Exp.</label>
+                              <select id="to_total_year_experience" name="to_total_year_experience" class="form-control" placeholder="Enter year experience" ng-model="rlc.toTotalYearExperiance" ng-options="x.id as x.name for x in rlc.experienceYears">
+                                <option value="">Select Year</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                              <label>&nbsp;</label>
+                              <select id="to_total_month_experience" name="to_total_month_experience" class="form-control" placeholder="Enter month experience" ng-model="rlc.toTotalMonthExperiance" ng-options="x.id as x.name for x in rlc.experienceMonths">
                                  <option value="">Select Month</option>
                                 </select>
                             </div>
@@ -161,7 +178,7 @@
                     <form id="assignStatusForm">                            
                             <div class="row">
                                 <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
-                                    <label> Interviewer  </label>
+                                    <label class="mandatory"> Interviewer  </label>
                                     <!-- <select id="interviewer" name="interviewer[]" class="form-control s2mn" ng-model="rlc.interviewer" data-placeholder="Select interviewer" ng-options="x.id as x.name for x in rlc.interviewerList" multiple="multiple" >
                                         <option value="">Select Interviewer</option>
                                     </select> -->
@@ -171,7 +188,7 @@
                                 </div>
 
                                 <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
-                                    <label> Round  </label>
+                                    <label class=""> Round  </label>
                                     <select id="round" name="round" class="form-control" ng-model="round" data-placeholder="Select Round" ng-options="x.name as x.name for x in rlc.round" disabled="">
                                         <option value="">Select Round</option>
                                     </select>
@@ -179,20 +196,22 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
-                                    <label> Schedule date </label>
+                                    <label class="mandatory"> Schedule date </label>
                                     <input type="text" name="schedule_date" class="form-control" id="schedule_date" ng-model="scheduleDate" placeholder="Select Date">
                                 </div>
                                 <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
-                                        <label> Time </label>
-                                    <div class="input-group bootstrap-timepicker timepicker">
-                                        <input type="text" name="schedule_time" class="form-control" id="schedule_time" ng-model="scheduleTime" placeholder="Select Time">
-                                        <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                                    <label class="mandatory"> Time </label>
+                                    <div>                                        
+                                        <div class="input-group bootstrap-timepicker timepicker">
+                                            <input type="text" name="schedule_time" class="form-control" id="schedule_time" ng-model="scheduleTime" placeholder="Select Time">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
-                                    <label class=""> Interview Type  </label>
+                                    <label class="mandatory"> Interview Type  </label>
                                     <select id="interview_type" name="interview_type" class="form-control" ng-model="interviewType" data-placeholder="Select Type" ng-options="x.name as x.name for x in rlc.interviewType">
                                         <option value="">Select Type</option>
                                     </select>
@@ -221,7 +240,7 @@
                     <form id="changeStatusForm">  
                         <div class="row form-group">
                             <div class="col-md-4" style="margin-top: 1%;">
-                                <label class="">Interviewer Name:</label>
+                                <label class="mandatory">Interviewer Name:</label>
                             </div>
                             <div class="col-md-8">
                                 {{ rlc.interviewer_name }}
@@ -229,7 +248,7 @@
                         </div>
                         <div class="row form-group">
                             <div class="col-md-4" style="margin-top: 1%;">
-                                <label class="">Round:</label>
+                                <label class="mandatory">Round:</label>
                             </div>
                             <div class="col-md-8">
                                 {{ rlc.roundDetails }}
@@ -237,7 +256,7 @@
                         </div>
                         <div class="row form-group">
                             <div class="col-md-4" style="margin-top: 1%;">
-                                <label class="">Status:</label>
+                                <label class="mandatory">Status:</label>
                             </div>
                             <div class="col-md-8">
                                 <select class="form-control" id="change_status" name="change_status" ng-model="rlc.candidate_status" ng-options="x.name as x.name for x in rlc.candidateStatusOptions">
@@ -268,7 +287,7 @@
                     <form id="rescheduleForm">                           
                         <div class="row">
                             <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
-                                <label> Interviewer </label>
+                                <label class="mandatory"> Interviewer </label>
                                 <!-- <select id="interviewer" name="interviewer[]" class="form-control s2mn" ng-model="rlc.interviewer" data-placeholder="Select interviewer" ng-options="x.id as x.name for x in rlc.interviewerList" multiple="multiple" >
                                     <option value="">Select Interviewer</option>
                                 </select> -->
@@ -278,7 +297,7 @@
                             </div>
 
                             <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
-                                <label> Round  </label>
+                                <label class="mandatory"> Round  </label>
                                 <select id="round" name="round" class="form-control" ng-model="round" data-placeholder="Select Round" ng-options="x.name as x.name for x in rlc.round">
                                     <option value="">Select Round</option>
                                 </select>
@@ -286,21 +305,23 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
-                                <label> Schedule date </label>
+                                <label class="mandatory"> Schedule date </label>
                                 <input type="text" name="reschedule_date" class="form-control" id="reschedule_date" ng-model="scheduleDate" placeholder="Select Date">
                             </div>
                             <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
-                                    <label> Time </label>
-                                <div class="input-group bootstrap-timepicker timepicker">
-                                    <input type="text" name="reschedule_time" class="form-control" id="reschedule_time" ng-model="scheduleTime" placeholder="Select Time">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                                <label class="mandatory"> Time </label>
+                                <div>                                    
+                                    <div class="input-group bootstrap-timepicker timepicker">
+                                        <input type="text" name="reschedule_time" class="form-control" id="reschedule_time" ng-model="scheduleTime" placeholder="Select Time">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
-                                <label class=""> Interview Type  </label>
-                                <select id="interview_type" name="interview_type" class="form-control" ng-model="interviewType" data-placeholder="Select Type" ng-options="x.name as x.name for x in rlc.interviewType">
+                                <label class="mandatory"> Interview Type  </label>
+                                <select id="interview_type" name="reinterview_type" class="form-control" ng-model="interviewType" data-placeholder="Select Type" ng-options="x.name as x.name for x in rlc.interviewType">
                                     <option value="">Select Type</option>
                                 </select>
                             </div>
@@ -326,9 +347,9 @@
                 </div>
                 <div class="modal-body">
                     <form id="pdfSettingForm">   
-                        <div class="form-group">                        
-                            <div class="row">
-                                <label class="col-xs-3 form-group" ng-repeat="section in rlc.pdfSectionsNameList">
+                        <div class="form-group">
+                            <div class="row">                        
+                                <label  class="col-xs-3 " ng-repeat="section in rlc.pdfSectionsNameList" style="margin-bottom: 15px;">
                                   <input class="icheckBox" apply-check-box data-index="{{section.id}}"  id="chk_{{section.id}}" type="checkbox"  name="selectedSectionNames[]" value="{{section.id}}" checked> &nbsp;&nbsp;&nbsp;{{section.section_name}}
                                 </label>
                             </div>
@@ -351,13 +372,32 @@
         return this.optional(element) || /^\$?([0-9]{1,3},([0-9]{3},)*[0-9]{3}|[0-9]+)(.[0-9][0-9])?$/.test(value);
     }, "Invalid ctc format.");
 
+    $.validator.addMethod("checkGreaterThan",function (value, element, param) {
+          var $otherElement = $(param).val();
+          if($otherElement != ''){
+            parseInt($otherElement, 10);
+          }else{
+            return true;
+          }
+          return this.optional(element) || parseInt(value, 10) > $otherElement;
+    },'');
+
+    $.validator.addMethod("checkLessThan",function (value, element, param) {
+          var $otherElement = $(param).val();
+          if($otherElement != ''){
+            parseInt($otherElement, 10);
+          }else{
+            return true;
+          }         
+          return parseInt(value, 10) < $otherElement|| this.optional(element);
+    },'');
+
     $("#assignStatusForm").validate({
         errorElement: 'span', //default input error message container
         errorClass: 'help-block help-block-error',
         focusInvalid: true, // set focus the last invalid input
         ignore: "", // validate all fields including form hidden input
         errorPlacement: function (error, element) {
-
             var type = $(element).attr("type");
             console.log($(element).attr("id"));
             if ($(element).attr("id") === "")
@@ -368,6 +408,10 @@
             else if ($(element).attr("id") === "interviewer")
             {
                 element.parent().append(error);
+
+            }else if ($(element).attr("id") === "schedule_time")
+            {
+                element.parent().parent().append(error);
 
             }else{
                 error.insertAfter(element);
@@ -447,6 +491,10 @@
             {
                 element.parent().append(error);
 
+            }else if ($(element).attr("id") === "reschedule_time")
+            {
+                element.parent().parent().append(error);
+
             }else{
                 error.insertAfter(element);
             }
@@ -481,13 +529,13 @@
             round: {
                 required: "Round is required."
             },
-            schedule_date: {
+            reschedule_date: {
                 required: "Date is required."
             },
-            schedule_time: {
+            reschedule_time: {
                 required: "Time is required."
             },
-            interview_type: {
+            reinterview_type: {
                 required: "Interview type is required."
             }
         },
@@ -516,62 +564,66 @@
         focusInvalid: true, // set focus the last invalid input
         ignore: "", // validate all fields including form hidden input
         errorPlacement: function (error, element) {
-
             var type = $(element).attr("type");
-            // console.log($(element).attr("id"));
-            // if ($(element).attr("id") === "")
-            // {
-            //     element.parent().append(error);
-
-            // }
-            // else if ($(element).attr("id") === "interviewer")
-            // {
-            //     element.parent().append(error);
-
-            // }else{
-                error.insertAfter(element);
-            // }
+            error.insertAfter(element);
         },
         rules: {
-            // ctc_key:{
-            //     mynumber :true  
-            // },
             ctc_from:{
                 mynumber :true,
                 required: function(element){
                     return $("#ctc_to").val()!="";
-                }
+                },
+                checkLessThan: "#ctc_to",
             },
             ctc_to:{
                 mynumber :true,
                 required: function(element){
                     return $("#ctc_from").val()!="";
-                }
-            },            
-            total_year_experience: {
+                },
+                checkGreaterThan: "#ctc_from",
+            },  
+            from_total_year_experience: {
                 required: function(element){
-                        return $("#total_month_experience").val()!="";
+                        return $("#to_total_year_experience").val()!="" || $("#to_total_month_experience").val()!="" || $("#from_total_month_experience").val()!="";
                     }
             },
-            total_month_experience: {
+            from_total_month_experience: {
                 required: function(element){
-                        return $("#total_year_experience").val()!="";
+                        return $("#to_total_year_experience").val()!="" || $("#to_total_month_experience").val()!="" || $("#from_total_year_experience").val()!="";
                     }
-            }
+            },          
+            to_total_year_experience: {
+                required: function(element){
+                        return $("#from_total_year_experience").val()!="" || $("#from_total_month_experience").val()!="" || $("#to_total_month_experience").val()!="";
+                    }
+            },
+            to_total_month_experience: {
+                required: function(element){
+                        return $("#from_total_year_experience").val()!="" || $("#from_total_month_experience").val()!="" || $("#to_total_year_experience").val()!="";
+                    }
+            },
         },
         messages: {
             ctc_from:{
-                required: "From CTC is required."
+                required: "From CTC is required.",
+                checkLessThan: "Must be Less than To CTC value."
             },
             ctc_to:{
-                required: "To CTC is required."
+                required: "To CTC is required.",
+                checkGreaterThan: "Must be greater than Form CTC value."
             },          
-            total_year_experience: {
-                required: "Year is required."
+            from_total_year_experience: {
+                required: "Year is required.",
             },
-            total_month_experience: {
-                required: "Month is required."
-            }
+            from_total_month_experience: {
+                required: "Month is required.",
+            },          
+            to_total_year_experience: {
+                required: "Year is required.",
+            },
+            to_total_month_experience: {
+                required: "Month is required.",
+            },
         },
          highlight: function (element) { // hightlight error inputs
             $(element)
@@ -648,51 +700,51 @@
         }
     });
 
-    // $("#pdfSettingForm").validate({
-    //     errorElement: 'span', //default input error message container
-    //     errorClass: 'help-block help-block-error',
-    //     focusInvalid: true, // set focus the last invalid input
-    //     ignore: "", // validate all fields including form hidden input
-    //     errorPlacement: function (error, element) {
+    $("#pdfSettingForm").validate({
+        errorElement: 'span', //default input error message container
+        errorClass: 'help-block help-block-error',
+        focusInvalid: true, // set focus the last invalid input
+        ignore: "", // validate all fields including form hidden input
+        errorPlacement: function (error, element) {
 
-    //         var type = $(element).attr("type");
-    //         console.log(type);
-    //         if (type === "checkbox")
-    //         {
-    //             console.log(element.parent().parent());
-    //             element.parent().parent().parent().parent().append(error);
+            var type = $(element).attr("type");
+            console.log(type);
+            if (type === "checkbox")
+            {
+                console.log(element.parent().parent());
+                element.parent().parent().parent().parent().append(error);
 
-    //         }else{
-    //             error.insertAfter(element);
-    //         }
-    //     },
-    //     rules: {
+            }else{
+                error.insertAfter(element);
+            }
+        },
+        rules: {
             
-    //         "selectedSectionNames[]": {
-    //             required: true
-    //         }
-    //     },
-    //     messages: {
-    //         "selectedSectionNames[]":{
-    //             required: "Select at least one section required."
-    //         }
+            "selectedSectionNames[]": {
+                required: true
+            }
+        },
+        messages: {
+            "selectedSectionNames[]":{
+                required: "Select at least one section required."
+            }
             
-    //     },
-    //      highlight: function (element) { // hightlight error inputs
-    //         $(element)
-    //             .closest('.form-group').addClass('has-error');
-    //         $(element)
-    //             .next().children().children().attr('style', 'border-color:#dd4b39!important');
-    //         // set error class to the control group
-    //     },
-    //     unhighlight: function (element) { // revert the change done by hightlight
-    //         $(element).closest('.form-group').removeClass('has-error');
-    //         $(element).next().children().children().attr('style', 'border-color:'); // set error class to the control group
-    //     },
-    //     success: function (label) {
-    //         label.closest('.form-group').removeClass('has-error'); // set success class to the control group
-    //     }
-    // });
+        },
+        highlight: function (element) { // hightlight error inputs
+            $(element)
+                .closest('.form-group').addClass('has-error');
+            $(element)
+                .next().children().children().attr('style', 'border-color:#dd4b39!important');
+            // set error class to the control group
+        },
+        unhighlight: function (element) { // revert the change done by hightlight
+            $(element).closest('.form-group').removeClass('has-error');
+            $(element).next().children().children().attr('style', 'border-color:'); // set error class to the control group
+        },
+        success: function (label) {
+            label.closest('.form-group').removeClass('has-error'); // set success class to the control group
+        }
+    });
 
     $(".s2mn").on("change", function () { $(this).valid(); });            
 </script>

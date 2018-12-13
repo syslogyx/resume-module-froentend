@@ -108,7 +108,7 @@
                             <br>
                             <div class="row">
                                 <div class="col-md-12" style="margin-top: 1%;">
-                                    <label class="" style="font-size: 14px">Status </label>
+                                    <label class="mandatory" style="font-size: 14px">Status </label>
                                     <select class="form-control" name="job_code" id="job_code" ng-model="ilc.job_id">
                                         <option value="" style="color:#ccc !important;">Select job code</option>
                                         <option ng-repeat="jd in ilc.jobDetail" value="{{jd.id}}">{{jd.job_code}} {{jd.sub_title != '' ? (jd.sub_title) : ''}}</option>

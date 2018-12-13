@@ -165,12 +165,11 @@
                       
                         <ul class="sidebar-menu" data-widget="treeview" role="menu">
                             <!-- Dashboard Menu -->
-                            <li ng-repeat = "item in globalMenu" ng-click="select($index)" class="{{item.active}}">
-                                
-                                <a href="{{item.Link}}" id="{{item.id}}" style="outline:0;text-decoration: none;"> 
-                                    <i class="{{item.icon}}"></i> <span style="z-index:1000">{{item.Title}}</span>       
-                                </a> 
-                            </li> 
+                            <li ng-repeat = "item in menuList" ng-click="menuClick(item.Link)" class="{{item.active}}">
+                                <a href="{{item.Link}}" id="{{item.id}}"  style="outline:0;text-decoration: none;">
+                                    <i class="{{item.icon}}"></i> <span>{{item.Title}}</span>
+                                </a>
+                            </li>
                         </ul>
                     </section>
                     <!-- /.sidebar -->

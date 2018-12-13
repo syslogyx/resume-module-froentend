@@ -13,16 +13,6 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
     ilc.interviewerList='';
     ilc.userId = loggedInUser.identity.role==1?null:loggedInUser.id;
     ilc.candidateId = null;
-
-    menuService.setMenu([
-        {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"deactive"},
-        {"Title": "User Management", "Link": "user", "icon": "fa fa-user-plus", "active":"deactive"},
-        {"Title": "Resume Management", "Link": "/resume_list", "icon": "fa fa-file-text", "active":"deactive"},
-        {"Title": "JD Management", "Link": "/jobs", "icon": "fa fa-tasks", "active":"deactive"},
-        {"Title": "Screening Questions", "Link": "/questions", "icon": "fa fa-list", "active":"deactive"},
-        {"Title": "Scheduled interview", "Link": "/interview_list", "icon": "fa fa-calendar", "active":"active"}
-    ]);
-
    
     ilc.search = function (id, page) {       
         ilc.userId = id;

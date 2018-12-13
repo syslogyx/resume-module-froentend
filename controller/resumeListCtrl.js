@@ -7,15 +7,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     rlc.interviewerList=null;
     rlc.candidateId = null;
     rlc.seletedSection = [];
-    menuService.setMenu([
-            {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"deactive"},
-            {"Title": "User Management", "Link": "user", "icon": "fa fa-user-plus", "active":"deactive"},
-            {"Title": "Resume Management", "Link": "/resume_list", "icon": "fa fa-file-text", "active":"active"},
-            {"Title": "JD Management", "Link": "/jobs", "icon": "fa fa-tasks", "active":"deactive"},
-            {"Title": "Screening Questions", "Link": "/questions", "icon": "fa fa-list", "active":"deactive"},
-            {"Title": "Scheduled interview", "Link": "/interview_list", "icon": "fa fa-calendar", "active":"deactive"}
-    ]);
-
+    
     rlc.round = RESOURCES.TECHNICAL_ROUND;   
 
     rlc.interviewType = RESOURCES.INTERVIEW_TYPE;
@@ -27,8 +19,10 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     rlc.experienceYears = RESOURCES.YEARS;
     rlc.candidateStatusOptions = RESOURCES.CANDIDATE_STATUS;
 
-    rlc.totalYearExperiance = "";
-    rlc.totalMonthExperiance = "";
+    rlc.fromTotalYearExperiance = "";
+    rlc.fromTotalMonthExperiance = "";
+    rlc.toTotalYearExperiance = "";
+    rlc.toTotalMonthExperiance = "";
 
     rlc.jobCodeId = null;
     rlc.ctcFrom = null;
@@ -72,8 +66,15 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         rlc.ctcFrom = null;
         rlc.ctcTo = null;
         rlc.total_experience = null;
-        rlc.totalYearExperiance = "";
-        rlc.totalMonthExperiance = "";
+        rlc.fromTotalYearExperiance = "";
+        rlc.fromTotalMonthExperiance = "";
+        rlc.toTotalYearExperiance = "";
+        rlc.toTotalMonthExperiance = "";   
+        $("div.form-group").each(function () {
+            $(this).removeClass('has-error');
+            $('span.help-block-error').remove();
+            applySelect2();
+        });     
         rlc.fetchList(-1);
     }
 
@@ -134,12 +135,29 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
             rlc.pageno = page;
         }
 
-        if((rlc.totalYearExperiance != '') && (rlc.totalMonthExperiance != '')){
-            $total_Exp = rlc.totalYearExperiance+'.'+rlc.totalMonthExperiance;
-        }else if(rlc.totalYearExperiance == '0' && rlc.totalMonthExperiance == '0'){
-            $total_Exp = '0.0'; 
+
+        if((rlc.fromTotalYearExperiance != '') && (rlc.fromTotalMonthExperiance != '')){
+            $fromTotal_Exp = rlc.fromTotalYearExperiance+'.'+rlc.fromTotalMonthExperiance;
+        }else if(rlc.fromTotalYearExperiance == '0' && rlc.fromTotalMonthExperiance == '0'){
+            $fromTotal_Exp = '0.0'; 
+        }else if(rlc.fromTotalYearExperiance != '' && rlc.fromTotalMonthExperiance == '0'){
+            $fromTotal_Exp = rlc.fromTotalYearExperiance+'.0';
+        }else if(rlc.fromTotalYearExperiance == '0' && rlc.fromTotalMonthExperiance != ''){
+            $fromTotal_Exp = '0.'+rlc.fromTotalMonthExperiance;
         }else{
-           $total_Exp = ''; 
+           $fromTotal_Exp = ''; 
+        }
+
+        if((rlc.toTotalYearExperiance != '') && (rlc.toTotalMonthExperiance != '')){
+            $toTotal_Exp = rlc.toTotalYearExperiance+'.'+rlc.toTotalMonthExperiance;
+        }else if(rlc.toTotalYearExperiance == '0' && rlc.toTotalMonthExperiance == '0'){
+            $toTotal_Exp = '0.0'; 
+        }else if(rlc.toTotalYearExperiance != '' && rlc.toTotalMonthExperiance == '0'){
+            $toTotal_Exp = rlc.toTotalYearExperiance+'.0';
+        }else if(rlc.toTotalYearExperiance == '0' && rlc.toTotalMonthExperiance != ''){
+            $toTotal_Exp = '0.'+rlc.toTotalMonthExperiance;
+        }else{
+           $toTotal_Exp = ''; 
         }
 
         var req = {
@@ -147,7 +165,8 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
             // 'ctc':rlc.ctcKey,
             'from_ctc':rlc.ctcFrom,
             'to_ctc':rlc.ctcTo,
-            'total_experience':$total_Exp
+            'from_total_experience':$fromTotal_Exp,
+            'to_total_experience':$toTotal_Exp
         }
 
         var requestParam = {
@@ -379,6 +398,10 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
           rlc.seletedSection.splice(idx, 1);
         }
 
+        // if(rlc.seletedSection.length > 0){
+        //     $('#pdfSettingForm')[0].reset();
+        // }
+
         // Is newly selected
         else {
           rlc.seletedSection.push(sectionName);
@@ -389,8 +412,8 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         if($('#pdfSettingForm').valid()){
             console.log(rlc.seletedSection.toString());
             var promise = services.downloadResumePDF(rlc.Cid,rlc.seletedSection.toString());
+            $('#pdfSettingModel').modal('hide');
         }
-        $('#pdfSettingModel').modal('hide');
     }
 
     rlc.init();

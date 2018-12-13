@@ -20,16 +20,6 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
     usr.logInUserRole  =  loggedInUserName.identity.role;
     usr.uniqueToken  =  loggedInUserName.identity.uniqueToken;
 
-
-    menuService.setMenu([
-        {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"deactive"},
-        {"Title": "User Management", "Link": "user", "icon": "fa fa-user-plus", "active":"active"},
-        {"Title": "Resume Management", "Link": "/resume_list", "icon": "fa fa-file-text", "active":"deactive"},
-        {"Title": "JD Management", "Link": "/jobs", "icon": "fa fa-tasks", "active":"deactive"},
-        {"Title": "Screening Questions", "Link": "/questions", "icon": "fa fa-list", "active":"deactive"},
-        {"Title": "Scheduled interview", "Link": "/interview_list", "icon": "fa fa-calendar", "active":"deactive"}
-    ]);
-            
 	usr.addNewUser = function () {
         $location.path('/user/add_user');   
     }

@@ -16,15 +16,6 @@ app.controller("resultCtrl", function (services, AclService, $scope, $http, $loc
         "status":null
     }
 
-    menuService.setMenu([
-        {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"deactive"},
-        {"Title": "User Management", "Link": "user", "icon": "fa fa-user-plus", "active":"deactive"},
-        {"Title": "Resume Management", "Link": "/resume_list", "icon": "fa fa-file-text", "active":"deactive"},
-        {"Title": "JD Management", "Link": "/jobs", "icon": "fa fa-tasks", "active":"deactive"},
-        {"Title": "Screening Questions", "Link": "/questions", "icon": "fa fa-list", "active":"deactive"},
-        {"Title": "Scheduled interview", "Link": "/interview_list", "icon": "fa fa-calendar", "active":"active"}
-    ]);
-
     res.init = function(){
     	res.getCandidateList();
     	res.getAllInterviewerList();
