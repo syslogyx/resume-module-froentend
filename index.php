@@ -67,6 +67,7 @@
 
         <link rel="stylesheet" type="text/css" href="/resources/css/jquery-ui.css">
         <link href="/resources/plugins/angular-ui-switch-master/angular-ui-switch.min.css" rel="stylesheet">
+        <link href="/resources/plugins/lou-multi-select-e052211/css/multi-select.css" rel="stylesheet">
         <style>
             [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-    ng-cloak{
                 display: none !important;
@@ -132,7 +133,7 @@
                                          <!-- Menu Footer-->
                                         <li class="user-footer">
                                             <div class="pull-left">
-                                                <button type="button" class="btn btn-default btn-md" title="Update Profile" data-ng-click="getUserData();setCSS();">Update Profile
+                                                <button type="button" class="btn btn-default btn-md" title="Update Profile" data-ng-click="getUserData();setCSS();" ng-if="showUpdateProfile">Update Profile
                                                 </button>
                                             </div>
                                             <div class="pull-right">
@@ -323,6 +324,7 @@
         <!-- <script src="/resources/bower_components/bootstrap-toggle-master/js/bootstrap2-toggle.min.js"></script> -->
         <script src="/resources/plugins/angular-bootstrap-toggle-master/dist/angular-bootstrap-toggle.min.js"></script>
         <script src="/resources/plugins/angular-ui-switch-master/angular-ui-switch.min.js"></script>
+        <script src="/resources/plugins/lou-multi-select-e052211/js/jquery.multi-select.js"></script>
          <!-- TwoPagination Plugin -->
          <!-- <script src="https://gitcdn.github.io/bootstrap-toggle/2.1.0/js/bootstrap-toggle.min.js"></script> -->
         <!-- <script src="/resources/plugins/jquery.twbsPagination/jquery.twbsPagination.min.js"></script> -->

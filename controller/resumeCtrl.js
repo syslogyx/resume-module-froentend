@@ -7,7 +7,8 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
 
     var authKey = services.getIdentity()==undefined?undefined:JSON.parse(services.getIdentity());
   
-    // console.log(authKey);
+    console.log(JSON.parse(services.getIdentity()));
+
     $scope.backImgUrls=[
         'resources/img/resumeimg/1_Personal_Details_img.jpg',
         'resources/img/resumeimg/2_Educational_Details_img.jpg',
@@ -185,6 +186,8 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
         if ($scope.candidateId > 0) {
             $scope.title = 'Update';
             $scope.setCandidateDataById($scope.candidateId);
+        }else{
+            $scope.fetchCandidateInfo();
         }
 
 	}
@@ -234,7 +237,6 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
                     $scope.foreignLang = res.data.foreign_languages;
                     $scope.timeStamp = res.data.timestamp;
                     $scope.status = res.data.status;
-                    //$("#opportunity_for").trigger("change");
                     $scope.industrialExpData  = res.data.candidate_ind_exp;
                     $scope.oldOpprtunityFor  = res.data.opprtunity_for;
                 }
@@ -753,6 +755,65 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
     }
 
 
+    $scope.fetchCandidateInfo =  function(){
+        var loggedInUser = JSON.parse(services.getIdentity());
+        var email = loggedInUser.identity.email;
+        var mobile = loggedInUser.identity.mobile;
+        if(email != undefined && mobile != undefined){
+
+            var req ={
+                "mobile":mobile,
+                "email":email
+            };
+            var promise = services.getCandidateInfo(req);
+            promise.then(function mySuccess(response) {
+                var res = response.data;
+                // console.log(res);
+                // debugger;
+                $totalExpArray = "";
+                if(res.status_code == 200){
+                    $scope.job_id = res.data.job_description.sub_title;
+                    $scope.opportunityFor = res.data.opprtunity_for;
+                    $scope.firstName = res.data.first_name;
+                    $scope.middleName = res.data.middle_name;
+                    $scope.lastName = res.data.last_name;
+                    $scope.email = res.data.email;
+                    $scope.mobileNumber = res.data.mobile_no;
+                    $scope.currency_unit = res.data.currency_unit;
+                    $scope.dateOfBirth = res.data.date_of_birth.split("-").reverse().join("/");
+                    $scope.panNumber = res.data.pan_number;
+                    $scope.passportNumber = res.data.passport;
+                    $scope.gender = res.data.gender;
+                    $scope.martialStatus = res.data.marital_status;
+                    $scope.correspondingAddr = res.data.corresponding_address;
+                    $scope.permanentAddr = res.data.permanent_address;
+                    $scope.populateObjectiveData(res.data.objective);
+                    $scope.populateSummaryData(res.data.summary);
+                    $scope.populateQualificationData(res.data.candidate_qualification);
+                    $scope.populateAchivementData(res.data.candidate_achievements);
+                    $scope.populateTechSkillData(res.data.candidate_tech_skill);
+                    $totalExpArray = res.data.total_experience.split('.');
+                    $scope.totalYearIndustryExperiance = parseInt($totalExpArray[0]);
+                    $scope.totalMonthIndustryExperiance = parseInt($totalExpArray[1]);
+                    $scope.currentCTC = res.data.ctc;
+                    $scope.populateIndustrialData(res.data.candidate_ind_exp);
+                    $scope.populateHobbieData(res.data.candidate_hobbies);
+                    $scope.indianLang = res.data.indian_languages;
+                    $scope.foreignLang = res.data.foreign_languages;
+                    $scope.timeStamp = res.data.timestamp;
+                    $scope.status = res.data.status;
+                    //$("#opportunity_for").trigger("change");
+                    $scope.industrialExpData  = res.data.candidate_ind_exp;
+                    $scope.oldOpprtunityFor  = res.data.opprtunity_for;
+                }
+            }, function myError(r) {
+                toastr.error(r.data.message, 'Sorry!');
+                Utility.stopAnimation();
+            });            
+        }
+
+
+    }    
 
     $scope.init();
 

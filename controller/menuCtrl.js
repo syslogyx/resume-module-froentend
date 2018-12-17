@@ -16,22 +16,33 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
             {"Title": "Screening Questions", "Link": "/questions", "icon": "fa fa-list", "active":"deactive"},
             {"Title": "Scheduled interview", "Link": "/interview_list", "icon": "fa fa-calendar", "active":"deactive"}
         ];
+        $scope.showUpdateProfile = true;
     }else if (loggedInUser.identity.role==2) {
         $scope.menuList = [
             {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"active"}, 
             {"Title": "User Management", "Link": "user", "icon": "fa fa-user-plus", "active":"deactive"},   
             {"Title": "Resume Management", "Link": "/resume_list", "icon": "fa fa-file-text", "active":"deactive"},
         ];      
+        $scope.showUpdateProfile = true;
     }else if (loggedInUser.identity.role==3) {
         $scope.menuList = [
             {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"active"}, 
             {"Title": "Resume Management", "Link": "/resume_list", "icon": "fa fa-file-text", "active":"deactive"}
         ];
+        $scope.showUpdateProfile = true;
     }else if (loggedInUser.identity.role==4) {
         $scope.menuList = [
             {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"active"}, 
             {"Title": "Scheduled interview", "Link": "/interview_list", "icon": "fa fa-calendar", "active":"deactive"}
         ];
+        $scope.showUpdateProfile = true;
+    }else if (loggedInUser.identity.role==5) {
+        $scope.menuList = [
+            {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"active"}, 
+            {"Title": "My Resume", "Link": "/view_resume", "icon": "fa fa-file-text", "active":"deactive"},
+            {"Title": "Upload Documents", "Link": "/upload_background_form", "icon": "fa fa-file", "active":"deactive"}
+        ];
+        $scope.showUpdateProfile = false;
     }else{
 
     }
@@ -81,6 +92,7 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
             $scope.name = $scope.user.identity.name;
             $scope.logInUserRole  =   $scope.user.identity.role;
             //console.log( $scope.logInUserRole);
+            $scope.menuClick(window.location.pathname);
         }
 
     };

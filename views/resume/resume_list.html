@@ -2,6 +2,36 @@
     .select2-container--default {
         width:100% !important;
     }
+    #pdfSettingModel > .modal-dialog.modal-lg{
+        width: 50%;
+    }
+
+    #pdfSettingModel .modal-body{
+        padding-left: 10% ;
+        padding-right: 10%;
+    }
+    div#ms-my-select{
+        width: auto;
+    }
+    #select-all-div{
+        padding-left: 0px;
+    }
+    #deselect-all-div{
+        padding-left: 30px;
+    }
+    @media only screen and (max-width: 640px) {
+        #pdfSettingModel > .modal-dialog.modal-lg{
+            width: auto;
+        }
+        #select-all-div{
+            padding-left: 0px;
+        }
+        #deselect-all-div{
+            padding-left: 0px;
+        }
+
+
+    }
 </style>
 <section class="content" ng-cloak  id="resumeListCtrl">
     <div class="container-fluid" style="overflow-y: hidden;">
@@ -44,26 +74,39 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <div class="form-group">
                               <label>From CTC</label>
                               <input id="ctc_from" name="ctc_from" class="form-control" ng-model="rlc.ctcFrom" placeholder="Enter From ctc">
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <div class="form-group">
                               <label>To CTC</label>
                               <input id="ctc_to" name="ctc_to" class="form-control" ng-model="rlc.ctcTo" placeholder="Enter To ctc">
                             </div>
                         </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                              <label>From Total Exp.</label>
+                              <input class="form-control" type="text" name="from_total_year_experience" id="from_total_year_experience" ng-model="rlc.fromTotalYearExperiance" placeholder="Enter From value">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                              <label>To Total Exp.</label>
+                              <input class="form-control" type="text" name="to_total_year_experience" id="to_total_year_experience" ng-model="rlc.toTotalYearExperiance"  placeholder="Enter To value">
+                            </div>
+                        </div>
                     </div>
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-md-2">
                             <div class="form-group">
                               <label>From Total Exp.</label>
                               <select id="from_total_year_experience" name="from_total_year_experience" class="form-control" placeholder="Enter year experience" ng-model="rlc.fromTotalYearExperiance" ng-options="x.id as x.name for x in rlc.experienceYears">
                                 <option value="">Select Year</option>
                                 </select>
+                                <input class="form-control" type="text" name="from_total_year_experience" ng-model="rlc.fromTotalYearExperiance">
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -81,6 +124,7 @@
                               <select id="to_total_year_experience" name="to_total_year_experience" class="form-control" placeholder="Enter year experience" ng-model="rlc.toTotalYearExperiance" ng-options="x.id as x.name for x in rlc.experienceYears">
                                 <option value="">Select Year</option>
                                 </select>
+                                <input class="form-control" type="text" name="to_total_year_experience" ng-model="rlc.toTotalYearExperiance">
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -103,6 +147,12 @@
                             <button type="button" class="btn btn-block btn-primary fa fa-refresh" ng-click="rlc.resetFilter()" style="margin-top:5px"></button>           
 
                           </div>
+                        </div>
+                    </div> -->
+                    <div class="row">
+                        <div style="text-align: center;">
+                            <button type="button" class="btn btn-primary" ng-click="rlc.searchCandidate()">Search</button> 
+                            <button type="button" class="btn btn-primary fa fa-refresh" ng-click="rlc.resetFilter()"></button>
                         </div>
                     </div>
                 </form>
@@ -342,32 +392,43 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content" style="border-radius: 0px!important;" >
                 <div class="modal-header" id="popUpModalHeader"> 
-                    <button type="button" class="close" data-dismiss="modal" ng-click="rlc.resetForm()" style="margin-right: 5px;">&times;</button>
+                    <button type="button" class="close" data-dismiss="modal" ng-click="rlc.resetPdfForm()" style="margin-right: 5px;">&times;</button>
                     <h4 class="modal-title popUpModalTitle">Select Sections for PDF</h4>
                 </div>
                 <div class="modal-body">
                     <form id="pdfSettingForm">   
-                        <div class="form-group">
                             <!-- <div>
                                 <label  style="margin-bottom: 15px;">
                                     <input class="icheckBox" apply-check-box id="chk_all" type="checkbox"  name="chk_all" checked> &nbsp;&nbsp;&nbsp;
                                     Check All
                                 </label>
                             </div> -->
-                            <div class="row">                        
+                            <div class="row form-group">                        
                                 <!-- <label  class="col-xs-3 " ng-repeat="section in rlc.pdfSectionsNameList" style="margin-bottom: 15px;">
                                   <input class="icheckBox" apply-check-box data-index="{{section.id}}"  id="chk_{{section.id}}" type="checkbox"  name="selectedSectionNames[]" value="{{section.id}}" checked> &nbsp;&nbsp;&nbsp;{{section.section_name}}
                                 </label> -->
-                                <select name="langOpt[]" multiple id="langOpt">
-                                    <option value="C++">C++</option>
-                                </select>
+                                <!-- {{rlc.seletedSection}} -->
+                                <div col="col-md-12">                                    
+                                    <select multiple="multiple" id="my-select" name="selectedSectionNames[]">
+                                        <option ng-repeat="sec in rlc.pdfSectionsNameList" value="{{sec.id}}" selected>{{sec.section_name}}</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>                        
+                            <div class="row">
+                                <div col="col-md-12">      
+                                    <div id="select-all-div" class="col-md-6 form-group">
+                                        <a href='#' id='select-all'>select all</a>
+                                    </div>
+                                    <div id="deselect-all-div" class="col-md-6 form-group">                                        
+                                        <a href='#' id='deselect-all'>deselect all</a>
+                                    </div>
+                                </div>
+                            </div>                  
                     </form>
                 </div>
                 <div class="modal-footer" style="margin-top: 0px;"> 
                     <button type="button" id="pdfSettingSubmitBtn" class="btn btn-primary" data-ng-click="rlc.downloadPdfWithSectionSetting();" >Save</button>
-                    <button type="reset" id="closeModal" class="btn btn-warning"  ng-click="rlc.resetForm()" data-dismiss="modal">Cancel</button>
+                    <button type="reset" id="closeModal" class="btn btn-warning"  ng-click="rlc.resetPdfForm()" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
         </div>
@@ -591,48 +652,67 @@
                 },
                 checkGreaterThan: "#ctc_from",
             },  
+            // from_total_year_experience: {
+            //     required: function(element){
+            //             return $("#to_total_year_experience").val()!="" || $("#to_total_month_experience").val()!="" || $("#from_total_month_experience").val()!="";
+            //         }
+            // },
+            // from_total_month_experience: {
+            //     required: function(element){
+            //             return $("#to_total_year_experience").val()!="" || $("#to_total_month_experience").val()!="" || $("#from_total_year_experience").val()!="";
+            //         }
+            // },          
+            // to_total_year_experience: {
+            //     required: function(element){
+            //             return $("#from_total_year_experience").val()!="" || $("#from_total_month_experience").val()!="" || $("#to_total_month_experience").val()!="";
+            //         }
+            // },
+            // to_total_month_experience: {
+            //     required: function(element){
+            //             return $("#from_total_year_experience").val()!="" || $("#from_total_month_experience").val()!="" || $("#to_total_year_experience").val()!="";
+            //         }
+            // },
             from_total_year_experience: {
                 required: function(element){
-                        return $("#to_total_year_experience").val()!="" || $("#to_total_month_experience").val()!="" || $("#from_total_month_experience").val()!="";
-                    }
+                    return $("#to_total_year_experience").val()!="";
+                },
+                number:true,
+                checkLessThan: "#to_total_year_experience",
             },
-            from_total_month_experience: {
-                required: function(element){
-                        return $("#to_total_year_experience").val()!="" || $("#to_total_month_experience").val()!="" || $("#from_total_year_experience").val()!="";
-                    }
-            },          
             to_total_year_experience: {
                 required: function(element){
-                        return $("#from_total_year_experience").val()!="" || $("#from_total_month_experience").val()!="" || $("#to_total_month_experience").val()!="";
-                    }
-            },
-            to_total_month_experience: {
-                required: function(element){
-                        return $("#from_total_year_experience").val()!="" || $("#from_total_month_experience").val()!="" || $("#to_total_year_experience").val()!="";
-                    }
+                    return $("#from_total_year_experience").val()!="";
+                },
+                number:true,
+                checkGreaterThan: "#from_total_year_experience",
             },
         },
         messages: {
             ctc_from:{
                 required: "From CTC is required.",
-                checkLessThan: "Must be Less than To CTC value."
+                checkLessThan: "Must be Less than To CTC value.",
             },
             ctc_to:{
                 required: "To CTC is required.",
-                checkGreaterThan: "Must be greater than Form CTC value."
+                checkGreaterThan: "Must be greater than Form CTC value.",
             },          
             from_total_year_experience: {
-                required: "Year is required.",
+                required: "From Total Exp is required.",
+                checkLessThan: "Must be Less than To Total Exp.",
             },
-            from_total_month_experience: {
-                required: "Month is required.",
-            },          
             to_total_year_experience: {
-                required: "Year is required.",
+                required: "To Total Exp is required.",
+                checkGreaterThan: "Must be greater than Form Total Exp.",
             },
-            to_total_month_experience: {
-                required: "Month is required.",
-            },
+            // from_total_month_experience: {
+            //     required: "Month is required.",
+            // },          
+            // to_total_year_experience: {
+            //     required: "Year is required.",
+            // },
+            // to_total_month_experience: {
+            //     required: "Month is required.",
+            // },
         },
          highlight: function (element) { // hightlight error inputs
             $(element)
@@ -702,10 +782,11 @@
 
             var type = $(element).attr("type");
             console.log(type);
-            if (type === "checkbox")
+            if ($(element).attr("id") === "my-select")
             {
-                console.log(element.parent().parent());
-                element.parent().parent().parent().parent().append(error);
+                // console.log(element.parent().parent());
+                // element.parent().parent().parent().parent().append(error);
+                element.parent().parent().append(error);
 
             }else{
                 error.insertAfter(element);
@@ -743,17 +824,38 @@
 </script>
 <script>
     $(document).ready(function () {
-
+        $('#select-all').click(function(){
+          $('#my-select').multiSelect('select_all');
+          // $('#my-select').valid();
+            $("div.form-group").each(function () {
+                $(this).removeClass('has-error');
+                $('span.help-block-error').remove();
+                $('.ms-selectable > ul').css('border','1px solid #ccc');
+                $('.ms-selection > ul').css('border','1px solid #ccc');
+            });
+          return false;
+        });
+        $('#deselect-all').click(function(){
+          $('#my-select').multiSelect('deselect_all');
+          $('#my-select').valid();
+          return false;
+        });
         $("html, body").animate({scrollTop: 0}, "fast");
         $('#assignStatusModel.modal,#changeStatusModel.modal').on('hidden.bs.modal', function (e) {
             $(this).find('form').trigger('reset'); 
              $("div.form-group").each(function () {
                 $(this).removeClass('has-error');
-                $('span.help-block-error').remove();
+                $('span.help-block-error').remove();            
                 applySelect2();
             });
             $('header').css('z-index', '1053');
             $('footer').css('z-index', '1053');
+        });
+        $('#pdfSettingModel.modal').on('hidden.bs.modal', function (e) {
+                $(this).removeClass('has-error');
+                $('span.help-block-error').remove();
+                $('.ms-selectable > ul').css('border','1px solid #ccc');
+                $('.ms-selection > ul').css('border','1px solid #ccc');
         });
 
     }); 

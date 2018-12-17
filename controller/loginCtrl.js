@@ -15,6 +15,8 @@ app.controller("loginCtrl", function (services, AclService, $scope, $http, $loca
             // console.log(lgc.email)
             var promise = services.logIn(lgc.email, lgc.password);
             promise.then(function mySucces(r) {
+                // console.log(data);
+                //     debugger;
                 if (r.data != null) {
                     // set token in cookies
                     lgc.token = r.data.data.authToken;
@@ -34,12 +36,14 @@ app.controller("loginCtrl", function (services, AclService, $scope, $http, $loca
 
                     var aclData = {admin: abilities}
                     AclService.setAbilities(aclData);
+
                     var identity = {
                         id: data.id,
                         authToken: data.authToken,
                         identity: {
                             name: data.name,
                             email: data.email,
+                            mobile:data.mobile,
                             gender: data.gender,
                             designation: data.designation,
                             role: data.role,

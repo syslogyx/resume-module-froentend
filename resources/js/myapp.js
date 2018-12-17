@@ -958,6 +958,21 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
+    this.getCandidateInfo = function (req) {
+        // console.log(req);
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "candidate/getLoggedCandidateDetails",
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+                
+            }
+        })
+    };
+
     this.getJDListByCandidateId = function (id) {
         Utility.startAnimation();
         return $http({
@@ -1278,6 +1293,43 @@ app.config(function ($routeProvider, $locationProvider) {
                 templateUrl: 'views/result/technical_interview_result.html',
                 controller: 'resultCtrl',
                 controllerAs: 'res',
+                resolve: {
+                    'acl': ['$q', 'AclService', function ($q, AclService) {
+                            return true;
+                            //console.log(AclService.getRoles());
+                            if (AclService.can('view_dash')) {
+                                // Has proper permissions
+                                return true;
+                            } else {
+                                // Does not have permission
+                                return $q.reject('LoginRequired');
+                            }
+                        }]
+                }
+            }) 
+
+            .when('/view_resume', {
+                templateUrl: 'views/resume/resume_view.html',
+                controller: 'resumeCtrl',
+                resolve: {
+                    'acl': ['$q', 'AclService', function ($q, AclService) {
+                            return true;
+                            //console.log(AclService.getRoles());
+                            if (AclService.can('view_dash')) {
+                                // Has proper permissions
+                                return true;
+                            } else {
+                                // Does not have permission
+                                return $q.reject('LoginRequired');
+                            }
+                        }]
+                }
+            }) 
+
+            .when('/upload_background_form', {
+                templateUrl: 'views/documents/upload_background_form.html',
+                // controller: 'resultCtrl',
+                // controllerAs: 'res',
                 resolve: {
                     'acl': ['$q', 'AclService', function ($q, AclService) {
                             return true;
