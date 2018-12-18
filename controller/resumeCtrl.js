@@ -203,8 +203,8 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
 
             var promise = services.getCandidateDetailsById(id);
             promise.then(function mySuccess(response) {
+                Utility.stopAnimation();
                 var res = response.data;
-                console.log(res);
                 $totalExpArray = "";
                 if(res.status_code == 200){
                     $scope.job_id = res.data.job_description_id.toString();
@@ -767,9 +767,8 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
             };
             var promise = services.getCandidateInfo(req);
             promise.then(function mySuccess(response) {
+                Utility.stopAnimation();
                 var res = response.data;
-                // console.log(res);
-                // debugger;
                 $totalExpArray = "";
                 if(res.status_code == 200){
                     $scope.job_id = res.data.job_description.sub_title;

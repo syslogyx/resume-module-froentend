@@ -1,9 +1,9 @@
 ﻿var Utility = {
 
-    apiBaseUrl: "http://127.0.0.1:8000/api/",
+    // apiBaseUrl: "http://127.0.0.1:8000/api/",
     // apiBaseUrl: "http://172.16.1.97:8000/api/",
     // apiBaseUrl: "http://172.16.1.180:8000/api/",
-    // apiBaseUrl: "https://recruitmentapi.syslogyx.com/api/",
+    apiBaseUrl: "https://recruitmentapi.syslogyx.com/api/",
 
     formatDate: function (date, format) {
         var tDate = null;
@@ -785,6 +785,20 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
+
+    this.uploadBackgroundDocFile  = function(request){      
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "upload_bgdoc",
+            dataType: 'form-data',
+            data: request,
+            headers: {
+                'Content-Type': undefined
+            }
+        })
+    };
+
     this.getAllQuestionList = function (request) {
         if(request == undefined){
             page = -1;
@@ -959,7 +973,6 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
     };
 
     this.getCandidateInfo = function (req) {
-        // console.log(req);
         Utility.startAnimation();
         return $http({
             method: 'POST',
@@ -1000,6 +1013,10 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
 
     this.downloadBackgroundForm = function () {        
         window.open(RESOURCES.SERVER_API +'download_background_form');        
+    };
+
+    this.downloadSampleBackgroundForm = function () {        
+        window.open(RESOURCES.SERVER_API +'download_sample_bgform');        
     };
 
 });
@@ -1354,7 +1371,7 @@ app.config(function ($routeProvider, $locationProvider) {
 
 app.run(function ($rootScope, AclService, $cookieStore, $location, services) {
     var authKey = services.getAuthKey();
-    console.log(authKey);
+    // console.log(authKey);
     if(window.location.pathname.search("/resume/")==0){
 
     }else if (authKey == undefined) {
