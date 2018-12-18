@@ -998,6 +998,10 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
+    this.downloadBackgroundForm = function () {        
+        window.open(RESOURCES.SERVER_API +'download_background_form');        
+    };
+
 });
 
 app.config(function ($routeProvider, $locationProvider) {
@@ -1328,8 +1332,8 @@ app.config(function ($routeProvider, $locationProvider) {
 
             .when('/upload_background_form', {
                 templateUrl: 'views/documents/upload_background_form.html',
-                // controller: 'resultCtrl',
-                // controllerAs: 'res',
+                controller: 'documentsCtrl',
+                controllerAs: 'doc',
                 resolve: {
                     'acl': ['$q', 'AclService', function ($q, AclService) {
                             return true;

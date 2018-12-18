@@ -7,7 +7,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
 
     var authKey = services.getIdentity()==undefined?undefined:JSON.parse(services.getIdentity());
   
-    console.log(JSON.parse(services.getIdentity()));
+    // console.log(JSON.parse(services.getIdentity()));
 
     $scope.backImgUrls=[
         'resources/img/resumeimg/1_Personal_Details_img.jpg',
@@ -756,9 +756,9 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
 
 
     $scope.fetchCandidateInfo =  function(){
-        var loggedInUser = JSON.parse(services.getIdentity());
-        var email = loggedInUser.identity.email;
-        var mobile = loggedInUser.identity.mobile;
+        var loggedInUser = services.getIdentity()==undefined?undefined:JSON.parse(services.getIdentity());
+        var email = loggedInUser == undefined ? undefined :loggedInUser.identity.email;
+        var mobile = loggedInUser == undefined ? undefined :loggedInUser.identity.mobile;
         if(email != undefined && mobile != undefined){
 
             var req ={

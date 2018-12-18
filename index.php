@@ -342,6 +342,7 @@
         <script src="/controller/screeningTestCtrl.js"></script>
         <script src="/controller/interviewListCtrl.js"></script>
         <script src="/controller/resultCtrl.js"></script>
+        <script src="/controller/documentsCtrl.js"></script>
 
 
          <script >
