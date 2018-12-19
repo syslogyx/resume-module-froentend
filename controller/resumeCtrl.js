@@ -172,7 +172,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
         var promise = services.getAllQualificationList();
         promise.success(function (result) {
             Utility.stopAnimation();
-            $scope.allQualificationList = result.data.data;
+            $scope.allQualificationList = result.data;
             for (var i = 0; i < $scope.allQualificationList.length; i++) {
                 $scope.allQualificationList[i].id=$scope.allQualificationList[i].id.toString();
             }

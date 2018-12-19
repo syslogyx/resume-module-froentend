@@ -93,7 +93,7 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
                 // console.log(result);
             if (result.data) {
                 ilc.interviewerList = result.data; 
-                console.log(ilc.interviewerList);
+                // console.log(ilc.interviewerList);
                 Utility.stopAnimation();                
             }    
         }, function myError(r) {
@@ -139,7 +139,7 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
             var promise = services.changeJobDescriptionByCandidateId(req);
             promise.success(function (result) {
                 Utility.stopAnimation();
-                console.log(result);
+                // console.log(result);
                     Utility.stopAnimation();
                     try {
                         $('#changeJdStatusModal').modal('hide');

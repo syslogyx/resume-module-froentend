@@ -29,7 +29,7 @@ app.controller('screeningCtrl', function ($scope, $rootScope, $http, services, $
         }
         if(page == -1){
             sc.pageno = 1;
-            console.log($('#pagination-sec').data("twbs-pagination"));
+            // console.log($('#pagination-sec').data("twbs-pagination"));
             if($('#pagination-sec').data("twbs-pagination")){
                     $('#pagination-sec').twbsPagination('destroy');
             }
@@ -46,7 +46,7 @@ app.controller('screeningCtrl', function ($scope, $rootScope, $http, services, $
         promise.success(function (result) {
             Utility.stopAnimation();
             if(result.data != null){
-                console.log(result.data);
+                // console.log(result.data);
                 sc.questionList = result.data.data;
                 pagination.applyPagination(result.data, sc);
             }
@@ -65,8 +65,8 @@ app.controller('screeningCtrl', function ($scope, $rootScope, $http, services, $
         var promise = services.getAllStreamList();
             promise.success(function (result) {
             Utility.stopAnimation();
-            sc.streamList = result.data.data;
-            console.log(sc.streamList);    
+            sc.streamList = result.data;
+           
         }, function myError(r) {
             toastr.error(r.data.message, 'Sorry!');
             Utility.stopAnimation();
@@ -77,7 +77,7 @@ app.controller('screeningCtrl', function ($scope, $rootScope, $http, services, $
         if (sc.id > 0) {
             var promise = services.getQuestionById(sc.id);
             promise.then(function mySuccess(response) {
-                console.log(response.data);
+                // console.log(response.data);
                 Utility.stopAnimation();
                 sc.title = 'Update Question';
                 sc.stream = response.data.data.stream_id,
