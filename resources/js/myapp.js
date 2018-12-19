@@ -1,9 +1,9 @@
 ﻿var Utility = {
 
     // apiBaseUrl: "http://127.0.0.1:8000/api/",
-    // apiBaseUrl: "http://172.16.1.97:8000/api/",
+     apiBaseUrl: "http://172.16.1.97:8000/api/",
     // apiBaseUrl: "http://172.16.1.180:8000/api/",
-    apiBaseUrl: "https://recruitmentapi.syslogyx.com/api/",
+    // apiBaseUrl: "https://recruitmentapi.syslogyx.com/api/",
 
     formatDate: function (date, format) {
         var tDate = null;
@@ -1019,6 +1019,77 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         window.open(RESOURCES.SERVER_API +'download_sample_bgform');        
     };
 
+    this.getAllCompanyList = function (request) {
+        if(request == undefined){
+            page = -1;
+            limit = -1;
+        }else{
+            page = request.page;
+            limit = request.limit;
+        }
+        Utility.startAnimation();
+        return $http({
+            method: 'GET',
+            url: RESOURCES.SERVER_API + "company_table?page=" + page + "&limit=" + limit,
+            dataType: 'json',
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+    this.saveCompany = function (req) {
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "company/create",
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+                
+            }
+        })
+    };
+
+    this.updateCompany = function (req) {
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "company/update/" + req.id,
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+    this.getCompanyById = function (id) {
+        Utility.startAnimation();
+        return $http({
+            method: 'GET',
+            url: RESOURCES.SERVER_API + "companyInfoByID/" + id + "/view",
+            dataType: 'json',
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+    this.updateCompanyStatus = function(req){
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "company/changestatus/" + req.id,
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    }
+
 });
 
 app.config(function ($routeProvider, $locationProvider) {
@@ -1364,7 +1435,65 @@ app.config(function ($routeProvider, $locationProvider) {
                             }
                         }]
                 }
-            }) 
+            })
+
+            .when('/company', {
+                templateUrl: 'views/company/company_list.html',
+                controller: 'companyCtrl',
+                controllerAs: 'cmp',
+                resolve: {
+                    'acl': ['$q', 'AclService', function ($q, AclService) {
+                            return true;
+                            //console.log(AclService.getRoles());
+                            if (AclService.can('view_dash')) {
+                                // Has proper permissions
+                                return true;
+                            } else {
+                                // Does not have permission
+                                return $q.reject('LoginRequired');
+                            }
+                        }]
+                }
+            })
+
+            .when('/company/add_company', {
+                templateUrl: 'views/company/create_company.html',
+                controller: 'companyCtrl',
+                controllerAs: 'cmp',
+                resolve: {
+                    'acl': ['$q', 'AclService', function ($q, AclService) {
+                            return true;
+                            //console.log(AclService.getRoles());
+                            if (AclService.can('view_dash')) {
+                                // Has proper permissions
+                                return true;
+                            } else {
+                                // Does not have permission
+                                return $q.reject('LoginRequired');
+                            }
+                        }]
+                }
+            })
+
+            .when('/company/edit', {
+                templateUrl: 'views/company/create_company.html',
+                controller: 'companyCtrl',
+                controllerAs: 'cmp',
+                resolve: {
+                    'acl': ['$q', 'AclService', function ($q, AclService) {
+                            return true;
+                            
+                            if (AclService.can('view_dash')) {
+                                // Has proper permissions
+                                return true;
+                            } else {
+                                // Does not have permission
+                                return $q.reject('LoginRequired');
+                            }
+                        }]
+                }
+            })
+ 
 
     $locationProvider.html5Mode(true);
 });

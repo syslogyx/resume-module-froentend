@@ -343,6 +343,7 @@
         <script src="/controller/interviewListCtrl.js"></script>
         <script src="/controller/resultCtrl.js"></script>
         <script src="/controller/documentsCtrl.js"></script>
+        <script src="/controller/companyCtrl.js"></script>
 
 
          <script >

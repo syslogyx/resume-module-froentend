@@ -14,7 +14,8 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
             {"Title": "Resume Management", "Link": "/resume_list", "icon": "fa fa-file-text", "active":"deactive"},
             {"Title": "JD Management", "Link": "/jobs", "icon": "fa fa-tasks", "active":"deactive"},
             {"Title": "Screening Questions", "Link": "/questions", "icon": "fa fa-list", "active":"deactive"},
-            {"Title": "Scheduled interview", "Link": "/interview_list", "icon": "fa fa-calendar", "active":"deactive"}
+            {"Title": "Scheduled interview", "Link": "/interview_list", "icon": "fa fa-calendar", "active":"deactive"},
+            {"Title": "Company Management", "Link": "/company", "icon": "fa  fa-bank ", "active":"deactive"}
         ];
         $scope.showUpdateProfile = true;
     }else if (loggedInUser.identity.role==2) {
