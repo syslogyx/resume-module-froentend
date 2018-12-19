@@ -1,12 +1,9 @@
 ﻿var Utility = {
 
-<<<<<<< HEAD
     // apiBaseUrl: "http://127.0.0.1:8000/api/",
      apiBaseUrl: "http://172.16.1.97:8000/api/",
-=======
-    apiBaseUrl: "http://127.0.0.1:8000/api/",
-    // apiBaseUrl: "http://172.16.1.97:8000/api/",
->>>>>>> 803d4e70b73f0ce797095a264b4cd7996233f474
+
+    // apiBaseUrl: "http://127.0.0.1:8000/api/",
     // apiBaseUrl: "http://172.16.1.180:8000/api/",
     // apiBaseUrl: "https://recruitmentapi.syslogyx.com/api/",
 
