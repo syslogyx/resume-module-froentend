@@ -405,7 +405,7 @@ $(document).ready(function(){
             // },
             current_ctc:{
                 required: "Current CTC is required.",
-                number:"Current CTC is in number",
+                number:"Enter the numeric value",
                 mynumber:"Please enter only two digit after decimal."
             },
             company_name:{
