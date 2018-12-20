@@ -344,7 +344,7 @@
         <script src="/controller/resultCtrl.js"></script>
         <script src="/controller/documentsCtrl.js"></script>
         <script src="/controller/companyCtrl.js"></script>
-
+        <script src="/controller/backgroundChecklistCtrl.js"></script>
 
          <script >
                     $( window ).scroll(function() {

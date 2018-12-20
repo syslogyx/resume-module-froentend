@@ -1,0 +1,108 @@
+<section class="content" ng-cloak>
+<br><br>
+    <form role="form" name="addForm" id="backgroundChecklistForm" >
+        <div class="box box-default" >
+            <div class="row box-header with-border boxhead">
+                <div class="col-md-6">
+                    <h1 class="formheading">
+                        <b>{{bcl.title}}</b>
+                    </h1>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="pull-right" style="margin-top: 5px; margin-right: 20px;">
+                        <a ng-href="/background_checklist"><button type="button" class="btn btn-default btn-sm" data-toggle="modal" title="Back" data-target="" data-ng-click="" style="border:white;color:#428bca;outline: 0;"><i class="fa fa-arrow-left" aria-hidden="true"></i></button></a>  
+                    </div> 
+                </div>                
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">  
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="mandatory" for="">Name</label>
+                            <input type="text" class="form-control" ng-model="bcl.bgChecklistName" name="bg_checklist_name" id="bg_checklist_name" placeholder="Enter name" >
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="mandatory" for="">File Type</label>
+                            <select id="file_type" name="file_type" class="form-control" placeholder="Enter file type" ng-model="bcl.fileType" ng-options="x.name as x.name for x in bcl.fileTypeData" >
+                                <option value="" style="color:#ccc !important;">Select file type</option>
+                            </select>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer" style="margin-right:14px!important">
+                <div class="pull pull-right">
+                    <input type="submit" value="Save" data-ng-click="bcl.createBackgroundChecklist()" class="btn btn-success" style="outline: 0;"/> 
+                    <input type="button" value="Cancel" class="btn btn-warning" data-ng-click="bcl.cancelBackgroundChecklist()"  style="outline: 0;"/> 
+                    <input  ng-if="bcl.title == 'Add New Background Checklist'" type="reset" value="Reset" ng-click="bcl.resetForm()" class="btn" style="outline: 0;"/> 
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+
+<script>
+        var baseUrl = Utility.apiBaseUrl;
+        $("#backgroundChecklistForm").validate({
+            errorElement: 'span', //default input error message container
+            errorClass: 'help-block help-block-error',
+            errorPlacement: function (error, element) {
+
+                var type = $(element).attr("type");
+                if ($(element).attr("id") === "")
+                {
+                    element.parent().append(error);
+                }
+                else if ($(element).attr("id") === "file_type")
+                {
+                    element.parent().append(error);
+                }
+                else{
+                    error.insertAfter(element);
+                }
+            },
+            rules: {
+                bg_checklist_name: {
+                    required: true
+                },
+                file_type: {
+                    required:true
+                }
+            },
+            messages: {
+                bg_checklist_name: {
+                    required: "Checklist name is required."
+                },
+                file_type: {
+                    required: "File type is required."
+                }
+            },
+            highlight: function (element) { // hightlight error inputs
+                $(element).closest('.form-group').addClass('has-error');
+
+                $(element).next().children().children().attr('style', 'border-color:#dd4b39!important');
+                // set error class to the control group
+            },
+            unhighlight: function (element) { // revert the change done by hightlight
+                $(element)
+                        .closest('.form-group').removeClass('has-error');
+                $(element)
+                        .next().children().children().attr('style', 'border-color:'); // set error class to the control group
+            },
+            success: function (label) {
+                label
+                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+            }
+        });
+</script>
+<script>
+        $(document).ready(function () {
+            $("html, body").animate({scrollTop: 0}, "fast");
+        });
+</script>
+
