@@ -26,9 +26,9 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="mandatory" for="">File Type</label>
-                            <select id="file_type" name="file_type" class="form-control" placeholder="Enter file type" ng-model="bcl.fileType" ng-options="x.name as x.name for x in bcl.fileTypeData" >
-                                <option value="" style="color:#ccc !important;">Select file type</option>
+                            <label class="mandatory" for="">Mandatory Field</label>
+                            <select id="mandatory_field" name="mandatory_field" class="form-control" placeholder="Enter mandatory field" ng-model="bcl.mandatoryField" ng-options="x.name as x.name for x in bcl.mandatoryFieldData" >
+                                <option value="" style="color:#ccc !important;">Select mandatory field</option>
                             </select>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                 {
                     element.parent().append(error);
                 }
-                else if ($(element).attr("id") === "file_type")
+                else if ($(element).attr("id") === "mandatory_field")
                 {
                     element.parent().append(error);
                 }
@@ -70,7 +70,7 @@
                 bg_checklist_name: {
                     required: true
                 },
-                file_type: {
+                mandatory_field: {
                     required:true
                 }
             },
@@ -78,8 +78,8 @@
                 bg_checklist_name: {
                     required: "Checklist name is required."
                 },
-                file_type: {
-                    required: "File type is required."
+                mandatory_field: {
+                    required: "Mandatory field is required."
                 }
             },
             highlight: function (element) { // hightlight error inputs

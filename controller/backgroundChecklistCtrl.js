@@ -9,10 +9,9 @@ app.controller('backgroundChecklistCtrl', function ($scope, $rootScope, $http, s
     bcl.skip = true;
     bcl.backgroundCheckList =[];
 
-    bcl.fileTypeData =[
-    {id: 1, name: "Image"},
-    {id: 2, name: "PDF"},
-    {id: 3, name: "Doc"}];
+    bcl.mandatoryFieldData =[
+    {id: 1, name: "True"},
+    {id: 2, name: "False"}];
 
     /* To fetch data according table length */
     setTimeout(function(){
@@ -79,7 +78,7 @@ app.controller('backgroundChecklistCtrl', function ($scope, $rootScope, $http, s
                 Utility.stopAnimation();
                 bcl.title = 'Update Background Checklist';
                 bcl.bgChecklistName = response.data.data.name,
-                bcl.fileType = response.data.data.type,
+                bcl.mandatoryField = response.data.data.mandatory==1?"True":"False",
                 bcl.status = response.data.data.status                
                 applySelect2();   
             }, function myError(r) {
@@ -97,7 +96,7 @@ app.controller('backgroundChecklistCtrl', function ($scope, $rootScope, $http, s
             applySelect2();
         });
         bcl.bgChecklistName ='';
-        bcl.fileType ='';
+        bcl.mandatoryField ='';
     }
 
     /* Function to create/update new background checklist */
@@ -105,7 +104,7 @@ app.controller('backgroundChecklistCtrl', function ($scope, $rootScope, $http, s
         if ($("#backgroundChecklistForm").valid()) {
             var req ={
                 "name":bcl.bgChecklistName,
-                "type":bcl.fileType
+                "mandatory":bcl.mandatoryField=='True'?1:0
             }
 
             var promise;
