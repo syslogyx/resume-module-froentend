@@ -253,42 +253,6 @@ app.directive('ngFiles', ['$parse', function ($parse) {
 } ]);
 
 
-/*To Upload multiple files*/
-app.directive('ngFileModel', ['$parse', function ($parse) {
-    return {
-        restrict: 'A',
-        link: function (scope, element, attrs) {
-            var model = $parse(attrs.ngFileModel);
-            var isMultiple = attrs.multiple;
-            var modelSetter = model.assign;
-            element.bind('change', function () {
-                var values = [];
-                angular.forEach(element[0].files, function (item) {
-                    var value = {
-                       // File Name 
-                        name: item.name,
-                        //File Size 
-                        size: item.size,
-                        //File URL to view 
-                        url: URL.createObjectURL(item),
-                        // File Input Value 
-                        _file: item
-                    };
-                    values.push(value);
-                    console.log(values);
-                });
-                scope.$apply(function () {
-                    if (isMultiple) {
-                        modelSetter(scope, values);
-                    } else {
-                        modelSetter(scope, values[0]);
-                    }
-                });
-            });
-        }
-    };
-}]);
-
 // app.directive('toggleCheckbox', function() {
 //   // based on https://github.com/minhur/bootstrap-toggle/issues/19
   
@@ -1200,6 +1164,18 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             }
         })
     }
+
+    this.getAllBgCheckList = function () {
+        Utility.startAnimation();
+        return $http({
+            method: 'GET',
+            url: RESOURCES.SERVER_API + "get_bg_checklist",
+            dataType: 'json',
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
 
 });
 

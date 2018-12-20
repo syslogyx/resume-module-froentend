@@ -9,58 +9,25 @@ app.controller('documentsCtrl', function ($scope,menuService,services,$cookieSto
 
     doc.init = function(){
         $scope.file='';
-        doc.backgroundCheckList = [
-            {
-                "id": 1,
-                "name": "BA BGC Form",
-                "type": "file",
-                "mandatory": "1",
-                "status": "Active",
-                "created_at": null,
-                "updated_at": null
-            },
-            {
-                "id": 2,
-                "name": "Address Proof",
-                "type": "file",
-                "mandatory": "1",
-                "status": "Active",
-                "created_at": null,
-                "updated_at": null
-            },
-            {
-                "id": 3,
-                "name": "Intermediate",
-                "type": "file",
-                "mandatory": "1",
-                "status": "Active",
-                "created_at": null,
-                "updated_at": null
-            },
-            {
-                "id": 4,
-                "name": "Graduation",
-                "type": "file",
-                "mandatory": "1",
-                "status": "Active",
-                "created_at": null,
-                "updated_at": null
-            },
-            {
-                "id": 5,
-                "name": "Post-graduation",
-                "type": "file",
-                "mandatory": "1",
-                "status": "Active",
-                "created_at": null,
-                "updated_at": null
-            }
-        ];
+        doc.getBackgroundCheckList();
+
+    }
+
+    doc.getBackgroundCheckList = function(){
+        var promise = services.getAllBgCheckList();
+            promise.success(function (result) {
+            Utility.stopAnimation();
+            doc.backgroundCheckList = result.data;
+           
+        }, function myError(r) {
+            toastr.error(r.data.message, 'Sorry!');
+            Utility.stopAnimation();
+        });
     }
 
     $scope.getTheFiles = function ($files) {
         $scope.files=$files;
-        // console.log($scope.files);
+        // console.log($files);
     };
 
     doc.fetchCandidateInfo =  function(){
@@ -89,7 +56,7 @@ app.controller('documentsCtrl', function ($scope,menuService,services,$cookieSto
 
     doc.uploadBgCheckForm = function(bg_check_id,formIndex){
         // console.log(bg_check_id);
-        // console.log($scope.files);
+        console.log($scope.files);
         // if($("#backgroundUploadForm").valid()){
           
             var form = document.forms[formIndex];
