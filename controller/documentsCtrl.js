@@ -55,33 +55,37 @@ app.controller('documentsCtrl', function ($scope,menuService,services,$cookieSto
     }
 
     doc.uploadBgCheckForm = function(bg_check_id,formIndex){
-        // console.log(bg_check_id);
+        console.log(bg_check_id);
         console.log($scope.files);
+        console.log(formIndex);
         // if($("#backgroundUploadForm").valid()){
           
             var form = document.forms[formIndex];
             var json = new FormData(form);
-            
-            json.append("file_name",$scope.files);
+            for (var i in $scope.files) {
+                json.append("file_name", $scope.files[i]);
+            }
+            // json.append("file_name",data);
             json.append("candidate_id",doc.candidate_id);
             json.append("bg_checklist_id",bg_check_id);
             json.append("timestamp",doc.timestamp);
-            console.log(json);
+            // console.log(json);
             
             var promise2 = services.uploadBackgroundDocFile(json);
-            // promise2.then(function mySuccess(response) {
-            //     Utility.stopAnimation();
-            //     // console.log(response.data.message);
-            //     if(response.data.status_code == 200){
-            //         toastr.success(response.data.message);
-            //     }else{
-            //         toastr.error(response.data.message);
-            //     }
-            //     $('#file').val('');
-            // }, function myError(r) {
-            //     toastr.error(r.data.message);
-            //     Utility.stopAnimation();
-            // }); 
+            debugger;
+            promise2.then(function mySuccess(response) {
+                Utility.stopAnimation();
+                // console.log(response.data.message);
+                if(response.data.status_code == 200){
+                    toastr.success(response.data.message);
+                }else{
+                    toastr.error(response.data.message);
+                }
+                $('#file').val('');
+            }, function myError(r) {
+                toastr.error(r.data.message);
+                Utility.stopAnimation();
+            }); 
         // }
     }
 
