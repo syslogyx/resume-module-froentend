@@ -1,7 +1,7 @@
 ﻿var Utility = {
 
-    apiBaseUrl: "http://127.0.0.1:8000/api/",
-     // apiBaseUrl: "http://172.16.1.97:8000/api/",
+    // apiBaseUrl: "http://127.0.0.1:8000/api/",
+    apiBaseUrl: "http://172.16.1.97:8000/api/",
 
     // apiBaseUrl: "http://127.0.0.1:8000/api/",
     // apiBaseUrl: "http://172.16.1.180:8000/api/",
@@ -1130,6 +1130,77 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     }
 
+    this.getAllBackgroundCheckList = function (request) {
+        if(request == undefined){
+            page = -1;
+            limit = -1;
+        }else{
+            page = request.page;
+            limit = request.limit;
+        }
+        Utility.startAnimation();
+        return $http({
+            method: 'GET',
+            url: RESOURCES.SERVER_API + "background_checklist?page=" + page + "&limit=" + limit,
+            dataType: 'json',
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+    this.saveBackgroundChecklist = function (req) {
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "background_checklist/create",
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+                
+            }
+        })
+    };
+
+    this.updateBackgroundChecklist = function (req) {
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "background_checklist/update/" + req.id,
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+    this.getBackgroundChecklistById = function (id) {
+        Utility.startAnimation();
+        return $http({
+            method: 'GET',
+            url: RESOURCES.SERVER_API + "backgroundChecklistInfoByID/" + id + "/view",
+            dataType: 'json',
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+    this.updateBackgroundChecklistStatus = function(req){
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "background_checklist/changestatus/" + req.id,
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    }
+
 });
 
 app.config(function ($routeProvider, $locationProvider) {
@@ -1519,6 +1590,63 @@ app.config(function ($routeProvider, $locationProvider) {
                 templateUrl: 'views/company/create_company.html',
                 controller: 'companyCtrl',
                 controllerAs: 'cmp',
+                resolve: {
+                    'acl': ['$q', 'AclService', function ($q, AclService) {
+                            return true;
+                            
+                            if (AclService.can('view_dash')) {
+                                // Has proper permissions
+                                return true;
+                            } else {
+                                // Does not have permission
+                                return $q.reject('LoginRequired');
+                            }
+                        }]
+                }
+            })
+
+            .when('/background_checklist', {
+                templateUrl: 'views/backgroundChecklist/background_checklist.html',
+                controller: 'backgroundChecklistCtrl',
+                controllerAs: 'bcl',
+                resolve: {
+                    'acl': ['$q', 'AclService', function ($q, AclService) {
+                            return true;
+                            //console.log(AclService.getRoles());
+                            if (AclService.can('view_dash')) {
+                                // Has proper permissions
+                                return true;
+                            } else {
+                                // Does not have permission
+                                return $q.reject('LoginRequired');
+                            }
+                        }]
+                }
+            })
+
+            .when('/background_checklist/add_background_checklist', {
+                templateUrl: 'views/backgroundChecklist/create_background_checklist.html',
+                controller: 'backgroundChecklistCtrl',
+                controllerAs: 'bcl',
+                resolve: {
+                    'acl': ['$q', 'AclService', function ($q, AclService) {
+                            return true;
+                            //console.log(AclService.getRoles());
+                            if (AclService.can('view_dash')) {
+                                // Has proper permissions
+                                return true;
+                            } else {
+                                // Does not have permission
+                                return $q.reject('LoginRequired');
+                            }
+                        }]
+                }
+            })
+
+            .when('/background_checklist/edit', {
+                templateUrl: 'views/backgroundChecklist/create_background_checklist.html',
+                controller: 'backgroundChecklistCtrl',
+                controllerAs: 'bcl',
                 resolve: {
                     'acl': ['$q', 'AclService', function ($q, AclService) {
                             return true;

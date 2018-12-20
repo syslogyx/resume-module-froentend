@@ -134,7 +134,7 @@ app.controller('backgroundChecklistCtrl', function ($scope, $rootScope, $http, s
     }
 
     /* Function to change background checklist status */
-    bcl.changeBackgroundChecklistStatus = function(status,id,index){
+    bcl.changeBgChecklistStatus = function(status,id,index){
         var req = {
             "id":id,
             "status": status == true ? 1 : 0
