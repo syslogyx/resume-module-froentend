@@ -1,16 +1,66 @@
 app.controller('documentsCtrl', function ($scope,menuService,services,$cookieStore) {
 
 	var doc = this;
+    $scope.files = [];
+
 	doc.downloadBgCheckForm = function(){
         var promise = services.downloadBackgroundForm();
     }
 
     doc.init = function(){
         $scope.file='';
+        doc.backgroundCheckList = [
+            {
+                "id": 1,
+                "name": "BA BGC Form",
+                "type": "file",
+                "mandatory": "1",
+                "status": "Active",
+                "created_at": null,
+                "updated_at": null
+            },
+            {
+                "id": 2,
+                "name": "Address Proof",
+                "type": "file",
+                "mandatory": "1",
+                "status": "Active",
+                "created_at": null,
+                "updated_at": null
+            },
+            {
+                "id": 3,
+                "name": "Intermediate",
+                "type": "file",
+                "mandatory": "1",
+                "status": "Active",
+                "created_at": null,
+                "updated_at": null
+            },
+            {
+                "id": 4,
+                "name": "Graduation",
+                "type": "file",
+                "mandatory": "1",
+                "status": "Active",
+                "created_at": null,
+                "updated_at": null
+            },
+            {
+                "id": 5,
+                "name": "Post-graduation",
+                "type": "file",
+                "mandatory": "1",
+                "status": "Active",
+                "created_at": null,
+                "updated_at": null
+            }
+        ];
     }
 
     $scope.getTheFiles = function ($files) {
-        $scope.file=$files[0];
+        $scope.files=$files;
+        // console.log($scope.files);
     };
 
     doc.fetchCandidateInfo =  function(){
@@ -37,29 +87,35 @@ app.controller('documentsCtrl', function ($scope,menuService,services,$cookieSto
         }
     }
 
-    doc.uploadBgCheckForm = function(){
-        if($("#backgroundUploadForm").valid()){
-            var json= new FormData();
-            json.append("file_name",$scope.file);
+    doc.uploadBgCheckForm = function(bg_check_id,formIndex){
+        // console.log(bg_check_id);
+        // console.log($scope.files);
+        // if($("#backgroundUploadForm").valid()){
+          
+            var form = document.forms[formIndex];
+            var json = new FormData(form);
+            
+            json.append("file_name",$scope.files);
             json.append("candidate_id",doc.candidate_id);
+            json.append("bg_checklist_id",bg_check_id);
             json.append("timestamp",doc.timestamp);
-            json.append("file_type","background_check");
+            console.log(json);
             
             var promise2 = services.uploadBackgroundDocFile(json);
-            promise2.then(function mySuccess(response) {
-                Utility.stopAnimation();
-                // console.log(response.data.message);
-                if(response.data.status_code == 200){
-                    toastr.success(response.data.message);
-                }else{
-                    toastr.error(response.data.message);
-                }
-                $('#file').val('');
-            }, function myError(r) {
-                toastr.error(r.data.message);
-                Utility.stopAnimation();
-            }); 
-        }
+            // promise2.then(function mySuccess(response) {
+            //     Utility.stopAnimation();
+            //     // console.log(response.data.message);
+            //     if(response.data.status_code == 200){
+            //         toastr.success(response.data.message);
+            //     }else{
+            //         toastr.error(response.data.message);
+            //     }
+            //     $('#file').val('');
+            // }, function myError(r) {
+            //     toastr.error(r.data.message);
+            //     Utility.stopAnimation();
+            // }); 
+        // }
     }
 
     doc.downloadSampleForm = function(){
@@ -67,4 +123,5 @@ app.controller('documentsCtrl', function ($scope,menuService,services,$cookieSto
     }
 
     doc.fetchCandidateInfo();
+    doc.init();
 });
