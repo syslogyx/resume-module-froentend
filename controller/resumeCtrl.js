@@ -757,10 +757,13 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
 
     $scope.fetchCandidateInfo =  function(){
         var loggedInUser = services.getIdentity()==undefined?undefined:JSON.parse(services.getIdentity());
+        // console.log(loggedInUser);
         var email = loggedInUser == undefined ? undefined :loggedInUser.identity.email;
         var mobile = loggedInUser == undefined ? undefined :loggedInUser.identity.mobile;
-        if(email != undefined && mobile != undefined){
-
+        var role_id = loggedInUser == undefined ? undefined :loggedInUser.identity.role;
+        // console.log(role_id);
+        if(email != undefined && mobile != undefined && role_id == 5){
+            console.log("ok");
             var req ={
                 "mobile":mobile,
                 "email":email
