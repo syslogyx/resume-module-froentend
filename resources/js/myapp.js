@@ -1165,11 +1165,11 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     }
 
-    this.getAllBgCheckList = function () {
+    this.getAllBgCheckList = function (cId) {
         Utility.startAnimation();
         return $http({
             method: 'GET',
-            url: RESOURCES.SERVER_API + "get_bg_checklist",
+            url: RESOURCES.SERVER_API + "get_bg_checklist?candidate_id="+cId,
             dataType: 'json',
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
