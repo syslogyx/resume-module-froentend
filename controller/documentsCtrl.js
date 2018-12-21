@@ -55,15 +55,21 @@ app.controller('documentsCtrl', function ($scope,menuService,services,$cookieSto
     }
 
     doc.uploadBgCheckForm = function(bg_check_id,formIndex){
-        console.log(bg_check_id);
-        console.log($scope.files);
-        console.log(formIndex);
+        // console.log(bg_check_id);
+        // console.log($scope.files);
+        // console.log(formIndex);
         // if($("#backgroundUploadForm").valid()){
           
             var form = document.forms[formIndex];
             var json = new FormData(form);
-            for (var i in $scope.files) {
-                json.append("file_name", $scope.files[i]);
+            // for (var i in $scope.files) {
+            //     json.append("file_name", $scope.files[i]);
+            // }
+
+            for (var i = 0; i < $scope.files.length; i++) {
+               var file = $scope.files[i];
+               // Add the file to the request.
+              json.append('file_name[]', file, file.name);
             }
             // json.append("file_name",data);
             json.append("candidate_id",doc.candidate_id);
@@ -72,7 +78,7 @@ app.controller('documentsCtrl', function ($scope,menuService,services,$cookieSto
             // console.log(json);
             
             var promise2 = services.uploadBackgroundDocFile(json);
-            debugger;
+            // debugger;
             promise2.then(function mySuccess(response) {
                 Utility.stopAnimation();
                 // console.log(response.data.message);
@@ -82,6 +88,7 @@ app.controller('documentsCtrl', function ($scope,menuService,services,$cookieSto
                     toastr.error(response.data.message);
                 }
                 $('#file').val('');
+                doc.init();
             }, function myError(r) {
                 toastr.error(r.data.message);
                 Utility.stopAnimation();

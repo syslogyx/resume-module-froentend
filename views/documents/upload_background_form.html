@@ -36,11 +36,11 @@
                 <!-- {{doc.backgroundCheckList}} -->
                 <div ng-repeat="bglist in doc.backgroundCheckList">                    
                     <form  method="post" enctype="multipart/form-data" id="backgroundUploadForm_{{$index}}">
-                        <div class="form-group">                      
-                            <div class="row">
+                        <div class="form-group">  <!-- {{bglist.candidate_checklist_docs.length != 0  ? 'true' :'false'}}          -->          
+                            <div class="row" ng-if="bglist.candidate_checklist_docs.length == 0">
                                 <div class="col-md-6 form-group"> 
                                     <label class="mandatory">{{bglist.name}}</label>  
-                                    <input type="{{bglist.type}}" class="form-control" name="file[]" id="file" ng-model="file" ng-files="getTheFiles($files)" multiple="{{bglist.type =='file' ? 'true':'false'}}">
+                                    <input type="{{bglist.type}}" class="form-control" name="file[]" id="file" ng-model="file" ng-files="getTheFiles($files)" multiple="{{bglist.type =='file' ? 'true':'false'}}" ng-if="bglist.type=='file'">
                                     <span style="color:#dd4b39;">{{fileSizeError}}</span>
                                 </div>
                                 <div class="col-md-2" style="margin-top: 2.5%;">

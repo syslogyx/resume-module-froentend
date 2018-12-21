@@ -18,17 +18,26 @@
             <!-- /.box-header -->
             <div class="box-body">  
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label class="mandatory" for="">Name</label>
                             <input type="text" class="form-control" ng-model="bcl.bgChecklistName" name="bg_checklist_name" id="bg_checklist_name" placeholder="Enter name" >
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label class="mandatory" for="">Mandatory Field</label>
                             <select id="mandatory_field" name="mandatory_field" class="form-control" placeholder="Enter mandatory field" ng-model="bcl.mandatoryField" ng-options="x.name as x.name for x in bcl.mandatoryFieldData" >
                                 <option value="" style="color:#ccc !important;">Select mandatory field</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Field Type</label>
+                            <select id="field_type" ng-init="bcl.fieldType='file'" name="field_type" class="form-control" placeholder="Enter mandatory field" ng-model="bcl.fieldType" disabled>
+                                <option value="" style="color:#ccc !important;">Select field type</option>
+                                <option value="file" selected>File</option>
                             </select>
                         </div>
                     </div>
