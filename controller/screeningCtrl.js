@@ -79,10 +79,13 @@ app.controller('screeningCtrl', function ($scope, $rootScope, $http, services, $
             promise.then(function mySuccess(response) {
                 // console.log(response.data);
                 Utility.stopAnimation();
-                sc.title = 'Update Question';
-                sc.stream = response.data.data.stream_id,
-                sc.question = response.data.data.question,             
-
+                if(response.data.status_code == 200){
+                    sc.title = 'Update Question';
+                    sc.stream = response.data.data.stream_id;
+                    sc.question = response.data.data.question;            
+                }else{
+                    toastr.error(response.data.message, 'Sorry!');
+                }
                 applySelect2();   
             }, function myError(r) {
                 toastr.error(r.data.message, 'Sorry!');

@@ -239,6 +239,8 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
                     $scope.status = res.data.status;
                     $scope.industrialExpData  = res.data.candidate_ind_exp;
                     $scope.oldOpprtunityFor  = res.data.opprtunity_for;
+                }else{
+                    toastr.error(response.data.message, 'Sorry!');
                 }
             }, function myError(r) {
                 toastr.error(r.data.message, 'Sorry!');
