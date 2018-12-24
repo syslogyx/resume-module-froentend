@@ -5,6 +5,10 @@
     label.error{
         color:#dd4b39;
     }
+    .btn.disabled, .btn[disabled]{
+
+        pointer-events: visiblepainted;
+    }
 </style>
 <section class="content" ng-cloak id="bgCheckForm">
     <br><br>
@@ -47,17 +51,14 @@
                         <!-- ng-if="bglist.candidate_checklist_docs.length == 0" -->
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-md-6 form-group"> 
+                                <div class="col-md-8 form-group"> 
                                     <label class="mandatory"> {{bglist.name}}</label>  
-                                    <input type="{{bglist.type}}" class="form-control upload_file" name="file[]" id="file_{{bglist.id}}" ng-model="file" ng-files="getTheFiles($files)" multiple="{{bglist.type =='file' ? 'true':'false'}}" ng-if="bglist.type=='file'" accept="image/*,application/pdf" required ng-disabled='bglist.displayFlag =="False"'>
-                                    <span style="color:#dd4b39;">{{bglist.displayFlag =="False" ? "Files Already Uploaded." : ""}}</span>
+                                    <input type="{{bglist.type}}" class="form-control upload_file" name="file[]" id="file_{{bglist.id}}" ng-model="file" ng-files="getTheFiles($files)" multiple="{{bglist.type =='file' ? 'true':'false'}}" ng-if="bglist.type=='file'" accept="image/*,application/pdf" required ng-disabled='bglist.displayFlag =="False"' title='{{bglist.displayFlag =="False" ? "Files Already Uploaded." : ""}}'>
+                                    <!-- <span style="color:#dd4b39;">{{bglist.displayFlag =="False" ? "Files Already Uploaded." : ""}}</span> -->
                                 </div>
                                 <div class="col-md-2" style="margin-top: 2.5%;">
-                                    <button type="button" class="btn btn-primary" ng-click="doc.uploadBgCheckForm(bglist.id,$index)" ng-disabled='bglist.displayFlag =="False"'>Upload File</button>
+                                    <button type="button" class="btn btn-primary" ng-click="doc.uploadBgCheckForm(bglist.id,$index)" ng-disabled='bglist.displayFlag =="False"' title='{{bglist.displayFlag =="False" ? "Files Already Uploaded." : ""}}'>Upload File</button>
                                 </div>
-                                <!-- <div class="col-md-4" style="margin-top: 3%;">
-                                    <label style="color:#dd4b39;">{{bglist.displayFlag =="False" ? "Files Already Uploaded." : ""}}</label>
-                                </div> -->
                             </div>
                         </div>
                     </form>
