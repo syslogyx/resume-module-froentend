@@ -85,7 +85,11 @@ app.controller('documentsCtrl', function ($scope,menuService,services,$cookieSto
                 $('#file').val('');
                 doc.init();
             }, function myError(r) {
-                toastr.error(r.data.message);
+                if(r.status_code == 500){
+                    toastr.error(r.message);
+                }else{
+                    toastr.error(r.data.message);
+                }
                 Utility.stopAnimation();
             }); 
         }
