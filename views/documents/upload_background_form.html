@@ -76,10 +76,18 @@
     // });
     //validation method to check uploaded files size
     $.validator.addMethod('filesize', function (value, element, param) {
-        if(element.files[0].size <= 10485760){
-            return true;
-        }else{
-            return false;
+        var lg = element.files.length; // get length
+        var fileSize = 0;
+       
+        if (lg > 0) {
+            for (var i = 0; i < lg; i++) {
+                fileSize = fileSize+element.files[i].size; // get file size
+            }
+            if(fileSize <= 10485760){
+                return true;
+            }else{
+                return false;
+            }
         }
     },"Individual file should not exceed 10 MB");
 
