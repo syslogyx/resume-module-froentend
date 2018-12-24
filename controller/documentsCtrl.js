@@ -10,8 +10,6 @@ app.controller('documentsCtrl', function ($scope,menuService,services,$cookieSto
     doc.init = function(){
         $scope.file='';
         doc.fetchCandidateInfo();
-        
-
     }
 
     doc.fetchCandidateInfo =  function(){

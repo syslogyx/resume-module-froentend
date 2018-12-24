@@ -44,11 +44,11 @@
                             <div class="row">
                                 <div class="col-md-6 form-group"> 
                                     <label class="mandatory"> {{bglist.name}}</label>  
-                                    <input type="{{bglist.type}}" class="form-control" name="file[]" id="file" ng-model="file" ng-files="getTheFiles($files)" multiple="{{bglist.type =='file' ? 'true':'false'}}" ng-if="bglist.type=='file'" accept="image/*,application/pdf" required>
+                                    <input type="{{bglist.type}}" class="form-control" name="file[]" id="file" ng-model="file" ng-files="getTheFiles($files)" multiple="{{bglist.type =='file' ? 'true':'false'}}" ng-if="bglist.type=='file'" accept="image/*,application/pdf" required ng-disabled='bglist.displayFlag =="False"'>
                                     <span style="color:#dd4b39;">{{fileSizeError}}</span>
                                 </div>
                                 <div class="col-md-2" style="margin-top: 2.5%;">
-                                    <button type="button" class="btn btn-primary" ng-click="doc.uploadBgCheckForm(bglist.id,$index)">Upload File</button>
+                                    <button type="button" class="btn btn-primary" ng-click="doc.uploadBgCheckForm(bglist.id,$index)" ng-disabled='bglist.displayFlag =="False"'>Upload File</button>
                                 </div>
                             </div>
                         </div>
