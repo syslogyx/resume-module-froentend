@@ -3,6 +3,10 @@ app.controller('documentsCtrl', function ($scope,menuService,services,$cookieSto
 	var doc = this;
     $scope.files = [];
 
+    var loggedInUser = services.getIdentity()==undefined?undefined:JSON.parse(services.getIdentity());
+    doc.email = loggedInUser == undefined ? undefined :loggedInUser.identity.email;
+    doc.mobile = loggedInUser == undefined ? undefined :loggedInUser.identity.mobile;
+
 	doc.downloadBgCheckForm = function(){
         var promise = services.downloadBackgroundForm();
     }
@@ -12,14 +16,11 @@ app.controller('documentsCtrl', function ($scope,menuService,services,$cookieSto
         doc.fetchCandidateInfo();
     }
 
-    doc.fetchCandidateInfo =  function(){
-        var loggedInUser = services.getIdentity()==undefined?undefined:JSON.parse(services.getIdentity());
-        var email = loggedInUser == undefined ? undefined :loggedInUser.identity.email;
-        var mobile = loggedInUser == undefined ? undefined :loggedInUser.identity.mobile;
-        if(email != undefined && mobile != undefined){
+    doc.fetchCandidateInfo =  function(){        
+        if(doc.email != undefined && doc.mobile != undefined){
             var req ={
-                "mobile":mobile,
-                "email":email
+                "mobile":doc.mobile,
+                "email":doc.email
             };
             var promise = services.getCandidateInfo(req);
             promise.then(function mySuccess(response) {
