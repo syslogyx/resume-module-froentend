@@ -13,27 +13,31 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
 
     var viewPath = $location.path().split("/")[1];
 
-     /* Getting login user info*/
+    /* Getting login user info */
     var loggedInUserName = JSON.parse($cookieStore.get('identity'));
     usr.logInUser  =  loggedInUserName.identity.name;
     usr.logInUserId  =  loggedInUserName.id;
     usr.logInUserRole  =  loggedInUserName.identity.role;
     usr.uniqueToken  =  loggedInUserName.identity.uniqueToken;
 
+    /* Function to show view of add user */
 	usr.addNewUser = function () {
         $location.path('/user/add_user');   
     }
+
+    /*Function to cancle add user view */
     usr.cancelUser = function() {
          $location.path('/user');
     }
 
-    /*Record limit for Users in pagination*/
+    /*Record limit for Users in pagination */
     setTimeout(function(){
         $('#table_length').on('change',function(){
             usr.fetchList(-1);
         });
     },100);
 
+    /* Function to fetch all users list */
     usr.fetchList = function(page){
         usr.limit = $('#table_length').val();
         if(usr.limit == undefined){
@@ -73,6 +77,7 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
         });
     }
 
+    /* Function to initialise user controller */
     usr.init = function () {
         usr.fetchList(-1);
 
@@ -91,7 +96,7 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
             Utility.stopAnimation();
         });
 
-        /* Editing perticular user*/
+        /* Editing perticular user */
         usr.id = $location.search()["id"];
         if (usr.id > 0) {
             var promise = services.getUserById(usr.id);
@@ -113,6 +118,7 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
 
     usr.init();
 
+    /* Function to create new user */
     usr.createUser = function(){
         if ($("#userForm").valid()) {
             var req = {
@@ -155,6 +161,7 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
         }
     }
 
+    /* Function to reset add user form */
     usr.resetForm = function(){
         $("div.form-group").each(function () {
             $(this).removeClass('has-error');
@@ -172,6 +179,7 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
         usr.init();
     }
 
+    /* Function to show user id and name in password change modal */
     usr.sendUserId=function(id,name){
         $('#changePasswordModal').modal({backdrop: 'static', keyboard: false});
         usr.userId=id;
@@ -181,6 +189,7 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
         },500);
     }
 
+    /* Function to update user password */
     usr.updatePassword=function(id){ 
         if(usr.newPassword!=usr.repeatPassword){
             usr.errMessage="Password not matched.";
@@ -221,6 +230,7 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
         }
     }
 
+    /* Function to refresh user filter form */
     usr.refreshUserfilter = function(){
         usr.filteUsername ='';
         usr.filterDesignation = '';
@@ -229,6 +239,7 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
         usr.fetchAllUsers(-1);
     }
 
+    /* Function to filter user list */
     usr.findFilterWithUser = function(page){
         usr.limit = $('#table_length').val();
         if(usr.limit == undefined){
@@ -278,6 +289,7 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
         });
     }
 
+    /* Pagination for filter user data */
     usr.applyPaginationForUser = function (pageData) {  
         //console.log(pageData);
         $('#pagination-sec').twbsPagination({

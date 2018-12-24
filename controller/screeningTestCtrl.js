@@ -98,6 +98,5 @@ app.controller('screeningTestCtrl', function ($scope, $rootScope, $http, service
     st.cancelTest= function() {
          $location.path('/resume_list');
     }
-
-    
+ 
 });

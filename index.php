@@ -242,7 +242,7 @@
             <div class="menuSec" ng-controller="menuCtrl" style="min-height: 50px;">
                 <footer class="main-footer" style="height: 50px;">
                     <div class="pull-right hidden-xs">
-                        <b>Version</b> 0
+                        <b>Version</b> 0.0
                     </div>
                     <strong>Copyright &copy; 2018 <a href="http://www.syslogyx.com/">Syslogyx Technologies Pvt. Ltd.</a></strong> All rights
                     reserved.
@@ -271,10 +271,6 @@
             </div>
             <!-- ./wrapper -->          
         </div>
-        <!-- <div data-ng-controller="sidebarCtrl" id="sidebarComponent">          
-                <div ng-include="'resources/templates/fund_request_info.html'"></div>
-                <div ng-include="'resources/templates/login_user_fund_request_list_info.html'"></div>
-        </div> -->
        
          <!-- jQuery 3 -->
         <script src="/resources/plugins/jQuery/jquery.min.js"></script>

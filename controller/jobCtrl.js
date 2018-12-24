@@ -22,20 +22,24 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
    // jb.changeStatus = 0;
    // jb.changeStatus = jb.jobStatusData[0].id;   
 
+    /* To fetch data according table length */
     setTimeout(function(){
         $('#table_length').on('change',function(){
             jb.fetchList(-1);
         });
     },100);
 
+    /* Function to open add job url */
     jb.addNewJob = function(){
     	$location.path('/jobs/add_job');
     }
 
+    /* To cancle add job form */
     jb.cancelJob = function() {
          $location.path('/jobs');
     }
 
+    /* Function to fetch all job list data */
     jb.fetchList = function(page){
         jb.limit = $('#table_length').val();
         if(jb.limit == undefined){
@@ -71,8 +75,8 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
         });
     }
 
+    /* Function to initialise job controller */
     jb.init = function(){
-
         jb.limit = $('#table_length').val();
         jb.fetchList(-1);        
 
@@ -107,6 +111,7 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
         }
     }
 
+    /* Function to reset add job form */
     jb.resetForm = function(){
     	$("div.form-group").each(function () {
             $(this).removeClass('has-error');
@@ -116,6 +121,7 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
         jb.changeStatus ='';
     }
 
+    /* Function to create/update job */
     jb.createJob = function(){
         if ($("#jobForm").valid()) {
 
@@ -189,9 +195,8 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
     //     }
     // }
 
+    /* Function to change job status by job id */
     jb.changeJobStatus = function(status,id){
-        // console.log(status);
-        // console.log(id); 
         swal({
             title: "Sure?",
             text: "Are you sure you want to change job status?",
