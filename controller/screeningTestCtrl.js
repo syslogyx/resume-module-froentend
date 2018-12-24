@@ -11,12 +11,12 @@ app.controller('screeningTestCtrl', function ($scope, $rootScope, $http, service
     st.options = RESOURCES.ANSWER_OPTIONS;
     st.statusData = RESOURCES.RESULT_STATUS;
 
+    /* Function to get all screening question list */
     st.getScreeningQuestion = function(){        
         var requestParam = {
             page:st.pageno,
             limit:st.limit,
         }
-
         var promise = services.getAllQuestionList(requestParam);
         promise.success(function (result) {
             Utility.stopAnimation();
@@ -35,6 +35,7 @@ app.controller('screeningTestCtrl', function ($scope, $rootScope, $http, service
 
     st.getScreeningQuestion();
    
+    /* Function to reset screening test result */
     st.resetForm = function(){
         $("div.form-group").each(function () {
             $(this).removeClass('has-error');
@@ -43,12 +44,14 @@ app.controller('screeningTestCtrl', function ($scope, $rootScope, $http, service
         });
     }
 
+    /* Function to open status conformation modal */
     st.onButtonsave = function(){
         if($("#screeningTestForm").valid()){
             $('#statusConfirmationModel').modal('show');
         }
     }
 
+    /* Function to submit screening test result */
     st.submitResult = function(){  
         if($("#changeStatusForm").valid()){            
             $data = st.questionList;
@@ -75,9 +78,6 @@ app.controller('screeningTestCtrl', function ($scope, $rootScope, $http, service
             console.log(request);
             var promise = services.saveResult(request);
             promise.then(function mySuccess(response) {
-                // console.log(response);
-                // console.log(response.data.message);
-                // debugger;
                 try {
                     // $location.path('/resume_list');
                     window.location = '/resume_list';
@@ -95,6 +95,7 @@ app.controller('screeningTestCtrl', function ($scope, $rootScope, $http, service
         }
     }
 
+    /* Function to cancle test form */
     st.cancelTest= function() {
          $location.path('/resume_list');
     }

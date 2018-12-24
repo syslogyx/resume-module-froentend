@@ -5,8 +5,10 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
       return false;
     }
 
+    /* Fetch login candidate info from cookies*/
     var loggedInUser = JSON.parse(services.getIdentity());
 
+    /* Menu selection according to user role */
     if(loggedInUser.identity.role==1){
         $scope.menuList = [
             {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"active"},
@@ -84,6 +86,7 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
         }
     });
 
+    /*Function to initialise menu controller */
     $scope.init = function () {
         $scope.token = services.getAuthKey();
         if ($scope.token != undefined) {
@@ -117,6 +120,7 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
     //   $scope.selectedIndex=i;
     // };
 
+    /*Function to get login user data */
     $scope.getUserData = function () {
         $scope.userpassword = '';
         var promise = services.getUserById($scope.userId);
@@ -140,6 +144,7 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
         });
     }
 
+    /*Function to update login user profile data */
     $scope.saveUser = function () {setCSS();
         if ($("#updateUserForm").valid()) {
             var req = {

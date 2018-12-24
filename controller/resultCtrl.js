@@ -16,20 +16,21 @@ app.controller("resultCtrl", function (services, AclService, $scope, $http, $loc
         "status":null
     }
 
+    /* Function to initialise result controller */
     res.init = function(){
     	res.getCandidateList();
     	res.getAllInterviewerList();
     	res.tecForm.candidate_id = $location.search()["cId"];
 	    res.tecForm.user_id = parseInt($location.search()["uId"]);
 	    res.tecForm.technical_round = $location.search()["round"].toString();
-	    
-	    // console.log(res.tecForm.user_id);
     }
 
+    /* Function to cancle interview result form */
     res.cancelResult = function() {
          $location.path('/interview_list');
     }
     
+    /* Function to submit interviewer result feedback form */
     res.submit = function(){
     	if($("#technicalInterviewResultForm").valid()){
     		console.log("true");
@@ -52,6 +53,7 @@ app.controller("resultCtrl", function (services, AclService, $scope, $http, $loc
     	}
     }
 
+    /* Function to get all interviewer list data */
     res.getAllInterviewerList = function(){        
         var promise = services.getInterviewerList();        
         promise.success(function (result) {
@@ -67,6 +69,7 @@ app.controller("resultCtrl", function (services, AclService, $scope, $http, $loc
         });
     } 
 
+    /* Function to get all candidate list */
     res.getCandidateList = function(){
     	var req = {
     		"page":0,
@@ -86,6 +89,7 @@ app.controller("resultCtrl", function (services, AclService, $scope, $http, $loc
         });
     }
 
+    /* Function to reset form */
     res.resetForm = function(){
     	res.getAllInterviewerList();
     	res.getCandidateList();

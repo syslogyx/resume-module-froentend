@@ -8,8 +8,8 @@ app.controller("loginCtrl", function (services, AclService, $scope, $http, $loca
 
     lgc.data = [];
 
+    /* function to login user with valid credentials */
     lgc.login = function () {
-      
         if ($("#loginForm").valid()) {
             Utility.startAnimation();
             // console.log(lgc.email)
@@ -75,7 +75,7 @@ app.controller("loginCtrl", function (services, AclService, $scope, $http, $loca
         }
     }
 
-    // forgot password
+    /* Function to redirect view for forgot password*/
     lgc.forgotpassword = function () {
         $location.path('/site/forget-password');
     }

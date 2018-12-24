@@ -6,22 +6,26 @@ app.controller('screeningCtrl', function ($scope, $rootScope, $http, services, $
     sc.title = 'Add New Question';  
     sc.pageno = 0;
     sc.limit = 0;
-    sc.questionList ='';    
+    sc.questionList =''; 
 
+    /*Record limit for screening questions in pagination */
     setTimeout(function(){
         $('#table_length').on('change',function(){
             sc.fetchList(-1);
         });
     },100);
 
+    /* Function to show add screening question view */
     sc.addNewJob = function(){
     	$location.path('/screening/add_question');
     }
 
+    /* Function to cancle add screening question view */
     sc.cancelQuestion= function() {
          $location.path('/questions');
     }
 
+    /* Function to fetch screening question list */
     sc.fetchList = function(page){
         sc.limit = $('#table_length').val();
         if(sc.limit == undefined){
@@ -57,16 +61,15 @@ app.controller('screeningCtrl', function ($scope, $rootScope, $http, services, $
         });
     }
 
+    /* Function to initialise screening controller */
     sc.init = function(){
-
         sc.limit = $('#table_length').val();
         sc.fetchList(-1);
-
+        /* To fetch get all strem list */
         var promise = services.getAllStreamList();
-            promise.success(function (result) {
+        promise.success(function (result) {
             Utility.stopAnimation();
             sc.streamList = result.data;
-           
         }, function myError(r) {
             toastr.error(r.data.message, 'Sorry!');
             Utility.stopAnimation();
@@ -94,6 +97,7 @@ app.controller('screeningCtrl', function ($scope, $rootScope, $http, services, $
         }
     }
 
+    /* Function to reset add new screening form */
     sc.resetForm = function(){
     	$("div.form-group").each(function () {
             $(this).removeClass('has-error');
@@ -102,6 +106,7 @@ app.controller('screeningCtrl', function ($scope, $rootScope, $http, services, $
         });
     }
 
+    /* Function to create new screening question */
     sc.createQuestion = function(){
         if ($("#questionForm").valid()) {
             var req ={

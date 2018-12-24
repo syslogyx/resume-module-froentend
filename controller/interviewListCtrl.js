@@ -2,6 +2,7 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
 
     var ilc = this;    
 
+    /* Fetch login candidate info from cookies*/
     var loggedInUser = JSON.parse(services.getIdentity());
     // console.log(loggedInUser.identity.role);
     ilc.logInUserRole = loggedInUser.identity.role;
@@ -14,19 +15,21 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
     ilc.userId = loggedInUser.identity.role==1?null:loggedInUser.id;
     ilc.candidateId = null;
    
+    /* Function to search user id */
     ilc.search = function (id, page) {       
         ilc.userId = id;
         ilc.fetchList(page);
        
     };
 
-    /*Record limit for Candidates in pagination*/
+    /*Record limit for Candidates in pagination */
     setTimeout(function(){
         $('#table_length').on('change',function(){
             ilc.fetchList(-1);
         });
     },100);
 
+    /* Function to initialise interview list controller */
     ilc.init = function(){
         ilc.fetchList(-1);
         ilc.getAllInterviewerList();
@@ -86,7 +89,7 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
         });
     }
 
-
+    /* function to get all interviewer list*/
     ilc.getAllInterviewerList = function(){        
         var promise = services.getInterviewerList();        
         promise.success(function (result) {
@@ -102,7 +105,7 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
         });
     } 
 
-
+    /* Function to convert time */
     ilc.tConvert = function(time) {
       // Check correct time format and split into components
       time = time.toString ().match (/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
@@ -115,6 +118,7 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
       return time.join (''); // return adjusted time or original string
     }
 
+    /* function to open jd list status modal */
     ilc.openChangeJdStatusModel = function($candidateId){
         ilc.candidate_id = $candidateId;
         if($candidateId){
@@ -130,6 +134,7 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
         $('#changeJdStatusModal').modal('show');
     }
 
+    /* function to change job description by candidate id */
     ilc.changeJobDescription = function(){
         if($("#changeJdStatusForm").valid()){
             var req = {
