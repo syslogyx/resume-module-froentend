@@ -18,33 +18,37 @@
             <!-- /.box-header -->
             <div class="box-body">  
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="mandatory" for="">Name</label>
-                            <input type="text" class="form-control" ng-model="bcl.bgChecklistName" name="bg_checklist_name" id="bg_checklist_name" placeholder="Enter name" >
-                        </div>
+                    <div class="col-md-4 form-group">
+                        <label class="mandatory" for="">Name</label>
+                        <input type="text" class="form-control" ng-model="bcl.bgChecklistName" name="bg_checklist_name" id="bg_checklist_name" placeholder="Enter name" >
+
                     </div>
-                    <div class="col-md-4">
+                    <!-- <div class="col-md-4">
                         <div class="form-group">
                             <label class="mandatory" for="">Mandatory Field</label>
                             <select id="mandatory_field" name="mandatory_field" class="form-control" placeholder="Enter mandatory field" ng-model="bcl.mandatoryField" ng-options="x.name as x.name for x in bcl.mandatoryFieldData" >
                                 <option value="" style="color:#ccc !important;">Select mandatory field</option>
                             </select>
                         </div>
+                    </div> -->
+                    <div class="col-md-4 form-group">
+                        <label class="" style="margin-bottom: 2.5%;">Field Type</label>
+                        <select id="field_type" ng-init="bcl.fieldType='file'" name="field_type" class="form-control" placeholder="Enter mandatory field" ng-model="bcl.fieldType" disabled>
+                            <option value="" style="color:#ccc !important;">Select field type</option>
+                            <option value="file" selected>File</option>
+                        </select>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Field Type</label>
-                            <select id="field_type" ng-init="bcl.fieldType='file'" name="field_type" class="form-control" placeholder="Enter mandatory field" ng-model="bcl.fieldType" disabled>
-                                <option value="" style="color:#ccc !important;">Select field type</option>
-                                <option value="file" selected>File</option>
-                            </select>
+                        <div style="margin-top: 8%">
+                            <input type="submit" value="Save" data-ng-click="bcl.createBackgroundChecklist()" class="btn btn-success" style="outline: 0;"/> 
+                            <input type="button" value="Cancel" class="btn btn-warning" data-ng-click="bcl.cancelBackgroundChecklist()"  style="outline: 0;"/> 
+                            <input  ng-if="bcl.title == 'Add New Background Checklist'" type="reset" value="Reset" ng-click="bcl.resetForm()" class="btn" style="outline: 0;"/> 
                         </div>
                     </div>
                 </div> 
             </div>
             <!-- /.box-body -->
-            <div class="box-footer" style="margin-right:14px!important">
+            <div class="box-footer" style="margin-right:14px!important;display: none">
                 <div class="pull pull-right">
                     <input type="submit" value="Save" data-ng-click="bcl.createBackgroundChecklist()" class="btn btn-success" style="outline: 0;"/> 
                     <input type="button" value="Cancel" class="btn btn-warning" data-ng-click="bcl.cancelBackgroundChecklist()"  style="outline: 0;"/> 
@@ -79,17 +83,17 @@
                 bg_checklist_name: {
                     required: true
                 },
-                mandatory_field: {
-                    required:true
-                }
+                // mandatory_field: {
+                //     required:true
+                // }
             },
             messages: {
                 bg_checklist_name: {
                     required: "Checklist name is required."
                 },
-                mandatory_field: {
-                    required: "Mandatory field is required."
-                }
+                // mandatory_field: {
+                //     required: "Mandatory field is required."
+                // }
             },
             highlight: function (element) { // hightlight error inputs
                 $(element).closest('.form-group').addClass('has-error');
