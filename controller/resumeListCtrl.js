@@ -28,12 +28,14 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     rlc.ctcFrom = null;
     rlc.ctcTo = null;
    
+   /*Function to filter candidate */
     rlc.searchCandidate = function () {
         if($('#candidateResumeFilterForm').valid()){
             rlc.fetchList(-1);       
         }
     };
     
+    /*Function to intialise datepicker */
     rlc.datepickerInit = function(){
         var date = new Date();
         date.setDate(date.getDate());
@@ -65,6 +67,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         // });
     }
 
+    /*Function to reset resume list filter */
     rlc.resetFilter = function(){
         rlc.jobCodeId = null;
         rlc.ctcFrom = null;
@@ -82,8 +85,9 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         rlc.fetchList(-1);
     }
 
+    /*Function to get all active job description list */
     rlc.getActiveJd = function(){
-         var promise = services.getAllActiveJDList();
+        var promise = services.getAllActiveJDList();
         promise.success(function (result) {
             Utility.stopAnimation();
             rlc.jobDetail = result.data; 
@@ -102,8 +106,6 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
 
     setTimeout(function() { rlc.datepickerInit();}, 1000);
     
-
-
     // rlc.applyPagination = function (pageData) {
     //     $('#pagination-sec').twbsPagination({
     //         totalPages: pageData.last_page,
@@ -196,12 +198,14 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         });
     }    
 
+    /*Function to initialise controller */
     rlc.init = function(){
         rlc.fetchList(-1);
         rlc.getAllInterviewerList();
         rlc.getActiveJd();
     }
 
+    /*Function to set total experiance of candidate */
     rlc.setTotalExperience = function(exp){
         if(exp % 1 !== '0'){
             expArray = exp.split('.');
@@ -211,14 +215,17 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         }
     }
 
+    /*Function to download resume pdf without contact */
     rlc.downloadResumePDFWithoutContact = function(id){        
         var promise = services.downloadResumePDFWithoutContact(id);
     }
 
+    /*Function to download resume document */
     rlc.downloadResumeDoc = function(id){        
         var promise = services.downloadResume(id);
     }
 
+    /*Function to get all interviewer list */
     rlc.getAllInterviewerList = function(){        
         var promise = services.getInterviewerList();        
         promise.success(function (result) {
@@ -234,6 +241,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         });
     }    
 
+    /*Function to open assign interviewer modal */
     rlc.openAssignInterviewerModal =function($candidateId,$status){
         rlc.candidateId = $candidateId;
         rlc.candidateStatus = $status;
@@ -242,6 +250,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         $('#assignStatusModel').modal('show');
     }
 
+    /* Function to schedule candidate interview */
     rlc.scheduleInterview = function(){
         if ($("#assignStatusForm").valid()) {
             var req = {
@@ -271,6 +280,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         }
     }
 
+    /* Function to reset form */
     rlc.resetForm = function(){
         $("#assignStatusForm")[0].reset();
         rlc.interviewerList = null;
@@ -282,7 +292,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         });
     }
 
-
+    /* Function to reset PDF form */
     rlc.resetPdfForm = function(){
         $("#pdfSettingForm")[0].reset();
         $("div.form-group").each(function () {
@@ -292,6 +302,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         });
     }
 
+    /* Function to open interview reshedule modal */
     rlc.openRescheduleModal = function(data){
         $scope.interviewRescheduleData = data;
         if($scope.interviewRescheduleData.length != null){
@@ -308,7 +319,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
 
     }
 
-
+    /* Function to reschedule candidate interview */
     rlc.reScheduleInterview = function(){
         if ($("#rescheduleForm").valid()) {
             var req = {
@@ -338,6 +349,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         }
     }
 
+    /* Function to open change candidate status modal */
     rlc.openChangeStatusModal = function(data){
         // $('#changeStatusModel').modal('show');
         // console.log(data['candidate_technical_result']);
@@ -351,6 +363,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         }
     }
 
+    /* Function to change candidate status */
     rlc.changeStatus = function(){
         if($('#changeStatusForm').valid()){
             var req = {
@@ -378,12 +391,14 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         }
     }
 
+    /* Function to get Pdf setting */
     rlc.downloadResumePDF = function(id){        
         // var promise = services.downloadResumePDF(id);
         rlc.Cid = id;
         rlc.getPdfSetting();
     }
 
+    /* Function to open pdf setting modal and get Pdf setting list */
     rlc.getPdfSetting = function(){
         rlc.seletedSection=[];
         var promise = services.getPdfSettingList();
@@ -404,26 +419,27 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         });
     }
 
+     /* Toggle selection for a given fruit by name
+    $scope.toggleSelection = function(sectionName) {
+        console.log(sectionName);        
+        var idx = rlc.seletedSection.indexOf(sectionName);
+        // Is currently selected
+        if (idx > -1) {
+          rlc.seletedSection.splice(idx, 1);
+        }
 
-    // Toggle selection for a given fruit by name
-    // $scope.toggleSelection = function(sectionName) {
-    //     console.log(sectionName);        
-    //     var idx = rlc.seletedSection.indexOf(sectionName);
-    //     // Is currently selected
-    //     if (idx > -1) {
-    //       rlc.seletedSection.splice(idx, 1);
-    //     }
+        // if(rlc.seletedSection.length > 0){
+        //     $('#pdfSettingForm')[0].reset();
+        // }
 
-    //     // if(rlc.seletedSection.length > 0){
-    //     //     $('#pdfSettingForm')[0].reset();
-    //     // }
+        // Is newly selected
+        else {
+          rlc.seletedSection.push(sectionName);
+        }
+    };
+    */
 
-    //     // Is newly selected
-    //     else {
-    //       rlc.seletedSection.push(sectionName);
-    //     }
-    // };
-
+    /* Function to download PDF with section selection setting */
     rlc.downloadPdfWithSectionSetting = function(){
         if($('#pdfSettingForm').valid()){
             console.log(rlc.seletedSection);
@@ -432,7 +448,9 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         }
     }
 
+    /* Function to show bg checklist modal and get all bg checklist */
     rlc.viewBgChecklistModal = function(candidateId){
+        rlc.candidateID = candidateId;
         $("#bgChecklistDocsModal").modal("show");
         setTimeout(function(){
             setCSS();
@@ -440,10 +458,23 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         
         var promise = services.getAllBgCheckList(candidateId,'resume_view');        
         promise.success(function (result) {
-                // console.log(result);
             if (result.data) {
                 rlc.bgChecklistDocList = result.data; 
-                console.log(rlc.interviewerList);
+                Utility.stopAnimation();                
+            }    
+        }, function myError(r) {
+            toastr.error(r.data.message, 'Sorry!');
+            Utility.stopAnimation();
+        });
+    }
+
+    /* Function to download zip file of all bg checklist doc */
+    rlc.downloadBgChecklistDocsZip = function(){
+        console.log(rlc.candidateID);
+        var promise = services.downloadBgCheckListDocZip(rlc.candidateID);        
+        promise.success(function (result) {
+            if (result.data) {
+                toastr.success(response.data.message); 
                 Utility.stopAnimation();                
             }    
         }, function myError(r) {
