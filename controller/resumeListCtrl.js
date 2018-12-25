@@ -34,7 +34,6 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         }
     };
     
-
     rlc.datepickerInit = function(){
         var date = new Date();
         date.setDate(date.getDate());
@@ -430,6 +429,10 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
             var promise = services.downloadResumePDF(rlc.Cid,$('#my-select').val().toString());
             $('#pdfSettingModel').modal('hide');
         }
+    }
+
+    rlc.viewBgChecklistModal = function(candidateId){
+        $("#bgChecklistDocsModal").modal("show");
     }
 
     rlc.init();

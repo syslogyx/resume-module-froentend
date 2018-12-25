@@ -169,8 +169,9 @@
                         <th>Mobile No.</th>                        
                         <th>Total Experience</th>                        
                         <th>Job Code</th>                        
-                        <th>CTC</th>                        
-                        <th style="text-align: center;display: none">Uploaded Docs</th>                        
+                        <th>CTC</th> 
+                        <!-- <th style="text-align: center;display:none">Download Resume</th> -->
+                        <th style="text-align: center;">Uploaded Docs</th>
                         <th style="text-align: center;width: 15px;">CV Export</th>
                        <!--  <th style="text-align: center;width: 15px;">CV w/o contact</th> -->
                         <th style="text-align: center;width:100px">Action</th>
@@ -187,8 +188,11 @@
                         <!-- <td ng-bind="data.job_description.title"></td> -->
                         <td>{{data.job_description.job_code}} {{data.job_description.sub_title != '' ? (data.job_description.sub_title) : ''}}</td>
                         <td ng-bind="data.ctc"></td>                        
-                        <td style="text-align: center;display: none">
+                        <!-- <td style="text-align: center;">
                             <a type="button" class="btn" title="Download Resume" ng-click="rlc.downloadResumeDoc(data.id)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-download" aria-hidden="true"></i></a>
+                        </td> -->
+                        <td style="text-align: center;">
+                            <a type="button" class="btn" title="View Uploaded document List" ng-click="rlc.viewBgChecklistModal(data.id)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-eye" aria-hidden="true"></i></a>
                         </td>
                         <td style="text-align: center;" nowrap> 
                             <a type="button" class="btn" title="Download PDF" ng-click="rlc.downloadResumePDF(data.id)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;color: red;" class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
@@ -434,6 +438,46 @@
         </div>
     </div>
     <!-- End download pdf setting Model -->
+
+    <!-- Start Bg checklist document list Model -->
+    <div class="modal fade bgChecklistDocsModal" id="bgChecklistDocsModal" role="dialog">
+        <div class="modal-dialog modal-md">
+            <form id="bgChecklistDocsForm">
+                <div class="modal-content" style="border-radius: 0px!important;" >
+                    <div class="modal-header" id="popUpModalHeader">    <button type="button" class="close"data-dismiss="modal" style="margin-right: 5px;">&times;</button>
+                        <h4 class="modal-title popUpModalTitle">Background Checklist Document List</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="table-responsive no-padding">
+                                <table class="table table-hover">
+                                    <thead class="thead-default">
+                                        <tr>
+                                            <!-- <th style="text-align: center;">Sr No.</th> -->
+                                            <th>Background Checklist Name</th>
+                                            <th>Uploaded Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="data in rlc.bgChecklistDocList ">
+                                            <!-- <td style="text-align: center;" ng-bind="(rlc.pageno - 1) * rlc.limit + ($index + 1)"></td> -->
+                                            <td>{{data.name}}</td>
+                                            <td>{{data.displayStatus}}</td>
+                                        </tr>
+                                    <tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="margin-top: 0px;"> 
+                        <button type="button" id="changeStatusBtn" class="btn btn-primary"  data-ng-click="downloadBgChecklistDocsZip();" >Download Document Zip File</button>
+                        <button type="reset" id="closeModal" class="btn btn-warning"  data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- End Bg checklist document list Model -->
 
     
 </section>
