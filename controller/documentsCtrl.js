@@ -45,7 +45,7 @@ app.controller('documentsCtrl', function ($scope,menuService,services,$cookieSto
     /* Function to get all bg_checklist data */
     doc.getBackgroundCheckList = function(){
         console.log(doc.candidate_id);
-        var promise = services.getAllBgCheckList(doc.candidate_id);
+        var promise = services.getAllBgCheckList(doc.candidate_id,'candidate_view');
             promise.success(function (result) {
             Utility.stopAnimation();
             doc.backgroundCheckList = result.data;   

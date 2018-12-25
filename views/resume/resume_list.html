@@ -32,6 +32,12 @@
 
 
     }
+    .check-green{
+        color:#4cae4c;
+    }
+    .check-red{
+        color:#dd4b39;
+    }
 </style>
 <section class="content" ng-cloak  id="resumeListCtrl">
     <div class="container-fluid" style="overflow-y: hidden;">
@@ -462,9 +468,12 @@
                                     <tbody>
                                         <tr ng-repeat="data in rlc.bgChecklistDocList ">
                                             <!-- <td style="text-align: center;" ng-bind="(rlc.pageno - 1) * rlc.limit + ($index + 1)"></td> -->
-                                            <th><i style="margin-left: 5px;" class="fa fa-asterisk" aria-hidden="true"></i></th>
+                                            <td><i style="margin-left: 5px;" class="fa fa-asterisk" aria-hidden="true"></i></td>
                                             <td>{{data.name}}</td>
-                                            <td style="text-align: center;width: 20%;"><i class= "{{data.displayFlag =='False' ? 'fa fa-check':'fa fa-close' }}" aria-hidden="true" ng-style="data.displayFlag =='False' && {'color':'green'}  || data.displayFlag == 'True' && {'color':'red'}" style="margin-left: 5px;font-size: 15px;"></i></td>
+                                            <td style="text-align: center;width: 20%;"><i class= "{{data.displayFlag =='False' ? 'fa fa-check check-green':'fa fa-close check-red' }}" aria-hidden="true" style="margin-left: 5px;font-size: 15px;" title="{{data.displayFlag =='False' ? 'File uploaded' : 'Not  uploaded yet'}}"></i></td>
+                                        </tr>
+                                        <tr ng-if="rlc.bgChecklistDocList == null || rlc.bgChecklistDocList.length == 0">
+                                            <td style="text-align: center;" colspan="3">No Records Found</td> 
                                         </tr>
                                     <tbody>
                                 </table>
