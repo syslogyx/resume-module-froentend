@@ -1178,15 +1178,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
     };
 
     this.downloadBgCheckListDocZip = function (candidateId) {
-        Utility.startAnimation();
-        return $http({
-            method: 'GET',
-            url: RESOURCES.SERVER_API + "download_bg_documents?candidate_id="+candidateId,
-            dataType: 'json',
-            headers: {
-                'Content-Type': RESOURCES.CONTENT_TYPE
-            }
-        })
+        window.open(RESOURCES.SERVER_API +'download_bg_documents?candidate_id='+candidateId);
     };
 
 });

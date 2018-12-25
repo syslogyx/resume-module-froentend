@@ -471,16 +471,9 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     /* Function to download zip file of all bg checklist doc */
     rlc.downloadBgChecklistDocsZip = function(){
         console.log(rlc.candidateID);
-        var promise = services.downloadBgCheckListDocZip(rlc.candidateID);        
-        promise.success(function (result) {
-            if (result.data) {
-                toastr.success(response.data.message); 
-                Utility.stopAnimation();                
-            }    
-        }, function myError(r) {
-            toastr.error(r.data.message, 'Sorry!');
-            Utility.stopAnimation();
-        });
+        var promise = services.downloadBgCheckListDocZip(rlc.candidateID);
+        $("#bgChecklistDocsModal").modal("hide");
+        toastr.success('Downloaded successfully..!!');
     }
 
     rlc.init();
