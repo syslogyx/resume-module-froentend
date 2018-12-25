@@ -449,9 +449,13 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     }
 
     /* Function to show bg checklist modal and get all bg checklist */
-    rlc.viewBgChecklistModal = function(candidateId){
+    rlc.viewBgChecklistModal = function(candidateId,candidate_bg_documents){
+        $("#downloadZipBtn").attr('disabled',false);
         rlc.candidateID = candidateId;
         $("#bgChecklistDocsModal").modal("show");
+        if(candidate_bg_documents.length <=0){
+            $("#downloadZipBtn").attr('disabled',true);
+        }
         setTimeout(function(){
             setCSS();
         },200);

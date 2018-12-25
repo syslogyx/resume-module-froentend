@@ -198,7 +198,7 @@
                             <a type="button" class="btn" title="Download Resume" ng-click="rlc.downloadResumeDoc(data.id)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-download" aria-hidden="true"></i></a>
                         </td> -->
                         <td style="text-align: center;">
-                            <a type="button" class="btn" title="View Uploaded document List" ng-click="rlc.viewBgChecklistModal(data.id)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-eye" aria-hidden="true"></i></a>
+                            <a type="button" class="btn" title="View Uploaded document List" ng-click="rlc.viewBgChecklistModal(data.id,data.candidate_bg_documents)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-eye" aria-hidden="true"></i></a>
                         </td>
                         <td style="text-align: center;" nowrap> 
                             <a type="button" class="btn" title="Download PDF" ng-click="rlc.downloadResumePDF(data.id)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;color: red;" class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
@@ -481,7 +481,7 @@
                         </div>
                     </div>
                     <div class="modal-footer" style="margin-top: 0px;"> 
-                        <button type="button" id="changeStatusBtn" class="btn btn-primary"  data-ng-click="rlc.downloadBgChecklistDocsZip();">Download Document Zip</button>
+                        <button type="button" id="downloadZipBtn" class="btn btn-primary"  data-ng-click="rlc.downloadBgChecklistDocsZip();">Download Document Zip</button>
                         <button type="reset" id="closeModal" class="btn btn-warning"  data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
