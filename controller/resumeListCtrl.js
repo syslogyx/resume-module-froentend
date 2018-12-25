@@ -384,8 +384,6 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         rlc.getPdfSetting();
     }
 
-    
-
     rlc.getPdfSetting = function(){
         rlc.seletedSection=[];
         var promise = services.getPdfSettingList();
@@ -396,6 +394,9 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
                 $('#my-select').multiSelect();
             },200)
             $('#pdfSettingModel').modal('show');
+            setTimeout(function(){
+                setCSS();
+            },200);
             
         }, function myError(r) {
             toastr.error(r.data.message, 'Sorry!');
@@ -433,6 +434,22 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
 
     rlc.viewBgChecklistModal = function(candidateId){
         $("#bgChecklistDocsModal").modal("show");
+        setTimeout(function(){
+            setCSS();
+        },200);
+        
+        var promise = services.getAllBgCheckList(candidateId,'resume_view');        
+        promise.success(function (result) {
+                // console.log(result);
+            if (result.data) {
+                rlc.bgChecklistDocList = result.data; 
+                console.log(rlc.interviewerList);
+                Utility.stopAnimation();                
+            }    
+        }, function myError(r) {
+            toastr.error(r.data.message, 'Sorry!');
+            Utility.stopAnimation();
+        });
     }
 
     rlc.init();

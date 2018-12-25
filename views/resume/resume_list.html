@@ -448,21 +448,23 @@
                         <h4 class="modal-title popUpModalTitle">Background Checklist Document List</h4>
                     </div>
                     <div class="modal-body">
-                        <div class="row">
+                        <div class="row ">
                             <div class="table-responsive no-padding">
                                 <table class="table table-hover">
                                     <thead class="thead-default">
                                         <tr>
                                             <!-- <th style="text-align: center;">Sr No.</th> -->
+                                            <th></th>
                                             <th>Background Checklist Name</th>
-                                            <th>Uploaded Status</th>
+                                            <th style="text-align: center;width: 20%;">Uploaded Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="data in rlc.bgChecklistDocList ">
                                             <!-- <td style="text-align: center;" ng-bind="(rlc.pageno - 1) * rlc.limit + ($index + 1)"></td> -->
+                                            <th><i style="margin-left: 5px;" class="fa fa-asterisk" aria-hidden="true"></i></th>
                                             <td>{{data.name}}</td>
-                                            <td>{{data.displayStatus}}</td>
+                                            <td style="text-align: center;width: 20%;"><i class= "{{data.displayFlag =='False' ? 'fa fa-check':'fa fa-close' }}" aria-hidden="true" ng-style="data.displayFlag =='False' && {'color':'green'}  || data.displayFlag == 'True' && {'color':'red'}" style="margin-left: 5px;font-size: 15px;"></i></td>
                                         </tr>
                                     <tbody>
                                 </table>
@@ -470,7 +472,7 @@
                         </div>
                     </div>
                     <div class="modal-footer" style="margin-top: 0px;"> 
-                        <button type="button" id="changeStatusBtn" class="btn btn-primary"  data-ng-click="downloadBgChecklistDocsZip();" >Download Document Zip File</button>
+                        <button type="button" id="changeStatusBtn" class="btn btn-primary"  data-ng-click="downloadBgChecklistDocsZip();" >Download Document Zip</button>
                         <button type="reset" id="closeModal" class="btn btn-warning"  data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
@@ -904,6 +906,27 @@
 
     }); 
 
+    function setCSS(){
+        if($('.modal').is(':visible') == true){
+            console.log("Modal is open");
+            $('header').css('z-index', '900');
+            $('footer').css('z-index', '900');
+        }else{
+            $('header').css('z-index', '1053');
+            $('footer').css('z-index', '1053');
+        }
+    }
+    setCSS();
+</script>
+<script>
+    $(document).ready(function () {
+        $("html, body").animate({scrollTop: 0}, "fast");
+        $('.modal').on('hidden.bs.modal', function (e) {
+            console.log("Modal is closed");
+            $('header').css('z-index', '1053');
+            $('footer').css('z-index', '1053');
+        })
+    });
     function setCSS(){
         if($('.modal').is(':visible') == true){
             console.log("Modal is open");
