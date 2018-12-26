@@ -132,6 +132,7 @@ app.constant('RESOURCES', (function () {
        
         // SERVER_API:"http://172.16.1.155:8080/api/"
         SERVER_API: Utility.apiBaseUrl,
+        SERVER_URL: 'https://recruitmentapi.syslogyx.com/',
         CONTENT_TYPE: 'application/x-www-form-urlencoded; charset=UTF-8',
         COMPANY_NAME: 'Syslogyx Technologies Pvt. Ltd.',
         COMPANY_ID: 3,
@@ -1177,8 +1178,21 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
-    this.downloadBgCheckListDocZip = function (candidateId) {
-        window.open(RESOURCES.SERVER_API +'download_bg_documents?candidate_id='+candidateId);
+    this.createBgCheckListDocZip = function (candidateId) {
+        Utility.startAnimation();
+        return $http({
+            method: 'GET',
+            url: RESOURCES.SERVER_API + 'download_bg_documents?candidate_id='+candidateId,
+            dataType: 'json',
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+         // window.open(RESOURCES.SERVER_API +'download_bg_documents?candidate_id='+candidateId);
+    };
+
+    this.downloadBgCheckListDocZip = function (candidateName) {        
+        window.open(RESOURCES.SERVER_URL +'app/public/'+candidateName+'.zip');        
     };
 
 });
