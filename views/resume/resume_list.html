@@ -38,6 +38,44 @@
     .check-red{
         color:#dd4b39;
     }
+
+    
+    /*.searchbar ul {
+      float: left;
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #333333;
+    }
+
+    .searchbar li {
+      float: left;
+    }
+
+    .searchbar li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      text-decoration: none;
+    }
+
+    .searchbar li a:hover {
+      background-color: #111111;
+    }*/
+    /*.searchbar .selected{
+        color:red;
+    }
+    .searchbar .deselected{
+        color:red;
+    }*/
+    .blue{
+        color:#428bca;
+    }
+    .red{
+        color:red;
+    }
 </style>
 <section class="content" ng-cloak  id="resumeListCtrl">
     <div class="container-fluid" style="overflow-y: hidden;">
@@ -58,11 +96,27 @@
                     entries</label>
                 </div>
             </div> 
+            <!-- <div class="col-md-2" style="margin-top:1.5%;">
+                <label>Sort by Alphabet</label> 
+                <select id="alphabetic_sort" style="outline: 0;">
+                    <option value="{{alpabet}}" ng-repeat="alpabet in rlc.alphabet">{{alpabet}}</option>
+                </select>
+            </div> -->
             <div class="col-md-2 pull-right" style="margin-top:1%;">
                 <button type="button" class="btn btn-primary btn-circle btn-sm pull-right" data-toggle="collapse" title="Filter" data-target="#filter"><i class="fa fa-filter" aria-hidden="true" style="padding-right:0.3px"></i></button>
             </div>         
         </div> 
         <br> 
+
+        <div class="row">
+            <div class="col-xs-12 searchbar">                
+                <label style="float: left">Sort by Alphabet : &nbsp; </label> 
+                <ul class="alpabet-list" ng-repeat="alpabet in rlc.alphabet" style="float: left;list-style-type: none;padding-right:1%">
+                    <li><a ng-class="alpabet=='All'?'red sort-alphabet':'blue sort-alphabet'" id="alpabet_{{$index}}" ng-click="rlc.onAlphabetClick(alpabet,$index)">{{alpabet}}</a></li>
+                </ul>
+            </div>
+        </div>
+        <br>
 
         <div class="box box-primary collapse" id="filter">
             <div class="box-body">

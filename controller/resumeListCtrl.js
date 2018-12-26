@@ -27,6 +27,41 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     rlc.jobCodeId = null;
     rlc.ctcFrom = null;
     rlc.ctcTo = null;
+
+    rlc.alphabet = ['All'];
+
+    function genCharArray(charA, charZ) {
+        i = charA.charCodeAt(0), 
+        j = charZ.charCodeAt(0);
+        for (; i <= j; ++i) {
+            rlc.alphabet.push(String.fromCharCode(i));
+        }
+        return rlc.alphabet;
+    }
+
+    genCharArray('A', 'Z');
+
+    rlc.onAlphabetClick = function(data,index){
+        // console.log(index);
+        // console.log($('#alpabet_'+index)[0].id);
+        
+        rlc.alpha = data;
+        // console.log(rlc.alpha);
+        rlc.fetchList(-1);
+        $('.alpabet-list').each(function(e){
+            console.log($(this).find('li a')[0].id);
+            if($(this).find('li a')[0].id == $('#alpabet_'+index)[0].id){
+                // $('#alpabet_'+index).removeClass('blue');
+                $('#alpabet_'+index).addClass('red');
+                // console.log("set red");
+            }else{
+                $(this).find('li a').removeClass('red');
+                $(this).find('li a').addClass('blue');
+                // console.log("set blue");
+            }
+        });
+        // $('#alpabet_'+index).addClass('selected');
+    }
    
    /*Function to filter candidate */
     rlc.searchCandidate = function () {
@@ -81,7 +116,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
             $(this).removeClass('has-error');
             $('span.help-block-error').remove();
             applySelect2();
-        });     
+        }); 
         rlc.fetchList(-1);
     }
 
@@ -102,31 +137,19 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         $('#table_length').on('change',function(){
             rlc.fetchList(-1);
         });
+
+        $('#alphabetic_sort').on('change',function(){
+            rlc.fetchList(-1);
+        });
     },100);
 
     setTimeout(function() { rlc.datepickerInit();}, 1000);
-    
-    // rlc.applyPagination = function (pageData) {
-    //     $('#pagination-sec').twbsPagination({
-    //         totalPages: pageData.last_page,
-    //         visiblePages: 5,
-    //         first: '',
-    //         last: '',
-    //         onPageClick: function (event, page) {
-    //             // console.log('Page: ' + page);
-    //             if (rlc.skip) {
-    //                 rlc.skip = false;
-    //                 return;
-    //             }
-    //             rlc.fetchAllCandidates(page);
-    //             $("html, body").animate({ scrollTop: 0 }, "slow");
-    //         }
-    //     });
-    // }
 
     /*pagination for Candidates*/
     rlc.fetchList = function(page){
         rlc.limit = $('#table_length').val();
+        // var alphabet = $('#alphabetic_sort').val();
+
         if(rlc.limit == undefined){
             rlc.limit = -1;
         }
@@ -166,6 +189,8 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         //    $toTotal_Exp = ''; 
         // }
 
+        console.log(rlc.alpha);
+
         var req = {
             'job_description_id':rlc.jobCodeId,
             // 'ctc':rlc.ctcKey,
@@ -174,7 +199,9 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
             // 'from_total_experience':$fromTotal_Exp,
             // 'to_total_experience':$toTotal_Exp 
             'from_total_experience':rlc.fromTotalYearExperiance,
-            'to_total_experience':rlc.toTotalYearExperiance
+            'to_total_experience':rlc.toTotalYearExperiance,
+            // 'search_alphabet':alphabet
+            'search_alphabet':rlc.alpha
         }
 
         var requestParam = {
@@ -200,6 +227,8 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
 
     /*Function to initialise controller */
     rlc.init = function(){
+        // rlc.onAlphabetClick('All','0');
+        // console.log();
         rlc.fetchList(-1);
         rlc.getAllInterviewerList();
         rlc.getActiveJd();
