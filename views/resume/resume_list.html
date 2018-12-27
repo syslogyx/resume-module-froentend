@@ -29,8 +29,9 @@
         #deselect-all-div{
             padding-left: 0px;
         }
-
-
+        #select-all-div_for_zip{
+            padding-left: 5% !important;
+        }
     }
     .check-green{
         color:#4cae4c;
@@ -76,6 +77,23 @@
     .red{
         color:red;
     }
+    .listanchor{
+        cursor: pointer;
+    }
+    .rowMargin{
+        margin-left:0px;
+        margin-right:0px;
+    }
+    div#ms-my-select_for_zip{
+        width:100%;
+    }
+    #select-all-div_for_zip{
+        padding-left: 2%;
+    }
+    #deselect-all-div_for_zip{
+        padding-left: 5%;
+    }
+
 </style>
 <section class="content" ng-cloak  id="resumeListCtrl">
     <div class="container-fluid" style="overflow-y: hidden;">
@@ -107,16 +125,6 @@
             </div>         
         </div> 
         <br> 
-
-        <div class="row">
-            <div class="col-xs-12 searchbar">                
-                <label style="float: left">Sort by Alphabet : &nbsp; </label> 
-                <ul class="alpabet-list" ng-repeat="alpabet in rlc.alphabet" style="float: left;list-style-type: none;padding-right:1%">
-                    <li><a ng-class="alpabet=='All'?'red sort-alphabet':'blue sort-alphabet'" id="alpabet_{{$index}}" ng-click="rlc.onAlphabetClick(alpabet,$index)">{{alpabet}}</a></li>
-                </ul>
-            </div>
-        </div>
-        <br>
 
         <div class="box box-primary collapse" id="filter">
             <div class="box-body">
@@ -217,7 +225,17 @@
                     </div>
                 </form>
             </div>
-        </div>       
+        </div>     
+
+        <div class="row">
+            <div class="col-xs-12 searchbar">                
+                <label style="float: left">Sort by Alphabet : &nbsp; </label> 
+                <ul class="alpabet-list" ng-repeat="alpabet in rlc.alphabet" style="float: left;list-style-type: none;padding-right:1%">
+                    <li><a ng-class="alpabet=='All'?'red sort-alphabet':'blue sort-alphabet'" id="alpabet_{{$index}}" ng-click="rlc.onAlphabetClick(alpabet,$index)">{{alpabet}}</a></li>
+                </ul>
+            </div>
+        </div>
+        <br>  
         
         <div class="table-responsive no-padding">
             <table class="table table-hover">
@@ -481,10 +499,10 @@
                             <div class="row">
                                 <div col="col-md-12">      
                                     <div id="select-all-div" class="col-md-6 form-group">
-                                        <a href='#' id='select-all'>select all</a>
+                                        <a href='#' id='select-all'>Select All</a>
                                     </div>
                                     <div id="deselect-all-div" class="col-md-6 form-group">                                        
-                                        <a href='#' id='deselect-all'>deselect all</a>
+                                        <a href='#' id='deselect-all'>Deselect All</a>
                                     </div>
                                 </div>
                             </div>                  
@@ -500,38 +518,70 @@
     <!-- End download pdf setting Model -->
 
     <!-- Start Bg checklist document list Model -->
-    <div class="modal fade bgChecklistDocsModal" id="bgChecklistDocsModal" role="dialog">
+    <div class="modal fade bgChecklistDocsModal1" id="bgChecklistDocsModal1" role="dialog">
         <div class="modal-dialog modal-md">
             <form id="bgChecklistDocsForm">
                 <div class="modal-content" style="border-radius: 0px!important;" >
                     <div class="modal-header" id="popUpModalHeader">    <button type="button" class="close"data-dismiss="modal" style="margin-right: 5px;">&times;</button>
-                        <h4 class="modal-title popUpModalTitle">Background Checklist Document List</h4>
+                        <h4 class="modal-title popUpModalTitle">Background Checklist Document List And CV Zip Download</h4>
                     </div>
                     <div class="modal-body">
                         <div class="row ">
-                            <div class="table-responsive no-padding">
-                                <table class="table table-hover">
-                                    <thead class="thead-default">
-                                        <tr>
-                                            <!-- <th style="text-align: center;">Sr No.</th> -->
-                                            <th></th>
-                                            <th>Background Checklist Name</th>
-                                            <th style="text-align: center;width: 20%;">Uploaded Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="data in rlc.bgChecklistDocList ">
-                                            <!-- <td style="text-align: center;" ng-bind="(rlc.pageno - 1) * rlc.limit + ($index + 1)"></td> -->
-                                            <td><i style="margin-left: 5px;" class="fa fa-asterisk" aria-hidden="true"></i></td>
-                                            <td>{{data.name}}</td>
-                                            <td style="text-align: center;width: 20%;"><i class= "{{data.displayFlag =='False' ? 'fa fa-check check-green':'fa fa-close check-red' }}" aria-hidden="true" style="margin-left: 5px;font-size: 15px;" title="{{data.displayFlag =='False' ? 'File uploaded' : 'Not  uploaded yet'}}"></i></td>
-                                        </tr>
-                                        <tr ng-if="rlc.bgChecklistDocList == null || rlc.bgChecklistDocList.length == 0">
-                                            <td style="text-align: center;" colspan="3">No Records Found</td> 
-                                        </tr>
-                                    <tbody>
-                                </table>
-                            </div>
+                                    <form id="pdfSettingFormForZip">   
+                                        <div class="row form-group">                        
+                                            <div col="col-md-12">                                    
+                                                <select multiple="multiple" id="my-selectForZip" name="selectedSectionNamesForZip[]">
+                                                    <option ng-repeat="sec in rlc.pdfSectionsNameList" value="{{sec.id}}" selected>{{sec.section_name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div col="col-md-12">      
+                                                <div id="select-all-div" class="col-md-6 form-group">
+                                                    <a href='#' id='select-all'>select all</a>
+                                                </div>
+                                                <div id="deselect-all-div" class="col-md-6 form-group">                                        
+                                                    <a href='#' id='deselect-all'>deselect all</a>
+                                                </div>
+                                            </div>
+                                        </div>                  
+                                    </form>
+                        </div>
+                        <hr>
+                        <div class="row ">
+                                <div class="col-md-12">
+                                    <div class="table-responsive no-padding">
+                                        <table class="table table-hover">
+                                            <thead class="thead-default">
+                                                <tr>
+                                                    <!-- <th style="text-align: center;">Sr No.</th> -->
+                                                    <th></th>
+                                                    <th>Background Checklist Name</th>
+                                                    <th style="text-align: center;width: 20%;">Uploaded Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <!-- <td style="text-align: center;" ng-bind="(rlc.pageno - 1) * rlc.limit + ($index + 1)"></td> -->
+                                                    <td><i style="margin-left: 5px;" class="fa fa-asterisk" aria-hidden="true"></i></td>
+                                                    <td>Candidate Resume</td>
+                                                    <td style="text-align: center;width: 20%;"><i class= "fa fa-check check-green" aria-hidden="true" style="margin-left: 5px;font-size: 15px;" title="File uploaded"></i></td>
+                                                </tr>
+                                                <tr ng-repeat="data in rlc.bgChecklistDocList ">
+                                                    <!-- <td style="text-align: center;" ng-bind="(rlc.pageno - 1) * rlc.limit + ($index + 1)"></td> -->
+                                                    <td><i style="margin-left: 5px;" class="fa fa-asterisk" aria-hidden="true"></i></td>
+                                                    <td>{{data.name}}</td>
+                                                    <td style="text-align: center;width: 20%;"><i class= "{{data.displayFlag =='False' ? 'fa fa-check check-green':'fa fa-close check-red' }}" aria-hidden="true" style="margin-left: 5px;font-size: 15px;" title="{{data.displayFlag =='False' ? 'File uploaded' : 'Not  uploaded yet'}}"></i></td>
+                                                </tr>
+                                                <tr ng-if="rlc.bgChecklistDocList == null || rlc.bgChecklistDocList.length == 0">
+                                                    <td style="text-align: center;" colspan="3">No Records Found</td> 
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                            <!-- </div> -->
                         </div>
                     </div>
                     <div class="modal-footer" style="margin-top: 0px;"> 
@@ -540,6 +590,99 @@
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+    <!-- End Bg checklist document list Model -->
+
+    <!-- Start Bg checklist document list Model -->
+    <div class="modal fade bgChecklistDocsModal" id="bgChecklistDocsModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="border-radius: 0px!important;" >
+                <div class="modal-header" id="popUpModalHeader">    <button type="button" class="close"data-dismiss="modal" style="margin-right: 5px;">&times;</button>
+                    <h4 class="modal-title popUpModalTitle">Document List of Background Checklist And CV </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 form-group" style='margin-left: 2%;'>
+                            <span> <b style="color:#dd4b39;">NOTE: </b><br> * Please select atleast one section name to add in cv.</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel-body">
+                                <div class="nav-tabs-custom ">
+                                    <ul class="nav nav-tabs" style="background-color:#e1e9f1">
+                                        <li  class="active listanchor" id='bg_checklist_li'><a data-target="#bg_checklist" data-toggle="tab"><b>Background Checklist Document List</b></a></li>
+                                        <li id='cv_selection_list_li'><a class="listanchor" data-target="#cv_selection_list" data-toggle="tab"><b>Section List For CV</b></a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="active tab-pane" id="bg_checklist">
+                                            <div class="row ">
+                                                <div class="col-md-12">
+                                                    <div class="table-responsive no-padding">
+                                                        <table class="table table-hover">
+                                                            <thead class="thead-default">
+                                                                <tr> 
+                                                                    <th></th>
+                                                                    <th>Background Checklist Name</th>
+                                                                    <th style="text-align: center;width: 20%;">Uploaded Status</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td><i style="margin-left: 5px;" class="fa fa-asterisk" aria-hidden="true"></i></td>
+                                                                    <td>Candidate Resume</td>
+                                                                    <td style="text-align: center;width: 20%;"><i class= "fa fa-check check-green" aria-hidden="true" style="margin-left: 5px;font-size: 15px;" title="File uploaded"></i></td>
+                                                                </tr>
+                                                                <tr ng-repeat="data in rlc.bgChecklistDocList ">
+                                                                    <td><i style="margin-left: 5px;" class="fa fa-asterisk" aria-hidden="true"></i></td>
+                                                                    <td>{{data.name}}</td>
+                                                                    <td style="text-align: center;width: 20%;"><i class= "{{data.displayFlag =='False' ? 'fa fa-check check-green':'fa fa-close check-red' }}" aria-hidden="true" style="margin-left: 5px;font-size: 15px;" title="{{data.displayFlag =='False' ? 'File uploaded' : 'Not  uploaded yet'}}"></i></td>
+                                                                </tr>
+                                                                <tr ng-if="rlc.bgChecklistDocList == null || rlc.bgChecklistDocList.length == 0">
+                                                                    <td style="text-align: center;" colspan="3">No Records Found</td> 
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                        <div class="tab-pane" id="cv_selection_list">
+                                            <div class="row rowMargin">
+                                                <div col="col-md-12">
+                                                    <form id="pdfSettingFormForZip">   
+                                                        <div class="row form-group rowMargin">               
+                                                            <div col="col-md-12">                    
+                                                                <select multiple="multiple" id="my-select_for_zip" name="selectedSectionNamesForZip[]">
+                                                                    <option ng-repeat="sec in rlc.pdfSectionsNameList" value="{{sec.id}}" selected>{{sec.section_name}}</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div col="col-md-12">      
+                                                                <div id="select-all-div_for_zip" class="col-md-6 form-group" >
+                                                                    <a href='#' id='select-all_for_zip'>Select All</a>
+                                                                </div>
+                                                                <div id="deselect-all-div_for_zip" class="col-md-6 form-group">         
+                                                                    <a href='#' id='deselect-all_for_zip'>Deselect All</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>                  
+                                                    </form>
+                                                </div>
+                                            </div>      
+                                        </div>
+                                    </div>
+                                </div>  
+                            </div>    
+                        </div>   
+                    </div>
+                <div class="modal-footer" style="margin-top: 0px;"> 
+                    <button type="button" id="downloadZipBtn" class="btn btn-primary"  data-ng-click="rlc.downloadBgChecklistDocsZip();">Download Document Zip</button>
+                    <button type="reset" id="closeModal" class="btn btn-warning"  data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
         </div>
     </div>
     <!-- End Bg checklist document list Model -->
@@ -929,10 +1072,58 @@
         }
     });
 
+    $("#pdfSettingFormForZip").validate({
+        errorElement: 'span', //default input error message container
+        errorClass: 'help-block help-block-error',
+        focusInvalid: true, // set focus the last invalid input
+        ignore: "", // validate all fields including form hidden input
+        errorPlacement: function (error, element) {
+
+            var type = $(element).attr("type");
+            console.log(type);
+            if ($(element).attr("id") === "my-select_for_zip")
+            {
+                // console.log(element.parent().parent());
+                // element.parent().parent().parent().parent().append(error);
+                element.parent().parent().append(error);
+
+            }else{
+                error.insertAfter(element);
+            }
+        },
+        rules: {
+            
+            "selectedSectionNamesForZip[]": {
+                required: true
+            }
+        },
+        messages: {
+            "selectedSectionNamesForZip[]":{
+                required: "Select at least one section required."
+            }
+            
+        },
+        highlight: function (element) { // hightlight error inputs
+            $(element)
+                .closest('.form-group').addClass('has-error');
+            $(element)
+                .next().children().children().attr('style', 'border-color:#dd4b39!important');
+            // set error class to the control group
+        },
+        unhighlight: function (element) { // revert the change done by hightlight
+            $(element).closest('.form-group').removeClass('has-error');
+            $(element).next().children().children().attr('style', 'border-color:'); // set error class to the control group
+        },
+        success: function (label) {
+            label.closest('.form-group').removeClass('has-error'); // set success class to the control group
+        }
+    });
+
     $(".s2mn").on("change", function () { $(this).valid(); });            
 </script>
 <script>
     $(document).ready(function () {
+        /* Select-all and deselect all functionality of section name in pdf download*/
         $('#select-all').click(function(){
           $('#my-select').multiSelect('select_all');
           // $('#my-select').valid();
@@ -949,6 +1140,24 @@
           $('#my-select').valid();
           return false;
         });
+         /* Select-all and deselect all functionality of section name in zip download functionality containg pdf*/
+        $('#select-all_for_zip').click(function(){
+          $('#my-select_for_zip').multiSelect('select_all');
+          // $('#my-select').valid();
+            $("div.form-group").each(function () {
+                $(this).removeClass('has-error');
+                $('span.help-block-error').remove();
+                $('.ms-selectable > ul').css('border','1px solid #ccc');
+                $('.ms-selection > ul').css('border','1px solid #ccc');
+            });
+          return false;
+        });
+        $('#deselect-all_for_zip').click(function(){
+          $('#my-select_for_zip').multiSelect('deselect_all');
+          $('#my-select_for_zip').valid();
+          return false;
+        });
+
         $("html, body").animate({scrollTop: 0}, "fast");
         $('#assignStatusModel.modal,#changeStatusModel.modal').on('hidden.bs.modal', function (e) {
             $(this).find('form').trigger('reset'); 
@@ -960,7 +1169,15 @@
             $('header').css('z-index', '1053');
             $('footer').css('z-index', '1053');
         });
+
         $('#pdfSettingModel.modal').on('hidden.bs.modal', function (e) {
+                $(this).removeClass('has-error');
+                $('span.help-block-error').remove();
+                $('.ms-selectable > ul').css('border','1px solid #ccc');
+                $('.ms-selection > ul').css('border','1px solid #ccc');
+        });
+
+        $('#bgChecklistDocsModal.modal').on('hidden.bs.modal', function (e) {
                 $(this).removeClass('has-error');
                 $('span.help-block-error').remove();
                 $('.ms-selectable > ul').css('border','1px solid #ccc');

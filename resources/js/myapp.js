@@ -1,7 +1,7 @@
 ﻿var Utility = {
 
     // apiBaseUrl: "http://127.0.0.1:8000/api/",
-     apiBaseUrl: "http://172.16.1.97:8000/api/",
+      apiBaseUrl: "http://172.16.1.97:8000/api/",
 
     // apiBaseUrl: "http://127.0.0.1:8000/api/",
     // apiBaseUrl: "http://172.16.1.180:8000/api/",
@@ -1178,11 +1178,11 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
-    this.createBgCheckListDocZip = function (candidateId) {
+    this.createBgCheckListDocZip = function (candidateId,sectionNames) {
         Utility.startAnimation();
         return $http({
             method: 'GET',
-            url: RESOURCES.SERVER_API + 'download_bg_documents?candidate_id='+candidateId,
+            url: RESOURCES.SERVER_API + 'download_bg_documents?candidate_id='+candidateId+'&section_names='+sectionNames,
             dataType: 'json',
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
@@ -1192,7 +1192,9 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
     };
 
     this.downloadBgCheckListDocZip = function (candidateName) {        
-        window.open(RESOURCES.SERVER_URL +'app/public/'+candidateName+'.zip');        
+        window.open(RESOURCES.SERVER_URL +'app/public/'+candidateName+'.zip'); 
+        //for local server code
+        // window.open('file:///var/www/resume-module-backtend/public/'+candidateName+'.zip');        
     };
 
 });

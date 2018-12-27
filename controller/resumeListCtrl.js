@@ -7,6 +7,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     rlc.interviewerList=null;
     rlc.candidateId = null;
     rlc.seletedSection = [];
+    rlc.bgChecklistDocList = []
     
     rlc.round = RESOURCES.TECHNICAL_ROUND;   
 
@@ -479,38 +480,52 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
 
     /* Function to show bg checklist modal and get all bg checklist */
     rlc.viewBgChecklistModal = function(candidateData){
-        
+        $('#cv_selection_list_li.active').removeClass('active');
+        $('#cv_selection_list.active').removeClass('active');
+        $('#bg_checklist_li').addClass('active');
+        $('#bg_checklist').addClass('active');
+
+        rlc.bgChecklistDocList = [];
+        rlc.pdfSectionsNameList =[];
         rlc.candidateID = candidateData.id;
         var candidate_name = candidateData.first_name+'_'+candidateData.middle_name+'_'+candidateData.last_name;
         rlc.candidateName =candidate_name.split(" ").join("_");
-        rlc.candidateBgDocumentsDataLength = candidateData.candidate_bg_documents.length;
-        var promise = services.getAllBgCheckList(rlc.candidateID,'resume_view');        
+        // rlc.candidateBgDocumentsDataLength = candidateData.candidate_bg_documents.length;
+        var promise = services.getAllBgCheckList(rlc.candidateID,'resume_view');      
         promise.success(function (result) {
             if (result.data) {
-                rlc.bgChecklistDocList = result.data; 
-                Utility.stopAnimation();                
+                rlc.bgChecklistDocList = result.data;          
             }else{
                 rlc.bgChecklistDocList = []; 
-                Utility.stopAnimation();
             }    
+            Utility.stopAnimation();
         }, function myError(r) {
             toastr.error(r.data.message, 'Sorry!');
             Utility.stopAnimation();
         });
 
-        $("#downloadZipBtn").attr('disabled',false);
+        var promise = services.getPdfSettingList();
+        promise.success(function (result) {
+            if (result.data) {
+                rlc.pdfSectionsNameList = result.data;   
+            }else{
+                rlc.pdfSectionsNameList = [];
+            }
+            Utility.stopAnimation();   
+            setTimeout(function(){
+                $('#my-select_for_zip').multiSelect();
+            },1000);
+        }, function myError(r) {
+            toastr.error(r.data.message, 'Sorry!');
+            Utility.stopAnimation();
+        });
+
+        // $("#downloadZipBtn").attr('disabled',false);
         $("#bgChecklistDocsModal").modal("show");
-        if(rlc.candidateBgDocumentsDataLength <=0){
-            $("#downloadZipBtn").attr('disabled',true);
-        }else{
-            var promise = services.createBgCheckListDocZip(rlc.candidateID);        
-            promise.success(function (result) {  
-                Utility.stopAnimation();
-            }, function myError(r) {
-                toastr.error(r.data.message, 'Sorry!');
-                Utility.stopAnimation();
-            }); 
-        }
+
+        // if(rlc.candidateBgDocumentsDataLength <= 0){
+        //     $("#downloadZipBtn").attr('disabled',true);
+        // }
         setTimeout(function(){
             setCSS();
         },200);   
@@ -518,13 +533,29 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
 
      /* Function to download zip file of all bg checklist doc */
     rlc.downloadBgChecklistDocsZip = function(){
-        var promise = services.downloadBgCheckListDocZip(rlc.candidateName);
-        $("#bgChecklistDocsModal").modal("hide");
-        toastr.success('Downloaded successfully..!!');
+        // console.log($('#my-select_for_zip').val());
+        if($('#pdfSettingFormForZip').valid()){
+            if($('#my-select_for_zip').val().toString() != ''){ 
+                // $("#downloadZipBtn").attr('disabled',true);
+                var promise = services.createBgCheckListDocZip(rlc.candidateID,$('#my-select_for_zip').val().toString());        
+                promise.success(function (result) {  
+                    Utility.stopAnimation();
+                }, function myError(r) {
+                    toastr.error(r.data.message, 'Sorry!');
+                    Utility.stopAnimation();
+                }); 
+
+                setTimeout(function(){
+                    var promise = services.downloadBgCheckListDocZip(rlc.candidateName);
+                    $("#bgChecklistDocsModal").modal("hide");
+                    toastr.success('Downloaded successfully..!!');
+                },1000);
+
+            }
+        }
     }
 
     rlc.init();
-
 
 });
 
