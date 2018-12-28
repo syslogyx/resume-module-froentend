@@ -1193,6 +1193,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
 
     this.downloadBgCheckListDocZip = function (candidateName) {        
         window.open(RESOURCES.SERVER_URL +'app/public/'+candidateName+'.zip'); 
+        Utility.stopAnimation();
         //for local server code
         // window.open('file:///var/www/resume-module-backtend/public/'+candidateName+'.zip');        
     };
