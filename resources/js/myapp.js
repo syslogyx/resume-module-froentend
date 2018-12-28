@@ -1191,12 +1191,19 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
          // window.open(RESOURCES.SERVER_API +'download_bg_documents?candidate_id='+candidateId);
     };
 
-    this.downloadBgCheckListDocZip = function (candidateName) {  
-            
-        window.open(RESOURCES.SERVER_URL +'app/public/'+candidateName+'.zip'); 
+    this.downloadBgCheckListDocZip= function (candidateName) {  
+            setTimeout(function(){    
+                window.open(RESOURCES.SERVER_URL +'app/public/'+candidateName+'.zip');
+                // var myWindow =  window.open(RESOURCES.SERVER_URL +'app/public/'+candidateName+'.zip');
+                // myWindow.location.reload();
+            },1000); 
         // Utility.stopAnimation();
         //for local server code
         // window.open('file:///var/www/resume-module-backtend/public/'+candidateName+'.zip');        
+    };
+
+    this.downloadBgCheckListDocZip1 = function (candidateName) {      
+        window.open(RESOURCES.SERVER_API +'download_candidate_zip?file_name='+candidateName+'.zip');          
     };
 
 });

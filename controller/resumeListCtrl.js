@@ -545,11 +545,11 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
                     Utility.stopAnimation();
                 }); 
 
-                setTimeout(function(){
+                // setTimeout(function(){
                     var promise = services.downloadBgCheckListDocZip(rlc.candidateName);
                     $("#bgChecklistDocsModal").modal("hide");
                     toastr.success('Downloaded successfully..!!');
-                },1000);
+                 // },1000);
 
             }
         }
