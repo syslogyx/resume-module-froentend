@@ -3,13 +3,13 @@
     <form role="form" name="addForm" id="jobForm" >
         <div class="box box-default" >
             <div class="row box-header with-border boxhead">
-                <div class="col-md-6">
+                <div class="col-xs-6">
                     <h1 class="formheading">
                            <b> {{jb.title}}</b>
                     </h1>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-xs-6">
                     <div class="pull-right" style="margin-top: 5px; margin-right: 20px;">
                         <a ng-href="/jobs"><button type="button" class="btn btn-default btn-sm" data-toggle="modal" title="Back" data-target="" data-ng-click="" style="border:white;color:#428bca;outline: 0;"><i class="fa fa-arrow-left" aria-hidden="true"></i></button></a>  
                     </div> 
@@ -76,10 +76,14 @@
                         </div>
                     </div>
                      <div class="col-md-4">
-                        <!-- <div class="form-group">
-                            <label class="mandatory" for="">Status</label>
-                            <input type="text" class="form-control" ng-model="jb.status" name="status" id="status"  placeholder="Enter status">
-                        </div>  -->
+                        <div class="form-group">
+                            <label class="mandatory" for="">Company</label>
+                            <!-- <label class="mandatory" for="">Status</label> -->
+                           <!--  <input type="text" class="form-control" ng-model="jb.companyId" name="status" id="status"  placeholder="Enter status"> -->
+                            <select id="companyId" ng-model="jb.companyId" name="companyId" class="form-control s2mn" placeholder="Enter Company Name" style="width:100%;" ng-options="x.id as x.name for x in jb.companyList" ng-selected="jb.companyId ? true : false" >
+                                <option value="" style="color:#ccc;">Select Company</option>
+                            </select>
+                        </div> 
                     </div>
                 </div>
                 <div class="row">
@@ -125,6 +129,7 @@
 
 <script>
 
+    applySelect2();  
             var baseUrl = Utility.apiBaseUrl;
             $("#jobForm").validate({
                 errorElement: 'span', //default input error message container
@@ -138,6 +143,10 @@
 
                     }
                     else if ($(element).attr("id") === "job_type")
+                    {
+                        element.parent().append(error);
+
+                    }else if ($(element).attr("id") === "companyId")
                     {
                         element.parent().append(error);
 
@@ -185,6 +194,9 @@
                     },
                     role_responsibility: {
                         required: true
+                    },
+                    companyId: {
+                        required: true
                     }
                 },
                 messages: {
@@ -227,6 +239,9 @@
                     },
                     role_responsibility: {
                         required: "Roles and responsibility is required."
+                    },
+                    companyId: {
+                        required: "Company name is required."
                     }
                 },
                 highlight: function (element) { // hightlight error inputs

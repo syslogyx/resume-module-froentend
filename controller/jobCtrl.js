@@ -102,6 +102,7 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
                 jb.noticePeroid = response.data.data.notice_period,
                 jb.status = response.data.data.status,                
                 jb.job_code = response.data.data.job_code,                
+                jb.companyId = response.data.data.company_id,                
 
                 applySelect2();   
             }, function myError(r) {
@@ -109,6 +110,21 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
                 Utility.stopAnimation();
             });
         }
+
+        jb.getActiveCompanyList();
+    }
+
+
+    jb.getActiveCompanyList = function(){        
+        var promise = services.getAllActvieCompanyList();
+        promise.success(function (result) {
+            Utility.stopAnimation();
+            console.log(result.data);
+            jb.companyList = result.data; 
+        }, function myError(r) {
+            toastr.error(r.data.message, 'Sorry!');
+            Utility.stopAnimation();
+        });
     }
 
     /* Function to reset add job form */
@@ -137,10 +153,12 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
                 "job_location":jb.jobLocation,
                 "job_type":jb.jobType,
                 "ctc":jb.ctc,
-                "notice_period":jb.noticePeroid
+                "notice_period":jb.noticePeroid,
+                "company_id":jb.companyId
                 //"status":jb.status
             }
-
+            // console.log(req);
+            // debugger;
             var promise;
             if (jb.id) {
                 // console.log(jb);

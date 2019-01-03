@@ -1,7 +1,8 @@
 ﻿var Utility = {
 
-    apiBaseUrl: "http://127.0.0.1:8000/api/",
+    // apiBaseUrl: "http://127.0.0.1:8000/api/",
       // apiBaseUrl: "http://172.16.1.97:8000/api/",
+      apiBaseUrl: "http://172.16.2.37:9000/api/",
 
     // apiBaseUrl: "http://127.0.0.1:8000/api/",
     // apiBaseUrl: "http://172.16.1.180:8000/api/",
@@ -1036,6 +1037,18 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         return $http({
             method: 'GET',
             url: RESOURCES.SERVER_API + "company_table?page=" + page + "&limit=" + limit,
+            dataType: 'json',
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+    this.getAllActvieCompanyList = function () {
+        Utility.startAnimation();
+        return $http({
+            method: 'GET',
+            url: RESOURCES.SERVER_API + "company_list",
             dataType: 'json',
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
