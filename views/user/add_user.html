@@ -49,10 +49,17 @@
                             <input type="text" class="form-control" ng-model="usr.contactEmail" name="contactEmail" id="contactEmail"  placeholder="Enter contact email" autocomplete="off">
                         </div>
                     </div>
-                    <div class="col-md-4" id="passwordDiv">
+                    <div class="col-md-4" id="passwordDiv"  ng-if="usr.title == 'Add New User'">
                         <div class="form-group">
                             <label class="mandatory" for="">Password</label>
                             <input type="password" class="form-control" data-ng-model="usr.password" name="password" id="password"  placeholder="Enter password" autocomplete="new-password">
+                        </div>
+                    </div>
+
+                    <div class="col-md-4" id="passwordDiv"  ng-if="usr.title == 'Update User'">
+                        <div class="form-group">
+                            <label for="">Password</label>
+                            <input type="password" class="form-control" data-ng-model="usr.password" name="edit-password" id="edit-password"  placeholder="Enter password" autocomplete="new-password">
                         </div>
                     </div>
                 </div>
@@ -122,12 +129,15 @@
                         minlength: 10,
                         maxlength: 12,
                     },
-                     userType: {
+                    userType: {
                         required: true
                     },
                     contactEmail: {
                         required: true,
                         regex: /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i 
+                    },
+                    password: {
+                        required: true
                     },
                    
                 },

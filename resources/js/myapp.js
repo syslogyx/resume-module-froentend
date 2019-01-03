@@ -1,11 +1,11 @@
 ﻿var Utility = {
 
-    // apiBaseUrl: "http://127.0.0.1:8000/api/",
+    apiBaseUrl: "http://127.0.0.1:8000/api/",
       // apiBaseUrl: "http://172.16.1.97:8000/api/",
 
     // apiBaseUrl: "http://127.0.0.1:8000/api/",
     // apiBaseUrl: "http://172.16.1.180:8000/api/",
-     apiBaseUrl: "https://recruitmentapi.syslogyx.com/api/",
+     // apiBaseUrl: "https://recruitmentapi.syslogyx.com/api/",
 
     formatDate: function (date, format) {
         var tDate = null;
@@ -1192,11 +1192,11 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
     };
 
     this.downloadBgCheckListDocZip= function (candidateName) {  
-            setTimeout(function(){    
+            // setTimeout(function(){    
                 window.open(RESOURCES.SERVER_URL +'app/public/'+candidateName+'.zip');
                 // var myWindow =  window.open(RESOURCES.SERVER_URL +'app/public/'+candidateName+'.zip');
                 // myWindow.location.reload();
-            },1000); 
+            // },1000); 
         // Utility.stopAnimation();
         //for local server code
         // window.open('file:///var/www/resume-module-backtend/public/'+candidateName+'.zip');        
@@ -1204,6 +1204,18 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
 
     this.downloadBgCheckListDocZip1 = function (candidateName) {      
         window.open(RESOURCES.SERVER_API +'download_candidate_zip?file_name='+candidateName+'.zip');          
+    };
+
+    this.getListOfAlphabets = function(){
+        Utility.startAnimation();
+        return $http({
+            method: 'GET',
+            url: RESOURCES.SERVER_API + "get_alphabets",
+            dataType: 'json',
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
     };
 
 });

@@ -31,42 +31,51 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
 
     rlc.alphabet = ['All'];
 
-    function genCharArray(charA, charZ) {
-        i = charA.charCodeAt(0), 
-        j = charZ.charCodeAt(0);
-        for (; i <= j; ++i) {
-            rlc.alphabet.push(String.fromCharCode(i));
-        }
-        return rlc.alphabet;
+    // function genCharArray(charA, charZ) {
+    //     i = charA.charCodeAt(0), 
+    //     j = charZ.charCodeAt(0);
+    //     for (; i <= j; ++i) {
+    //         rlc.alphabet.push(String.fromCharCode(i));
+    //     }
+    //     return rlc.alphabet;
+    // }
+
+    // genCharArray('A', 'Z');
+
+    function genCharArray() {
+        var promise = services.getListOfAlphabets();
+        promise.success(function (result) {
+            Utility.stopAnimation();
+            for (var i = 0; i < result.length; i++) {
+                rlc.alphabet.push(result[i]);
+            }
+        }, function myError(r) {
+            toastr.error(r.data.message, 'Sorry!');
+            Utility.stopAnimation();
+        });
     }
 
-    genCharArray('A', 'Z');
+    
 
-    rlc.onAlphabetClick = function(data,index){
-        // console.log(index);
-        // console.log($('#alpabet_'+index)[0].id);
-        
+    rlc.onAlphabetClick = function(data,index){       
         rlc.alpha = data;
         // console.log(rlc.alpha);
         rlc.fetchList(-1);
         $('.alpabet-list').each(function(e){
-            console.log($(this).find('li a')[0].id);
+            // console.log($(this).find('li a')[0].id);
             if($(this).find('li a')[0].id == $('#alpabet_'+index)[0].id){
-                // $('#alpabet_'+index).removeClass('blue');
                 $('#alpabet_'+index).addClass('red');
-                // console.log("set red");
             }else{
                 $(this).find('li a').removeClass('red');
                 $(this).find('li a').addClass('blue');
-                // console.log("set blue");
             }
         });
-        // $('#alpabet_'+index).addClass('selected');
     }
    
    /*Function to filter candidate */
     rlc.searchCandidate = function () {
         if($('#candidateResumeFilterForm').valid()){
+            rlc.onAlphabetClick("All","0")
             rlc.fetchList(-1);       
         }
     };
@@ -118,6 +127,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
             $('span.help-block-error').remove();
             applySelect2();
         }); 
+        rlc.onAlphabetClick("All","0");
         rlc.fetchList(-1);
     }
 
@@ -228,8 +238,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
 
     /*Function to initialise controller */
     rlc.init = function(){
-        // rlc.onAlphabetClick('All','0');
-        // console.log();
+        genCharArray();
         rlc.fetchList(-1);
         rlc.getAllInterviewerList();
         rlc.getActiveJd();
@@ -545,11 +554,11 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
                     Utility.stopAnimation();
                 }); 
 
-                // setTimeout(function(){
+                setTimeout(function(){
                     var promise = services.downloadBgCheckListDocZip(rlc.candidateName);
                     $("#bgChecklistDocsModal").modal("hide");
-                    toastr.success('Downloaded successfully..!!');
-                 // },1000);
+                    // toastr.success('Downloaded successfully..!!');
+                  },2000);
 
             }
         }
