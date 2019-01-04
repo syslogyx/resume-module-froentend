@@ -9,7 +9,7 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
     var loggedInUser = JSON.parse(services.getIdentity());
 
     /* Menu selection according to user role */
-    if(loggedInUser.identity.role==1){
+    if(loggedInUser.identity.role==RESOURCES.ROLE_ADMIN){
         $scope.menuList = [
             {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"active"},
             {"Title": "User Management", "Link": "user", "icon": "fa fa-user-plus", "active":"deactive"},
@@ -21,26 +21,26 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
             {"Title": "Background Checklist", "Link": "/background_checklist", "icon": "fa fa-check-square-o", "active":"deactive"}
         ];
         $scope.showUpdateProfile = true;
-    }else if (loggedInUser.identity.role==2) {
+    }else if (loggedInUser.identity.role==RESOURCES.ROLE_HR) {
         $scope.menuList = [
             {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"active"}, 
             {"Title": "User Management", "Link": "user", "icon": "fa fa-user-plus", "active":"deactive"},   
             {"Title": "Resume Management", "Link": "/resume_list", "icon": "fa fa-file-text", "active":"deactive"},
         ];      
         $scope.showUpdateProfile = true;
-    }else if (loggedInUser.identity.role==3) {
+    }else if (loggedInUser.identity.role==RESOURCES.ROLE_COLLEGUE) {
         $scope.menuList = [
             {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"active"}, 
             {"Title": "Resume Management", "Link": "/resume_list", "icon": "fa fa-file-text", "active":"deactive"}
         ];
         $scope.showUpdateProfile = true;
-    }else if (loggedInUser.identity.role==4) {
+    }else if (loggedInUser.identity.role==RESOURCES.ROLE_INTERVIWER) {
         $scope.menuList = [
             {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"active"}, 
             {"Title": "Scheduled interview", "Link": "/interview_list", "icon": "fa fa-calendar", "active":"deactive"}
         ];
         $scope.showUpdateProfile = true;
-    }else if (loggedInUser.identity.role==5) {
+    }else if (loggedInUser.identity.role==RESOURCES.ROLE_CANDIDATE) {
         $scope.menuList = [
             {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"active"}, 
             {"Title": "My Resume", "Link": "/view_resume", "icon": "fa fa-file-text", "active":"deactive"},

@@ -1,8 +1,8 @@
 ﻿var Utility = {
 
-    // apiBaseUrl: "http://127.0.0.1:8000/api/",
+    apiBaseUrl: "http://127.0.0.1:8000/api/",
       // apiBaseUrl: "http://172.16.1.97:8000/api/",
-      apiBaseUrl: "http://172.16.2.37:9000/api/",
+      // apiBaseUrl: "http://172.16.2.37:9000/api/",
 
     // apiBaseUrl: "http://127.0.0.1:8000/api/",
     // apiBaseUrl: "http://172.16.1.180:8000/api/",
@@ -137,6 +137,12 @@ app.constant('RESOURCES', (function () {
         CONTENT_TYPE: 'application/x-www-form-urlencoded; charset=UTF-8',
         COMPANY_NAME: 'Syslogyx Technologies Pvt. Ltd.',
         COMPANY_ID: 3,
+
+        ROLE_ADMIN:1,
+        ROLE_HR:2,
+        ROLE_COLLEGUE:3,
+        ROLE_INTERVIWER:4,
+        ROLE_CANDIDATE:5,
 
         // defined job status constants
         JOB_STATUS: [
