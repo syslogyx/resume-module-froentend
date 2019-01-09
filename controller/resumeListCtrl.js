@@ -267,15 +267,19 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     /*Function to get all interviewer list */
     rlc.getAllInterviewerList = function(){        
         var promise = services.getInterviewerList();        
-        promise.success(function (result) {
-                // console.log(result);
-            if (result.data) {
-                rlc.interviewerList = result.data; 
-                // console.log(rlc.interviewerList);
-                Utility.stopAnimation();                
-            }    
+        promise.then(function mySuccess(result) {
+            Utility.stopAnimation(); 
+            try {
+                if(response.data.status_code = 200){                    
+                    rlc.interviewerList = result.data;  
+                } 
+            } catch (e) {
+                // toastr.error("No Record Found");
+                Raven.captureException(e)
+            } 
         }, function myError(r) {
-            toastr.error(r.data.message, 'Sorry!');
+            rlc.interviewerList = null;
+            // toastr.error(r.data.message, 'Sorry!');
             Utility.stopAnimation();
         });
     }    
@@ -558,7 +562,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
                     var promise = services.downloadBgCheckListDocZip(rlc.candidateName);
                     $("#bgChecklistDocsModal").modal("hide");
                     // toastr.success('Downloaded successfully..!!');
-                  },2000);
+                  },5000);
 
             }
         }

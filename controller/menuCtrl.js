@@ -14,10 +14,12 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
             {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"active"},
             {"Title": "User Management", "Link": "user", "icon": "fa fa-user-plus", "active":"deactive"},
             {"Title": "Resume Management", "Link": "/resume_list", "icon": "fa fa-file-text", "active":"deactive"},
+            {"Title": "Forward Resumes", "Link": "/forward_resumes", "icon": "fa fa-circle-o", "active":"deactive"},
+            {"Title": "Round Details", "Link": "/round_details", "icon": "fa fa-info", "active":"deactive"},
             {"Title": "JD Management", "Link": "/jobs", "icon": "fa fa-tasks", "active":"deactive"},
-            {"Title": "Screening Questions", "Link": "/questions", "icon": "fa fa-list", "active":"deactive"},
+            {"Title": "Screening Questions", "Link": "/questions", "icon": "fa fa-question-circle", "active":"deactive"},
             {"Title": "Scheduled interview", "Link": "/interview_list", "icon": "fa fa-calendar", "active":"deactive"},
-            {"Title": "Company Management", "Link": "/company", "icon": "fa  fa-bank ", "active":"deactive"},
+            {"Title": "Company Management", "Link": "/company", "icon": "fa fa-bank ", "active":"deactive"},
             {"Title": "Background Checklist", "Link": "/background_checklist", "icon": "fa fa-check-square-o", "active":"deactive"}
         ];
         $scope.showUpdateProfile = true;

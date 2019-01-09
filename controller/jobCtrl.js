@@ -7,7 +7,7 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
     jb.pageno = 0;
     jb.limit = 0;
     jb.skip = true;
-    jb.jobList ='';
+    jb.jobList = [];
     jb.jobTypeData =[
         {id: "Permanent-full time", name: "Permanent-full time"},
         {id: "Permanent-part time", name: "Permanent-part time"},
@@ -57,7 +57,6 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
         }
         var requestParam = {
             page:jb.pageno,
-            // limit:pagination.getpaginationLimit(),
             limit:jb.limit,
         }
 

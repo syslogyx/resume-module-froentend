@@ -1237,6 +1237,127 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
+    // this.getAllCandidateList = function(){
+    //     Utility.startAnimation();
+    //     return $http({
+    //         method: 'GET',
+    //         url: RESOURCES.SERVER_API + "list/all_candidates",
+    //         dataType: 'json',
+    //         headers: {
+    //             'Content-Type': RESOURCES.CONTENT_TYPE
+    //         }
+    //     })
+    // };
+
+    this.getJobCodeListByCompanyId = function(companyId){
+        Utility.startAnimation();
+        return $http({
+            method: 'GET',
+            url: RESOURCES.SERVER_API + "jobList/company/"+companyId,
+            dataType: 'json',
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+    this.getCandidateListByJobcodeId = function(jobId){
+        Utility.startAnimation();
+        return $http({
+            method: 'GET',
+            url: RESOURCES.SERVER_API + "candidateList/job/"+jobId,
+            dataType: 'json',
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+    this.saveTechRoundInfo = function(req){
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "company_techround_info/create",
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+                
+            }
+        })
+    };
+
+
+    this.updateRoundDetails = function(req,id){
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "companies_feedback/update/"+id,
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+                
+            }
+        })
+    };
+
+    this.getNotForwardedCandidateList = function(req,request){
+        // if(request == undefined){
+        //     page = -1;
+        //     limit = -1;
+        // }else{
+        //     page = request.page;
+        //     limit = request.limit;
+        // }
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            // url: RESOURCES.SERVER_API + "not_forwarded_candidate/filter?page=" + page + "&limit=" + limit,
+            url: RESOURCES.SERVER_API + "not_forwarded_candidate/filter",
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+
+    this.getForwardedCandidateResumesList = function(req,request){
+        if(request == undefined){
+            page = -1;
+            limit = -1;
+        }else{
+            page = request.page;
+            limit = request.limit;
+        }
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "forworded_resumes/filter?page=" + page + "&limit=" + limit,
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+    this.saveForwardedCandidateResumes = function (req) {
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "forwarded_resume/create",
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+                
+            }
+        })
+    };
+
 });
 
 app.config(function ($routeProvider, $locationProvider) {
@@ -1362,6 +1483,24 @@ app.config(function ($routeProvider, $locationProvider) {
                 templateUrl: 'views/resume/resume_list.html',
                 controller: 'resumeListCtrl',
                 controllerAs: 'rlc',
+                resolve: {
+                    'acl': ['$q', 'AclService', function ($q, AclService) {
+                            return true;
+                            //console.log(AclService.getRoles());
+                            if (AclService.can('view_dash')) {
+                                // Has proper permissions
+                                return true;
+                            } else {
+                                // Does not have permission
+                                return $q.reject('LoginRequired');
+                            }
+                        }]
+                }
+            })
+            .when('/forward_resumes', {
+                templateUrl: 'views/resume/forward_resume_list.html',
+                controller: 'forwardResumeListCtrl',
+                controllerAs: 'frlc',
                 resolve: {
                     'acl': ['$q', 'AclService', function ($q, AclService) {
                             return true;
@@ -1532,6 +1671,24 @@ app.config(function ($routeProvider, $locationProvider) {
                 templateUrl: 'views/result/technical_interview_result.html',
                 controller: 'resultCtrl',
                 controllerAs: 'res',
+                resolve: {
+                    'acl': ['$q', 'AclService', function ($q, AclService) {
+                            return true;
+                            //console.log(AclService.getRoles());
+                            if (AclService.can('view_dash')) {
+                                // Has proper permissions
+                                return true;
+                            } else {
+                                // Does not have permission
+                                return $q.reject('LoginRequired');
+                            }
+                        }]
+                }
+            }) 
+            .when('/round_details', {
+                templateUrl: 'views/result/round_details.html',
+                controller: 'roundDtlsCtrl',
+                controllerAs: 'rdc',
                 resolve: {
                     'acl': ['$q', 'AclService', function ($q, AclService) {
                             return true;

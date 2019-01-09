@@ -4,6 +4,11 @@ app.controller('screeningTestCtrl', function ($scope, $rootScope, $http, service
 
     st.id = null;
     st.candidateName = $location.search()["name"]; 
+
+    var loggedInUser = services.getIdentity()==undefined?undefined:JSON.parse(services.getIdentity());
+    // console.log(loggedInUser);
+    st.loggedUserId = loggedInUser == undefined ? undefined :loggedInUser.id;
+    console.log(st.loggedUserId);
     st.pageno = -1;
     st.limit = -1;
     st.questionList ='';
@@ -21,12 +26,10 @@ app.controller('screeningTestCtrl', function ($scope, $rootScope, $http, service
         promise.success(function (result) {
             Utility.stopAnimation();
             if(result.data != null){
-                // console.log(result.data);
                 st.questionList = result.data.data;
-                // st.startIndnx = st.questionList[0];
-                // console.log(st.questionList);
             }
         }, function myError(r) {
+            st.questionList = null;
             toastr.error(r.data.message, 'Sorry!');
             Utility.stopAnimation();
 
@@ -71,7 +74,8 @@ app.controller('screeningTestCtrl', function ($scope, $rootScope, $http, service
                     // "remark":  $data[i].remark == undefined ? '':$data[i].remark
                     "remark":  $data[i].remark,
                     "observation":st.observation,
-                    "duration_of_interview":st.interview_duration
+                    "duration_of_interview":st.interview_duration,
+                    "user_id": st.loggedUserId
                 }
                 request.result_data.push(obj);
             }

@@ -257,7 +257,7 @@
                 </thead>
                 <!-- <pre>{{usr.allUsersList|json}}</pre> -->
                 <tbody>
-                    <tr ng-repeat="data in rlc.resumeList ">
+                    <tr ng-repeat="data in rlc.resumeList">
                         <td style="text-align: center;" ng-bind="(rlc.pageno - 1) * rlc.limit + ($index + 1)"></td>
                         <td ng-bind="data.first_name+' '+data.middle_name+' '+data.last_name"></td>                        
                         <td ng-bind="data.email"></td>                        
@@ -527,60 +527,59 @@
                     </div>
                     <div class="modal-body">
                         <div class="row ">
-                                    <form id="pdfSettingFormForZip">   
-                                        <div class="row form-group">                        
-                                            <div col="col-md-12">                                    
-                                                <select multiple="multiple" id="my-selectForZip" name="selectedSectionNamesForZip[]">
-                                                    <option ng-repeat="sec in rlc.pdfSectionsNameList" value="{{sec.id}}" selected>{{sec.section_name}}</option>
-                                                </select>
-                                            </div>
+                            <form id="pdfSettingFormForZip">   
+                                <div class="row form-group">                        
+                                    <div col="col-md-12">                                    
+                                        <select multiple="multiple" id="my-selectForZip" name="selectedSectionNamesForZip[]">
+                                            <option ng-repeat="sec in rlc.pdfSectionsNameList" value="{{sec.id}}" selected>{{sec.section_name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div col="col-md-12">      
+                                        <div id="select-all-div" class="col-md-6 form-group">
+                                            <a href='#' id='select-all'>select all</a>
                                         </div>
-                                        <div class="row">
-                                            <div col="col-md-12">      
-                                                <div id="select-all-div" class="col-md-6 form-group">
-                                                    <a href='#' id='select-all'>select all</a>
-                                                </div>
-                                                <div id="deselect-all-div" class="col-md-6 form-group">                                        
-                                                    <a href='#' id='deselect-all'>deselect all</a>
-                                                </div>
-                                            </div>
-                                        </div>                  
-                                    </form>
+                                        <div id="deselect-all-div" class="col-md-6 form-group">                                        
+                                            <a href='#' id='deselect-all'>deselect all</a>
+                                        </div>
+                                    </div>
+                                </div>                  
+                            </form>
                         </div>
                         <hr>
                         <div class="row ">
-                                <div class="col-md-12">
-                                    <div class="table-responsive no-padding">
-                                        <table class="table table-hover">
-                                            <thead class="thead-default">
-                                                <tr>
-                                                    <!-- <th style="text-align: center;">Sr No.</th> -->
-                                                    <th></th>
-                                                    <th>Background Checklist Name</th>
-                                                    <th style="text-align: center;width: 20%;">Uploaded Status</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <!-- <td style="text-align: center;" ng-bind="(rlc.pageno - 1) * rlc.limit + ($index + 1)"></td> -->
-                                                    <td><i style="margin-left: 5px;" class="fa fa-asterisk" aria-hidden="true"></i></td>
-                                                    <td>Candidate Resume</td>
-                                                    <td style="text-align: center;width: 20%;"><i class= "fa fa-check check-green" aria-hidden="true" style="margin-left: 5px;font-size: 15px;" title="File uploaded"></i></td>
-                                                </tr>
-                                                <tr ng-repeat="data in rlc.bgChecklistDocList ">
-                                                    <!-- <td style="text-align: center;" ng-bind="(rlc.pageno - 1) * rlc.limit + ($index + 1)"></td> -->
-                                                    <td><i style="margin-left: 5px;" class="fa fa-asterisk" aria-hidden="true"></i></td>
-                                                    <td>{{data.name}}</td>
-                                                    <td style="text-align: center;width: 20%;"><i class= "{{data.displayFlag =='False' ? 'fa fa-check check-green':'fa fa-close check-red' }}" aria-hidden="true" style="margin-left: 5px;font-size: 15px;" title="{{data.displayFlag =='False' ? 'File uploaded' : 'Not  uploaded yet'}}"></i></td>
-                                                </tr>
-                                                <tr ng-if="rlc.bgChecklistDocList == null || rlc.bgChecklistDocList.length == 0">
-                                                    <td style="text-align: center;" colspan="3">No Records Found</td> 
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                            <div class="col-md-12">
+                                <div class="table-responsive no-padding">
+                                    <table class="table table-hover">
+                                        <thead class="thead-default">
+                                            <tr>
+                                                <!-- <th style="text-align: center;">Sr No.</th> -->
+                                                <th></th>
+                                                <th>Background Checklist Name</th>
+                                                <th style="text-align: center;width: 20%;">Uploaded Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <!-- <td style="text-align: center;" ng-bind="(rlc.pageno - 1) * rlc.limit + ($index + 1)"></td> -->
+                                                <td><i style="margin-left: 5px;" class="fa fa-asterisk" aria-hidden="true"></i></td>
+                                                <td>Candidate Resume</td>
+                                                <td style="text-align: center;width: 20%;"><i class= "fa fa-check check-green" aria-hidden="true" style="margin-left: 5px;font-size: 15px;" title="File uploaded"></i></td>
+                                            </tr>
+                                            <tr ng-repeat="data in rlc.bgChecklistDocList ">
+                                                <!-- <td style="text-align: center;" ng-bind="(rlc.pageno - 1) * rlc.limit + ($index + 1)"></td> -->
+                                                <td><i style="margin-left: 5px;" class="fa fa-asterisk" aria-hidden="true"></i></td>
+                                                <td>{{data.name}}</td>
+                                                <td style="text-align: center;width: 20%;"><i class= "{{data.displayFlag =='False' ? 'fa fa-check check-green':'fa fa-close check-red' }}" aria-hidden="true" style="margin-left: 5px;font-size: 15px;" title="{{data.displayFlag =='False' ? 'File uploaded' : 'Not  uploaded yet'}}"></i></td>
+                                            </tr>
+                                            <tr ng-if="rlc.bgChecklistDocList == null || rlc.bgChecklistDocList.length == 0">
+                                                <td style="text-align: center;" colspan="3">No Records Found</td> 
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
-                                
+                            </div>                                
                             <!-- </div> -->
                         </div>
                     </div>
