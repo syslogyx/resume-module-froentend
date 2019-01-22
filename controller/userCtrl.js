@@ -12,6 +12,10 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
     usr.comapnyName='Syslogyx Pvt. Ltd.'
 
     var viewPath = $location.path().split("/")[1];
+    console.log(viewPath);
+    var hashPathname = window.location.hash;
+    usr.hashPathId = hashPathname.substring(1, hashPathname.length);
+    console.log(usr.hashPathId);
 
     /* Getting login user info */
     var loggedInUserName = JSON.parse($cookieStore.get('identity'));
@@ -27,7 +31,8 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
 
     /*Function to cancle add user view */
     usr.cancelUser = function() {
-         $location.path('/user');
+         // $location.path('/user');
+         $location.url('/user#all');
     }
 
     /*Record limit for Users in pagination */
@@ -52,6 +57,14 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
         else{
             usr.pageno = page;
         }
+        
+
+        var req = {
+            "role_id":usr.hashPathId
+        }
+
+        console.log(req);
+
         var requestParam = {
             page:usr.pageno,
             limit:usr.limit,
@@ -59,7 +72,8 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
 
         var promise = '';
         // if(usr.logInUserRole==1){
-            promise = services.getAllUsers(requestParam);
+            // promise = services.getAllUsers(requestParam,req);
+            promise = services.findUser(req,requestParam);
         // }else if(usr.logInUserRole==2) {
         //     promise = services.getSelectedUsers(requestParam);;   
         // }
@@ -78,8 +92,24 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
     }
 
     /* Function to initialise user controller */
-    usr.init = function () {
-        usr.fetchList(-1);
+    usr.init = function () {       
+        if (usr.hashPathId == 'all') {
+            $("#candidate").parent().removeClass('active');
+            $("#client").parent().removeClass('active');
+            $("#all").parent().addClass('active');
+        }else if (usr.hashPathId == 'candidate'){
+            $("#all").parent().removeClass('active');
+            $("#client").parent().removeClass('active');
+            $("#candidate").parent().addClass('active');
+        }else if(usr.hashPathId == 'client'){
+            $("#all").parent().removeClass('active');
+            $("#candidate").parent().removeClass('active');
+            $("#client").parent().addClass('active');
+        }
+
+        if($location.path() != "/user/add_user" && $location.path() != "/user/edit"){
+            usr.fetchList(-1);
+        }
 
         /* Getting all user roles */
         var promise = '';
@@ -149,15 +179,28 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
                 Utility.stopAnimation();
                 try {
                     toastr.success('User ' + operationMessage +' successfully.');
-                    $location.url('/user');
+                    $location.url('/user#all');
                 } catch (e) {
                     toastr.error("User not saved successfully.");
                     Raven.captureException(e)
                 }
+            // }, function myError(r) {
+            //     toastr.error(r.data.message);
+            //     Utility.stopAnimation();
+            // });
             }, function myError(r) {
-                toastr.error(r.data.message);
-                Utility.stopAnimation();
-            });
+                    var htmlerror ='<ul style="list-style:none;"><li >';
+                    $.each(r.data.data, function(k, v) {
+                        if(k=='email'){
+                            htmlerror = htmlerror+v +'</li><li>';
+                        }
+                        if(k=='mobile'){
+                            htmlerror = htmlerror+v+'</li><li>';
+                        }
+                      });
+                    toastr.error(htmlerror);
+                    Utility.stopAnimation();
+                });
         }
     }
 
@@ -213,7 +256,7 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
                 try{
                     if(response.data){
                         toastr.success('Password changed successfully.');
-                        $location.url('/user');
+                        $location.url('/user#all');
                     }
                     else{
                         toastr.error(response.message);

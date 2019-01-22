@@ -3,7 +3,8 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
     var ilc = this;    
 
     /* Fetch login candidate info from cookies*/
-    var loggedInUser = JSON.parse(services.getIdentity());
+    // var loggedInUser = JSON.parse(services.getIdentity());
+    var loggedInUser = services.getIdentity()==undefined?undefined:JSON.parse(services.getIdentity());
     // console.log(loggedInUser.identity.role);
     ilc.logInUserRole = loggedInUser.identity.role;
     console.log(ilc.logInUserRole);
@@ -14,13 +15,25 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
     ilc.interviewerList='';
     ilc.userId = loggedInUser.identity.role==1?null:loggedInUser.id;
     ilc.candidateId = null;
+    ilc.currentInterviewList = [];
    
     /* Function to search user id */
-    ilc.search = function (id, page) {       
-        ilc.userId = id;
-        ilc.fetchList(page);
+    // ilc.search = function (id, page) {       
+    //     ilc.userId = id;
+    //     ilc.jobCodeId = id;
+    //     ilc.fetchList(page);
        
-    };
+    // };
+
+    ilc.resetFilter = function(){
+        ilc.jobCodeId = null;
+        if(ilc.logInUserRole != 4){
+            ilc.userId = null;
+            ilc.fetchList(-1);
+        }else{
+            ilc.interviewList = null;
+        }
+    }
 
     /*Record limit for Candidates in pagination */
     setTimeout(function(){
@@ -31,21 +44,27 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
 
     /* Function to initialise interview list controller */
     ilc.init = function(){
-        ilc.fetchList(-1);
+        if(ilc.logInUserRole != 4){
+            ilc.fetchList(-1);
+        }
         ilc.getAllInterviewerList();
-        // ilc.getActiveJd();
+        ilc.getActiveJd();
+        ilc.getTodaysScheduledInterviewList();
     }
 
-    // ilc.getActiveJd = function(){
-    //      var promise = services.getAllActiveJDList();
-    //     promise.success(function (result) {
-    //         Utility.stopAnimation();
-    //         $scope.jobDetail = result.data; 
-    //     }, function myError(r) {
-    //         toastr.error(r.data.message, 'Sorry!');
-    //         Utility.stopAnimation();
-    //     });
-    // }
+
+    /*Function to get all active job description list */
+    ilc.getActiveJd = function(){
+        var promise = services.getAllActiveJDList();
+        promise.success(function (result) {
+            Utility.stopAnimation();
+            ilc.activeJobDetail = result.data; 
+        }, function myError(r) {
+            toastr.error(r.data.message, 'Sorry!');
+            Utility.stopAnimation();
+        });
+    }
+
 
     /*pagination for Candidates*/
     ilc.fetchList = function(page){
@@ -65,12 +84,13 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
         }
 
         var req = {
-            "user_id":ilc.userId
+            "user_id":ilc.userId,
+            "job_description_id":ilc.jobCodeId
         }
 
         var requestParam = {
             page:ilc.pageno,
-            limit:ilc.limit,
+            limit:ilc.limit
         }        
              
         var promise = services.getScheduledInterviewList(req,requestParam);        
@@ -132,6 +152,9 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
             });
         }
         $('#changeJdStatusModal').modal('show');
+        setTimeout(function(){
+            setCSS();
+        },200);
     }
 
     /* function to change job description by candidate id */
@@ -149,7 +172,8 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
                     try {
                         $('#changeJdStatusModal').modal('hide');
                         toastr.success(result.data.message);
-                        ilc.init();
+                        // ilc.init();
+                        ilc.fetchList(-1);
                         // $("#changeStatusForm")[0].reset();
                     } catch (e) {
                         toastr.error("Unable to save data");
@@ -160,6 +184,33 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
                 Utility.stopAnimation();
             });
         }
+    }
+
+    ilc.getTodaysScheduledInterviewList = function(){
+
+        var req = {
+            "user_id":ilc.userId
+        }
+
+        var requestParam = {
+            page:ilc.pageno,
+            limit:ilc.limit
+        } 
+
+        var promise = services.getTodaysScheduledInterviewList(req,requestParam);        
+        promise.success(function (result) { 
+            // console.log(result.status_code);
+            if (result.status_code == 200) {                
+                ilc.currentInterviewList = result.data.data;
+                pagination.applyPagination(result.data,ilc);
+            }else{
+                ilc.currentInterviewList = [];
+            }
+            Utility.stopAnimation();  
+        }, function myError(r) {
+            toastr.error(r.data.message, 'Sorry!');
+            Utility.stopAnimation();
+        });
     }
 
     ilc.init();

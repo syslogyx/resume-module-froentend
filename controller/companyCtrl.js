@@ -76,6 +76,7 @@ app.controller('companyCtrl', function ($scope, $rootScope, $http, services, $lo
                 cmp.companyName = response.data.data.name,
                 cmp.contactNo = response.data.data.contact_no,
                 cmp.address = response.data.data.address,
+                cmp.companyEmail = response.data.data.email,
                 cmp.status = response.data.data.status                
                 applySelect2();   
             }, function myError(r) {
@@ -103,7 +104,8 @@ app.controller('companyCtrl', function ($scope, $rootScope, $http, services, $lo
             var req ={
                 "name":cmp.companyName,
                 "contact_no":cmp.contactNo,
-                "address":cmp.address
+                "address":cmp.address,
+                "email":cmp.companyEmail
             }
 
             var promise;

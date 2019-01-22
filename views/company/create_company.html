@@ -18,16 +18,22 @@
             <!-- /.box-header -->
             <div class="box-body">  
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label class="mandatory" for="">Name</label>
                             <input type="text" class="form-control" ng-model="cmp.companyName" name="company_name" id="company_name" placeholder="Enter name" >
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label class="mandatory" for="">Contact Number</label>
                             <input type="text" class="form-control" ng-model="cmp.contactNo" name="contact_no" id="contact_no" placeholder="Enter contact number" >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="mandatory" for="">Company Email</label>
+                            <input type="text" class="form-control" ng-model="cmp.companyEmail" name="company_email" id="company_email"  placeholder="Enter contact email" autocomplete="off">
                         </div>
                     </div>
                 </div> 
@@ -53,6 +59,14 @@
 </section>
 
 <script>
+        $.validator.addMethod('regex', function (value, element, regexp) {
+                if (regexp.constructor != RegExp)
+                    regexp = new RegExp(regexp);
+                else if (regexp.global)
+                    regexp.lastIndex = 0;
+                return this.optional(element) || regexp.test(value);
+            }, 'Please enter a valid Email Address.');
+        
         $.validator.addMethod("number", function (phone_number, element){
             phone_number = phone_number.replace(/\s+/g, "");
             return this.optional(element) || phone_number.length > 9 &&
@@ -87,7 +101,12 @@
                 },
                 address: {
                     required: true
+                },
+                company_email:{
+                    required: true,
+                    regex: /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i 
                 }
+
             },
             messages: {
                 company_name: {
@@ -99,7 +118,12 @@
                 },
                 address: {
                     required: "Address is required."
-                }
+                },
+                company_email: {
+                    required: "Email is required.",
+                    company_email: "Please enter a valid Email Address.",
+                    remote: "User email is already taken."
+                },
             },
             highlight: function (element) { // hightlight error inputs
                 $(element).closest('.form-group').addClass('has-error');

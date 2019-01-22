@@ -1,4 +1,4 @@
-app.controller('homeCtrl', function ($scope,menuService,services,$cookieStore) {
+app.controller('homeCtrl', function ($scope, $rootScope,menuService,services,$cookieStore) {
 
 	var hme = this;
 	hme.name = "";
@@ -11,14 +11,14 @@ app.controller('homeCtrl', function ($scope,menuService,services,$cookieStore) {
     hme.name  =  loggedInUser.identity.name;
 
     /* Set menues in menu service */
-    menuService.setMenu([
-        {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"active"},
-        {"Title": "User Management", "Link": "user", "icon": "fa fa-user-plus", "active":"deactive"},
-        {"Title": "Resume Management", "Link": "/resume_list", "icon": "fa fa-file-text", "active":"deactive"},
-        {"Title": "JD Management", "Link": "/jobs", "icon": "fa fa-tasks", "active":"deactive"},
-        {"Title": "Screening Questions", "Link": "/questions", "icon": "fa fa-list", "active":"deactive"},
-        {"Title": "Scheduled interview", "Link": "/interview_list", "icon": "fa fa-calendar", "active":"deactive"}
-    ]);
+    // menuService.setMenu([
+    //     {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"active"},
+    //     {"Title": "User Management", "Link": "user", "icon": "fa fa-user-plus", "active":"deactive"},
+    //     {"Title": "Resume Management", "Link": "/resume_list", "icon": "fa fa-file-text", "active":"deactive"},
+    //     {"Title": "JD Management", "Link": "/jobs", "icon": "fa fa-tasks", "active":"deactive"},
+    //     {"Title": "Screening Questions", "Link": "/questions", "icon": "fa fa-list", "active":"deactive"},
+    //     {"Title": "Scheduled interview", "Link": "/interview_list", "icon": "fa fa-calendar", "active":"deactive"}
+    // ]);
 
     /* Function to intialise controller */
     $scope.init = function(){

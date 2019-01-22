@@ -102,6 +102,7 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
                 jb.status = response.data.data.status,                
                 jb.job_code = response.data.data.job_code,                
                 jb.companyId = response.data.data.company_id,                
+                jb.project_title = response.data.data.project_title,                
 
                 applySelect2();   
             }, function myError(r) {
@@ -153,7 +154,8 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
                 "job_type":jb.jobType,
                 "ctc":jb.ctc,
                 "notice_period":jb.noticePeroid,
-                "company_id":jb.companyId
+                "company_id":jb.companyId,
+                "project_title":jb.project_title
                 //"status":jb.status
             }
             // console.log(req);

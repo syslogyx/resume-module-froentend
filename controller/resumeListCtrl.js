@@ -7,7 +7,14 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     rlc.interviewerList=null;
     rlc.candidateId = null;
     rlc.seletedSection = [];
-    rlc.bgChecklistDocList = []
+    rlc.bgChecklistDocList = [];
+    rlc.waiting=false;
+    rlc.jdId = null;
+    rlc.notSameInterviewerList = null;
+
+    var hashPathname = window.location.hash;
+    rlc.hashPathId = hashPathname.substring(1, hashPathname.length);
+    console.log(rlc.hashPathId);
     
     rlc.round = RESOURCES.TECHNICAL_ROUND;   
 
@@ -75,7 +82,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
    /*Function to filter candidate */
     rlc.searchCandidate = function () {
         if($('#candidateResumeFilterForm').valid()){
-            rlc.onAlphabetClick("All","0")
+            rlc.onAlphabetClick("All","0");
             rlc.fetchList(-1);       
         }
     };
@@ -212,7 +219,8 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
             'from_total_experience':rlc.fromTotalYearExperiance,
             'to_total_experience':rlc.toTotalYearExperiance,
             // 'search_alphabet':alphabet
-            'search_alphabet':rlc.alpha
+            'search_alphabet':rlc.alpha,
+            'status':rlc.hashPathId
         }
 
         var requestParam = {
@@ -236,9 +244,20 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         });
     }    
 
+    genCharArray();
+    
     /*Function to initialise controller */
     rlc.init = function(){
-        genCharArray();
+        // debugger;
+        // console.log(rlc.alphabet);
+
+        if (rlc.hashPathId === 'non-selected') {
+            $("#selected").parent().removeClass('active');
+            $("#non-selected").parent().addClass('active');
+        }else if (rlc.hashPathId === 'selected'){
+            $("#non-selected").parent().removeClass('active');
+            $("#selected").parent().addClass('active');
+        }
         rlc.fetchList(-1);
         rlc.getAllInterviewerList();
         rlc.getActiveJd();
@@ -265,13 +284,13 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     }
 
     /*Function to get all interviewer list */
-    rlc.getAllInterviewerList = function(){        
+    rlc.getAllInterviewerList = function(){  
         var promise = services.getInterviewerList();        
         promise.then(function mySuccess(result) {
             Utility.stopAnimation(); 
             try {
-                if(response.data.status_code = 200){                    
-                    rlc.interviewerList = result.data;  
+                if(result.data.status_code = 200){                    
+                    rlc.interviewerList = result.data.data;  
                 } 
             } catch (e) {
                 // toastr.error("No Record Found");
@@ -284,9 +303,36 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         });
     }    
 
+    /*Function to get all interviewer list */
+    rlc.getAllInterviewerListNotPresentInAssoc = function(candidateId,jdId){   
+        var request = {
+            "candidate_id":candidateId,
+            "job_description_id":jdId
+        }      
+        var promise = services.getInterviewerListByJdIdAndCandidateId(request);        
+        promise.then(function mySuccess(result) {
+            Utility.stopAnimation(); 
+            try {
+                if(result.data.status_code = 200){                    
+                    rlc.notSameInterviewerList = result.data.data;  
+                } 
+            } catch (e) {
+                // toastr.error("No Record Found");
+                Raven.captureException(e)
+            } 
+        }, function myError(r) {
+            rlc.interviewerList = null;
+            // toastr.error(r.data.message, 'Sorry!');
+            Utility.stopAnimation();
+        });
+    }    
+
+
     /*Function to open assign interviewer modal */
-    rlc.openAssignInterviewerModal =function($candidateId,$status){
+    rlc.openAssignInterviewerModal =function($candidateId,$jdId,$status){
         rlc.candidateId = $candidateId;
+        rlc.jdId = $jdId;
+        rlc.getAllInterviewerListNotPresentInAssoc(rlc.candidateId,rlc.jdId);
         rlc.candidateStatus = $status;
         $scope.round = $status == 'Clear' ? 'Round 1' : 'Round 2';
         $scope.scheduleTime = '';
@@ -303,7 +349,8 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
                 "schedule_date":$scope.scheduleDate.split("/").reverse().join("-"),
                 "schedule_time":$scope.scheduleTime,
                 // "users_list":rlc.interviewer
-                "user_id":rlc.interviewer
+                "user_id":rlc.interviewer,
+                "job_description_id":rlc.jdId
             };
             var promise = services.scheduleInterviewer(req);
             promise.then(function mySuccess(response) {
@@ -348,6 +395,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     /* Function to open interview reshedule modal */
     rlc.openRescheduleModal = function(data){
         $scope.interviewRescheduleData = data;
+        console.log(data);
         if($scope.interviewRescheduleData.length != null){
             rlc.interviewer = $scope.interviewRescheduleData[0].user_id;
             rlc.candidateId = $scope.interviewRescheduleData[0].candidate_id;
@@ -356,6 +404,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
             $scope.scheduleTime = $scope.interviewRescheduleData[0].schedule_time;
             $scope.interviewType = $scope.interviewRescheduleData[0].mode_of_interview;
             $scope.assoc_id = $scope.interviewRescheduleData[0].id;
+            $scope.job_description_id = $scope.interviewRescheduleData[0].job_description_id;
             $('#rescheduleModel').modal('show');
             setTimeout(function() { rlc.datepickerInit();}, 500);
         }
@@ -372,6 +421,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
                 "mode_of_interview":$scope.interviewType,
                 "schedule_date":$scope.scheduleDate.split("/").reverse().join("-"),
                 "schedule_time":$scope.scheduleTime,
+                "job_description_id":$scope.job_description_id,
                 "user_id":rlc.interviewer
             };
             var promise = services.rescheduleInterview(req);
@@ -491,7 +541,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         }
     }
 
-    /* Function to show bg checklist modal and get all bg checklist */
+     /* Function to show bg checklist modal and get all bg checklist */
     rlc.viewBgChecklistModal = function(candidateData){
         $('#cv_selection_list_li.active').removeClass('active');
         $('#cv_selection_list.active').removeClass('active');
@@ -550,6 +600,8 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         if($('#pdfSettingFormForZip').valid()){
             if($('#my-select_for_zip').val().toString() != ''){ 
                 // $("#downloadZipBtn").attr('disabled',true);
+                rlc.waiting=true;
+                rlc.timer();
                 var promise = services.createBgCheckListDocZip(rlc.candidateID,$('#my-select_for_zip').val().toString());        
                 promise.success(function (result) {  
                     Utility.stopAnimation();
@@ -558,14 +610,27 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
                     Utility.stopAnimation();
                 }); 
 
-                setTimeout(function(){
-                    var promise = services.downloadBgCheckListDocZip(rlc.candidateName);
-                    $("#bgChecklistDocsModal").modal("hide");
-                    // toastr.success('Downloaded successfully..!!');
-                  },5000);
-
             }
         }
+    }
+    rlc.second=15;
+    rlc.timer=function(){       
+            
+            rlc.x = setInterval(function() {
+                $scope.$apply(rlc.clock);   
+            }, 1000);
+    }
+    
+    rlc.clock=function(){
+              rlc.second--;             
+              if (rlc.second == 0) {
+                rlc.second=15;
+                clearInterval(rlc.x);
+                rlc.waiting=false;
+                var promise = services.downloadBgCheckListDocZip(rlc.candidateName);
+                $("#bgChecklistDocsModal").modal("hide");
+              }
+    
     }
 
     rlc.init();

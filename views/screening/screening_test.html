@@ -1,88 +1,139 @@
 <section class="content" ng-cloak >
     <br>
     <br>
-    <form role="form" name="screeningTestForm" id="screeningTestForm">
+    
         <div class="box box-default">
             <div class="row boxhead box-header with-border boxhead">
-                <div class="col-xs-6">
+                <div class="col-xs-10">
                     <h1 class="formheading">
-                           <b>Basic Screening of {{st.candidateName}}</b>
+                           <b>Basic Screening of </b><span style="color:#3c8dbc;">{{st.candidateName}}</span>
                     </h1>
                 </div> 
-                <div class="col-xs-6">
+                <div class="col-xs-2">
                     <div class="pull-right" style="margin-top: 5px; margin-right: 20px;">
-                        <a ng-href="/resume_list"><button type="button" class="btn btn-default btn-sm" data-toggle="modal" title="Back" data-target="" data-ng-click="" style="border:white;color:#428bca;outline: 0;"><i class="fa fa-arrow-left" aria-hidden="true"></i></button></a>  
+                        <a ng-href="/resume_list#non-selected"><button type="button" class="btn btn-default btn-sm" data-toggle="modal" title="Back" data-target="" data-ng-click="" style="border:white;color:#428bca;outline: 0;"><i class="fa fa-arrow-left" aria-hidden="true"></i></button></a>  
                     </div> 
                 </div> 
             </div>
-            <div class="box-body">  
-                <div class="row" >
-                    <div class="col-md-12" >
-                        <div ng-repeat="q in st.questionList | filter:$even" class="col-md-6 duplicate">
-                            <strong><p style="font-size:15px">Ques {{$index+1}}: 
-                            {{q['question']}}</p></strong> 
+            <div class="box-body"> 
 
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>Answer</label>
-                                        <select ng-init="q.option = st.options[0].name" class="form-control" name="option[]" id="option{{$index}}" ng-model="q.option">
-                                            <option ng-repeat="x in st.options" value="{{x.name}}">{{x.name}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-9">
-                                    <div class="form-group">
-                                        <label>Remark</label>
-                                        <textarea class="form-control" id="remark{{$index}}" name="remark[]" ng-model="q.remark" rows="1" placeholder="Enter remark"></textarea>
-                                    </div>
-                                </div>
-                            </div>                            
-                        </div>
-                    </div>
-                </div>
-                <hr>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="col-md-6 form-group">
-                            <label class="mandatory">Duration of Interview (Hours)</label>
-                            <input class="form-control" id="interview_duration" name="interview_duration" placeholder="Enter duration" ng-model="st.interview_duration" rows="1">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label class="mandatory">Observation</label>
-                            <textarea class="form-control" placeholder="Enter Observation" id="observation" name="observation" ng-model="st.observation" rows="1"></textarea>
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <h1 style="font-size: 15px; margin-left: 7px; margin-top: 0;margin-bottom: 0px;">
+                                       <b>Apply Filter for Questions</b>
+                                </h1>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="box-body" style="padding-left: 0px;margin-left: 0px !important;">
+                            <form id="filterForm">                                
+                                <div class="col-md-4 form-group">
+                                  <label>Stream</label>
+                                  <select class="form-control s2mn" name="stream[]" id="stream" ng-model="st.stream" ng-options="x.id as x.name for x in st.streamList" data-placeholder="Select stream" multiple="multiple" style="width: 100%">
+                                        <option value="" style="color:#ccc !important;">Select Stream</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label>No. of Question</label>
+                                    <input class="form-control" type="text" id="no_of_question" name="no_of_question" ng-model="st.no_of_question" placeholder="Enter no. of question">
+                                </div>
+                                <div class="col-md-1" style="text-align: center;">
+                                  <div class="form-group" >
+                                    <br>
+                                      <input type="button" value="Search" class="btn btn-primary" style="margin-top:5px" ng-click="st.fetchList()" />
+                                  </div>
+                                </div>
+                                <div class="col-md-1 " style="text-align: center;">
+                                  <div class="form-group" >
+                                    <br>
+                                    <button type="button" class="btn btn-block btn-primary fa fa-refresh" ng-click="st.resetFilterForm()" style="margin-top:5px"></button>  
+                                  </div>
+                                </div>
+                            </form>                            
+                            </div>                        
                         </div>
                     </div>
                 </div>
+                <div class="row" ng-if="st.questionList==null || st.questionList.length == 0">
+                    <div class="col-xs-12">                        
+                        <div class="userPerformances panel panel-info">
+                            <div class="panel-heading">
+                                <div class="row"> 
+                                    <div class="col-md-12">
+                                        No Questions Found
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                    
+                    </div>
+                </div> 
+
+                <form role="form" name="screeningTestForm" id="screeningTestForm">
+                    <div class="row" >
+                        <div class="col-md-12">
+                            <div ng-repeat="q in st.questionList | filter:$even" class="col-md-6 duplicate">
+                                <strong><p style="font-size:15px">Ques {{$index+1}}: 
+                                {{q['question']}}</p></strong> 
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="mandatory">Answer</label>
+                                            <!-- <select ng-init="q.option = st.options[0].name" class="form-control" name="option[]" id="option{{$index}}" ng-model="q.option">
+                                                <option ng-repeat="x in st.options" value="{{x.name}}">{{x.name}}</option>
+                                            </select> -->
+                                            <textarea class="option form-control" id="option{{$index}}" name="option{{$index}}" ng-model="q.option" rows="1" placeholder="Enter answer"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label  class="mandatory">Remark</label>
+                                            <textarea class="remark form-control" id="remark{{$index}}" name="remark{{$index}}" ng-model="q.remark" rows="1" placeholder="Enter remark"></textarea>
+                                        </div>
+                                    </div>
+                                </div>                            
+                            </div>
+                        </div>
+                    </div>
+                   
+                </form>
             </div>
             <div class="box-footer" style="margin-right:14px!important">
                 <div class="pull pull-right">
                     <input type="submit" value="Save" data-ng-click="st.onButtonsave()" class="btn btn-success" style="outline: 0;"/> 
                     <input type="button" value="Cancel" class="btn btn-warning" data-ng-click="st.cancelTest()"  style="outline: 0;"/> 
-                    <input type="reset" value="Reset" ng-click="st.resetForm()" class="btn" style="outline: 0;"/> 
+                    <!-- <input type="reset" value="Reset" ng-click="st.resetForm()" class="btn" style="outline: 0;"/>  -->
                 </div>
             </div>
         </div>
-    </form>
 
     <div class="modal fade statusConfirmationModel" id="statusConfirmationModel" role="dialog">
-        <div class="modal-dialog modal-sm">
+        <div class="modal-dialog modal-md">
             <div class="modal-content" style="border-radius: 0px!important;" >
                 <div class="modal-header" id="popUpModalHeader"> 
                     <button type="button" class="close" data-dismiss="modal" ng-click="st.resetForm()" style="margin-right: 5px;">&times;</button>
-                    <h4 class="modal-title popUpModalTitle">Select Status</h4>
+                    <h4 class="modal-title popUpModalTitle">Screening Feedback</h4>
                 </div>
                 <div class="modal-body">
                     <form id="changeStatusForm">
-                        <!-- <div class="row">
-                            <div class="col-md-12" style="margin-top: 1%;">
-                                <span>Do you want to change job status?</span>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="mandatory">Duration of Interview (Hours)</label>
+                                <input class="form-control" id="interview_duration" name="interview_duration" placeholder="Enter duration" ng-model="st.interview_duration" rows="1">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="mandatory">Observation</label>
+                                <textarea class="form-control" placeholder="Enter Observation" id="observation" name="observation" ng-model="st.observation" rows="1"></textarea>
                             </div>
                         </div>
-                        <br> -->
                         <div class="row">
                             <div class="col-md-12 form-group" style="margin-top: 1%;">
-                               <!--  <label class="" style="font-size: 14px">Status </label> ng-init="st.status = st.statusData[0].name" -->
+                                <label class="mandatory">Status </label> 
+                                <!-- ng-init="st.status = st.statusData[0].name" -->
                                 <select  id="changeStatus" name="changeStatus" class="form-control" placeholder="Enter status" ng-model="st.status" ng-options="x.name as x.name for x in st.statusData" >
                                     <option value="" style="color:#ccc !important;">Select status</option>
                                 </select>
@@ -98,6 +149,11 @@
         </div>
     </div>
 </section>
+<style type="text/css">
+    .help-block{
+        margin-bottom: 0;
+    }
+</style>
 <script type="text/javascript">
     $(document).ready(function(){
         $('#statusConfirmationModel').on('hide.bs.modal', function (e) {
@@ -105,12 +161,21 @@
             $("#changeStatusForm div.form-group").each(function () {
                 $(this).removeClass('has-error');
                 $('span.help-block-error').remove();
-                // applySelect2();
+                applySelect2();
             });
         });
+        applySelect2();
+
+        $("html, body").animate({scrollTop: 0}, "fast");
+        $('.modal').on('hidden.bs.modal', function (e) {
+            console.log("Modal is closed");
+            $('header').css('z-index', '1053');
+            $('footer').css('z-index', '1053');
+        })
     });
 
-    $("#changeStatusForm").validate({
+
+    $("#filterForm").validate({
         errorElement: 'span', //default input error message container
         errorClass: 'help-block help-block-error',
         errorPlacement: function (error, element) {
@@ -126,16 +191,13 @@
             }
         },
         rules: {
-            changeStatus: {
-                required: true
+            no_of_question: {
+                number: true
             },                    
             
         },
         messages: {
-            stream: {
-                required: "Status is required."
-            },
-           
+            
         },
         highlight: function (element) { // hightlight error inputs
             $(element).closest('.form-group').addClass('has-error');
@@ -154,6 +216,76 @@
                     .closest('.form-group').removeClass('has-error'); // set success class to the control group
         }
     });
+
+    $("#changeStatusForm").validate({
+            errorElement: 'span', //default input error message container
+            errorClass: 'help-block help-block-error',
+            errorPlacement: function (error, element) {
+
+                var type = $(element).attr("type");
+                if ($(element).attr("id") === "")
+                {
+                    element.parent().append(error);
+
+                }
+                else{
+                    error.insertAfter(element);
+                }
+            },
+            rules: {
+                changeStatus: {
+                    required: true
+                },  
+                interview_duration: {
+                    required: true,
+                    number:true
+                },
+                observation: {
+                    required: true
+                }                    
+                
+            },
+            messages: {
+                changeStatus: {
+                    required: "Status is required."
+                },
+                interview_duration: {
+                    required: "Duration is required."
+                },
+                observation: {
+                    required: "Observation is required."
+                }
+
+               
+            },
+            highlight: function (element) { // hightlight error inputs
+                $(element).closest('.form-group').addClass('has-error');
+
+                $(element).next().children().children().attr('style', 'border-color:#dd4b39!important');
+                // set error class to the control group
+            },
+            unhighlight: function (element) { // revert the change done by hightlight
+                $(element)
+                        .closest('.form-group').removeClass('has-error');
+                $(element)
+                        .next().children().children().attr('style', 'border-color:'); // set error class to the control group
+            },
+            success: function (label) {
+                label
+                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+            }
+    });
+
+
+    $.validator.addMethod("remarkRequired", $.validator.methods.required,
+                   "Remark is required.");
+
+    $.validator.addClassRules("remark", { remarkRequired: true});
+
+    $.validator.addMethod("optionRequired", $.validator.methods.required,
+                   "Answer is required.");
+
+    $.validator.addClassRules("option", { optionRequired: true});
 
     $("#screeningTestForm").validate({
         errorElement: 'span', //default input error message container
@@ -165,28 +297,43 @@
             {
                 element.parent().append(error);
 
+            }else if($(element).attr("class") === ""){
+
             }
             else{
                 error.insertAfter(element);
             }
         },
         rules: {
-            interview_duration: {
-                required: true,
-                number:true
-            },
-            observation: {
-                required: true
-            }                    
+            // interview_duration: {
+            //     required: true,
+            //     number:true
+            // },
+            // observation: {
+            //     required: true
+            // }  
+            // "option[]":{
+            //     required:true
+            // },
+            // "remark[]":{
+            //     required:true
+            // }               
             
         },
         messages: {
-            interview_duration: {
-                required: "Duration is required."
-            },
-            observation: {
-                required: "Observation is required."
-            }
+            // interview_duration: {
+            //     required: "Duration is required."
+            // },
+            // observation: {
+            //     required: "Observation is required."
+            // },
+
+            // "option[]": {
+            //     required: "Option is required."
+            // },
+            // "remark[]": {
+            //     required: "Remark is required."
+            // }
            
         },
         highlight: function (element) { // hightlight error inputs
@@ -206,4 +353,17 @@
                     .closest('.form-group').removeClass('has-error'); // set success class to the control group
         }
     });
+
+
+    function setCSS(){
+        if($('.modal').is(':visible') == true){
+            console.log("Modal is open");
+            $('header').css('z-index', '900');
+            $('footer').css('z-index', '900');
+        }else{
+            $('header').css('z-index', '1053');
+            $('footer').css('z-index', '1053');
+        }
+    }
+    setCSS();
 </script>

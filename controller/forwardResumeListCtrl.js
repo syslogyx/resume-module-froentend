@@ -132,7 +132,6 @@ app.controller('forwardResumeListCtrl', function ($scope, $rootScope, $http, ser
     };
 
     frlc.saveForwardResume = function(){
-            // console.log(frlc.candiadteList);
             var cdata = frlc.candiadteList;
             var request = {
                 "data":[]
@@ -155,7 +154,8 @@ app.controller('forwardResumeListCtrl', function ($scope, $rootScope, $http, ser
                 Utility.stopAnimation();
                 try {
                     toastr.success(response.data.message);
-                    frlc.resetFilter();
+                    // frlc.resetFilter();
+                    $location.url('/round_details');
                 } catch (e) {
                     toastr.error(response.data.message, 'Sorry!');
                     Raven.captureException(e)

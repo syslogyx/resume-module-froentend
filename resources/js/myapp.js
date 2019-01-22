@@ -1,12 +1,12 @@
 ﻿var Utility = {
 
-    apiBaseUrl: "http://127.0.0.1:8000/api/",
+    // apiBaseUrl: "http://127.0.0.1:8000/api/",
       // apiBaseUrl: "http://172.16.1.97:8000/api/",
       // apiBaseUrl: "http://172.16.2.37:9000/api/",
 
     // apiBaseUrl: "http://127.0.0.1:8000/api/",
     // apiBaseUrl: "http://172.16.1.180:8000/api/",
-     // apiBaseUrl: "https://recruitmentapi.syslogyx.com/api/",
+     apiBaseUrl: "https://recruitmentapi.syslogyx.com/api/",
 
     formatDate: function (date, format) {
         var tDate = null;
@@ -69,7 +69,7 @@
         return arr;
     },
     formatAadharNumber: function (number) {
-//        var data = usc.data.hrmsUserInfo.aadhar_number;
+        //  var data = usc.data.hrmsUserInfo.aadhar_number;
         var arr = number.match(/\d{3,4}/g);
         return arr;
     }
@@ -131,7 +131,6 @@ app.constant('RESOURCES', (function () {
     return {
         TOKEN: "null",
        
-        // SERVER_API:"http://172.16.1.155:8080/api/"
         SERVER_API: Utility.apiBaseUrl,
         SERVER_URL: 'https://recruitmentapi.syslogyx.com/',
         CONTENT_TYPE: 'application/x-www-form-urlencoded; charset=UTF-8',
@@ -143,6 +142,7 @@ app.constant('RESOURCES', (function () {
         ROLE_COLLEGUE:3,
         ROLE_INTERVIWER:4,
         ROLE_CANDIDATE:5,
+        ROLE_CLIENT:6,
 
         // defined job status constants
         JOB_STATUS: [
@@ -334,41 +334,6 @@ app.directive('applyCheckBox', function () {
 
     }
 });
-// app.directive('applyCheckallBox', function () {
-//     return function (scope, element, attrs) {
-
-//         $('.icheckAllBox').iCheck({
-//             checkboxClass: 'icheckbox_square-blue',
-//             radioClass: 'iradio_square-blue',
-//         });
-
-//         $('.icheckAllBox').on('ifChecked', function (event) {
-//             $ele = $("#" + event.target.id);
-//             // console.log($ele);            
-//             $('.icheckBox').parent().addClass('checked');
-//             $('.icheckBox').attr('checked', true);
-//             var scope = angular.element(document.querySelector("#resumeListCtrl")).scope();
-//             scope.$apply(function () {
-//                scope.toggleAllSelected();
-//             });
-
-//         });
-
-//         $('.icheckAllBox').on('ifUnchecked', function (event) {
-//             $ele = $("#" + event.target.id);
-//             $('.icheckBox').parent().removeClass('checked');
-//             $('.icheckBox').attr('checked', false);
-//             var scope = angular.element(document.querySelector("#resumeListCtrl")).scope();
-//             scope.$apply(function () {
-//                scope.toggleUnSelected();
-//             });
-//         });
-
-
-//     }
-// });
-
-
 
 app.service('pagination', function (RESOURCES, $http, $cookieStore, $filter) {
     //set pagination limit here
@@ -811,7 +776,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
-    this.getAllQuestionList = function (request) {
+    this.getAllQuestionList = function (req,request) {
         if(request == undefined){
             page = -1;
             limit = -1;
@@ -824,6 +789,27 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             method: 'GET',
             url: RESOURCES.SERVER_API + "basic_screening_questions?page=" + page + "&limit=" + limit,
             dataType: 'json',
+             data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+    this.getAllFilteredQuestionList = function (req,request) {
+        if(request == undefined){
+            page = -1;
+            limit = -1;
+        }else{
+            page = request.page;
+            limit = request.limit;
+        }
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "basic_screening_questions/filter?page=" + page + "&limit=" + limit,
+            dataType: 'json',
+             data: $.param(req),
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
             }
@@ -961,6 +947,27 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             method: 'POST',
             // url: RESOURCES.SERVER_API + "candidate_details?page=" + page + "&limit=" + limit,
             url: RESOURCES.SERVER_API + "interview/filter?page=" + page + "&limit=" + limit,
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+    this.getTodaysScheduledInterviewList = function(req,request){
+        if(request == undefined){
+            page = -1;
+            limit = -1;
+        }else{
+            page = request.page;
+            limit = request.limit;
+        }
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            // url: RESOURCES.SERVER_API + "candidate_details?page=" + page + "&limit=" + limit,
+            url: RESOURCES.SERVER_API + "interview/todays?page=" + page + "&limit=" + limit,
             dataType: 'json',
             data: $.param(req),
             headers: {
@@ -1185,6 +1192,19 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     }
 
+    this.updateQuestionStatus = function(req){
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "questions/changestatus/" + req.id,
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    }
+
     this.getAllBgCheckList = function (cId,viewName) {
         Utility.startAnimation();
         return $http({
@@ -1344,6 +1364,21 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
+    this.getInterviewerListByJdIdAndCandidateId = function(req){
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "user/getUserByCandidateIdAndJdId",
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+    
+
     this.saveForwardedCandidateResumes = function (req) {
         Utility.startAnimation();
         return $http({
@@ -1358,6 +1393,20 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
+
+    this.getCandidateTechRoundDtls = function (id) {
+        Utility.startAnimation();
+        return $http({
+            method: 'GET',
+            url: RESOURCES.SERVER_API + "candidate/technical-rounds/" + id,
+            dataType: 'json',
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+
 });
 
 app.config(function ($routeProvider, $locationProvider) {
@@ -1370,7 +1419,7 @@ app.config(function ($routeProvider, $locationProvider) {
                 resolve: {
                     'acl': ['$q', 'AclService', function ($q, AclService) {
                             return true;
-                            //console.log(AclService.getRoles());
+                           // console.log(AclService.getRoles());
                             if (AclService.can('view_dash')) {
                                 // Has proper permissions
                                 return true;
@@ -1702,6 +1751,25 @@ app.config(function ($routeProvider, $locationProvider) {
                             }
                         }]
                 }
+            })
+
+            .when('/round_inforamtions', {
+                templateUrl: 'views/result/companies_tech_round_details.html',
+                controller: 'techDetailsCtrl',
+                controllerAs: 'tdc',
+                resolve: {
+                    'acl': ['$q', 'AclService', function ($q, AclService) {
+                            return true;
+                            //console.log(AclService.getRoles());
+                            if (AclService.can('view_dash')) {
+                                // Has proper permissions
+                                return true;
+                            } else {
+                                // Does not have permission
+                                return $q.reject('LoginRequired');
+                            }
+                        }]
+                }
             }) 
 
             .when('/view_resume', {
@@ -1854,6 +1922,25 @@ app.config(function ($routeProvider, $locationProvider) {
                         }]
                 }
             })
+
+            .when('/today_interviews', {
+                templateUrl: 'views/interview/current_schedule_interviews.html',
+                controller: 'interviewListCtrl',
+                controllerAs: 'ilc',
+                resolve: {
+                    'acl': ['$q', 'AclService', function ($q, AclService) {
+                            return true;
+                            
+                            if (AclService.can('view_dash')) {
+                                // Has proper permissions
+                                return true;
+                            } else {
+                                // Does not have permission
+                                return $q.reject('LoginRequired');
+                            }
+                        }]
+                }
+            })
  
 
     $locationProvider.html5Mode(true);
@@ -1861,7 +1948,6 @@ app.config(function ($routeProvider, $locationProvider) {
 
 app.run(function ($rootScope, AclService, $cookieStore, $location, services) {
     var authKey = services.getAuthKey();
-    // console.log(authKey);
     if(window.location.pathname.search("/resume/")==0){
 
     }else if (authKey == undefined) {
@@ -1873,8 +1959,6 @@ app.run(function ($rootScope, AclService, $cookieStore, $location, services) {
         var role = authIdentity.identity.role;
         var aclData = {admin: authPerm};
         AclService.setAbilities(aclData);
-        /* console.log(authIdentity);*/
-
         services.setIdentity(authIdentity);
         // Attach the member role to the current user
         AclService.attachRole(role);
@@ -1909,7 +1993,6 @@ jQuery.validator.addMethod("customEmail", function (value, element) {
 
 app.controller('sidebarCtrl', function ($scope, $rootScope, $filter,sidebarFactory, services) {
     $scope.data = '';
-
     //method to change date format to dd/mm/yyyy
     convertDateStraight = function (input) {
         if (input != null) {
@@ -1917,7 +2000,7 @@ app.controller('sidebarCtrl', function ($scope, $rootScope, $filter,sidebarFacto
         }
     }
 
-     // $scope.template = sidebarFactory.template;
+    // $scope.template = sidebarFactory.template;
     $scope.$on('templateData', function (event, data) {
         $scope.templateData = data;
 
@@ -1938,42 +2021,6 @@ app.controller('sidebarCtrl', function ($scope, $rootScope, $filter,sidebarFacto
     $scope.showTab = function (data) {
         $scope.showTemp = data;
     }
-
-    //function will be called when we view specific time allocation log of a project
-//     $scope.viewTimeAllocLog = function (data, index) {
-//         console.log("data");
-//         console.log(data);
-//         $scope.endDateTimeAlloc = "";
-//         $scope.updatedByTimeAlloc = "";
-//         $scope.remarkTimeAlloc = "";
-        
-//         $("#viewTimeAllocLog_" + index).attr('disabled', 'disabled');
-//         $("#viewActivityLogModal").modal('toggle');
-//         setTimeout(function(){setCSS();},500);
-// //        $scope.dataArray = data;
-//         $scope.projectNameTimeAlloc = data.name;
-
-//         var req = {
-//             "project_id": data.id,
-//             "user_id": data.user_id,
-//             "domain_id": data.domain[0].id,
-//         };
-//         var promise = services.resourceMatrixLogs(req);
-//         promise.then(function mySuccess(response) {
-//             Utility.stopAnimation();
-//             if (response.data.status_code == 200) {
-//                 console.log("response");
-//                 console.log(response);
-//                 $scope.dataArray = response.data.data;
-//                 $scope.endDateTimeAlloc = response.data.data.due_date;
-//                 $scope.updatedByTimeAlloc = response.data.data.created_by_name;
-//                 $scope.remarkTimeAlloc = response.data.data.remark;
-//             }
-//         }, function myError(r) {
-//             toastr.error(r.data.message);
-//             Utility.stopAnimation();
-//         });
-//     }
 
     $scope.dismissViewTimeAllocLogModal = function () {
         $("#viewActivityLogModal").modal('hide');

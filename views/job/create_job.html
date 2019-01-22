@@ -114,6 +114,14 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="mandatory" for="">Project Description</label>
+                           <textarea placeholder="Enter Project Description" class="form-control" id="project_title" name="project_title" ng-model="jb.project_title" rows="2"></textarea>
+                        </div>
+                    </div>                                        
+                </div>
             </div>
             <!-- /.box-body -->
             <div class="box-footer" style="margin-right:14px!important">
@@ -197,6 +205,9 @@
                     },
                     companyId: {
                         required: true
+                    },
+                    project_title:{
+                        required:true
                     }
                 },
                 messages: {
@@ -242,6 +253,9 @@
                     },
                     companyId: {
                         required: "Company name is required."
+                    },
+                    project_title: {
+                        required: "Project name is required."
                     }
                 },
                 highlight: function (element) { // hightlight error inputs

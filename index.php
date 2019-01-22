@@ -99,7 +99,7 @@
                 <header class="main-header" ng-show="token">
 
                     <!-- Logo -->
-                    <a href="/" class="logo">
+                    <a href="/" class="logo" onclick="window.location.reload();">
                         <!-- mini logo for sidebar mini 50x50 pixels -->
                         <img src="/resources/img/syslogyx_logo_small.png" style="    padding-left: 7px; padding-top: 7px;" class="logo-mini">
                         <!-- logo for regular state and mobile devices -->
@@ -109,7 +109,7 @@
                     <nav class="navbar navbar-static-top" >
                         <!-- Sidebar toggle button-->
                         <div style="float:left">
-                            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button" ng-show="token" style="outline:0;text-decoration: none;">
+                            <a class="sidebar-toggle" data-toggle="push-menu" role="button" ng-show="token" style="outline:0;text-decoration: none;">
                                 <span class="sr-only">Toggle navigation</span>
                             </a>
                         </div>
@@ -118,7 +118,7 @@
                             <ul class="nav navbar-nav " ng-show="token">
 
                                 <li class=" dropdown user user-menu ">
-                                    <a href="#" class="dropdown-toggle userSection" data-toggle="dropdown">
+                                    <a class="dropdown-toggle userSection" data-toggle="dropdown">
                                         <img src="resources/img/default_profile.png" class="user-image" alt="User Image" >
                                     </a>
                                     <ul class="dropdown-menu" id="logout" style="margin-top: 18%;">
@@ -242,7 +242,7 @@
             <div class="menuSec" ng-controller="menuCtrl" style="min-height: 50px;">
                 <footer class="main-footer" style="height: 50px;">
                     <div class="pull-right hidden-xs">
-                        <b>Version</b> 0.0
+                        <b>Version</b> 1.0.1
                     </div>
                     <strong>Copyright &copy; 2018 <a href="http://www.syslogyx.com/">Syslogyx Technologies Pvt. Ltd.</a></strong> All rights
                     reserved.
@@ -325,6 +325,7 @@
          <!-- <script src="https://gitcdn.github.io/bootstrap-toggle/2.1.0/js/bootstrap-toggle.min.js"></script> -->
         <!-- <script src="/resources/plugins/jquery.twbsPagination/jquery.twbsPagination.min.js"></script> -->
         <script src="/resources/plugins/jquery.twbsPagination/jquery.twbsPagination.min.js"></script>
+        <!-- <script src="/resources/plugins/Jquery-freezeheader-plugin/js/jquery.freezeheader.js"></script> -->
         <script src="/resources/js/ui-bootstrap-tpls.js"></script>
         <script src="/resources/js/myapp.js"></script>  
         <script src="/controller/homeCtrl.js"></script>
@@ -343,6 +344,7 @@
         <script src="/controller/backgroundChecklistCtrl.js"></script>
         <script src="/controller/forwardResumeListCtrl.js"></script>
         <script src="/controller/roundDtlsCtrl.js"></script>
+        <script src="/controller/techDetailsCtrl.js"></script>
 
          <script>
                     $( window ).scroll(function() {

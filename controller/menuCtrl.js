@@ -12,34 +12,35 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
     if(loggedInUser.identity.role==RESOURCES.ROLE_ADMIN){
         $scope.menuList = [
             {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"active"},
-            {"Title": "User Management", "Link": "user", "icon": "fa fa-user-plus", "active":"deactive"},
-            {"Title": "Resume Management", "Link": "/resume_list", "icon": "fa fa-file-text", "active":"deactive"},
-            {"Title": "Forward Resumes", "Link": "/forward_resumes", "icon": "fa fa-circle-o", "active":"deactive"},
-            {"Title": "Round Details", "Link": "/round_details", "icon": "fa fa-info", "active":"deactive"},
             {"Title": "JD Management", "Link": "/jobs", "icon": "fa fa-tasks", "active":"deactive"},
+            {"Title": "Company Management", "Link": "/company", "icon": "fa fa-bank ", "active":"deactive"},
+            {"Title": "Resume Management", "Link": "/resume_list#non-selected", "icon": "fa fa-file-text", "active":"deactive"},
+            {"Title": "Forward Resumes", "Link": "/forward_resumes", "icon": "fa fa-circle-o", "active":"deactive"},
+            // {"Title": "Round Details", "Link": "/round_details", "icon": "fa fa-info", "active":"deactive"},
             {"Title": "Screening Questions", "Link": "/questions", "icon": "fa fa-question-circle", "active":"deactive"},
             {"Title": "Scheduled interview", "Link": "/interview_list", "icon": "fa fa-calendar", "active":"deactive"},
-            {"Title": "Company Management", "Link": "/company", "icon": "fa fa-bank ", "active":"deactive"},
-            {"Title": "Background Checklist", "Link": "/background_checklist", "icon": "fa fa-check-square-o", "active":"deactive"}
+            {"Title": "Background Checklist", "Link": "/background_checklist", "icon": "fa fa-check-square-o", "active":"deactive"},
+            {"Title": "User Management", "Link": "user#all", "icon": "fa fa-user-plus", "active":"deactive"}
         ];
         $scope.showUpdateProfile = true;
     }else if (loggedInUser.identity.role==RESOURCES.ROLE_HR) {
         $scope.menuList = [
             {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"active"}, 
-            {"Title": "User Management", "Link": "user", "icon": "fa fa-user-plus", "active":"deactive"},   
-            {"Title": "Resume Management", "Link": "/resume_list", "icon": "fa fa-file-text", "active":"deactive"},
+            {"Title": "Resume Management", "Link": "/resume_list#non-selected", "icon": "fa fa-file-text", "active":"deactive"},
+            {"Title": "User Management", "Link": "user#all", "icon": "fa fa-user-plus", "active":"deactive"}
         ];      
         $scope.showUpdateProfile = true;
     }else if (loggedInUser.identity.role==RESOURCES.ROLE_COLLEGUE) {
         $scope.menuList = [
             {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"active"}, 
-            {"Title": "Resume Management", "Link": "/resume_list", "icon": "fa fa-file-text", "active":"deactive"}
+            {"Title": "Resume Management", "Link": "/resume_list#non-selected", "icon": "fa fa-file-text", "active":"deactive"}
         ];
         $scope.showUpdateProfile = true;
     }else if (loggedInUser.identity.role==RESOURCES.ROLE_INTERVIWER) {
         $scope.menuList = [
             {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"active"}, 
-            {"Title": "Scheduled interview", "Link": "/interview_list", "icon": "fa fa-calendar", "active":"deactive"}
+            {"Title": "Scheduled interview", "Link": "/interview_list", "icon": "fa fa-calendar", "active":"deactive"},
+            {"Title": "Today's interviews", "Link": "/today_interviews", "icon": "fa fa-calendar", "active":"deactive"}
         ];
         $scope.showUpdateProfile = true;
     }else if (loggedInUser.identity.role==RESOURCES.ROLE_CANDIDATE) {
@@ -47,6 +48,11 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
             {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"active"}, 
             {"Title": "My Resume", "Link": "/view_resume", "icon": "fa fa-file-text", "active":"deactive"},
             {"Title": "Upload Documents", "Link": "/upload_background_form", "icon": "fa fa-file", "active":"deactive"}
+        ];
+        $scope.showUpdateProfile = false;
+    }else if (loggedInUser.identity.role==RESOURCES.ROLE_CLIENT) {
+        $scope.menuList = [
+            {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"active"}
         ];
         $scope.showUpdateProfile = false;
     }else{
@@ -57,6 +63,7 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
 
     /*Function to active selected menu */
     $scope.menuClick=function(link){
+        console.log(link);
       for (var i = 0; i < $scope.menuList.length; i++) {
         if(link==$scope.menuList[i].Link){
           $scope.menuList[i].active='active';
@@ -121,6 +128,9 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
     // $scope.select= function(i) {
     //   $scope.selectedIndex=i;
     // };
+    $scope.select= function(i) {
+      $scope.selectedIndex=i;
+    };
 
     /*Function to get login user data */
     $scope.getUserData = function () {

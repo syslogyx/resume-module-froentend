@@ -21,7 +21,8 @@ app.controller("resultCtrl", function (services, AclService, $scope, $http, $loc
     	res.getCandidateList();
     	res.getAllInterviewerList();
     	res.tecForm.candidate_id = $location.search()["cId"];
-	    res.tecForm.user_id = parseInt($location.search()["uId"]);
+        res.tecForm.user_id = parseInt($location.search()["uId"]);
+	    res.tecForm.job_description_id = parseInt($location.search()["jd_id"]);
 	    res.tecForm.technical_round = $location.search()["round"].toString();
     }
 
@@ -37,7 +38,7 @@ app.controller("resultCtrl", function (services, AclService, $scope, $http, $loc
             var promise = services.saveTechnicalRoundFeedback(res.tecForm);
             promise.then(function mySuccess(response) {
                 try {
-                    // $location.path('/resume_list');
+                    // $location.path('/resume_list#non-selected');
                     window.location = '/interview_list';
                     toastr.success(response.data.message);
                 } catch (e) {

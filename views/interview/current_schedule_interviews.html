@@ -4,93 +4,37 @@
         <br>
         <div class="row">
             <div class="col-md-6">
-                <h4>Scheduled Interviews</h4>
-            </div>
-            <div class="col-md-4" style="margin-top:1.5%;">
-                <div class="dataTables_length text-right" id="example_length">
-                    <label>Show 
-                        <select id="table_length" aria-controls="example" style="outline: 0;">
-                            <!-- <option value="1">1</option> -->
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select> 
-                    entries</label>
-                </div>
-            </div>
+                <h4>Today's Interviews</h4>
+            </div>            
             <!-- <div class="col-md-2 pull-right" style="margin-top:1%;">
                 <button type="button" class="btn btn-primary btn-circle btn-sm pull-right" data-toggle="collapse" title="Filter" data-target="#filter"><i class="fa fa-filter" aria-hidden="true" style="padding-right:0.3px"></i></button>
             </div>   -->          
         </div> 
-        <br>        
-
-        <!-- <div class="box box-primary collapse" id="filter"> -->
-        <div class="box box-primary" id="filter">
-            <div class="box-body">
-                <div class="row">
-                    <div class="col-md-4" ng-if="ilc.logInUserRole == '1'">
-                        <div class="form-group">
-                          <label>Interviewer</label>
-                          <select id="jobCode" name="jobCode" ng-model="ilc.userId" class="form-control" style="width: 100%;"  ng-options="x.id as x.name for x in ilc.interviewerList">
-                            <option value="">Select Interviewer</option>
-                          </select>
-                        </div>
-                    </div>
-                    <div class="col-md-4" ng-if="ilc.logInUserRole == '4' || ilc.logInUserRole == '1'">
-                        <div class="form-group">
-                            <label>Job Code</label>
-                            <select id="jobCode" name="jobCode" ng-model="ilc.jobCodeId" class="form-control" >
-                                <option value="" style="color:#ccc !important;">Select job code</option>
-                                <option ng-repeat="jd in ilc.activeJobDetail" value="{{jd.id}}">{{jd.job_code}} {{jd.sub_title != '' ? (jd.sub_title) : ''}}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-1" style="text-align: center;">
-                      <div class="form-group" >
-                        <br>
-                          <input type="button" value="Search" ng-click="ilc.fetchList(-1)" class="btn btn-primary" style="margin-top:5px" />
-                      </div>
-                    </div>
-                    <div class="col-md-1 " style="text-align: center;">
-                      <div class="form-group" >
-                        <br>
-                        <button type="button" class="btn btn-block btn-primary fa fa-refresh" ng-click="ilc.resetFilter()" style="margin-top:5px"></button>           
-
-                      </div>
-                    </div>
-                </div>
-            </div>
-        </div>  
+        <br> 
+        
         <div class="table-responsive no-padding">
             <table class="table table-hover">
                 <thead class="thead-default">
                     <tr>
                         <th style="text-align: center;">Sr No.</th>
-                        <th>Interviewer</th>                        
                         <th>Candidate Name</th>
+                        <th>Job Code</th>
                         <th>Scheduled Date</th>                        
                         <th>Scheduled Time</th>           
-                        <th>Round</th>           
-                        <th style="text-align: center;">Action</th>
+                        <th>Round</th>
                     </tr>
                 </thead>
-                <!-- <pre>{{ilc.interviewList|json}}</pre> -->
                 <tbody>
-                    <tr ng-repeat="data in ilc.interviewList">
+                    <tr ng-repeat="data in ilc.currentInterviewList">
                         <td style="text-align: center;" ng-bind="(ilc.pageno - 1) * ilc.limit + ($index + 1)"></td>
-                        <td>{{data.users.name}}</td>
                         <td>{{data.all_candidates.first_name +' '+ data.all_candidates.middle_name +' '+ data.all_candidates.last_name}}</td>
+                        <td>{{data.job_description.job_code +' '+data.job_description.sub_title}}</td>
                         <td>{{data.schedule_date | date: 'dd-MM-yyyy'}}</td>
                         <td>{{ilc.tConvert(data.schedule_time)}}</td>
                         <td>{{data.technical_round}}</td>
-                        <td style="text-align: center">
-                            <a  ng-href="/interview_feedback?cId={{data.candidate_id}}&uId={{data.user_id}}&round={{data.technical_round}}&jd_id={{data.job_description_id}}" ng-if="data.all_candidates.candidate_technical_result[0].status != 'Pass' && data.all_candidates.candidate_technical_result[0].status != 'Fail' && ilc.logInUserRole != '1' && data.all_candidates.candidate_technical_result.length == 0" type="button" class="btn" title="Feedback" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-comments" aria-hidden="true"></i></a>
-                            <a ng-if="data.all_candidates.status == 'Fail' && data.all_candidates.status != 'Pass' && ilc.logInUserRole == '1'" type="button" class="btn" title="Change JD" ng-click="ilc.openChangeJdStatusModel(data.candidate_id)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-refresh" aria-hidden="true"></i></a>
-                        </td>
                     </tr>
-                    <tr ng-if="ilc.interviewList == null || ilc.interviewList.length == 0">
-                        <td style="text-align: center;" colspan="7">No Records Found</td> 
+                    <tr ng-if="ilc.currentInterviewList == null || ilc.currentInterviewList.length == 0">
+                        <td style="text-align: center;" colspan="5">No Records Found</td> 
                     </tr>
                 </tbody>
             </table>

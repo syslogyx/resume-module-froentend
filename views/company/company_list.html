@@ -30,7 +30,8 @@
                     <tr>
                         <th style="text-align: center;">Sr No.</th>
                         <th>Name</th>                        
-                        <th style="text-align: center;">Contact Number</th>
+                        <th>Email</th>
+                        <th>Contact Number</th>
                         <th>Address</th>                   
                         <th style="text-align: center;">Action</th>
                         <th style="text-align: center;">Status</th>
@@ -41,7 +42,8 @@
                     <tr ng-repeat="cp in cmp.companyList">
                         <td style="text-align: center;" ng-bind="(cmp.pageno - 1) * cmp.limit + ($index + 1)"></td>
                         <td>{{cp.name}}</td>
-                        <td style="text-align: center;">{{cp.contact_no}}</td>     
+                        <td>{{cp.email}}</td>
+                        <td>{{cp.contact_no}}</td>     
                         <td>{{cp.address}}</td>
                         <td style="text-align: center;"> 
                             <a type="button" class="btn" ng-href="company/edit?id={{cp.id}}" title="Edit" style="outline: 0;padding:0px"><i class="fa fa-pencil" aria-hidden="true" ></i></a>

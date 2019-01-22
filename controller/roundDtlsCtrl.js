@@ -7,6 +7,7 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
     rdc.techForm = null;
     rdc.interviewType = RESOURCES.INTERVIEW_TYPE;
     rdc.roundStatus = RESOURCES.RESULT_STATUS;
+    rdc.finalRoundStatus = RESOURCES.CANDIDATE_STATUS;
     rdc.fId = null;
     rdc.feedback_received_date = null;
     rdc.company_final_status = null;
@@ -15,6 +16,7 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
     rdc.limit = 0;
     rdc.skip = true;
     rdc.forwaredResumeList = [];
+    rdc.viewRoundInfoList = [];
 
     setTimeout(function(){
         $('#table_length').on('change',function(){
@@ -44,7 +46,7 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
             "job_description_id":rdc.jobCodeId,
             "candidate_id":rdc.candidateId
         }
-        console.log(req);
+        // console.log(req);
         // debugger;
 
         var requestParam = {
@@ -54,7 +56,7 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
              
         var promise = services.getForwardedCandidateResumesList(req,requestParam);        
         promise.success(function (result) {
-            console.log(result.status_code);
+            // console.log(result.status_code);
             if (result.status_code == 200) {                
                 rdc.forwaredResumeList = result.data.data; 
                 pagination.applyPagination(result.data,rdc);
@@ -111,8 +113,10 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
     
 
     rdc.appendTechInfoRow = function(){
-        rdc.techForm.push({forwarded_id:rdc.fId,company_round_date:"",company_tech_status:"",company_tech_round_type:"",companies_tech_remark:""});
-        setTimeout(function() { rdc.datepickerInit();}, 500);
+        if ($("#addRoundInfoForm").valid()) {
+            rdc.techForm.push({forwarded_id:rdc.fId,company_round_date:"",company_tech_status:"",company_tech_round_type:"",companies_tech_remark:""});
+            setTimeout(function() { rdc.datepickerInit();}, 500);
+        }
     }
 
 
@@ -145,7 +149,7 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
     }
 
     rdc.getJobcodeByCompanyId = function(){
-        console.log(rdc.companyId);
+        // console.log(rdc.companyId);
         if(rdc.companyId != null){            
             var promise = services.getJobCodeListByCompanyId(rdc.companyId);
             promise.then(function mySuccess(response) {
@@ -178,7 +182,7 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
     }
 
     rdc.getCandidateListByJobcodeId = function(){
-        console.log(rdc.jobCodeId);
+        // console.log(rdc.jobCodeId);
         if(rdc.companyId != null && rdc.jobCodeId != ''){            
             var promise = services.getCandidateListByJobcodeId(rdc.jobCodeId);
             promise.then(function mySuccess(response) {
@@ -204,34 +208,13 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
     }
 
     rdc.setFormatteddate = function(date){
-        console.log(date);
         return date.split("-").reverse().join("/");
-    }
-
-    
+    }    
 
     rdc.search =function(){    	
     	if($("#roundFilterForm").valid()){
 	    	rdc.fetchList(-1);
     	}
-        // if(rdc.companyId != null && rdc.jobCodeId != null && rdc.candidateId){
-        //     var req = {
-        //         "company_id":rdc.companyId,
-        //         "job_description_id":rdc.jobCodeId,
-        //         "candidate_id":rdc.candidateId
-        //     }
-        //     console.log(req);
-        //     var promise = services.getNotForwardedCandidateList(req);
-        //     promise.success(function (result) {
-        //         Utility.stopAnimation();
-        //         rdc.candiadteList = result.data; 
-        //     }, function myError(r) {
-        //         toastr.error(r.data.message, 'Sorry!');
-        //         Utility.stopAnimation();
-        //     });
-        // }else{
-        //     rdc.candiadteList = null; 
-        // }
     } 
 
     rdc.resetFilter = function(){           
@@ -257,14 +240,15 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
         $('#addRoundInfoModal').modal('show');
         setTimeout(function(){
             setCSS();
+            rdc.datepickerInit();
         },200);
 
-        setTimeout(function() { rdc.datepickerInit();}, 500);
+        // setTimeout(function() { rdc.datepickerInit();}, 500);
 
     }
 
     rdc.saveRoundInfo = function(){
-        // if ($("#addRoundInfoForm").valid()) {
+        if ($("#addRoundInfoForm").valid()) {
             for (var k = 0; k < rdc.techForm.length; k++) {
                 delete rdc.techForm[k]['$$hashKey'];
             }
@@ -287,13 +271,13 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
                 toastr.error(r.data.message);
                 Utility.stopAnimation();
             });
-        // }
+        }
         
     }
 
-    rdc.resetAddRoundDetailsForm = function(){
+    // rdc.resetAddRoundDetailsForm = function(){
 
-    }
+    // }
 
     rdc.openAddFinalRoundResultModal = function($id){
         $('#addFinalRoundResultModal').modal('show');
@@ -319,6 +303,10 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
                 Utility.stopAnimation();
                 if(response.data.status_code == 200){                    
                     $('#addFinalRoundResultModal').modal('hide');
+                    // rdc.feedback_received_date = null;
+                    // rdc.company_final_status = null;
+                    // rdc.company_final_remark = null;
+                    $("#addFinalRoundResultForm")[0].reset()
                     toastr.success(response.data.message);
                     rdc.init();
                 }else{                    
@@ -335,18 +323,20 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
 
     }
 
-    rdc.openAddHrFinalRoundResultModal = function($id){
+    rdc.openAddHrFinalRoundResultModal = function($id,$candidate_id){
         $('#addFinalHrRoundResultModal').modal('show');
         setTimeout(function(){
             setCSS();
         },200);
         rdc.fId = $id;
+        rdc.cId = $candidate_id;
         setTimeout(function() { rdc.datepickerInit();}, 500);
     }
 
     rdc.saveHRRoundDetails = function(){
         if($('#addHrRoundResultForm').valid()){
             var req = {
+                "candidate_id":rdc.cId,
                 "hr_interview_on_date":rdc.hr_interview_on_date.split("/").reverse().join("-"),
                 "hr_status":rdc.hr_status,
                 "hr_remark":rdc.hr_remark,
@@ -361,6 +351,7 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
                 Utility.stopAnimation();
                 if(response.data.status_code == 200){                    
                     $('#addFinalHrRoundResultModal').modal('hide');
+                    $('#addHrRoundResultForm')[0].reset();
                     toastr.success(response.data.message);
                     rdc.init();
                 }else{                    
@@ -378,8 +369,13 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
 
     }
 
-    rdc.openCandidateViewModel =function(){
+    rdc.openCandidateViewModel =function(data){
+        console.log(data);
+        rdc.viewRoundInfoList = data;
         $('#viewCandidateDetailsModal').modal('show');
+        setTimeout(function(){
+            setCSS();
+        },200);
     }
 
     rdc.init();

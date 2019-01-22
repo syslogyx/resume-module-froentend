@@ -12,16 +12,49 @@
         margin-bottom: 5px !important;
     }
 
+    /*tab css*/
+    .nav-tabs {
+        border-bottom: 0px solid #ddd !important;
+    }
+    .nav-tabs-custom-main > .nav-tabs > li:not(.active) > a:hover, .nav-tabs-custom-main > .nav-tabs > li:not(.active) > a:focus, .nav-tabs-custom-main > .nav-tabs > li:not(.active) > a:active{
+        border-radius: 5px 5px 0 0 !important;
+    }
+    .nav-tabs-custom-main > .nav-tabs > li > a, .nav-tabs-custom-main > .nav-tabs > li > a:hover{
+        border-radius: 5px 5px 0 0 !important;
+    }
+    .nav-tabs-custom-main > .nav-tabs > li.active > a, .nav-tabs-custom-main > .nav-tabs > li.active:hover > a{
+        background-color: #4090be !important;
+        color: #ffffff !important;
+    }
+    .nav-tabs-custom-main > .nav-tabs > li > a, .nav-tabs-custom-main > .nav-tabs > li > a:hover{
+        background: #fff !important;
+        color: #444 !important;
+        /*padding-left: 38px !important;
+        padding-right: 38px !important;*/
+        font-size: small !important;
+        font-weight: 300 !important;
+        /*padding-top: 13px !important;
+        padding-bottom: 13px !important;*/
+    }
+    .nav-tabs-custom-main > .nav-tabs > li{
+        margin-right: 3px !important;
+        border-bottom:1px solid #ddd !important;
+    }
+    .nav-tabs-custom-main{
+        margin-bottom: 10px !important;
+        /*background-color: #fff !important;*/
+    }
+
 
 </style>
 <section class="content" ng-cloak  id="roundListCtrl">
     <div class="container-fluid" style="overflow-y: hidden;">
         <br>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <h4>Round Details</h4>
             </div>
-            <div class="col-md-4" style="margin-top:1.5%;">
+            <div class="col-xs-6" style="margin-top:1.5%;">
                 <div class="dataTables_length text-right" id="example_length">
                     <label>Show 
                         <select id="table_length" aria-controls="example" style="outline: 0;">
@@ -39,11 +72,21 @@
                     <option value="{{alpabet}}" ng-repeat="alpabet in rlc.alphabet">{{alpabet}}</option>
                 </select>
             </div> -->
-            <div class="col-md-2 pull-right" style="margin-top:1%;">
+            <div class="col-xs-1 pull-right" style="margin-top:1%;">
                 <button type="button" class="btn btn-primary btn-circle btn-sm pull-right" data-toggle="collapse" title="Filter" data-target="#filter"><i class="fa fa-filter" aria-hidden="true" style="padding-right:0.3px"></i></button>
             </div>         
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="nav-tabs-custom-main">
+                    <ul class="nav nav-tabs">
+                      <li class=""><a href="forward_resumes">Forward Resume</a></li>
+                      <li class="active"><a href="round_details">Round Details</a></li>
+                    </ul>
+                </div>
+            </div>
         </div> 
-        <br>  
 
         <div class="box box-primary collapse" id="filter">
             <div class="box-body">
@@ -96,7 +139,7 @@
                         <th>Job code</th>
                         <th>Tracking status</th>
                         <th>Resume forward date</th>
-                        <th class="text-center">Action</th>
+                        <th class="text-center" nowrap>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -105,14 +148,13 @@
                         <td ng-bind="data.candidates.first_name+' '+data.candidates.middle_name+' '+data.candidates.last_name"></td>
                         <td ng-bind="data.companies.name"></td>
                         <td>{{data.candidates.job_description.job_code}} {{data.candidates.job_description.sub_title != '' ? (data.candidates.job_description.sub_title) : ''}}</td>
-                        <td ng-bind="data.feedback_received_date == null ? 'Pending for round details ': data.hr_interview_on_date == null ? 'Pending for company HR details': data.final_status"></td>
+                        <td ng-bind="(data.companies_tech_round_info == null || data.companies_tech_round_info.length == 0) ? 'Pending for round details' : data.feedback_received_date == null ? 'Pending for company Final Result' : data.hr_interview_on_date == null ? 'Pending for company HR details': data.final_status"></td>
                         <td ng-bind="rdc.setFormatteddate(data.data_sent_to_company_date)"></td>
-                        <td class="text-center">
-                            <a type="button" class="btn btn-xs" title="View Details" style="outline: 0;padding:0px" ng-click="rdc.openCandidateViewModel()"><i class="fa fa-eye" aria-hidden="true" ></i></a>
-                            <a type="button" class="btn btn-xs" title="Add Round Info" style="outline: 0;padding:0px" ng-click="rdc.openAddRoundInfoModel(data.id)" ng-if="data.companies_tech_round_info == null || data.companies_tech_round_info.length == 0"><i class="fa fa-plus" aria-hidden="true" ></i></a>
-                            <a type="button" class="btn btn-xs" title="Final Round Result" style="outline: 0;padding:0px" ng-click="rdc.openAddFinalRoundResultModal(data.id)" ng-if="data.feedback_received_date == null"><i class="fa fa-newspaper-o" aria-hidden="true" ></i></a>
-                            <a type="button" class="btn btn-xs" title="Final HR Result" style="outline: 0;padding:0px" ng-click="rdc.openAddHrFinalRoundResultModal(data.id)" ng-if="data.hr_interview_on_date == null"><i class="fa fa-user" aria-hidden="true"></i></a>
-
+                        <td class="text-center" nowrap>
+                            <a type="button" class="btn btn-xs" title="View Details" style="outline: 0;padding:0px" ng-click="rdc.openCandidateViewModel(data.companies_tech_round_info)"><i class="fa fa-eye" aria-hidden="true" ></i></a>
+                            <a type="button" class="btn btn-xs" title="Add Round Info" style="outline: 0;padding:0px" ng-click="rdc.openAddRoundInfoModel(data.id)" ng-if="(data.companies_tech_round_info == null || data.companies_tech_round_info.length == 0) && (data.final_status == null) && (data.company_final_status == null)"><i class="fa fa-plus" aria-hidden="true" ></i></a>
+                            <a type="button" class="btn btn-xs" title="Final Round Result" style="outline: 0;padding:0px" ng-click="rdc.openAddFinalRoundResultModal(data.id)" ng-if="(data.companies_tech_round_info.length > 0 && data.final_status == null && data.company_final_status == null)"><i class="fa fa-newspaper-o" aria-hidden="true" ></i></a>
+                            <a type="button" class="btn btn-xs" title="Final HR Result" style="outline: 0;padding:0px" ng-click="rdc.openAddHrFinalRoundResultModal(data.id,data.candidate_id)" ng-if="(data.companies_tech_round_info.length > 0 &&  data.final_status == null && data.hr_status == null) && (data.company_final_status != null) "><i class="fa fa-user" aria-hidden="true"></i></a>
                         </td>
                         <!-- <td ng-bind="(rlc.pageno - 1) * rlc.limit + ($index + 1)"></td>
                         <td ng-bind="data.first_name+' '+data.middle_name+' '+data.last_name"></td> -->
@@ -134,7 +176,7 @@
                 <div class="modal-content" style="border-radius: 0px!important;" >
                     <div class="modal-header" id="popUpModalHeader"> 
                         <button type="button" class="close" data-dismiss="modal" style="margin-right: 5px;">&times;</button>
-                        <h4 class="modal-title popUpModalTitle">Add Round Information</h4>
+                        <h4 class="modal-title popUpModalTitle">View Round Information</h4>
                     </div>
                     <div class="modal-body">                            
                         <div class="row">
@@ -144,73 +186,28 @@
                                         <thead class="thead-default">
                                             <tr>
                                                 <th nowrap>Sr. no.</th>
-                                                <th nowrap>Candidate Name</th>
-                                                <th nowrap>CV Recd.On (Date)</th>
-                                                <th nowrap>For Position</th>
-                                                <th nowrap>Consultant/ Source</th>
-                                                <th nowrap>Notice Period (Days)</th>
-                                                <th nowrap>Current CTC</th>
-                                                <th nowrap>Expected CTC</th>
-                                                <th nowrap>Final CTC</th>
-                                                <th nowrap>Contact No.</th>
-                                                <th nowrap>Last Company</th>
-                                                <th nowrap>Experience in Yrs</th>
-                                                <th nowrap>Screening Date</th>
-                                                <th nowrap>Screened By</th>
+                                                <th nowrap>Round date</th>
+                                                <th nowrap>Mode of interview</th>
                                                 <th nowrap>Status</th>
-                                                <th nowrap>Remarks</th>
-                                                <th nowrap>Round 1 Tech. Interview on (Date)</th>
-                                                <th nowrap>Round 1 Tech. Interview By</th>
-                                                <th nowrap>Round 1 Mode Of Interview</th>
-                                                <th nowrap>Round 1 Tech. Status</th>
-                                                <th nowrap>Round 1 Tech. Remark</th>
-                                                <th nowrap>Round 2 Tech. Interview on (Date)</th>
-                                                <th nowrap>Round 2 Tech. Interview By</th>
-                                                <th nowrap>Round 2 Mode Of Interview</th>
-                                                <th nowrap>Round 2 Tech. Status</th>
-                                                <th nowrap>Round 2 Tech. Remark</th>
-                                                <th nowrap>Data Sent to TCS (Date)</th>
+                                                <th nowrap>Remark</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>                                       
+                                            <tr ng-repeat="r in rdc.viewRoundInfoList">
+                                                <td ng-bind="$index+1" nowrap></td>
+                                                <td ng-bind="rdc.setFormatteddate(r.company_round_date)" nowrap></td>
+                                                <td ng-bind="r.company_tech_round_type" nowrap></td>
+                                                <td ng-bind="r.company_tech_status" nowrap></td>
+                                                <td ng-bind="r.companies_tech_remark" nowrap></td>
+                                            </tr>
+                                            <tr ng-if="rdc.viewRoundInfoList == null || rdc.viewRoundInfoList.length == 0">
+                                                <td style="text-align: center;" colspan="5">No Records Found</td> 
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer" style="margin-top: 0px;"> 
-                        <button type="button" id="changePasswordBtn" class="btn btn-primary"  data-ng-click="rdc.saveRoundInfo()" >Save</button>
-                        <button type="reset" id="closeModal" class="btn btn-warning"  ng-click="rdc.resetAddRoundDetailsForm()" data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
             </div>
@@ -230,14 +227,14 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="table-responsive no-padding">
-                                    <table id="addRoundInfoTable" class="table table-hover">
+                                    <table id="addRoundInfoTable" class="table table-bordered table-hover">
                                         <thead class="thead-default">
                                             <tr>
                                                 <th nowrap>Sr. no.</th>
-                                                <th style="min-width:110px">Round date</th>
-                                                <th style="min-width:135px">Mode of interview</th>
-                                                <th style="min-width:150px">Status</th>
-                                                <th>Remark</th>
+                                                <th style="min-width:110px"><label class="mandatory" style="margin-bottom: 0px">Round date</label></th>
+                                                <th class="mandatory" style="min-width:135px"><label class="mandatory" style="margin-bottom: 0px">Mode of interview</label></th>
+                                                <th class="mandatory" style="min-width:150px"><label class="mandatory" style="margin-bottom: 0px">Status</label></th>
+                                                <th class="mandatory"><label class="mandatory" style="margin-bottom: 0px">Remark</label></th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -246,26 +243,26 @@
                                                 <td ng-bind="$index+1" nowrap></td>
                                                 <td style="min-width:110px">
                                                     <div class="form-group">
-                                                        <input class="company_round_date form-control" type="text" id="company_round_date" name="company_round_date" ng-model="r.company_round_date">
+                                                        <input class="company_round_date form-control" type="text" id="company_round_date{{$index}}" name="company_round_date{{$index}}" ng-model="r.company_round_date" placeholder="Select date">
                                                     </div>
                                                 </td>
                                                 <td style="min-width:135px">
                                                     <div class="form-group">
-                                                        <select class="company_round_type form-control" type="text" id="company_round_type" name="company_round_type" data-placeholder="Select type" ng-model="r.company_tech_round_type" ng-options="x.name as x.name for x in rdc.interviewType">
+                                                        <select class="company_round_type form-control" type="text" id="company_round_type{{$index}}" name="company_round_type{{$index}}" data-placeholder="Select type" ng-model="r.company_tech_round_type" ng-options="x.name as x.name for x in rdc.interviewType">
                                                             <option value="">Select type</option>
                                                         </select>
                                                     </div>
                                                 </td>
                                                 <td style="min-width:150px">
                                                     <div class="form-group">
-                                                        <select class="company_status form-control" type="text" id="company_status" name="company_status" ng-model="r.company_tech_status" ng-options="x.name as x.name for x in rdc.roundStatus" data-placeholder="Select status">
+                                                        <select class="company_status form-control" type="text" id="company_status{{$index}}" name="company_status{{$index}}" ng-model="r.company_tech_status" ng-options="x.name as x.name for x in rdc.roundStatus" data-placeholder="Select status">
                                                             <option value="">Select status</option>
                                                         </select>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="form-group">
-                                                        <input class="company_remark form-control" type="text" id="company_remark" name="company_remark" ng-model="r.companies_tech_remark">
+                                                        <input class="company_remark form-control" type="text" id="company_remark{{$index}}" name="company_remark{{$index}}" ng-model="r.companies_tech_remark"  placeholder="Enter Remark">
                                                     </div>
                                                 </td>
                                                 <td>
@@ -284,7 +281,7 @@
                     </div>
                     <div class="modal-footer" style="margin-top: 0px;"> 
                         <button type="button" id="changePasswordBtn" class="btn btn-primary"  data-ng-click="rdc.saveRoundInfo()" >Save</button>
-                        <button type="reset" id="closeModal" class="btn btn-warning"  ng-click="rdc.resetAddRoundDetailsForm()" data-dismiss="modal">Cancel</button>
+                        <button type="reset" id="closeModal" class="btn btn-warning" data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
             </div>
@@ -364,7 +361,7 @@
                                 <div class="col-xs-12">
                                     <div class="col-md-4 form-group">
                                         <label class="mandatory" for="">Final Status</label>
-                                        <select class="final_status form-control" type="text" id="final_status" name="final_status" ng-model="rdc.final_status" ng-options="x.name as x.name for x in rdc.roundStatus" data-placeholder="Select status">
+                                        <select class="final_status form-control" type="text" id="final_status" name="final_status" ng-model="rdc.final_status" ng-options="x.name as x.name for x in rdc.finalRoundStatus" data-placeholder="Select status">
                                             <option value="">Select status</option>
                                         </select>
                                     </div>
@@ -396,6 +393,17 @@
     applySelect2();
     $("html, body").animate({scrollTop: 0}, "fast");
     $(".s2mn").on("change", function () { $(this).valid(); });
+
+    $('#addFinalRoundResultModal.modal,#addFinalHrRoundResultModal.modal').on('hidden.bs.modal', function (e) {
+        $(this).find('form').trigger('reset'); 
+         $("div.form-group").each(function () {
+            $(this).removeClass('has-error');
+            $('span.help-block-error').remove();            
+            applySelect2();
+        });
+        $('header').css('z-index', '1053');
+        $('footer').css('z-index', '1053');
+    });
 
     // to validate filter list form
     $("#roundFilterForm").validate({
@@ -582,7 +590,67 @@
         }
     });
 
+    $.validator.addMethod("dateRequired", $.validator.methods.required,
+                   "Remark is required.");
 
+    $.validator.addClassRules("company_round_date", { dateRequired: true});
+
+
+    $.validator.addMethod("typeRequired", $.validator.methods.required,
+                   "Type is required.");
+
+    $.validator.addClassRules("company_round_type", { typeRequired: true});
+
+    $.validator.addMethod("statusRequired", $.validator.methods.required,
+                   "Status is required.");
+
+    $.validator.addClassRules("company_status", { statusRequired: true});
+
+    $.validator.addMethod("remarkRequired", $.validator.methods.required,
+                   "Remark is required.");
+
+    $.validator.addClassRules("company_remark", { remarkRequired: true});
+
+
+
+
+    // to validate hr round form
+    $("#addRoundInfoForm").validate({
+        errorElement: 'span', //default input error message container
+        errorClass: 'help-block help-block-error',
+        errorPlacement: function (error, element) {
+
+            var type = $(element).attr("type");
+            if ($(element).attr("id") === "hr_status")
+            {
+                element.parent().append(error);
+            }else if ($(element).attr("id") === "hr_remark")
+            {
+                element.parent().append(error);
+            }else if ($(element).attr("id") === "final_status")
+            {
+                element.parent().append(error);
+            }else{
+                error.insertAfter(element);
+            }
+        },        
+        highlight: function (element) { // hightlight error inputs
+            $(element).closest('.form-group').addClass('has-error');
+
+            $(element).next().children().children().attr('style', 'border-color:#dd4b39!important');
+            // set error class to the control group
+        },
+        unhighlight: function (element) { // revert the change done by hightlight
+            $(element)
+                    .closest('.form-group').removeClass('has-error');
+            $(element)
+                    .next().children().children().attr('style', 'border-color:'); // set error class to the control group
+        },
+        success: function (label) {
+            label
+                    .closest('.form-group').removeClass('has-error'); // set success class to the control group
+        }
+    });
 
 </script>
 <script>

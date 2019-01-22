@@ -111,7 +111,8 @@ app.controller('screeningCtrl', function ($scope, $rootScope, $http, services, $
         if ($("#questionForm").valid()) {
             var req ={
                 "stream_id":sc.stream,
-                "question":sc.question
+                "question":sc.question,
+                "expected_answer":sc.expected_answer
             }
             var promise;
             if (sc.id) {
@@ -136,6 +137,51 @@ app.controller('screeningCtrl', function ($scope, $rootScope, $http, services, $
                 Utility.stopAnimation();
             });
         }
+    }
+
+    /* Function to change status */
+    sc.changeQuestionStatus = function(status,id,index){
+        console.log("hello");
+        var req = {
+            "id":id,
+            "status": status == true ? 1 : 0
+        };
+        swal({
+                title: "Sure?",
+                text: "Are you sure you want to change status?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: "No",
+                confirmButtonText: "Yes",
+            }).then(function(isConfirm) {
+                console.log(isConfirm);
+                if (isConfirm) {
+                    var promise = services.updateQuestionStatus(req);
+                        promise.then(function mySuccess(response) {
+                        Utility.stopAnimation();
+                        try {
+                            console.log(response);
+                            toastr.success('Status is changed successfully.');
+                         } catch (e) {
+                            toastr.error('Status is changed successfully.');
+                            Raven.captureException(e)
+                        }
+                    }, function myError(r) {
+                        toastr.error(r.data.message, 'Sorry!');
+                    });
+                  } else { 
+                    console.log("cancel");
+                }
+                    
+            }, function(dismiss) {
+                if (dismiss === 'cancel') {
+                    setTimeout(function(){
+                        bcl.init();
+                    },100);  
+                }
+            }).catch(swal.noop);
     }
     
     sc.init();

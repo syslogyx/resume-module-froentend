@@ -32,6 +32,7 @@
                         <th>Stream</th>                        
                         <th>Question</th>
                         <th style="text-align: center;">Action</th>
+                        <th style="text-align: center;">Status</th>
                     </tr>
                 </thead>
                 <!-- <pre>{{usr.allUsersList|json}}</pre> -->
@@ -43,6 +44,9 @@
                         <td style="text-align: center;">
                             <a type="button" class="btn" ng-href="/screening/edit_question?id={{q.id}}" title="Edit" style="outline: 0;padding:0px"><i class="fa fa-pencil" aria-hidden="true" ></i></a>
                         </td>  
+                        <td style="text-align: center;">
+                            <toggle id="enabled_{{$index}}" name="enabled_{{$index}}" size="btn-sm" off-class="btn-danger" on-class="btn-success" ng-model="q.status" id="toggle-status-switch" ng-click=" sc.changeQuestionStatus(q.status,q.id,$index);" on="Active" off="Inactive"></toggle>
+                        </td>
                     </tr>
                     <tr ng-if="sc.questionList == null || sc.questionList.length == 0">
                         <td style="text-align: center;" colspan="4">No Records Found</td> 
