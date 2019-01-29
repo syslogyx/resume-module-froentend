@@ -101,6 +101,7 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
                 pagination.applyPagination(result.data,ilc);
             }else{
                 ilc.interviewList = [];
+                // toastr.error(result.message, 'Sorry!');
             }
             Utility.stopAnimation();  
         }, function myError(r) {

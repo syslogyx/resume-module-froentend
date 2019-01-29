@@ -93,7 +93,8 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         date.setDate(date.getDate());
         $('#schedule_date').datepicker({
             startDate: date,
-            autoclose: true
+            autoclose: true,
+            todayHighlight: true
         }).on('changeDate', function(selected){
              $(this).valid();
         });
@@ -105,7 +106,8 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         date.setDate(date.getDate());
         $('#reschedule_date').datepicker({
             startDate: date,
-            autoclose: true
+            autoclose: true,
+            todayHighlight: true
         }).on('changeDate', function(selected){
              $(this).valid();
         });

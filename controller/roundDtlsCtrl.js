@@ -76,35 +76,40 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
         date.setDate(date.getDate());
         $('.company_round_date').datepicker({
             startDate: date,
-            autoclose: true
+            autoclose: true,
+            todayHighlight: true
         }).on('changeDate', function(selected){
              $(this).valid();
         });
 
         $('#feedback_received_date').datepicker({
             startDate: date,
-            autoclose: true
+            autoclose: true,
+            todayHighlight: true
         }).on('changeDate', function(selected){
              $(this).valid();
         });
 
         $('#hr_interview_on_date').datepicker({
             startDate: date,
-            autoclose: true
+            autoclose: true,
+            todayHighlight: true
         }).on('changeDate', function(selected){
              $(this).valid();
         });
 
         $('#tentative_doj').datepicker({
             startDate: date,
-            autoclose: true
+            autoclose: true,
+            todayHighlight: true
         }).on('changeDate', function(selected){
              $(this).valid();
         });
 
         $('#actual_doj').datepicker({
             startDate: date,
-            autoclose: true
+            autoclose: true,
+            todayHighlight: true
         }).on('changeDate', function(selected){
              $(this).valid();
         });

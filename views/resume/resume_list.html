@@ -230,7 +230,7 @@
         <div class="row">
             <div class="col-xs-12 searchbar">                
                 <label style="float: left">Sort by Alphabet : &nbsp; </label> 
-                <ul class="alpabet-list" ng-repeat="alpabet in rlc.alphabet" style="float: left;list-style-type: none;padding-right:1%">
+                <ul class="alpabet-list" ng-repeat="alpabet in rlc.alphabet" style="float: left;list-style-type: none;padding-right:1%;cursor: pointer;">
                     <li><a ng-class="alpabet=='All'?'red sort-alphabet':'blue sort-alphabet'" id="alpabet_{{$index}}" ng-click="rlc.onAlphabetClick(alpabet,$index)">{{alpabet}}</a></li>
                 </ul>
             </div>
@@ -276,7 +276,7 @@
                         <td ng-bind="rlc.setTotalExperience(data.total_experience)"></td>
                         <!-- <td ng-bind="data.job_description.title"></td> -->
                         <td>{{data.job_description.job_code}} {{data.job_description.sub_title != '' ? (data.job_description.sub_title) : ''}}</td>
-                        <td ng-bind="data.ctc"></td>                        
+                        <td>{{data.opprtunity_for == 'Fresher' ? 'NA' : data.ctc}}</td>                        
                         <!-- <td style="text-align: center;">
                             <a type="button" class="btn" title="Download Resume" ng-click="rlc.downloadResumeDoc(data.id)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-download" aria-hidden="true"></i></a>
                         </td> -->
