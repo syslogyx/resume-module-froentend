@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="col-md-2 pull-right" style="margin-top:1%;">
-                <button type="button" class="btn btn-primary btn-circle btn-sm pull-right"  title="Add New Client" data-target="" data-ng-click="cmp.addNewCompany()" style="outline: 0;background-color:#428bca;border-color:#357ebd;"><i class="fa fa-plus" aria-hidden="true" style="padding-right:0.3px"></i>
+                <button type="button" class="btn btn-primary btn-circle btn-sm pull-right"  title="Add New Client" data-target="" data-ng-click="cmp.addNewClient()" style="outline: 0;background-color:#428bca;border-color:#357ebd;"><i class="fa fa-plus" aria-hidden="true" style="padding-right:0.3px"></i>
                 </button>
             </div>            
         </div> 
@@ -28,10 +28,10 @@
             <table class="table table-hover">
                 <thead class="thead-default">
                     <tr>
-                        <th style="text-align: center;">Sr No.</th>
+                        <th style="text-align: center;" nowrap>Sr No.</th>
                         <th>Name</th>                        
                         <th>Email</th>
-                        <th>Contact Number</th>
+                        <th nowrap>Contact Number</th>
                         <th>Address</th>                   
                         <th style="text-align: center;">Action</th>
                         <th style="text-align: center;">Status</th>
@@ -39,21 +39,21 @@
                 </thead>
                <!--  <pre>{{cmp.companyList|json}}</pre> -->
                 <tbody>
-                    <tr ng-repeat="cp in cmp.companyList">
-                        <td style="text-align: center;" ng-bind="(cmp.pageno - 1) * cmp.limit + ($index + 1)"></td>
+                    <tr ng-repeat="cp in cmp.clientList">
+                        <td style="text-align: center;" ng-bind="(cmp.pageno - 1) * cmp.limit + ($index + 1)" nowrap></td>
                         <td>{{cp.name}}</td>
                         <td>{{cp.email}}</td>
-                        <td>{{cp.contact_no}}</td>     
+                        <td nowrap>{{cp.contact_no}}</td>     
                         <td>{{cp.address}}</td>
                         <td style="text-align: center;"> 
-                            <a type="button" class="btn" ng-href="company/edit?id={{cp.id}}" title="Edit" style="outline: 0;padding:0px"><i class="fa fa-pencil" aria-hidden="true" ></i></a>
+                            <a type="button" class="btn" ng-href="client/edit?id={{cp.id}}" title="Edit" style="outline: 0;padding:0px"><i class="fa fa-pencil" aria-hidden="true" ></i></a>
                         </td>     
                         <td style="text-align: center;">
-                            <toggle id="enabled_{{$index}}" name="enabled_{{$index}}" size="btn-sm" off-class="btn-danger" on-class="btn-success" ng-model="cp.status" id="toggle-status-switch" ng-click=" cmp.changeCompanyStatus(cp.status,cp.id,$index);" on="Active" off="Inactive"></toggle>
+                            <toggle id="enabled_{{$index}}" name="enabled_{{$index}}" size="btn-sm" off-class="btn-danger" on-class="btn-success" ng-model="cp.status" id="toggle-status-switch" ng-click=" cmp.changeClientStatus(cp.status,cp.id,$index);" on="Active" off="Inactive"></toggle>
                         </td>
                     </tr>
-                    <tr ng-if="cmp.companyList == null || cmp.companyList.length == 0">
-                        <td style="text-align: center;" colspan="6">No Records Found</td> 
+                    <tr ng-if="cmp.clientList == null || cmp.clientList.length == 0">
+                        <td style="text-align: center;" colspan="7">No Records Found</td> 
                     </tr>
                 </tbody>
             </table>

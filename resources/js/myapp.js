@@ -1,12 +1,12 @@
 ﻿var Utility = {
 
-    // apiBaseUrl: "http://127.0.0.1:8000/api/",
+    apiBaseUrl: "http://127.0.0.1:8000/api/",
       // apiBaseUrl: "http://172.16.1.97:8000/api/",
       // apiBaseUrl: "http://172.16.2.37:9000/api/",
 
     // apiBaseUrl: "http://127.0.0.1:8000/api/",
     // apiBaseUrl: "http://172.16.1.180:8000/api/",
-     apiBaseUrl: "https://recruitmentapi.syslogyx.com/api/",
+     // apiBaseUrl: "https://recruitmentapi.syslogyx.com/api/",
 
     formatDate: function (date, format) {
         var tDate = null;
@@ -1809,9 +1809,9 @@ app.config(function ($routeProvider, $locationProvider) {
                 }
             })
 
-            .when('/company', {
-                templateUrl: 'views/company/company_list.html',
-                controller: 'companyCtrl',
+            .when('/client', {
+                templateUrl: 'views/client/client_list.html',
+                controller: 'clientCtrl',
                 controllerAs: 'cmp',
                 resolve: {
                     'acl': ['$q', 'AclService', function ($q, AclService) {
@@ -1828,9 +1828,9 @@ app.config(function ($routeProvider, $locationProvider) {
                 }
             })
 
-            .when('/company/add_company', {
-                templateUrl: 'views/company/create_company.html',
-                controller: 'companyCtrl',
+            .when('/client/add_client', {
+                templateUrl: 'views/client/create_client.html',
+                controller: 'clientCtrl',
                 controllerAs: 'cmp',
                 resolve: {
                     'acl': ['$q', 'AclService', function ($q, AclService) {
@@ -1847,9 +1847,9 @@ app.config(function ($routeProvider, $locationProvider) {
                 }
             })
 
-            .when('/company/edit', {
-                templateUrl: 'views/company/create_company.html',
-                controller: 'companyCtrl',
+            .when('/client/edit', {
+                templateUrl: 'views/client/create_client.html',
+                controller: 'clientCtrl',
                 controllerAs: 'cmp',
                 resolve: {
                     'acl': ['$q', 'AclService', function ($q, AclService) {

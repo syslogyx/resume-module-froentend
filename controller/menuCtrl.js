@@ -12,7 +12,7 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
     if(loggedInUser.identity.role==RESOURCES.ROLE_ADMIN){
         $scope.menuList = [
             {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"active"},
-            {"Title": "Client Management", "Link": "/company", "icon": "fa fa-bank ", "active":"deactive"},
+            {"Title": "Client Management", "Link": "/client", "icon": "fa fa-bank ", "active":"deactive"},
             {"Title": "JD Management", "Link": "/jobs", "icon": "fa fa-tasks", "active":"deactive"},
             {"Title": "Candidate Management", "Link": "/resume_list#non-selected", "icon": "fa fa-file-text", "active":"deactive"},
             {"Title": "Screening", "Link": "/questions", "icon": "fa fa-question-circle", "active":"deactive"},
