@@ -242,6 +242,7 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
     rdc.openAddRoundInfoModel = function(forwardedId){
         rdc.fId = forwardedId;
         rdc.techForm = [{forwarded_id:rdc.fId,company_round_date:"",company_tech_status:"",company_tech_round_type:"",companies_tech_remark:""}];
+        $("#changePasswordBtn").attr('disabled',false);
         $('#addRoundInfoModal').modal('show');
         setTimeout(function(){
             setCSS();
@@ -265,7 +266,8 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
             promise.then(function mySuccess(response) {
                 // console.log(response.data);
                 Utility.stopAnimation();
-                if(response.data.status_code == 200){                    
+                if(response.data.status_code == 200){ 
+                    $("#changePasswordBtn").attr('disabled',true);                   
                     $('#addRoundInfoModal').modal('hide');
                     toastr.success(response.data.message);
                     rdc.init();

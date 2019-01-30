@@ -148,6 +148,7 @@ app.controller('backgroundChecklistCtrl', function ($scope, $rootScope, $http, s
                 cancelButtonColor: '#d33',
                 cancelButtonText: "No",
                 confirmButtonText: "Yes",
+                allowOutsideClick: false,
             }).then(function(isConfirm) {
                 console.log(isConfirm);
                 if (isConfirm) {

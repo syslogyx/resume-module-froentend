@@ -339,6 +339,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         $scope.round = $status == 'Clear' ? 'Round 1' : 'Round 2';
         $scope.scheduleTime = '';
         $('#assignStatusModel').modal('show');
+        $("#assignStatusBtn").attr('disabled',false);
     }
 
     /* Function to schedule candidate interview */
@@ -358,6 +359,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
             promise.then(function mySuccess(response) {
                 Utility.stopAnimation();
                 try {
+                    $("#assignStatusBtn").attr('disabled',true);
                     $('#assignStatusModel').modal('hide');
                     toastr.success(response.data.message);
                     rlc.init();
@@ -369,6 +371,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
                 toastr.error(r.data.message);
                 Utility.stopAnimation();
             });
+
         }
     }
 
@@ -407,6 +410,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
             $scope.interviewType = $scope.interviewRescheduleData[0].mode_of_interview;
             $scope.assoc_id = $scope.interviewRescheduleData[0].id;
             $scope.job_description_id = $scope.interviewRescheduleData[0].job_description_id;
+            $("#reScheduleInterviewBtn").attr('disabled',false);
             $('#rescheduleModel').modal('show');
             setTimeout(function() { rlc.datepickerInit();}, 500);
         }
@@ -430,6 +434,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
             promise.then(function mySuccess(response) {
                 Utility.stopAnimation();
                 try {
+                    $("#reScheduleInterviewBtn").attr('disabled',true);
                     $('#rescheduleModel').modal('hide');
                     toastr.success(response.data.message);
                     rlc.init();
