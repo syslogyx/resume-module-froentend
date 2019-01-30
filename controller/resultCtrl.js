@@ -28,7 +28,7 @@ app.controller("resultCtrl", function (services, AclService, $scope, $http, $loc
 
     /* Function to cancle interview result form */
     res.cancelResult = function() {
-         $location.path('/interview_list');
+         $location.url('/interview_list');
     }
     
     /* Function to submit interviewer result feedback form */

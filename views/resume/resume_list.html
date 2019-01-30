@@ -613,7 +613,7 @@
             <div class="modal-content" style="border-radius: 0px!important;">
                 <div class="modal-header" id="popUpModalHeader">
                     <button type="button" class="close" data-dismiss="modal" style="margin-right: 5px;">&times;</button>
-                    <h4 class="modal-title popUpModalTitle">Document List of Background Checklist And CV </h4>
+                    <h4 class="modal-title popUpModalTitle"> Background Check Documents And CV of <span style="color:#3c8dbc;">{{rlc.candidateNameToShowOnModal}}</span></h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -626,7 +626,7 @@
                             <div class="panel-body">
                                 <div class="nav-tabs-custom ">
                                     <ul class="nav nav-tabs" style="background-color:#e1e9f1">
-                                        <li class="active listanchor" id='bg_checklist_li'><a data-target="#bg_checklist" data-toggle="tab"><b>Background Checklist Document List</b></a></li>
+                                        <li class="active listanchor" id='bg_checklist_li'><a data-target="#bg_checklist" data-toggle="tab"><b>Background Check Documents</b></a></li>
                                         <li id='cv_selection_list_li'><a class="listanchor" data-target="#cv_selection_list" data-toggle="tab"><b>Section List For CV</b></a></li>
                                     </ul>
                                     <div class="tab-content">
@@ -638,7 +638,7 @@
                                                             <thead class="thead-default">
                                                                 <tr>
                                                                     <th></th>
-                                                                    <th>Background Checklist Name</th>
+                                                                    <th>Document Name</th>
                                                                     <th style="text-align: center;width: 20%;">Uploaded Status</th>
                                                                 </tr>
                                                             </thead>
@@ -1221,4 +1221,26 @@
         }
     }
     setCSS();
+</script>
+<script>
+    $(document).ready(function () {
+        /* Function to restrict keyboard enter key on datepicker*/
+        $('#schedule_date').bind('keydown',function(e){
+            if (e.which == 13) //13 is Enter/Return key.
+                e.stopImmediatePropagation();
+        }).datepicker({
+            startDate: "today",
+            autoclose: true,
+            todayHighlight: true
+        });  
+
+        $('#reschedule_date').bind('keydown',function(e){
+            if (e.which == 13) //13 is Enter/Return key.
+                e.stopImmediatePropagation();
+        }).datepicker({
+            autoclose: true,
+            todayHighlight: true,
+            startDate: "today"
+        }); 
+    });
 </script>

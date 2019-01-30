@@ -20,12 +20,12 @@ app.controller('backgroundChecklistCtrl', function ($scope, $rootScope, $http, s
 
     /* Function to load add background checklist view */
     bcl.addNewBackgroundChecklist = function(){
-    	$location.path('/background_checklist/add_background_checklist');
+    	$location.url('/background_checklist/add_background_checklist');
     }
 
     /* Function to cancle background checklist form */
     bcl.cancelBackgroundChecklist = function() {
-        $location.path('/background_checklist');
+        $location.url('/background_checklist');
     }
 
     /* Function to fetch background checklist list */

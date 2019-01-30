@@ -589,7 +589,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
             toastr.error(r.data.message, 'Sorry!');
             Utility.stopAnimation();
         });
-
+        rlc.candidateNameToShowOnModal = candidateData.first_name+' '+candidateData.middle_name+' '+candidateData.last_name;
         // $("#downloadZipBtn").attr('disabled',false);
         $("#bgChecklistDocsModal").modal("show");
 

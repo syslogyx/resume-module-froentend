@@ -148,7 +148,7 @@ app.controller('screeningTestCtrl', function ($scope, $rootScope, $http, service
 
     /* Function to cancle test form */
     st.cancelTest= function() {
-         $location.path('/resume_list#non-selected');
+         $location.url('/resume_list#non-selected');
     }
 
     st.init();

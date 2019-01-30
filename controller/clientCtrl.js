@@ -18,12 +18,12 @@ app.controller('clientCtrl', function ($scope, $rootScope, $http, services, $loc
 
     /* Function to load add client view */
     cmp.addNewClient = function(){
-    	$location.path('/client/add_client');
+    	$location.url('/client/add_client');
     }
 
     /* Function to cancle client form */
     cmp.cancelClient = function() {
-        $location.path('/client');
+        $location.url('/client');
     }
 
     /* Function to fetch client list */

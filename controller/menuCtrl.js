@@ -151,6 +151,7 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
                 $scope.mobileNo = result.data.mobile;
                 $scope.comapnyName = result.data.company_name;
                 $scope.status =result.data.status;
+                $("#updateUserProfile").attr('disabled',false);
                 $("#updateUserModal").modal("toggle");
                 setTimeout(function(){
                     setCSS();
@@ -178,6 +179,7 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
             var promise = services.updateUser(req);
 
             promise.then(function mySuccess(result) {
+                $("#updateUserProfile").attr('disabled',true);
                 Utility.stopAnimation();
                 if(result.data.status_code == 200){
                     $("#updateUserModal").modal("toggle");
