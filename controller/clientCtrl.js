@@ -148,6 +148,7 @@ app.controller('clientCtrl', function ($scope, $rootScope, $http, services, $loc
                 cancelButtonColor: '#d33',
                 cancelButtonText: "No",
                 confirmButtonText: "Yes",
+                allowOutsideClick: false,
             }).then(function(isConfirm) {
                 console.log(isConfirm);
                 if (isConfirm) {

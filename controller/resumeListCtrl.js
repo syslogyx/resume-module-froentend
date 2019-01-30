@@ -50,7 +50,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     // genCharArray('A', 'Z');
 
     function genCharArray() {
-        var promise = services.getListOfAlphabets();
+        var promise = services.getListOfAlphabets(rlc.hashPathId);
         promise.success(function (result) {
             Utility.stopAnimation();
             for (var i = 0; i < result.length; i++) {

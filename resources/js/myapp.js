@@ -1245,11 +1245,22 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         window.open(RESOURCES.SERVER_API +'download_candidate_zip?file_name='+candidateName+'.zip');          
     };
 
-    this.getListOfAlphabets = function(){
+    // this.getListOfAlphabets = function(){
+    //     Utility.startAnimation();
+    //     return $http({
+    //         method: 'GET',
+    //         url: RESOURCES.SERVER_API + "get_alphabets",
+    //         dataType: 'json',
+    //         headers: {
+    //             'Content-Type': RESOURCES.CONTENT_TYPE
+    //         }
+    //     })
+    // };
+    this.getListOfAlphabets = function(type){
         Utility.startAnimation();
         return $http({
             method: 'GET',
-            url: RESOURCES.SERVER_API + "get_alphabets",
+            url: RESOURCES.SERVER_API + "get_alphabets/"+type,
             dataType: 'json',
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
