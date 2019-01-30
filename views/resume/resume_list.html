@@ -145,19 +145,19 @@
                         <div class="col-md-2">
                             <div class="form-group">
                               <label>From CTC</label>
-                              <input id="ctc_from" name="ctc_from" class="form-control" ng-model="rlc.ctcFrom" placeholder="Enter From ctc">
+                              <input id="ctc_from" name="ctc_from" class="form-control" ng-model="rlc.ctcFrom" placeholder="Enter From CTC">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
                               <label>To CTC</label>
-                              <input id="ctc_to" name="ctc_to" class="form-control" ng-model="rlc.ctcTo" placeholder="Enter To ctc">
+                              <input id="ctc_to" name="ctc_to" class="form-control" ng-model="rlc.ctcTo" placeholder="Enter To CTC">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
                               <label>From Total Exp.</label>
-                              <input class="form-control" type="text" name="from_total_year_experience" id="from_total_year_experience" ng-model="rlc.fromTotalYearExperiance" placeholder="Enter From value">
+                              <input class="form-control" type="text" name="from_total_year_experience" id="from_total_year_experience" ng-model="rlc.fromTotalYearExperiance" placeholder="Enter From value" style="padding-right:8px">
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -709,7 +709,7 @@
 <script>
     $.validator.addMethod("mynumber", function (value, element) {
         return this.optional(element) || /^\$?([0-9]{1,3},([0-9]{3},)*[0-9]{3}|[0-9]+)(.[0-9][0-9])?$/.test(value);
-    }, "Invalid ctc format.");
+    }, "Invalid CTC format.");
 
     $.validator.addMethod("checkGreaterThan",function (value, element, param) {
           var $otherElement = $(param).val();

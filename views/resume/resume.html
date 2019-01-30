@@ -375,7 +375,7 @@
                                         <div class="col-sm-12" ng-repeat="a in achievements">
                                             <div class="col-sm-5">
                                                 <div class="form-group">
-                                                    <label class="mandatory"> Achievements Type</label>
+                                                    <label class="mandatory"> Achievement Type</label>
                                                     <select required class="form-control" name="achievement_type_{{$index}}" id="achievement_type_{{$index}}" ng-model="a.achievement_type">
                                                         <option value="" style="color:#ccc !important;">Select Type</option>
                                                         <option ng-repeat="ache in achivementTypesOptions" value="{{ache.name}}">{{ache.name}}</option>
@@ -384,8 +384,9 @@
                                             </div>
                                             <div class="col-sm-5">
                                                 <div class="form-group">
-                                                    <label class="mandatory">Achievements Details</label>
-                                                    <input id="other_achievements_{{$index}}" name="other_achievements_{{$index}}" type="text" class="form-control other_achievements" placeholder="Enter achievements" ng-model="a.achivement">
+                                                    <label class="mandatory">Achievement Details</label>
+                                                    <!-- <input id="other_achievements_{{$index}}" name="other_achievements_{{$index}}" type="text" class="form-control other_achievements" placeholder="Enter achievement" ng-model="a.achivement"> -->
+                                                    <textarea placeholder="Enter achievement" class="form-control other_achievements" id="other_achievements_{{$index}}" name="other_achievements_{{$index}}" ng-model="a.achivement" rows="1"></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-sm-2 form-group" style="margin-top:2.5%">
