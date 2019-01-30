@@ -26,7 +26,7 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
 
     /* Function to show view of add user */
 	usr.addNewUser = function () {
-        $location.path('/user/add_user');   
+        $location.url('/user/add_user');   
     }
 
     /*Function to cancle add user view */

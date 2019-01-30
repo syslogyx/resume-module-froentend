@@ -77,7 +77,7 @@ app.controller("loginCtrl", function (services, AclService, $scope, $http, $loca
 
     /* Function to redirect view for forgot password*/
     lgc.forgotpassword = function () {
-        $location.path('/site/forget-password');
+        $location.url('/site/forget-password');
     }
 });
 

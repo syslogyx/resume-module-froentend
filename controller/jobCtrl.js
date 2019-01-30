@@ -31,12 +31,12 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
 
     /* Function to open add job url */
     jb.addNewJob = function(){
-    	$location.path('/jobs/add_job');
+    	$location.url('/jobs/add_job');
     }
 
     /* To cancle add job form */
     jb.cancelJob = function() {
-         $location.path('/jobs');
+        $location.url('/jobs');
     }
 
     /* Function to fetch all job list data */

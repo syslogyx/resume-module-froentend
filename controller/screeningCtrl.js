@@ -17,12 +17,12 @@ app.controller('screeningCtrl', function ($scope, $rootScope, $http, services, $
 
     /* Function to show add screening question view */
     sc.addNewJob = function(){
-    	$location.path('/screening/add_question');
+    	$location.url('/screening/add_question');
     }
 
     /* Function to cancle add screening question view */
     sc.cancelQuestion= function() {
-         $location.path('/questions');
+         $location.url('/questions');
     }
 
     /* Function to fetch screening question list */

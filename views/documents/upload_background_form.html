@@ -68,23 +68,23 @@
                             <thead class="thead-default">
                                 <tr>
                                     <!-- <th nowrap>Sr no.</th> -->
-                                    <th>Document Name</th>
-                                    <th nowrap style="text-align: center">Uploaded Status</th>
-                                    <th style="text-align: center">Upload File</th>
+                                    <th style='width:45%'>Document Name</th>
+                                    <th nowrap style="text-align: center;width:10%">Uploaded Status</th>
+                                    <th style="text-align: center;width:45%">Upload File</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="bglist in doc.backgroundCheckList">
                                     <!-- <td ng-bind="($index + 1)"></td> -->
-                                    <td><label class="{{bglist.displayFlag =='True' ? 'mandatory' : ''}}">{{bglist.name}}</label></td>
-                                    <td style="text-align: center"><i ng-class="bglist.displayFlag == 'True' ? 'fa fa-close check-red':'fa fa-check check-green'" title="{{bglist.displayFlag =='False' ? 'File uploaded' : 'Not  uploaded yet'}}"></i></td>
-                                    <td ng-if="bglist.displayFlag=='True'">
+                                    <td style='width:45%'><label class="{{bglist.displayFlag =='True' ? 'mandatory' : ''}}">{{bglist.name}}</label></td>
+                                    <td style="text-align: center;width:10%"><i ng-class="bglist.displayFlag == 'True' ? 'fa fa-close check-red':'fa fa-check check-green'" title="{{bglist.displayFlag =='False' ? 'File uploaded' : 'Not uploaded yet'}}"></i></td>
+                                    <td style='width:45%' ng-if="bglist.displayFlag=='True'">
                                         <form class="bgUploadForm" method="post" enctype="multipart/form-data" id="backgroundUploadForm_{{bglist.id}}">
                                             <div class="form-group">
-                                                <div class="col-md-8">
+                                                <div class="col-md-9">
                                                     <input type="{{bglist.type}}" class="form-control upload_file" name="file[]" id="file_{{bglist.id}}" ng-model="file" ng-files="getTheFiles($files)" multiple="{{bglist.type =='file' ? 'true':'false'}}" ng-if="bglist.type=='file'" accept="image/*,application/pdf" required>
                                                 </div>
-                                                <div class="col-md-2">   
+                                                <div class="col-md-3">   
                                                     <button type="button" class="btn btn-primary" ng-click="doc.uploadBgCheckForm(bglist.id,$index)" ng-disabled='bglist.displayFlag =="False"'>Upload File</button>
                                                 </div>
                                             </div>

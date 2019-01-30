@@ -675,3 +675,52 @@
     }
     setCSS();
 </script>
+<script>
+    $(document).ready(function () {
+        /* Function to restrict keyboard enter key on datepicker*/
+        $('.company_round_date').bind('keydown',function(e){
+            if (e.which == 13) //13 is Enter/Return key.
+                e.stopImmediatePropagation();
+        }).datepicker({
+            startDate: "today",
+            autoclose: true,
+            todayHighlight: true
+        });  
+
+        $('#feedback_received_date').bind('keydown',function(e){
+            if (e.which == 13) //13 is Enter/Return key.
+                e.stopImmediatePropagation();
+        }).datepicker({
+            autoclose: true,
+            todayHighlight: true,
+            startDate: "today"
+        }); 
+
+        $('#hr_interview_on_date').bind('keydown',function(e){
+            if (e.which == 13) //13 is Enter/Return key.
+                e.stopImmediatePropagation();
+        }).datepicker({
+            autoclose: true,
+            todayHighlight: true,
+            startDate: "today"
+        }); 
+
+        $('#tentative_doj').bind('keydown',function(e){
+            if (e.which == 13) //13 is Enter/Return key.
+                e.stopImmediatePropagation();
+        }).datepicker({
+            autoclose: true,
+            todayHighlight: true,
+            startDate: "today"
+        }); 
+
+        $('#actual_doj').bind('keydown',function(e){
+            if (e.which == 13) //13 is Enter/Return key.
+                e.stopImmediatePropagation();
+        }).datepicker({
+            autoclose: true,
+            todayHighlight: true,
+            startDate: "today"
+        }); 
+    });
+</script>

@@ -224,7 +224,7 @@
 
                                 <div class="modal-footer">
                                     <div class="pull pull-right">
-                                        <input type="submit" value="Save" data-ng-click="saveUser()" class="btn btn-success"/>
+                                        <input type="submit" value="Save" id="updateUserProfile" data-ng-click="saveUser()" class="btn btn-success"/>
                                     </div>
                                 </div>
                             </div>
