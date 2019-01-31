@@ -302,12 +302,12 @@ $(document).ready(function(){
                 accept: "(docx?|doc|pdf)",
                 filesize: 1048576
             },
-            indian_lang:{
-                required: true,
-            },
-            foreign_lang:{
-                required: true,
-            }
+            // indian_lang:{
+            //     required: true,
+            // },
+            // foreign_lang:{
+            //     required: true,
+            // }
         },
         messages: {
             job_code:{
@@ -471,10 +471,10 @@ $(document).ready(function(){
             }  
 
             // console.log('index',index);
-              scope.$apply(function () {
-                  scope.backCurrentImg=scope.backImgUrls[index];
+              // scope.$apply(function () {
+              //     scope.backCurrentImg=scope.backImgUrls[index];
                  
-              });
+              // });
 
         },
 
@@ -510,10 +510,10 @@ $(document).ready(function(){
             }
 
             // console.log('index',index);
-            scope.$apply(function () {
-                scope.backCurrentImg=scope.backImgUrls[index];
+            // scope.$apply(function () {
+            //     scope.backCurrentImg=scope.backImgUrls[index];
                 
-            });
+            // });
 
         },
 
@@ -557,10 +557,10 @@ $(document).ready(function(){
         },
 
         onPrevious: function(tab, navigation, index) {
-          scope.$apply(function () {
-              scope.backCurrentImg=scope.backImgUrls[index];
+          // scope.$apply(function () {
+          //     scope.backCurrentImg=scope.backImgUrls[index];
              
-          });
+          // });
         }
   	});
 
