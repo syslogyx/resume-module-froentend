@@ -286,12 +286,13 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
 
     // }
 
-    rdc.openAddFinalRoundResultModal = function($id){
+    rdc.openAddFinalRoundResultModal = function($id,$client_name){
         $('#addFinalRoundResultModal').modal('show');
         setTimeout(function(){
             setCSS();
         },200);
         rdc.fId = $id;
+        rdc.cName = $client_name;
         setTimeout(function() { rdc.datepickerInit();}, 500);
     }
 
@@ -330,13 +331,14 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
 
     }
 
-    rdc.openAddHrFinalRoundResultModal = function($id,$candidate_id){
+    rdc.openAddHrFinalRoundResultModal = function($id,$candidate_id,$client_name){
         $('#addFinalHrRoundResultModal').modal('show');
         setTimeout(function(){
             setCSS();
         },200);
         rdc.fId = $id;
         rdc.cId = $candidate_id;
+        rdc.cName = $client_name;
         setTimeout(function() { rdc.datepickerInit();}, 500);
     }
 

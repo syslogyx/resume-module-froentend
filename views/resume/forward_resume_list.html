@@ -143,9 +143,9 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                              <label class="mandatory" for="">Company name</label>
-                                <select id="company_name" name="company_name" ng-model="frlc.companyId" class="form-control s2mn" placeholder="Enter Company Name" style="width:100%;" ng-options="x.id as x.name for x in frlc.companyList" ng-selected="frlc.companyId ? true : false" ng-change="frlc.getJobcodeByCompanyId()">
-                                    <option value="" style="color:#ccc;">Select company</option>
+                              <label class="mandatory" for="">Client name</label>
+                                <select id="company_name" name="company_name" ng-model="frlc.companyId" class="form-control s2mn" placeholder="Enter Client Name" style="width:100%;" ng-options="x.id as x.name for x in frlc.companyList" ng-selected="frlc.companyId ? true : false" ng-change="frlc.getJobcodeByCompanyId()">
+                                    <option value="" style="color:#ccc;">Select client</option>
                                 </select>
                             </div>
                         </div>
@@ -174,7 +174,7 @@
                         <th style="text-align: center;"><input type="checkbox" ng-model="frlc.checkall" ng-click="frlc.checkUncheckAll()" ng-if="frlc.candiadteList != null"/></th>
                         <th style="text-align: center;">Sr No.</th>
                         <th>Candidate Name</th>
-                        <th>Company Name</th>
+                        <th>Client Name</th>
                         <th>Job Code</th>
                     </tr>
                 </thead>

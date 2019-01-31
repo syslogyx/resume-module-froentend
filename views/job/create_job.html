@@ -77,11 +77,11 @@
                     </div>
                      <div class="col-md-4">
                         <div class="form-group">
-                            <label class="mandatory" for="">Company</label>
+                            <label class="mandatory" for="">Client Name</label>
                             <!-- <label class="mandatory" for="">Status</label> -->
                            <!--  <input type="text" class="form-control" ng-model="jb.companyId" name="status" id="status"  placeholder="Enter status"> -->
                             <select id="companyId" ng-model="jb.companyId" name="companyId" class="form-control s2mn" placeholder="Enter company name" style="width:100%;" ng-options="x.id as x.name for x in jb.companyList" ng-selected="jb.companyId ? true : false" >
-                                <option value="" style="color:#ccc;">Select company</option>
+                                <option value="" style="color:#ccc;">Select client</option>
                             </select>
                         </div> 
                     </div>
@@ -252,7 +252,7 @@
                         required: "Roles and responsibility is required."
                     },
                     companyId: {
-                        required: "Company is required."
+                        required: "Client name is required."
                     },
                     project_title: {
                         required: "Project description is required."
