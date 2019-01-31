@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="col-md-2 pull-right" style="margin-top:1%;">
-                <button type="button" class="btn btn-primary btn-circle btn-sm pull-right"  title="Add New Job " data-target="" data-ng-click="jb.addNewJob()" style="outline: 0;background-color:#428bca;border-color:#357ebd;"><i class="fa fa-plus" aria-hidden="true" style="padding-right:0.3px"></i>
+                <button type="button" class="btn btn-primary btn-circle btn-sm pull-right"  title="Add New Job " data-target="" data-ng-click="jb.addNewJob()" ng-if="jb.loggedRoleId != 6" style="outline: 0;background-color:#428bca;border-color:#357ebd;" ><i class="fa fa-plus" aria-hidden="true" style="padding-right:0.3px"></i>
                 </button>
             </div>            
         </div> 
@@ -37,7 +37,7 @@
                         <th>Job Location</th>
                         <th>Job Type</th> 
                         <th>Job Code</th>                   
-                        <th style="text-align: center;">Action</th>
+                        <th style="text-align: center;" ng-if="jb.loggedRoleId != 6">Action</th>
                         <th style="text-align: center;">Status</th>
                     </tr>
                 </thead>
@@ -51,7 +51,7 @@
                         <td >{{jl.job_location}}</td>                        
                         <td >{{jl.job_type}}</td>
                         <td >{{jl.job_code}}</td>
-                        <td style="text-align: center;"> 
+                        <td style="text-align: center;" ng-if="jb.loggedRoleId != 6"> 
                             <a type="button" class="btn" ng-href="jobs/edit?id={{jl.id}}" title="Edit" style="outline: 0;padding:0px"><i class="fa fa-pencil" aria-hidden="true" ></i></a>
                         </td>     
                         <td style="text-align: center;">    

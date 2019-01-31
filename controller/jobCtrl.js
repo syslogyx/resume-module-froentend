@@ -17,6 +17,9 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
         {id: "Freelancer-part time", name: "Freelancer-part time"}
     ];
     jb.jobType ="Permanent-full time";
+    var loggedInUser = services.getIdentity()==undefined?undefined:JSON.parse(services.getIdentity());
+    jb.loggedRoleId = loggedInUser == undefined ? undefined :loggedInUser.identity.role;
+    // console.log(loggedInUser);
 
     jb.jobStatusData = RESOURCES.JOB_STATUS;
    // jb.changeStatus = 0;
@@ -59,19 +62,40 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
             page:jb.pageno,
             limit:jb.limit,
         }
+        if(jb.loggedRoleId != 6){            
+            var promise = services.getAllJobList(requestParam);
+            promise.success(function (result) {
+                Utility.stopAnimation();
+                if(result.data != null){
+                    jb.jobList = result.data.data;
+                    pagination.applyPagination(result.data,jb);
+                }
+            }, function myError(r) {
+                toastr.error(r.data.message, 'Sorry!');
+                Utility.stopAnimation();
 
-        var promise = services.getAllJobList(requestParam);
-        promise.success(function (result) {
-            Utility.stopAnimation();
-            if(result.data != null){
-                jb.jobList = result.data.data;
-                pagination.applyPagination(result.data,jb);
+            });
+        }else{
+            var email = loggedInUser == undefined ? undefined :loggedInUser.identity.email;
+            var mobile = loggedInUser == undefined ? undefined :loggedInUser.identity.mobile;
+            
+            var req = {
+                'email':email,
+                'contact_no':mobile,
             }
-        }, function myError(r) {
-            toastr.error(r.data.message, 'Sorry!');
-            Utility.stopAnimation();
+            var promise = services.getAllJobListByCompanyDetails(requestParam,req);
+            promise.success(function (result) {
+                Utility.stopAnimation();
+                if(result.data != null){
+                    jb.jobList = result.data.data;
+                    pagination.applyPagination(result.data,jb);
+                }
+            }, function myError(r) {
+                toastr.error(r.data.message, 'Sorry!');
+                Utility.stopAnimation();
 
-        });
+            });
+        }
     }
 
     /* Function to initialise job controller */
