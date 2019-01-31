@@ -684,6 +684,28 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
+    this.getAllJobListByCompanyDetails = function (request,req) {
+        if(request == undefined){
+            page = -1;
+            limit = -1;
+        }else{
+            page = request.page;
+            limit = request.limit;
+        }
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            // url: RESOURCES.SERVER_API + "candidate_details?page=" + page + "&limit=" + limit,
+            url: RESOURCES.SERVER_API + "job/get_login_clients_jdlist?page=" + page + "&limit=" + limit,
+            // url: RESOURCES.SERVER_API + "candidate_details",
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
     this.saveJob = function (req) {
         Utility.startAnimation();
         return $http({
