@@ -12,9 +12,13 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     rlc.jdId = null;
     rlc.notSameInterviewerList = null;
 
+    var loggedInUser = services.getIdentity()==undefined?undefined:JSON.parse(services.getIdentity());
+    console.log(loggedInUser);
+    
+
     var hashPathname = window.location.hash;
     rlc.hashPathId = hashPathname.substring(1, hashPathname.length);
-    console.log(rlc.hashPathId);
+    // console.log(rlc.hashPathId);
     
     rlc.round = RESOURCES.TECHNICAL_ROUND;   
 
@@ -209,8 +213,14 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         //    $toTotal_Exp = ''; 
         // }
 
-        console.log(rlc.alpha);
+        // console.log(rlc.alpha);
+        var email = loggedInUser == undefined ? undefined :loggedInUser.identity.email;
+        var mobile = loggedInUser == undefined ? undefined :loggedInUser.identity.mobile;
+        var role_id = loggedInUser == undefined ? undefined :loggedInUser.identity.role;
 
+        // console.log(email);
+        // console.log(mobile);
+        // console.log(role_id);
         var req = {
             'job_description_id':rlc.jobCodeId,
             // 'ctc':rlc.ctcKey,
@@ -224,6 +234,13 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
             'search_alphabet':rlc.alpha,
             'status':rlc.hashPathId
         }
+
+        if(email != undefined && mobile != undefined && role_id == 6){
+            req.email = email;
+            req.contact_no = mobile;
+            req.role_id = role_id;
+        }
+        // console.log(req);
 
         var requestParam = {
             page:rlc.pageno,
