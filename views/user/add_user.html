@@ -27,8 +27,8 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="mandatory" for="">Role</label>
-                            <select id="userType" ng-model="usr.userType" name="userType" class="form-control s2mn" placeholder="Enter user type." style="width:100%;" ng-options="x.id as x.name for x in usr.roleList" ng-selected="usr.userType ? true : false" >
-                                <option value="" style="color:#ccc;">Select user type</option>
+                            <select id="userType" ng-model="usr.userType" name="userType" class="form-control s2mn" placeholder="Enter role." style="width:100%;" ng-options="x.id as x.name for x in usr.roleList" ng-selected="usr.userType ? true : false" >
+                                <option value="" style="color:#ccc;">Select role</option>
                             </select>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="mandatory" for="">Email</label>
-                            <input type="text" class="form-control" ng-model="usr.contactEmail" name="contactEmail" id="contactEmail"  placeholder="Enter contact email" autocomplete="off">
+                            <input type="text" class="form-control" ng-model="usr.contactEmail" name="contactEmail" id="contactEmail"  placeholder="Enter email" autocomplete="off">
                         </div>
                     </div>
                     <div class="col-md-4" id="passwordDiv"  ng-if="usr.title == 'Add New User'">

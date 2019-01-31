@@ -63,6 +63,7 @@ app.controller('screeningCtrl', function ($scope, $rootScope, $http, services, $
 
     /* Function to initialise screening controller */
     sc.init = function(){
+        debugger
         sc.limit = $('#table_length').val();
         sc.fetchList(-1);
         /* To fetch get all strem list */

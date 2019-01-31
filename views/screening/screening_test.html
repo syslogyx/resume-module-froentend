@@ -30,30 +30,36 @@
                                 </div>
                             </div>
                             <div class="box-body" style="padding-left: 0px;margin-left: 0px !important;">
-                            <form id="filterForm">                                
-                                <div class="col-md-4 form-group">
-                                  <label>Stream</label>
-                                  <select class="form-control s2mn" name="stream[]" id="stream" ng-model="st.stream" ng-options="x.id as x.name for x in st.streamList" data-placeholder="Select stream" multiple="multiple" style="width: 100%">
-                                        <option value="" style="color:#ccc !important;">Select Stream</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4 form-group">
-                                    <label>No. of Question</label>
-                                    <input class="form-control" type="text" id="no_of_question" name="no_of_question" ng-model="st.no_of_question" placeholder="Enter no. of question">
-                                </div>
-                                <div class="col-md-1" style="text-align: center;">
-                                  <div class="form-group" >
-                                    <br>
-                                      <input type="button" value="Search" class="btn btn-primary" style="margin-top:5px" ng-click="st.fetchList()" />
-                                  </div>
-                                </div>
-                                <div class="col-md-1 " style="text-align: center;">
-                                  <div class="form-group" >
-                                    <br>
-                                    <button type="button" class="btn btn-block btn-primary fa fa-refresh" ng-click="st.resetFilterForm()" style="margin-top:5px"></button>  
-                                  </div>
-                                </div>
-                            </form>                            
+                                <form id="filterForm">
+                                    <div class="row">                                
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Stream</label>
+                                                <select class="form-control s2mn" name="stream[]" id="stream" ng-model="st.stream" ng-options="x.id as x.name for x in st.streamList" data-placeholder="Select stream" multiple="multiple" style="width: 100%">
+                                                    <option value="" style="color:#ccc !important;">Select Stream</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>No. of Question</label>
+                                                <input class="form-control" type="text" id="no_of_question" name="no_of_question" ng-model="st.no_of_question" placeholder="Enter no. of question">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1" style="text-align: center;">
+                                          <div class="form-group" >
+                                            <br>
+                                              <input type="button" value="Search" class="btn btn-primary" style="margin-top:5px" ng-click="st.fetchList()" />
+                                          </div>
+                                        </div>
+                                        <div class="col-md-1 " style="text-align: center;">
+                                          <div class="form-group" >
+                                            <br>
+                                            <button type="button" class="btn btn-block btn-primary fa fa-refresh" ng-click="st.resetFilterForm()" style="margin-top:5px"></button>  
+                                          </div>
+                                        </div>
+                                    </div>
+                                </form>                            
                             </div>                        
                         </div>
                     </div>
@@ -126,17 +132,17 @@
                                 <input class="form-control" id="interview_duration" name="interview_duration" placeholder="Enter duration" ng-model="st.interview_duration" rows="1">
                             </div>
                             <div class="col-md-6 form-group">
-                                <label class="mandatory">Observation</label>
-                                <textarea class="form-control" placeholder="Enter Observation" id="observation" name="observation" ng-model="st.observation" rows="1"></textarea>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12 form-group" style="margin-top: 1%;">
                                 <label class="mandatory">Status </label> 
                                 <!-- ng-init="st.status = st.statusData[0].name" -->
                                 <select  id="changeStatus" name="changeStatus" class="form-control" placeholder="Enter status" ng-model="st.status" ng-options="x.name as x.name for x in st.statusData" >
                                     <option value="" style="color:#ccc !important;">Select status</option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group" style="margin-top: 1%;">
+                                <label class="mandatory">Observation</label>
+                                <textarea class="form-control" placeholder="Enter Observation" id="observation" name="observation" ng-model="st.observation" rows="1"></textarea>
                             </div>
                         </div>
                     </form>
@@ -174,6 +180,10 @@
         })
     });
 
+    $('#stream').on('change', function() {  // when the value changes
+        $(this).valid(); // trigger validation on this element
+    });
+
 
     $("#filterForm").validate({
         errorElement: 'span', //default input error message container
@@ -185,19 +195,23 @@
             {
                 element.parent().append(error);
 
-            }
-            else{
+            }else if($(element).attr("id") === "stream")
+            {
+                element.parent().append(error);
+
+            }else{
                 error.insertAfter(element);
             }
         },
         rules: {
-            no_of_question: {
-                number: true
-            },                    
-            
+            "stream[]": {
+                required: true
+            }                       
         },
         messages: {
-            
+            "stream[]": {
+                required: "Stream is required."
+            }  
         },
         highlight: function (element) { // hightlight error inputs
             $(element).closest('.form-group').addClass('has-error');
@@ -250,7 +264,8 @@
                     required: "Status is required."
                 },
                 interview_duration: {
-                    required: "Duration is required."
+                    required: "Duration is required.",
+                    number:"Please enter duration is in number."
                 },
                 observation: {
                     required: "Observation is required."

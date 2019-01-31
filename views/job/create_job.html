@@ -20,8 +20,8 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="mandatory" for="">Title</label>
-                            <input type="text" class="form-control" ng-model="jb.jobTitle" name="job_title" id="job_title" placeholder="Enter title" >
+                            <label class="mandatory" for="">Job Title</label>
+                            <input type="text" class="form-control" ng-model="jb.jobTitle" name="job_title" id="job_title" placeholder="Enter job title" >
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -33,7 +33,7 @@
                      <div class="col-md-4">
                         <div class="form-group">
                             <label class="mandatory" for="">Notice Period</label>
-                            <input type="text" class="form-control" ng-model="jb.noticePeroid" name="notice_peroid" id="notice_peroid"  placeholder="Enter notice peroid">
+                            <input type="text" class="form-control" ng-model="jb.noticePeroid" name="notice_peroid" id="notice_peroid"  placeholder="Enter notice period">
                         </div>
                     </div>
                     
@@ -72,7 +72,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="mandatory" for="">CTC</label>
-                            <input type="text" class="form-control" ng-model="jb.ctc" name="ctc" id="ctc"  placeholder="Enter ctc">
+                            <input type="text" class="form-control" ng-model="jb.ctc" name="ctc" id="ctc"  placeholder="Enter CTC">
                         </div>
                     </div>
                      <div class="col-md-4">
@@ -80,8 +80,8 @@
                             <label class="mandatory" for="">Company</label>
                             <!-- <label class="mandatory" for="">Status</label> -->
                            <!--  <input type="text" class="form-control" ng-model="jb.companyId" name="status" id="status"  placeholder="Enter status"> -->
-                            <select id="companyId" ng-model="jb.companyId" name="companyId" class="form-control s2mn" placeholder="Enter Company Name" style="width:100%;" ng-options="x.id as x.name for x in jb.companyList" ng-selected="jb.companyId ? true : false" >
-                                <option value="" style="color:#ccc;">Select Company</option>
+                            <select id="companyId" ng-model="jb.companyId" name="companyId" class="form-control s2mn" placeholder="Enter company name" style="width:100%;" ng-options="x.id as x.name for x in jb.companyList" ng-selected="jb.companyId ? true : false" >
+                                <option value="" style="color:#ccc;">Select company</option>
                             </select>
                         </div> 
                     </div>
@@ -90,13 +90,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="mandatory" for="">Description</label>
-                           <textarea placeholder="Enter Description" class="form-control" id="description" name="description" ng-model="jb.description" rows="2"></textarea>
+                           <textarea placeholder="Enter description" class="form-control" id="description" name="description" ng-model="jb.description" rows="2"></textarea>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="mandatory" for="">Required Skills</label>
-                            <textarea placeholder="Enter Required Skills" class="form-control" id="required_skill" name="required_skill" ng-model="jb.requiredSkill" rows="2"></textarea>
+                            <textarea placeholder="Enter required skills" class="form-control" id="required_skill" name="required_skill" ng-model="jb.requiredSkill" rows="2"></textarea>
                         </div>
                     </div>
                 </div>
@@ -104,13 +104,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="mandatory" for="">Additional Skills</label>
-                           <textarea placeholder="Enter Additional Skills" class="form-control" id="additional_skill" name="additional_skill" ng-model="jb.additionalSkill" rows="2"></textarea>
+                           <textarea placeholder="Enter additional skills" class="form-control" id="additional_skill" name="additional_skill" ng-model="jb.additionalSkill" rows="2"></textarea>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="mandatory" for="">Roles And Responsibility</label>
-                            <textarea placeholder="Enter Roles & Responsibility" class="form-control" id="role_responsibility" name="role_responsibility" ng-model="jb.roleResponsibility" rows="2"></textarea>
+                            <textarea placeholder="Enter roles & responsibility" class="form-control" id="role_responsibility" name="role_responsibility" ng-model="jb.roleResponsibility" rows="2"></textarea>
                         </div>
                     </div>
                 </div>
@@ -118,7 +118,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="mandatory" for="">Project Description</label>
-                           <textarea placeholder="Enter Project Description" class="form-control" id="project_title" name="project_title" ng-model="jb.project_title" rows="2"></textarea>
+                           <textarea placeholder="Enter project description" class="form-control" id="project_title" name="project_title" ng-model="jb.project_title" rows="2"></textarea>
                         </div>
                     </div>                                        
                 </div>
@@ -215,7 +215,7 @@
                         required: "Job title is required."
                     },
                     sub_title: {
-                        required: "Sub title is required."
+                        required: "Subtitle is required."
                     },
                      status: {
                         required: "Status is required."
@@ -237,13 +237,13 @@
                         required: "CTC is required."
                     },
                     notice_peroid: {
-                        required: "Notice peroid is required."
+                        required: "Notice period is required."
                     },
                     description: {
                         required: "Description is required."
                     },
                     required_skill: {
-                        required: "Skill is required."
+                        required: "Required skill is required."
                     },
                     additional_skill: {
                         required: "Additional skill is required."
@@ -252,7 +252,7 @@
                         required: "Roles and responsibility is required."
                     },
                     companyId: {
-                        required: "Company name is required."
+                        required: "Company is required."
                     },
                     project_title: {
                         required: "Project description is required."

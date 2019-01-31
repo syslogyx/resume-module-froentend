@@ -22,20 +22,20 @@
                         <div class="form-group">
                             <label class="mandatory" for="">Stream</label>
                             <select required class="form-control" name="stream" id="stream" ng-model="sc.stream" ng-options="x.id as x.name for x in sc.streamList">
-                                <option value="" style="color:#ccc !important;">Select Stream</option>
+                                <option value="" style="color:#ccc !important;">Select stream</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="mandatory" for="">Question</label>
-                           <textarea placeholder="Enter Question" class="form-control" id="question" name="question" ng-model="sc.question" rows="2"></textarea>
+                           <textarea placeholder="Enter question" class="form-control" id="question" name="question" ng-model="sc.question" rows="2"></textarea>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="mandatory" for="">Answer</label>
-                           <textarea placeholder="Enter Question" class="form-control" id="expected_answer" name="expected_answer" ng-model="sc.expected_answer" rows="2"></textarea>
+                           <textarea placeholder="Enter answer" class="form-control" id="expected_answer" name="expected_answer" ng-model="sc.expected_answer" rows="2"></textarea>
                         </div>
                     </div>            
                 </div> 
@@ -81,14 +81,19 @@
                     question: {
                         required: true
                     },
-                    
+                    expected_answer: {
+                        required: true
+                    },  
                 },
                 messages: {
                     stream: {
-                        required: "stream is required."
+                        required: "Stream is required."
                     },
                     question: {
-                        required: "question is required."
+                        required: "Question is required."
+                    },
+                    expected_answer: {
+                        required: "Answer is required."
                     },
                 },
                 highlight: function (element) { // hightlight error inputs

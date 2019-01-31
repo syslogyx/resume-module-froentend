@@ -22,7 +22,7 @@
                         <div class="form-group">
                             <label class="" for="">Candidate</label>
                             <select  class="form-control" name="candidate_name" id="candidate_name" disabled="" ng-model="res.tecForm.candidate_id" disabled="">
-                                <option value="" style="color:#ccc !important;">Select Candidate</option> x.first_name + x.middle_name + x.last_name
+                                <option value="" style="color:#ccc !important;">Select candidate</option> x.first_name + x.middle_name + x.last_name
                                 <option value="{{x.id}}" ng-repeat="x in res.candidateList track by x.id">{{x.first_name +' '+ x.middle_name +' '+ x.last_name}}</option>
                             </select>
                         </div>
@@ -31,15 +31,15 @@
                         <div class="form-group">
                             <label class="" for="">User</label>             
                             <select class="form-control" name="user" id="user" ng-model="res.tecForm.user_id" ng-options="x.id as x.name for x in res.interviewerList" disabled="">
-                                <option value="" style="color:#ccc !important;">Select User</option>
+                                <option value="" style="color:#ccc !important;">Select user</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="mandatory" for="">Round</label>
-                            <select  class="form-control" name="round" id="round"  ng-model="res.tecForm.technical_round" ng-options="x.name as x.name for x in res.round" data-placeholder="Select Round" disabled="">
-                                <option value="" style="color:#ccc !important;">Select Round</option>
+                            <select  class="form-control" name="round" id="round"  ng-model="res.tecForm.technical_round" ng-options="x.name as x.name for x in res.round" data-placeholder="Select round" disabled="">
+                                <option value="" style="color:#ccc !important;">Select round</option>
                             </select>
                         </div>
                     </div>           
@@ -51,13 +51,13 @@
                     </div>
                     <div class="col-md-4 form-group">
                         <label class="mandatory">Observation</label>
-                        <textarea class="form-control" placeholder="Enter Observation" id="observation" name="observation" ng-model="res.tecForm.observation" rows="1"></textarea>
+                        <textarea class="form-control" placeholder="Enter observation" id="observation" name="observation" ng-model="res.tecForm.observation" rows="1"></textarea>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="mandatory" for="">Result</label>
                             <select  class="form-control" name="result" id="result"  ng-model="res.tecForm.status" ng-options="x.name as x.name for x in res.statusData" >
-                                <option value="" style="color:#ccc !important;">Select Result</option>
+                                <option value="" style="color:#ccc !important;">Select result</option>
                             </select>
                         </div>
                     </div>
@@ -66,7 +66,7 @@
                     <div class="col-md-8">
                         <div class="form-group">
                             <label class="mandatory" for="">Feedback</label>
-                           <textarea placeholder="Enter Feedback" class="form-control" id="res.tecForm.feedback" name="feedback" ng-model="res.tecForm.feedback" rows="2"></textarea>
+                           <textarea placeholder="Enter feedback" class="form-control" id="res.tecForm.feedback" name="feedback" ng-model="res.tecForm.feedback" rows="2"></textarea>
                         </div>
                     </div> 
                 </div>

@@ -95,7 +95,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                               <label class="mandatory" for="">Company name</label>
-                                <select id="company_name" name="company_name" ng-model="rdc.companyId" class="form-control s2mn" placeholder="Enter Company Name" style="width:100%;" ng-options="x.id as x.name for x in rdc.companyList" ng-selected="rdc.companyId ? true : false" ng-change="rdc.getJobcodeByCompanyId()">
+                                <select id="company_name" name="company_name" ng-model="rdc.companyId" class="form-control s2mn" placeholder="Enter company name" style="width:100%;" ng-options="x.id as x.name for x in rdc.companyList" ng-selected="rdc.companyId ? true : false" ng-change="rdc.getJobcodeByCompanyId()">
                                     <option value="" style="color:#ccc;">Select company</option>
                                 </select>
                             </div>
@@ -104,7 +104,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                               <label class="mandatory" for="">Job code</label>
-                                <select id="jobCode" name="jobCode" ng-model="rdc.jobCodeId" class="form-control s2mn" placeholder="Enter Job code" style="width:100%;" ng-disabled="rdc.jobcodeList == null ? true : false" ng-selected="rdc.jobCodeId ? true : false" ng-change="rdc.getCandidateListByJobcodeId()" >
+                                <select id="jobCode" name="jobCode" ng-model="rdc.jobCodeId" class="form-control s2mn" placeholder="Enter job code" style="width:100%;" ng-disabled="rdc.jobcodeList == null ? true : false" ng-selected="rdc.jobCodeId ? true : false" ng-change="rdc.getCandidateListByJobcodeId()" >
                                     <option value="" style="color:#ccc !important;">Select job code</option>
                                     <option ng-repeat="jd in rdc.jobcodeList" value="{{jd.id}}">{{jd.job_code}} {{jd.sub_title != '' ? (jd.sub_title) : ''}}</option>
                                 </select>
@@ -262,7 +262,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="form-group">
-                                                        <input class="company_remark form-control" type="text" id="company_remark{{$index}}" name="company_remark{{$index}}" ng-model="r.companies_tech_remark"  placeholder="Enter Remark">
+                                                        <input class="company_remark form-control" type="text" id="company_remark{{$index}}" name="company_remark{{$index}}" ng-model="r.companies_tech_remark"  placeholder="Enter remark">
                                                     </div>
                                                 </td>
                                                 <td>
@@ -313,7 +313,7 @@
                                     </div>
                                     <div class="col-md-4 form-group">
                                         <label class="mandatory" for="">Companies Final Remark</label>
-                                        <textarea class="companies_final_remark form-control" type="text" id="companies_final_remark" name="companies_final_remark" ng-model="rdc.company_final_remark" rows="1" placeholder="Enter Remark"></textarea>
+                                        <textarea class="companies_final_remark form-control" type="text" id="companies_final_remark" name="companies_final_remark" ng-model="rdc.company_final_remark" rows="1" placeholder="Enter remark"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -342,18 +342,18 @@
                                 <div class="col-xs-12">
                                     <div class="col-md-4 form-group">
                                         <label class="mandatory" for="">HR interview date</label>
-                                        <input class="hr_interview_on_date form-control" type="text" id="hr_interview_on_date" name="hr_interview_on_date" ng-model="rdc.hr_interview_on_date" placeholder="Select date">
+                                        <input class="hr_interview_on_date form-control" type="text" id="hr_interview_on_date" name="hr_interview_on_date" ng-model="rdc.hr_interview_on_date" placeholder="Enter HR interview date">
                                     </div>
                                     <div class="col-md-4 form-group">
                                         <label class="mandatory" for="">HR Final Status</label>
-                                        <select class="hr_status form-control" type="text" id="hr_status" name="hr_status" ng-model="rdc.hr_status" ng-options="x.name as x.name for x in rdc.roundStatus" data-placeholder="Select status">
-                                            <option value="">Select status</option>
+                                        <select class="hr_status form-control" type="text" id="hr_status" name="hr_status" ng-model="rdc.hr_status" ng-options="x.name as x.name for x in rdc.roundStatus" data-placeholder="Select HR final status">
+                                            <option value="">Select HR final status</option>
                                         </select>
 
                                     </div>
                                     <div class="col-md-4 form-group">
                                         <label class="mandatory" for="">HR Remark</label>
-                                        <textarea class="hr_remark form-control" type="text" id="hr_remark" name="hr_remark" ng-model="rdc.hr_remark" rows="1" placeholder="Enter Remark"></textarea>
+                                        <textarea class="hr_remark form-control" type="text" id="hr_remark" name="hr_remark" ng-model="rdc.hr_remark" rows="1" placeholder="Enter HR remark"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -361,17 +361,17 @@
                                 <div class="col-xs-12">
                                     <div class="col-md-4 form-group">
                                         <label class="mandatory" for="">Final Status</label>
-                                        <select class="final_status form-control" type="text" id="final_status" name="final_status" ng-model="rdc.final_status" ng-options="x.name as x.name for x in rdc.finalRoundStatus" data-placeholder="Select status">
-                                            <option value="">Select status</option>
+                                        <select class="final_status form-control" type="text" id="final_status" name="final_status" ng-model="rdc.final_status" ng-options="x.name as x.name for x in rdc.finalRoundStatus" data-placeholder="Select final status">
+                                            <option value="">Select final status</option>
                                         </select>
                                     </div>
                                     <div class="col-md-4 form-group">
-                                        <label class="mandatory" for="">Tentative doj </label>
-                                        <input class="tentative_doj form-control" type="text" id="tentative_doj" name="tentative_doj" ng-model="rdc.tentative_doj" placeholder="Select date">
+                                        <label class="mandatory" for="">Tentative DOJ </label>
+                                        <input class="tentative_doj form-control" type="text" id="tentative_doj" name="tentative_doj" ng-model="rdc.tentative_doj" placeholder="Enter tentative DOJ">
                                     </div>
                                     <div class="col-md-4 form-group">
-                                        <label class="mandatory" for="">Actual doj</label>
-                                        <input class="actual_doj form-control" type="text" id="actual_doj" name="actual_doj" ng-model="rdc.actual_doj" placeholder="Select date">
+                                        <label class="mandatory" for="">Actual DOJ</label>
+                                        <input class="actual_doj form-control" type="text" id="actual_doj" name="actual_doj" ng-model="rdc.actual_doj" placeholder="Enter actual DOJ">
                                     </div>
                                 </div>
                             </div>
@@ -554,22 +554,22 @@
         },
         messages: {
             hr_interview_on_date: {
-                required: "Date is required."
+                required: "HR interview date is required."
             },
             hr_status: {
-                required: "Status is required."
+                required: "HR final status is required."
             },
             hr_remark: {
-                required: "Remark is required."
+                required: "HR remark is required."
             },
             final_status: {
-                required: "Status is required."
+                required: "Final status is required."
             },
             tentative_doj: {
-                required: "Date is required."
+                required: "Tentative DOJ is required."
             },
             actual_doj: {
-                required: "Date is required."
+                required: "Actual DOJ is required."
             }
         },
         highlight: function (element) { // hightlight error inputs
@@ -591,7 +591,7 @@
     });
 
     $.validator.addMethod("dateRequired", $.validator.methods.required,
-                   "Remark is required.");
+                   "Date is required.");
 
     $.validator.addClassRules("company_round_date", { dateRequired: true});
 
