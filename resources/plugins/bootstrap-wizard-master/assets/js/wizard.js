@@ -302,9 +302,9 @@ $(document).ready(function(){
                 accept: "(docx?|doc|pdf)",
                 filesize: 1048576
             },
-            // indian_lang:{
-            //     required: true,
-            // },
+            indian_lang:{
+                required: true,
+            },
             // foreign_lang:{
             //     required: true,
             // }

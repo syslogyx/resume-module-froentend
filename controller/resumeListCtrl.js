@@ -507,6 +507,8 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
             rlc.pdfSectionsNameList = result.data;
             setTimeout(function(){
                 $('#my-select').multiSelect();
+                $('#ms-my-select').find('.ms-selectable').prepend("<span><strong>Non-Selected Sections</strong></span>");
+                $('#ms-my-select').find('.ms-selection').prepend("<span><strong>Selected Sections</strong></span>");
             },200)
             $('#pdfSettingModel').modal('show');
             setTimeout(function(){
@@ -584,6 +586,8 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
             Utility.stopAnimation();   
             setTimeout(function(){
                 $('#my-select_for_zip').multiSelect();
+                $('#ms-my-select_for_zip').find('.ms-selectable').prepend("<span><strong>Non-Selected Sections</strong></span>");
+                $('#ms-my-select_for_zip').find('.ms-selection').prepend("<span><strong>Selected Sections</strong></span>");
             },1000);
         }, function myError(r) {
             toastr.error(r.data.message, 'Sorry!');

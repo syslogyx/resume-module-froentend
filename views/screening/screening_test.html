@@ -31,33 +31,35 @@
                             </div>
                             <div class="box-body" style="padding-left: 0px;margin-left: 0px !important;">
                                 <form id="filterForm">
-                                    <div class="row">                                
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Stream</label>
-                                                <select class="form-control s2mn" name="stream[]" id="stream" ng-model="st.stream" ng-options="x.id as x.name for x in st.streamList" data-placeholder="Select stream" multiple="multiple" style="width: 100%">
-                                                    <option value="" style="color:#ccc !important;">Select Stream</option>
-                                                </select>
+                                    <div class="row">
+                                        <div class="col-xs-12">                
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="mandatory">Stream</label>
+                                                    <select class="form-control s2mn" name="stream[]" id="stream" ng-model="st.stream" ng-options="x.id as x.name for x in st.streamList" data-placeholder="Select stream" multiple="multiple" style="width: 100%">
+                                                        <option value="" style="color:#ccc !important;">Select Stream</option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>No. of Question</label>
-                                                <input class="form-control" type="text" id="no_of_question" name="no_of_question" ng-model="st.no_of_question" placeholder="Enter no. of question">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>No. of Question</label>
+                                                    <input class="form-control" type="text" id="no_of_question" name="no_of_question" ng-model="st.no_of_question" placeholder="Enter no. of question">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-1" style="text-align: center;">
-                                          <div class="form-group" >
-                                            <br>
-                                              <input type="button" value="Search" class="btn btn-primary" style="margin-top:5px" ng-click="st.fetchList()" />
-                                          </div>
-                                        </div>
-                                        <div class="col-md-1 " style="text-align: center;">
-                                          <div class="form-group" >
-                                            <br>
-                                            <button type="button" class="btn btn-block btn-primary fa fa-refresh" ng-click="st.resetFilterForm()" style="margin-top:5px"></button>  
-                                          </div>
-                                        </div>
+                                            <div class="col-md-1" style="text-align: center;">
+                                              <div class="form-group" >
+                                                <br>
+                                                  <input type="button" value="Search" class="btn btn-primary" style="margin-top:5px" ng-click="st.fetchList()" />
+                                              </div>
+                                            </div>
+                                            <div class="col-md-1 " style="text-align: center;">
+                                              <div class="form-group" >
+                                                <br>
+                                                <button type="button" class="btn btn-block btn-primary fa fa-refresh" ng-click="st.resetFilterForm()" style="margin-top:5px"></button>  
+                                              </div>
+                                            </div>
+                                        </div>                                
                                     </div>
                                 </form>                            
                             </div>                        

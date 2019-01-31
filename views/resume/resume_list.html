@@ -521,7 +521,7 @@
                     </form>
                 </div>
                 <div class="modal-footer" style="margin-top: 0px;"> 
-                    <button type="button" id="pdfSettingSubmitBtn" class="btn btn-primary" data-ng-click="rlc.downloadPdfWithSectionSetting();" >Save</button>
+                    <button type="button" id="pdfSettingSubmitBtn" class="btn btn-primary" data-ng-click="rlc.downloadPdfWithSectionSetting();" >Download PDF</button>
                     <button type="reset" id="closeModal" class="btn btn-warning"  ng-click="rlc.resetPdfForm()" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
@@ -1150,6 +1150,7 @@
 </script>
 <script>
     $(document).ready(function () {
+
         /* Select-all and deselect all functionality of section name in pdf download*/
         $('#select-all').click(function(){
           $('#my-select').multiSelect('select_all');
