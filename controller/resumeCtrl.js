@@ -9,18 +9,19 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
   
     // console.log(JSON.parse(services.getIdentity()));
 
-    $scope.backImgUrls=[
-        'resources/img/resumeimg/1_Personal_Details_img.jpg',
-        'resources/img/resumeimg/2_Educational_Details_img.jpg',
-        'resources/img/resumeimg/3_Other_Achievements_img.jpg',
-        'resources/img/resumeimg/4_Technical_Skills_img.jpg',
-        'resources/img/resumeimg/5_Industrial_Experience_img.jpg',
-        'resources/img/resumeimg/6_Hobbies_Details_img.jpg',
-        'resources/img/resumeimg/7_Language_Known_img.jpg',
-        'resources/img/resumeimg/7_Upload_Document_img.jpg'
-    ];
+    // $scope.backImgUrls=[
+    //     'resources/img/resumeimg/1_Personal_Details_img.jpg',
+    //     'resources/img/resumeimg/2_Educational_Details_img.jpg',
+    //     'resources/img/resumeimg/3_Other_Achievements_img.jpg',
+    //     'resources/img/resumeimg/4_Technical_Skills_img.jpg',
+    //     'resources/img/resumeimg/5_Industrial_Experience_img.jpg',
+    //     'resources/img/resumeimg/6_Hobbies_Details_img.jpg',
+    //     'resources/img/resumeimg/7_Language_Known_img.jpg',
+    //     'resources/img/resumeimg/7_Upload_Document_img.jpg'
+    // ];
 
-    $scope.backCurrentImg=$scope.backImgUrls[0];
+    // $scope.backCurrentImg=$scope.backImgUrls[0];
+    $scope.backCurrentImg='resources/img/Bg_img.jpg';
     $scope.currentCTC = null;
 
     // console.log($routeParams.token);

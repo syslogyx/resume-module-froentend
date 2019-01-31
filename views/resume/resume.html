@@ -38,7 +38,7 @@
         padding:0px !important;
     }
     .languagestools_btn_margin{
-        margin-top: 11%;
+        margin-top: 17%;
     }
     #updateWizardResumeSuccessmsg{
         width:60%;
@@ -137,6 +137,19 @@
        color:#2a58ad;
     }
 */
+    .wizard-card .info-text {
+        text-align: left !important;
+        padding-left: 2% !important;
+        font-weight: 300;
+        margin: 10px 0 20px !important;
+    }
+
+    #resumeForm .form-control{
+        border-top-left-radius: 4px !important;
+        border-top-right-radius: 4px !important;
+        border-bottom-left-radius: 4px !important;
+        border-bottom-right-radius: 4px !important;
+    }
 
 </style>
 <!--     Fonts and icons     -->
@@ -167,18 +180,22 @@
                                 <div class='row'>
                                     <div class='col-sm-12'>
                                         <div class='col-md-4' style="padding-left:3%;padding-top:1%">
-                                            <img id="syslogo" src="resources/img/SyslogyxLogo.png" alt="" width=95% height=40%/>
+                                            <img id="syslogo" src="resources/img/SyslogyxLogo.png" alt="" width="95%" height="40%"/>
                                         </div>
                                         <div class='col-md-8' ng-if="title == ''">
-                                            <h3>
-                                               <b>BUILD</b> YOUR PROFILE <br>
-                                               <small>This information will let us know more about you.</small>
+                                            <h3 style="color:#2a58ad;font-size: 31px;margin-bottom: 0px;">
+                                               <!-- <b>BUILD</b> YOUR PROFILE <br> -->
+                                               <b>BUILD YOUR PROFILE </b><br>
                                             </h3>
+                                               <small><center>This information will let us know more about you.</center></small>
+                                               <br>
                                         </div>
                                         <div class='col-md-8' ng-if="title != ''">
-                                            <h3>
-                                               <b>{{title}}</b> Candidate Profile<br>
+                                            <h3 style="color:#2a58ad;font-size: 26px;margin-bottom: 0px;">
+                                               <b>{{title}} Candidate Profile </b>
                                             </h3>
+                                            <br>
+                                            <br>
                                         </div>
                                     </div>
                                 </div>
@@ -201,15 +218,17 @@
                                 <!-- <div class="tab-content col-md-9" style="flex: 1"> -->
                                     <div class="tab-pane" id="presonalDetails">
                                         <div class="row">
-                                          <h4 class="info-text" ng-if="title == ''"> Please enter personal details</h4>
-                                          <h4 class="info-text" ng-if="title != ''"> Enter personal details</h4>
+                                            <div class="col-sm-12"> 
+                                                <h4 class="info-text " ng-if="title == ''"><b>Please enter personal details</b></h4>
+                                                <h4 class="info-text " ng-if="title != ''"><b>Enter personal details</b></h4>
+                                            </div>
                                         </div>  
                                         <div class="row">
                                             <div class="col-sm-12">   
                                                 <div class="col-md-6">             
                                                     <div class="form-group">
                                                         <label class="mandatory">Job Code</label>
-                                                        <select required class="form-control" name="job_code" id="job_code" ng-model="job_id" >
+                                                        <select class="form-control" name="job_code" id="job_code" ng-model="job_id" >
                                                             <option value="" style="color:#ccc !important;">Select job code</option>
                                                             <option ng-repeat="jd in jobDetail" value="{{jd.id}}">{{jd.job_code}} {{jd.sub_title != '' ? (jd.sub_title) : ''}}</option>
                                                         </select>
@@ -218,7 +237,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="mandatory">Opportunity For</label>
-                                                        <select required class="form-control" name="opportunity_for" id="opportunity_for" ng-model="opportunityFor" ng-change="opportunityForChange()">
+                                                        <select class="form-control" name="opportunity_for" id="opportunity_for" ng-model="opportunityFor" ng-change="opportunityForChange()">
                                                             <option value="" style="color:#ccc !important;">Select Opportunity</option>
                                                             <option ng-repeat="opp in jobOpportunityFor" value="{{opp.name}}">{{opp.name}}</option>
                                                         </select>
@@ -378,10 +397,13 @@
                                     </div>
                                     <div class="tab-pane" id="educationalDetails">
                                         <div class='row'>
-                                            <div class="col-sm-12 info-text">
-                                                <h4 class="sectionHeading" ng-if="title == ''"> Please enter educational details </h4>
-                                                <h4 class="sectionHeading" ng-if="title != ''"> Enter educational details </h4>
+                                            <div class="col-sm-12">
+                                                <h4 class="info-text" ng-if="title == ''"><b>Please enter educational details</b>
                                                 <button id="addMoreQualificationBtn" type="button" class="btn btn-sm btn-success pull-right appendBtn" ng-click="appendQualificationDiv();" title="Add new qualification"><i class="fa fa-plus"></i></button>
+                                                </h4>
+                                                <h4 class="info-text " ng-if="title != ''"><b>Enter educational details</b>
+                                                <button id="addMoreQualificationBtn" type="button" class="btn btn-sm btn-success pull-right appendBtn" ng-click="appendQualificationDiv();" title="Add new qualification"><i class="fa fa-plus"></i></button>
+                                                </h4>
                                             </div>
                                             <br>
                                         </div>
@@ -473,10 +495,9 @@
                                     </div>
                                     <div class="tab-pane" id="otherAchievements">
                                         <div class="row">
-                                             <div class="col-sm-12 info-text">
-                                                <h4 class="sectionHeading" ng-if="title == ''"> Please enter achievement details </h4>
-                                                <h4 class="sectionHeading" ng-if="title != ''"> Enter achievement details </h4>
-                                                <button id="addMoreAchievementBtn" type="button" class="btn btn-sm btn-success pull-right appendBtn" ng-click="appendAchievementDiv();" title="Add new achievement "><i class="fa fa-plus"></i></button>
+                                             <div class="col-sm-12">
+                                                <h4 class="info-text" ng-if="title == ''"><b>Please enter achievement details </b><button id="addMoreAchievementBtn" type="button" class="btn btn-sm btn-success pull-right appendBtn" ng-click="appendAchievementDiv();" title="Add new achievement "><i class="fa fa-plus"></i></button></h4>
+                                                <h4 class="info-text" ng-if="title != ''"><b>Enter achievement details</b><button id="addMoreAchievementBtn" type="button" class="btn btn-sm btn-success pull-right appendBtn" ng-click="appendAchievementDiv();" title="Add new achievement "><i class="fa fa-plus"></i></button></h4>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -497,7 +518,7 @@
                                                         <textarea placeholder="Enter achievement" class="form-control other_achievements" id="other_achievements_{{$index}}" name="other_achievements_{{$index}}" ng-model="a.achivement" rows="1"></textarea>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-2 form-group" style="margin-top:2.5%">
+                                                <div class="col-sm-2 form-group" style="margin-top: 3.8%;">
                                                     <button id="removeAchievementBtn" type="button" class="btn btn-sm btn-danger" ng-if="$index > 0" ng-click="removeAchievements($index)" title="Remove achievement "><i class="fa fa-remove"></i></button>
                                                 </div>
                                             </div>
@@ -505,10 +526,9 @@
                                     </div>
                                     <div class="tab-pane" id="technicalSkills">
                                         <div class="row">
-                                             <div class="col-sm-12 info-text">
-                                                <h4 class="sectionHeading" ng-if="title == ''"> Please enter technical skill details </h4>
-                                                <h4 class="sectionHeading" ng-if="title != ''"> Enter candidate's technical skill details </h4>
-                                                <button id="addMoreTechnicalSkillBtn" type="button" class="btn btn-sm btn-success pull-right appendBtn" ng-click="appendTechnicalSkillDiv();" title="Add new technical skill "><i class="fa fa-plus"></i></button>
+                                             <div class="col-sm-12">
+                                                <h4 class="info-text" ng-if="title == ''"><b>Please enter technical skill details</b><button id="addMoreTechnicalSkillBtn" type="button" class="btn btn-sm btn-success pull-right appendBtn" ng-click="appendTechnicalSkillDiv();" title="Add new technical skill "><i class="fa fa-plus"></i></button></h4>
+                                                <h4 class="info-text" ng-if="title != ''"><b>Enter candidate's technical skill details</b><button id="addMoreTechnicalSkillBtn" type="button" class="btn btn-sm btn-success pull-right appendBtn" ng-click="appendTechnicalSkillDiv();" title="Add new technical skill "><i class="fa fa-plus"></i></button></h4>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -521,7 +541,8 @@
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <div class="form-group">
-                                                        <label class="">Relevance Experience (Years)</label>
+                                                        <!-- <label class="">Relevance Experience (Years)</label> -->
+                                                        <label class="">Relevance Exp. (Years)</label>
                                                         <select id="relevanceYearExperience_{{$index}}" name="relevance_year_experience_{{$index}}" class="form-control relevance_year_experience" placeholder="Enter year experience" ng-model="t.relevanceYearExperience">
                                                            <!--  <option value="" style="color:#ccc !important;">Select Year</option> -->
                                                            <option ng-repeat="x in experienceYears" value="{{x.id}}">{{x.name}}</option>
@@ -530,14 +551,15 @@
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <div class="form-group">
-                                                        <label class="">Relevance Experience (Months)</label>
+                                                        <!-- <label class="">Relevance Experience (Months)</label> -->
+                                                        <label class="">Relevance Exp. (Months)</label>
                                                         <select id="relevanceMonthExperience_{{$index}}" name="relevance_month_experience_{{$index}}" class="form-control relevance_month_experience" placeholder="Enter month experience" ng-model="t.relevanceMonthExperience">
                                                             <option ng-repeat="x in experienceMonths track by x.id" value="{{x.id}}">{{x.name}}</option>
                                                             <!-- <option value="" style="color:#ccc !important;">Select Month</option> -->
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-1 form-group" style="margin-top:2.7%">
+                                                <div class="col-sm-1 form-group" style="margin-top: 3.8%;">
                                                     <button id="removeTechnicalSkillBtn" type="button" class="btn btn-sm btn-danger"  ng-click="removeTechnicalSkill($index)" ng-if="$index > 0" title="Remove technical skill"><i class="fa fa-remove"></i></button>
                                                 </div>
                                             </div>
@@ -545,20 +567,22 @@
                                     </div>
                                     <div class="tab-pane" id="industrialExperience">
                                         <div class="row">
-                                             <div class="col-sm-12 info-text">
-                                                <h4 class="sectionHeading" ng-if="title == ''"> Please enter industry experience </h4>
-                                                <h4 class="sectionHeading" ng-if="title != ''"> Enter candidate's industry experience </h4>
+                                             <div class="col-sm-12">
+                                                <h4 class="info-text" ng-if="title == ''"><b>Please enter industry experience</b></h4>
+                                                <h4 class="info-text" ng-if="title != ''"><b>Enter candidate's industry experience</b></h4>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="col-sm-3 form-group">
-                                                    <label class="">Total Experience (Years)</label>
+                                                    <!-- <label class="">Total Experience (Years)</label> -->
+                                                    <label class="">Total Exp. (Years)</label>
                                                     <select id="total_year_experience" name="total_year_experience" class="form-control total_year_experience addDisabledProperty" placeholder="Enter year experience" ng-model="totalYearIndustryExperiance" ng-options="x.id as x.name for x in experienceYears" ng-disabled="(opportunityFor!='Fresher') ? false : true">
                                                     </select>
                                                 </div>
                                                 <div class="col-sm-3 form-group">
-                                                    <label class="">Total Experience (Month)</label>
+                                                    <!-- <label class="">Total Experience (Month)</label> -->
+                                                    <label class="">Total Exp. (Month)</label>
                                                     <select id="total_month_experience" name="total_month_experience" class="form-control total_month_experience addDisabledProperty" placeholder="Enter month experience" ng-model="totalMonthIndustryExperiance" ng-options="x.id as x.name for x in experienceMonths" ng-disabled="(opportunityFor!='Fresher') ? false : true">
                                                     </select>
                                                 </div>
@@ -627,8 +651,8 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-2 languagestools_padding languagestools_btn_margin"> 
-                                                                <button type="button" class="btn btn-sm btn-success  pull-right appendBtn addDisabledProperty" ng-click="appendLanguagesDiv(firstIndex)" title="Add new language"  ng-if="$index == 0" ng-disabled="(opportunityFor!='Fresher') ? false : true"><i class="fa fa-plus" ></i></button >
-                                                                <button id="removeSummaryBtn" type="button" class="btn btn-sm btn-danger pull-right addDisabledProperty"  ng-click="removeLanguagesDiv(firstIndex,$index)" ng-if="$index > 0" title="Remove language"><i class="fa fa-remove" ng-disabled="(opportunityFor!='Fresher') ? false : true"></i></button>
+                                                                <button type="button" class="btn btn-xs btn-success  pull-right appendBtn addDisabledProperty" ng-click="appendLanguagesDiv(firstIndex)" title="Add new language"  ng-if="$index == 0" ng-disabled="(opportunityFor!='Fresher') ? false : true"><i class="fa fa-plus" ></i></button >
+                                                                <button id="removeSummaryBtn" type="button" class="btn btn-xs btn-danger pull-right addDisabledProperty"  ng-click="removeLanguagesDiv(firstIndex,$index)" ng-if="$index > 0" title="Remove language"><i class="fa fa-remove" ng-disabled="(opportunityFor!='Fresher') ? false : true"></i></button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -646,8 +670,8 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-2 languagestools_padding languagestools_btn_margin"> 
-                                                                <button type="button" class="btn btn-sm btn-success  pull-right appendBtn addDisabledProperty" ng-click="appendToolsDiv(firstIndex)" title="Add new tool"  ng-if="$index == 0" ng-disabled="(opportunityFor!='Fresher') ? false : true"><i class="fa fa-plus"></i></button >
-                                                                <button id="removeToolBtn" type="button" class="btn btn-sm btn-danger pull-right addDisabledProperty"  ng-click="removeToolsDiv(firstIndex,$index)" ng-if="$index > 0" title="Remove tool" ng-disabled="(opportunityFor!='Fresher') ? false : true"><i class="fa fa-remove" ></i></button>
+                                                                <button type="button" class="btn btn-xs btn-success  pull-right appendBtn addDisabledProperty" ng-click="appendToolsDiv(firstIndex)" title="Add new tool"  ng-if="$index == 0" ng-disabled="(opportunityFor!='Fresher') ? false : true"><i class="fa fa-plus"></i></button >
+                                                                <button id="removeToolBtn" type="button" class="btn btn-xs btn-danger pull-right addDisabledProperty"  ng-click="removeToolsDiv(firstIndex,$index)" ng-if="$index > 0" title="Remove tool" ng-disabled="(opportunityFor!='Fresher') ? false : true"><i class="fa fa-remove" ></i></button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -667,8 +691,8 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-2 languagestools_padding languagestools_btn_margin"> 
-                                                                <button ng-disabled="(opportunityFor!='Fresher') ? false : true" type="button" class="btn btn-sm btn-success  pull-right appendBtn addDisabledProperty" ng-click="appendprojectDescriptionDiv(firstIndex)" title="Add new description"  ng-if="$index == 0"><i class="fa fa-plus"></i></button >
-                                                                <button ng-disabled="(opportunityFor!='Fresher') ? false : true" id="removeToolBtn" type="button" class="btn btn-sm btn-danger pull-right addDisabledProperty"  ng-click="removeprojectDescriptionDiv(firstIndex,$index)" ng-if="$index > 0" title="Remove description"><i class="fa fa-remove"></i></button>
+                                                                <button ng-disabled="(opportunityFor!='Fresher') ? false : true" type="button" class="btn btn-xs btn-success  pull-right appendBtn addDisabledProperty" ng-click="appendprojectDescriptionDiv(firstIndex)" title="Add new description"  ng-if="$index == 0"><i class="fa fa-plus"></i></button >
+                                                                <button ng-disabled="(opportunityFor!='Fresher') ? false : true" id="removeToolBtn" type="button" class="btn btn-xs btn-danger pull-right addDisabledProperty"  ng-click="removeprojectDescriptionDiv(firstIndex,$index)" ng-if="$index > 0" title="Remove description"><i class="fa fa-remove"></i></button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -679,11 +703,11 @@
                                     </div>
                                     <div class="tab-pane" id="hobbies">
                                         <div class="row">
-                                            <div class="col-sm-12 info-text">
-                                                <h4 class="sectionHeading" ng-if="title == ''">  Please enter hobbies  </h4>
-                                                <h4 class="sectionHeading" ng-if="title != ''">  Enter candidate's hobbies  </h4>
+                                            <div class="col-sm-12">
+                                                <h4 class="info-text" ng-if="title == ''"><b>Please enter hobbies</b><button type="button" class="btn btn-sm btn-success  pull-right appendBtn" ng-click="appendHobbiesDiv();" title="Add new hobby "><i class="fa fa-plus"></i></button ></h4>
+                                                <h4 class="info-text" ng-if="title != ''"><b>Enter candidate's hobbies</b><button type="button" class="btn btn-sm btn-success  pull-right appendBtn" ng-click="appendHobbiesDiv();" title="Add new hobby "><i class="fa fa-plus"></i></button ></h4>
                                                <div class="form-group">
-                                                    <button type="button" class="btn btn-sm btn-success  pull-right appendBtn" ng-click="appendHobbiesDiv();" title="Add new hobby "><i class="fa fa-plus"></i></button >
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -695,7 +719,7 @@
                                                         <input id="hobbie_{{$index}}" name="hobbie_{{$index}}" type="text" class="form-control hobbie" placeholder="Enter hobby" ng-model="h.hobbie_name">
                                                       </div>
                                                 </div>
-                                                <div class="col-sm-2" style="margin-top:3.5%">
+                                                <div class="col-sm-2" style="margin-top: 3.9%;">
                                                     <div class="form-group">
                                                         <button id="removeHobbyBtn" type="button" class="btn btn-sm btn-danger"  ng-click="removeHobby($index)" ng-if="$index > 0" title="Remove hobby"><i class="fa fa-remove"></i></button>
                                                     </div>
@@ -705,22 +729,22 @@
                                     </div>
                                     <div class="tab-pane" id="languageKnown">
                                         <div class="row">
-                                            <div class="col-sm-12 info-text">
-                                                <h4 class="sectionHeading" ng-if="title == ''">  Please enter language details  </h4>
-                                                <h4 class="sectionHeading" ng-if="title != ''">  Enter candidate's language details  </h4>
+                                            <div class="col-sm-12">
+                                                <h4 class="info-text" ng-if="title == ''"><b>Please enter language details</b></h4>
+                                                <h4 class="info-text" ng-if="title != ''"><b>Enter candidate's language details</b></h4>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="col-sm-6">
                                                      <div class="form-group">
-                                                        <label class="mandatory">Indian language (s)</label>
+                                                        <label class="">Indian language (s)</label>
                                                         <input id="indianLanguage" name="indian_lang" type="text" class="form-control" placeholder="Enter comma seperated language" ng-model="indianLang">
                                                       </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                      <div class="form-group">
-                                                        <label class="mandatory">Foreign language (s)</label>
+                                                        <label class="">Foreign language (s)</label>
                                                         <input id="foreignLanguage" name="foreign_lang" type="text" class="form-control" placeholder="Enter comma seperated language" ng-model="foreignLang">
                                                       </div>
                                                 </div>
