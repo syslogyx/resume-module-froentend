@@ -248,9 +248,6 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
             setCSS();
             rdc.datepickerInit();
         },200);
-
-        // setTimeout(function() { rdc.datepickerInit();}, 500);
-
     }
 
     rdc.saveRoundInfo = function(){

@@ -49,7 +49,7 @@
                     <div class="col-md-3 form-group">
                         <div class="form-group">
                             <label class="" for="">Scheduled Date</label>
-                            <input class="form-control" type="text" id="scheduled_date" name="scheduled_date" ng-model="ilc.scheduledDate" placeholder="Enter date">
+                            <input class="form-control" type="text" id="scheduled_date" name="scheduled_date" ng-model="ilc.scheduledDate" placeholder="Enter date" readonly='true' style="cursor:default;background-color: white;">
                         </div>
                     </div>
                     <div class="col-md-1" style="text-align: center;">
@@ -230,7 +230,7 @@
             });
 
             $(".s2mn").on("change", function () { $(this).valid(); });
-       $(document).ready(function () {
+        $(document).ready(function () {
             $("html, body").animate({scrollTop: 0}, "fast");
             $('.modal').on('hidden.bs.modal', function (e) {
                 console.log("Modal is closed");
@@ -252,22 +252,26 @@
     
 </script>
 <script>
-    $(document).ready(function () {
-
+    function setTime(){
+        //Date picker
         $('#scheduled_date').datepicker({
             autoclose: true,
             todayHighlight: true
         }).on('changeDate', function(selected){
              // $(this).valid();
         });
+    }
 
-        // $('#scheduled_date').bind('keydown',function(e){
-        //     if (e.which == 13) //13 is Enter/Return key.
-        //         e.stopImmediatePropagation();
-        // }).datepicker({
-        //     autoclose: true,
-        //     todayHighlight: true,
-        //     startDate: "today"
-        // }); 
+    setTimeout(function(){setTime();},10);
+
+    $(document).ready(function () {
+        $('#scheduled_date').bind('keydown',function(e){
+            if (e.which == 13) //13 is Enter/Return key.
+                e.stopImmediatePropagation();
+        }).datepicker({
+            autoclose: true,
+            todayHighlight: true,
+            startDate: "today"
+        }); 
     });
 </script>
