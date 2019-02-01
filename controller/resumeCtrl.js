@@ -593,144 +593,163 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
     };
 
     $scope.saveResumeData = function(){
-        if($('.wizard-card form').valid()){
-            $('#previewModal').modal('hide');
-            $scope.setIndustrialExpData();
-            $("#wizardResumeSuccessmsg").css('display','none');
+         swal({
+            title: "Sure?",
+            // text: "Please review your details before submitting. "+
+            // "You cannot edit the same after final submit.",
+            html: 'Please review your details before save & submit. <br>' +
+                    'You cannot edit the same after final submit.',
+            // customClass: 'swal-wide',
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "Cancel",
+            confirmButtonText: "Submit",
+            allowOutsideClick: false,
+        }).then(function () {
+            if($('.wizard-card form').valid()){
+                $('#previewModal').modal('hide');
+                $scope.setIndustrialExpData();
+                $("#wizardResumeSuccessmsg").css('display','none');
 
-            var cSummaryArray = [];           
-            for (var i = 0; i < $scope.summaryDiv.length; i++) {
-                cSummaryArray.push($scope.summaryDiv[i].summary);
-            }
-
-            var cObjectivesArray = [];           
-            for (var j = 0; j < $scope.objectiveDiv.length; j++) {
-                cObjectivesArray.push($scope.objectiveDiv[j].objective);
-            }
-            
-            //to remove $$hashkey from array        	
-            for (var k = 0; k < $scope.quaData.length; k++) {
-                delete $scope.quaData[k]['$$hashKey'];
-            }
-
-            $scope.achievements1 = JSON.parse(angular.toJson( $scope.achievements ));
-            $scope.technicalSkill1 = JSON.parse(angular.toJson( $scope.technicalSkill ));
-            $scope.industryExperiance1 = JSON.parse(angular.toJson( $scope.industryExperiance ));
-            $scope.hobbyDiv1 = JSON.parse(angular.toJson( $scope.hobbyDiv ));
-
-            var req = {
-                "first_name":$scope.firstName,
-                "middle_name":$scope.middleName,
-                "last_name":$scope.lastName,
-                "email":$scope.email,
-                "gender":$scope.gender,
-                "marital_status":$scope.martialStatus,
-                "mobile_no":$scope.mobileNumber,
-                "date_of_birth":$scope.dateOfBirth.split("/").reverse().join("-"),
-                "pan_number":$scope.panNumber,
-                "passport":$scope.passportNumber,
-                "corresponding_address":$scope.correspondingAddr,
-                "permanent_address":$scope.permanentAddr,
-                "objective":JSON.stringify(cObjectivesArray),
-                "summary":JSON.stringify(cSummaryArray),
-                "status":"",
-                "timestamp":"",
-                "job_description_id":$scope.job_id,
-                "opprtunity_for":$scope.opportunityFor,
-                "expired_on":"",
-                "unique_token":$routeParams.token,
-                "total_experience":$scope.totalYearIndustryExperiance+'.'+$scope.totalMonthIndustryExperiance,
-                "ctc":$scope.currentCTC,
-                "currency_unit":$scope.currency_unit,
-                "educationalDetails":$scope.quaData,
-                "achivementDetails":$scope.achievements1,
-                "technicalSkill":$scope.technicalSkill1,
-                "industryExperiance":$scope.industryExperiance1,
-                "hobbyDetails":$scope.hobbyDiv1,
-                "foreign_languages":$scope.foreignLang,
-                "indian_languages":$scope.indianLang
-            }
-            console.log(req);
-            var promise = '';
-            $isAuthkeyExist = false;
-            if ($scope.candidateId > 0) {
-                console.log(authKey);
-                if(authKey != undefined){
-                    req.id = $scope.candidateId;
-                    req.timestamp = $scope.timeStamp;
-                    req.status = $scope.status;
-                    promise = services.updateCandidate(req);
-                    $isAuthkeyExist = true;
-                }else{
-                    $isAuthkeyExist = false;
-                    toastr.error("You are not authorized user to perform this activity");
+                var cSummaryArray = [];           
+                for (var i = 0; i < $scope.summaryDiv.length; i++) {
+                    cSummaryArray.push($scope.summaryDiv[i].summary);
                 }
-            }else{
-                $isAuthkeyExist = true;
-                promise = services.createCandidate(req);
-            }
-            // debugger;
-            if($isAuthkeyExist){                
-                promise.then(function mySuccess(response) {
-                    if(response.data.status_code == 200 && $scope.candidateId == null){
-                        // debugger;
-                        var json= new FormData();
-                        json.append("file_name",$scope.file);
-                        json.append("candidate_id",response.data.data.id);
-                        json.append("timestamp",response.data.data.timestamp);
-                        
-                        var promise2 = services.uploadresumeFile(json);
-                        promise2.then(function mySuccess(response) {
+
+                var cObjectivesArray = [];           
+                for (var j = 0; j < $scope.objectiveDiv.length; j++) {
+                    cObjectivesArray.push($scope.objectiveDiv[j].objective);
+                }
+                
+                //to remove $$hashkey from array            
+                for (var k = 0; k < $scope.quaData.length; k++) {
+                    delete $scope.quaData[k]['$$hashKey'];
+                }
+
+                $scope.achievements1 = JSON.parse(angular.toJson( $scope.achievements ));
+                $scope.technicalSkill1 = JSON.parse(angular.toJson( $scope.technicalSkill ));
+                $scope.industryExperiance1 = JSON.parse(angular.toJson( $scope.industryExperiance ));
+                $scope.hobbyDiv1 = JSON.parse(angular.toJson( $scope.hobbyDiv ));
+
+                var req = {
+                    "first_name":$scope.firstName,
+                    "middle_name":$scope.middleName,
+                    "last_name":$scope.lastName,
+                    "email":$scope.email,
+                    "gender":$scope.gender,
+                    "marital_status":$scope.martialStatus,
+                    "mobile_no":$scope.mobileNumber,
+                    "date_of_birth":$scope.dateOfBirth.split("/").reverse().join("-"),
+                    "pan_number":$scope.panNumber,
+                    "passport":$scope.passportNumber,
+                    "corresponding_address":$scope.correspondingAddr,
+                    "permanent_address":$scope.permanentAddr,
+                    "objective":JSON.stringify(cObjectivesArray),
+                    "summary":JSON.stringify(cSummaryArray),
+                    "status":"",
+                    "timestamp":"",
+                    "job_description_id":$scope.job_id,
+                    "opprtunity_for":$scope.opportunityFor,
+                    "expired_on":"",
+                    "unique_token":$routeParams.token,
+                    "total_experience":$scope.totalYearIndustryExperiance+'.'+$scope.totalMonthIndustryExperiance,
+                    "ctc":$scope.currentCTC,
+                    "currency_unit":$scope.currency_unit,
+                    "educationalDetails":$scope.quaData,
+                    "achivementDetails":$scope.achievements1,
+                    "technicalSkill":$scope.technicalSkill1,
+                    "industryExperiance":$scope.industryExperiance1,
+                    "hobbyDetails":$scope.hobbyDiv1,
+                    "foreign_languages":$scope.foreignLang,
+                    "indian_languages":$scope.indianLang
+                }
+                console.log(req);
+                var promise = '';
+                $isAuthkeyExist = false;
+                if ($scope.candidateId > 0) {
+                    console.log(authKey);
+                    if(authKey != undefined){
+                        req.id = $scope.candidateId;
+                        req.timestamp = $scope.timeStamp;
+                        req.status = $scope.status;
+                        promise = services.updateCandidate(req);
+                        $isAuthkeyExist = true;
+                    }else{
+                        $isAuthkeyExist = false;
+                        toastr.error("You are not authorized user to perform this activity");
+                    }
+                }else{
+                    $isAuthkeyExist = true;
+                    promise = services.createCandidate(req);
+                }
+                // debugger;
+                if($isAuthkeyExist){                
+                    promise.then(function mySuccess(response) {
+                        if(response.data.status_code == 200 && $scope.candidateId == null){
+                            // debugger;
+                            var json= new FormData();
+                            json.append("file_name",$scope.file);
+                            json.append("candidate_id",response.data.data.id);
+                            json.append("timestamp",response.data.data.timestamp);
+                            
+                            var promise2 = services.uploadresumeFile(json);
+                            promise2.then(function mySuccess(response) {
+                            Utility.stopAnimation();
+                            try {
+                                toastr.success('file uploaded successfully.');
+
+                            } catch (e) {
+                                toastr.error("file not uploaded successfully.");
+                                Raven.captureException(e)
+                                }
+                            }, function myError(r) {
+                                toastr.error('something went wrong');
+                                Utility.stopAnimation();
+                            });                                    
+                        }
+
                         Utility.stopAnimation();
                         try {
-                            toastr.success('file uploaded successfully.');
-
-                        } catch (e) {
-                            toastr.error("file not uploaded successfully.");
-                            Raven.captureException(e)
+                            // toastr.success("Thanks for showing your interest! Will get back to you soon!");   
+                            if($scope.candidateId > 0){
+                                // toastr.success("Candidate Details Updated Successfully...!!");                            
+                                $("#wizardProfile").css('display','none');
+                                $("#wizardResumeSuccessmsg").css('display','none');
+                                $("#updateWizardResumeSuccessmsg").css('display','');
+                            }else{
+                                $("#wizardProfile").css('display','none');
+                                $("#wizardResumeSuccessmsg").css('display','');
                             }
-                        }, function myError(r) {
-                            toastr.error('something went wrong');
-                            Utility.stopAnimation();
-                        });                                    
-                    }
-
-                    Utility.stopAnimation();
-                    try {
-                        // toastr.success("Thanks for showing your interest! Will get back to you soon!");   
-                        if($scope.candidateId > 0){
-                            // toastr.success("Candidate Details Updated Successfully...!!");                            
-                            $("#wizardProfile").css('display','none');
+                        } catch (e) {
                             $("#wizardResumeSuccessmsg").css('display','none');
-                            $("#updateWizardResumeSuccessmsg").css('display','');
-                        }else{
-                            $("#wizardProfile").css('display','none');
-                            $("#wizardResumeSuccessmsg").css('display','');
+                            toastr.error("Profile not saved successfully.");
+                            Raven.captureException(e)
                         }
-                    } catch (e) {
-                        $("#wizardResumeSuccessmsg").css('display','none');
-                        toastr.error("Profile not saved successfully.");
-                        Raven.captureException(e)
-                    }
-                }, function myError(r) {
-                    var htmlerror ='<ul style="list-style:none;"><li >';
-                    $.each(r.data.data, function(k, v) {
-                        if(k=='email'){
-                            htmlerror = htmlerror+v +'</li><li>';
-                        }
-                        if(k=='mobile_no'){
-                            htmlerror = htmlerror+v+'</li><li>';
-                        }
-                        if(k=='pan_number'){
-                            htmlerror = htmlerror+v+'</li></ul>';
-                        }
-                      });
-                     toastr.error(htmlerror);
+                    }, function myError(r) {
+                        var htmlerror ='<ul style="list-style:none;"><li >';
+                        $.each(r.data.data, function(k, v) {
+                            if(k=='email'){
+                                htmlerror = htmlerror+v +'</li><li>';
+                            }
+                            if(k=='mobile_no'){
+                                htmlerror = htmlerror+v+'</li><li>';
+                            }
+                            if(k=='pan_number'){
+                                htmlerror = htmlerror+v+'</li></ul>';
+                            }
+                          });
+                         toastr.error(htmlerror);
 
-                    Utility.stopAnimation();
-                });
-            }
-        }
+                        Utility.stopAnimation();
+                    });
+                }
+            }            
+        }, function (dismiss) {
+            
+        });
+        
     }  
 
     $scope.setSpellcheckMsg = function(i,type,exIndex){
