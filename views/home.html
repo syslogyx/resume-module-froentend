@@ -1,10 +1,98 @@
 <section class="content dashboard">
     <div class="container-fluid dashbaordContainer">
-        <div class="row" style="margin-left:15px;"> 
-            <h3>Welcome {{hme.name }}!</h3>
-        </div> 
+        <div class="row" style="margin-left:20px;"> 
+            <h3>Welcome {{hme.name }} !</h3>
+        </div>
+        <!-- Start Dashboard for admin -->
+        <div class="row col-xs-12" ng-if='hme.logInUserRole == hme.role_admin'> 
+    		<div class="col-md-4 zoom no-padding align-image-center">
+    			<img src="resources/img/Admin_dashboard/Live_jd_img.png" width="325px" height="261px">
+    		</div>
+    		<div class="col-md-4 zoom no-padding align-image-center">
+    			<img src="resources/img/Admin_dashboard/Clients_img.png" width="325px" height="261px">
+    		</div>
+    		<div class="col-md-4 zoom no-padding align-image-center">
+    			<img src="resources/img/Admin_dashboard/Candidates_img.png" width="365px" height="261px">
+    		</div> 
+        </div>
+
+        <div class="row col-xs-12" ng-if='hme.logInUserRole == hme.role_admin'> 
+    		<div class="col-md-6 zoom no-padding align-image-center">
+    			<img src="resources/img/Admin_dashboard/Overall_img.png" width="500px">
+    		</div>
+    		<div class="col-md-6 zoom no-padding align-image-center">
+    			<img src="resources/img/Admin_dashboard/Selected_img.png" width="500px">
+    		</div>
+        </div>
+        <!-- End Dashboard for admin -->
+
+        <!-- Start Dashboard for hr -->
+        <div class="row col-xs-12" ng-if='hme.logInUserRole == hme.role_hr'> 
+    		<div class="col-md-6 zoom no-padding align-image-center">
+    			<img src="resources/img/HR_dashboard/Candidates_Management_img.png" width="500px" height="auto">
+    		</div>
+    		<div class="col-md-6 zoom no-padding align-image-center">
+    			<img src="resources/img/HR_dashboard/Today’s_Interview_Schedule_img.png" width="500px" height="auto">
+    		</div>
+        </div>
+
+        <div class="row col-xs-12" ng-if='hme.logInUserRole == hme.role_hr'> 
+    		<div class="col-md-6 zoom no-padding align-image-center">
+    			<img src="resources/img/HR_dashboard/Overall_img.png" width="500px">
+    		</div>
+    		<div class="col-md-6 zoom no-padding align-image-center">
+    			<img src="resources/img/HR_dashboard/Selected_img.png" width="500px">
+    		</div>
+        </div>
+        <!-- End Dashboard for hr -->
+
+        <!-- Start Dashboard for client -->
+        <div class="row col-xs-12" ng-if='hme.logInUserRole == hme.role_client'> 
+    		<div class="col-md-6 zoom no-padding align-image-center">
+    			<img src="resources/img/Client_dashboard/Live_jd_img.png" width="500px" height="auto">
+    		</div>
+    		<div class="col-md-6 zoom no-padding align-image-center">
+    			<img src="resources/img/Client_dashboard/Candidates_Management_img.png" width="500px" height="auto">
+    		</div>
+        </div>
+
+        <div class="row col-xs-12" ng-if='hme.logInUserRole == hme.role_client'> 
+    		<div class="col-md-6 zoom no-padding align-image-center">
+    			<img src="resources/img/Client_dashboard/Overall_img.png" width="500px">
+    		</div>
+    		<div class="col-md-6 zoom no-padding align-image-center">
+    			<img src="resources/img/Client_dashboard/Selected_img.png" width="500px">
+    		</div>
+        </div>
+        <!-- End Dashboard for hr -->
     </div>
 </section>
+<style type="text/css">
+	.align-image-center{
+		text-align: center;
+	}
+	/*.style_prevu_kit
+	{
+	    -webkit-transition: all 200ms ease-in;
+	    -webkit-transform: scale(1); 
+	    -ms-transition: all 200ms ease-in;
+	    -ms-transform: scale(1); 
+	    -moz-transition: all 200ms ease-in;
+	    -moz-transform: scale(1);
+	    transition: all 200ms ease-in;
+	    transform: scale(1);   
+
+	}*/
+	.zoom {
+	  transition: transform .2s;
+	}
+	.zoom:hover {
+	  -ms-transform: scale(1.1); /* IE 9 */
+	  -webkit-transform: scale(1.1); /* Safari 3-8 */
+	  transform: scale(1.1); 
+	}
+
+</style>
 
 <script>
     $(document).ready(function () {

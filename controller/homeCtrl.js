@@ -1,4 +1,4 @@
-app.controller('homeCtrl', function ($scope, $rootScope,menuService,services,$cookieStore) {
+app.controller('homeCtrl', function ($scope,RESOURCES,$rootScope,menuService,services,$cookieStore) {
 
 	var hme = this;
 	hme.name = "";
@@ -9,6 +9,11 @@ app.controller('homeCtrl', function ($scope, $rootScope,menuService,services,$co
     hme.logInUserRole  =   loggedInUser.identity.role;
     hme.logInUserID = loggedInUser.id;
     hme.name  =  loggedInUser.identity.name;
+
+    hme.role_admin = RESOURCES.ROLE_ADMIN;
+    hme.role_hr = RESOURCES.ROLE_HR;
+    hme.role_client = RESOURCES.ROLE_CLIENT;
+    console.log(hme.role_admin);
 
     /* Set menues in menu service */
     // menuService.setMenu([
