@@ -366,10 +366,10 @@
                                         <div class="row">    
                                             <div class="col-sm-12">
                                                 <div class="col-md-6">
-                                                    <label class="mandatory">Objective</label>
+                                                    <label class="mandatory">Career Objective</label>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label class="mandatory">Summary</label>
+                                                    <label class="mandatory">Profile Summary</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -459,8 +459,8 @@
                                                 <div class="col-sm-12" >
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
-                                                            <label class="mandatory">University</label>
-                                                            <input type='text' class="university form-control" name="university_{{$index}}" id="university_{{$index}}" placeholder="Enter university" ng-model="q.university">
+                                                            <label class="mandatory">University/ Board</label>
+                                                            <input type='text' class="university form-control" name="university_{{$index}}" id="university_{{$index}}" placeholder="Enter university/ board" ng-model="q.university">
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-6">
@@ -553,7 +553,7 @@
                                                 <div class="col-sm-4">
                                                     <div class="form-group">
                                                         <!-- <label class="">Relevance Experience (Years)</label> -->
-                                                        <label class="">Relevance Exp. (Years)</label>
+                                                        <label class="">Relevant Exp. (Years)</label>
                                                         <select id="relevanceYearExperience_{{$index}}" name="relevance_year_experience_{{$index}}" class="form-control relevance_year_experience" placeholder="Enter year experience" ng-model="t.relevanceYearExperience">
                                                            <!--  <option value="" style="color:#ccc !important;">Select Year</option> -->
                                                            <option ng-repeat="x in experienceYears" value="{{x.id}}">{{x.name}}</option>
@@ -563,7 +563,7 @@
                                                 <div class="col-sm-4">
                                                     <div class="form-group">
                                                         <!-- <label class="">Relevance Experience (Months)</label> -->
-                                                        <label class="">Relevance Exp. (Months)</label>
+                                                        <label class="">Relevant Exp. (Months)</label>
                                                         <select id="relevanceMonthExperience_{{$index}}" name="relevance_month_experience_{{$index}}" class="form-control relevance_month_experience" placeholder="Enter month experience" ng-model="t.relevanceMonthExperience">
                                                             <option ng-repeat="x in experienceMonths track by x.id" value="{{x.id}}">{{x.name}}</option>
                                                             <!-- <option value="" style="color:#ccc !important;">Select Month</option> -->
@@ -951,7 +951,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4 form-group">
-                                            <label class=""><b>University: </b></label>
+                                            <label class=""><b>University/ Board: </b></label>
                                             <span>{{ qu.university}}</span>
                                         </div>
                                         <div class="col-md-4">
