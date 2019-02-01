@@ -17,6 +17,7 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
     rdc.skip = true;
     rdc.forwaredResumeList = [];
     rdc.viewRoundInfoList = [];
+    rdc.cName = '';
 
     setTimeout(function(){
         $('#table_length').on('change',function(){
@@ -239,7 +240,9 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
         // }
     }
 
-    rdc.openAddRoundInfoModel = function(forwardedId){
+    rdc.openAddRoundInfoModel = function(forwardedId,clientName,candidateInfo){
+        rdc.cName = clientName;
+        rdc.candidateName = candidateInfo.first_name+' '+candidateInfo.middle_name+' '+candidateInfo.last_name;
         rdc.fId = forwardedId;
         rdc.techForm = [{forwarded_id:rdc.fId,company_round_date:"",company_tech_status:"",company_tech_round_type:"",companies_tech_remark:""}];
         $("#changePasswordBtn").attr('disabled',false);
@@ -283,13 +286,14 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
 
     // }
 
-    rdc.openAddFinalRoundResultModal = function($id,$client_name){
+    rdc.openAddFinalRoundResultModal = function($id,$client_name,candidateInfo){
         $('#addFinalRoundResultModal').modal('show');
         setTimeout(function(){
             setCSS();
         },200);
         rdc.fId = $id;
         rdc.cName = $client_name;
+        rdc.candidateName = candidateInfo.first_name+' '+candidateInfo.middle_name+' '+candidateInfo.last_name;
         setTimeout(function() { rdc.datepickerInit();}, 500);
     }
 
@@ -328,7 +332,7 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
 
     }
 
-    rdc.openAddHrFinalRoundResultModal = function($id,$candidate_id,$client_name){
+    rdc.openAddHrFinalRoundResultModal = function($id,$candidate_id,$client_name,candidateInfo){
         $('#addFinalHrRoundResultModal').modal('show');
         setTimeout(function(){
             setCSS();
@@ -336,6 +340,7 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
         rdc.fId = $id;
         rdc.cId = $candidate_id;
         rdc.cName = $client_name;
+        rdc.candidateName = candidateInfo.first_name+' '+candidateInfo.middle_name+' '+candidateInfo.last_name;
         setTimeout(function() { rdc.datepickerInit();}, 500);
     }
 
@@ -375,8 +380,9 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
 
     }
 
-    rdc.openCandidateViewModel =function(data){
-        console.log(data);
+    rdc.openCandidateViewModel =function(data,clientName,candidateInfo){
+        rdc.cName = clientName;
+        rdc.candidateName = candidateInfo.first_name+' '+candidateInfo.middle_name+' '+candidateInfo.last_name;
         rdc.viewRoundInfoList = data;
         $('#viewCandidateDetailsModal').modal('show');
         setTimeout(function(){

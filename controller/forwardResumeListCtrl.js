@@ -148,22 +148,27 @@ app.controller('forwardResumeListCtrl', function ($scope, $rootScope, $http, ser
                     request.data.push(obj);
                 }
             }
-            var promise = services.saveForwardedCandidateResumes(request);
-            promise.then(function mySuccess(response) {
-                console.log(response);
-                Utility.stopAnimation();
-                try {
-                    toastr.success(response.data.message);
-                    // frlc.resetFilter();
-                    $location.url('/round_details');
-                } catch (e) {
-                    toastr.error(response.data.message, 'Sorry!');
-                    Raven.captureException(e)
-                }
-            }, function myError(r) {
-                toastr.error('Something went wrong');
-                Utility.stopAnimation();
-            });
+            
+            if(request.data.length > 0){
+                var promise = services.saveForwardedCandidateResumes(request);
+                promise.then(function mySuccess(response) {
+                    console.log(response);
+                    Utility.stopAnimation();
+                    try {
+                        toastr.success(response.data.message);
+                        // frlc.resetFilter();
+                        $location.url('/round_details');
+                    } catch (e) {
+                        toastr.error(response.data.message, 'Sorry!');
+                        Raven.captureException(e)
+                    }
+                }, function myError(r) {
+                    toastr.error('Something went wrong');
+                    Utility.stopAnimation();
+                });
+            }else{
+               toastr.error('Please select at least one candidate.'); 
+            }
     }
 
 

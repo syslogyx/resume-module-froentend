@@ -151,10 +151,10 @@
                         <td ng-bind="(data.companies_tech_round_info == null || data.companies_tech_round_info.length == 0) ? 'Pending for round details' : data.feedback_received_date == null ? 'Pending for company Final Result' : data.hr_interview_on_date == null ? 'Pending for company HR details': data.final_status"></td>
                         <td ng-bind="rdc.setFormatteddate(data.data_sent_to_company_date)"></td>
                         <td class="text-center" nowrap>
-                            <a type="button" class="btn btn-xs" title="View Details" style="outline: 0;padding:0px" ng-click="rdc.openCandidateViewModel(data.companies_tech_round_info)"><i class="fa fa-eye" aria-hidden="true" ></i></a>
-                            <a type="button" class="btn btn-xs" title="Add Round Info" style="outline: 0;padding:0px" ng-click="rdc.openAddRoundInfoModel(data.id)" ng-if="(data.companies_tech_round_info == null || data.companies_tech_round_info.length == 0) && (data.final_status == null) && (data.company_final_status == null)"><i class="fa fa-plus" aria-hidden="true" ></i></a>
-                            <a type="button" class="btn btn-xs" title="Final Round Result" style="outline: 0;padding:0px" ng-click="rdc.openAddFinalRoundResultModal(data.id,data.companies.name)" ng-if="(data.companies_tech_round_info.length > 0 && data.final_status == null && data.company_final_status == null)"><i class="fa fa-newspaper-o" aria-hidden="true" ></i></a>
-                            <a type="button" class="btn btn-xs" title="Final HR Result" style="outline: 0;padding:0px" ng-click="rdc.openAddHrFinalRoundResultModal(data.id,data.candidate_id,data.companies.name)" ng-if="(data.companies_tech_round_info.length > 0 &&  data.final_status == null && data.hr_status == null) && (data.company_final_status != null) "><i class="fa fa-user" aria-hidden="true"></i></a>
+                            <a type="button" class="btn btn-xs" title="View Details" style="outline: 0;padding:0px" ng-click="rdc.openCandidateViewModel(data.companies_tech_round_info,data.companies.name,data.candidates)"><i class="fa fa-eye" aria-hidden="true" ></i></a>
+                            <a type="button" class="btn btn-xs" title="Add Round Info" style="outline: 0;padding:0px" ng-click="rdc.openAddRoundInfoModel(data.id,data.companies.name,data.candidates)" ng-if="(data.companies_tech_round_info == null || data.companies_tech_round_info.length == 0) && (data.final_status == null) && (data.company_final_status == null)"><i class="fa fa-plus" aria-hidden="true" ></i></a>
+                            <a type="button" class="btn btn-xs" title="Final Round Result" style="outline: 0;padding:0px" ng-click="rdc.openAddFinalRoundResultModal(data.id,data.companies.name,data.candidates)" ng-if="(data.companies_tech_round_info.length > 0 && data.final_status == null && data.company_final_status == null)"><i class="fa fa-newspaper-o" aria-hidden="true" ></i></a>
+                            <a type="button" class="btn btn-xs" title="Final HR Result" style="outline: 0;padding:0px" ng-click="rdc.openAddHrFinalRoundResultModal(data.id,data.candidate_id,data.companies.name,data.candidates)" ng-if="(data.companies_tech_round_info.length > 0 &&  data.final_status == null && data.hr_status == null) && (data.company_final_status != null) "><i class="fa fa-user" aria-hidden="true"></i></a>
                         </td>
                         <!-- <td ng-bind="(rlc.pageno - 1) * rlc.limit + ($index + 1)"></td>
                         <td ng-bind="data.first_name+' '+data.middle_name+' '+data.last_name"></td> -->
@@ -176,9 +176,14 @@
                 <div class="modal-content" style="border-radius: 0px!important;" >
                     <div class="modal-header" id="popUpModalHeader"> 
                         <button type="button" class="close" data-dismiss="modal" style="margin-right: 5px;">&times;</button>
-                        <h4 class="modal-title popUpModalTitle">View Round Information</h4>
+                        <h4 class="modal-title popUpModalTitle">View Round Information of <span style="color:#3c8dbc;">{{rdc.cName}}</span></h4>
                     </div>
-                    <div class="modal-body">                            
+                    <div class="modal-body" style='padding-top:5px'> 
+                         <div class="row">
+                            <div class="col-md-12">
+                                <h4 style='color: #737373;'>Candidate Name : {{rdc.candidateName}}</h4>
+                            </div>
+                        </div>                           
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="table-responsive no-padding">
@@ -220,9 +225,14 @@
                 <div class="modal-content" style="border-radius: 0px!important;" >
                     <div class="modal-header" id="popUpModalHeader"> 
                         <button type="button" class="close" data-dismiss="modal" ng-click="rdc.resetAddRoundDetailsForm()" style="margin-right: 5px;">&times;</button>
-                        <h4 class="modal-title popUpModalTitle">Add Client's Round Information</h4>
+                        <h4 class="modal-title popUpModalTitle">Add Round Details of <span style="color:#3c8dbc;">{{rdc.cName}}</span></h4>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" style='padding-top:5px'> 
+                         <div class="row">
+                            <div class="col-md-12">
+                                <h4 style='color: #737373;'>Candidate Name : {{rdc.candidateName}}</h4>
+                            </div>
+                        </div>
                         <form id="addRoundInfoForm">                            
                         <div class="row">
                             <div class="col-md-12">
@@ -296,7 +306,13 @@
                         <button type="button" class="close" data-dismiss="modal" ng-click="rdc.resetAddRoundDetailsForm()" style="margin-right: 5px;">&times;</button>
                         <h4 class="modal-title popUpModalTitle">Final Round Result of <span style="color:#3c8dbc;">{{rdc.cName}}</span></h4>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" style='padding-top:5px'> 
+                         <div class="row">
+                            <div class="col-md-12">
+                                <h4 style='color: #737373;'>Candidate Name : {{rdc.candidateName}}</h4>
+                            </div>
+                        </div>
+                        <br>
                         <form id="addFinalRoundResultForm">                            
                             <div class="row">
                                 <div class="col-xs-12">
@@ -336,7 +352,13 @@
                         <button type="button" class="close" data-dismiss="modal" ng-click="rdc.resetHrRoundDetailsForm()" style="margin-right: 5px;">&times;</button>
                         <h4 class="modal-title popUpModalTitle">HR Round Result of <span style="color:#3c8dbc;">{{rdc.cName}}</span></h4>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" style='padding-top:5px'> 
+                         <div class="row">
+                            <div class="col-md-12">
+                                <h4 style='color: #737373;'>Candidate Name : {{rdc.candidateName}}</h4>
+                            </div>
+                        </div>
+                        <br>
                         <form id="addHrRoundResultForm">                            
                             <div class="row">
                                 <div class="col-xs-12">
