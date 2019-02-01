@@ -663,6 +663,68 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     
     }
 
+    /* Function to reset form */
+    rlc.resetChangeJdForm = function(){
+        $("#changeJdStatusForm")[0].reset();
+        rlc.job_id=null;
+        $("div.form-group").each(function () {
+            $(this).removeClass('has-error');
+            $('span.help-block-error').remove();
+            applySelect2();
+        });
+    }
+
+    /* function to open jd list status modal */
+    rlc.openChangeJdStatusModel = function($candidateId){
+        rlc.candidate_id = $candidateId;
+        if($candidateId){
+            var promise = services.getJDListByCandidateId($candidateId);
+            promise.success(function (result) {
+                Utility.stopAnimation();
+                rlc.jdList = result.data; 
+            }, function myError(r) {
+                toastr.error(r.data.message, 'Sorry!');
+                Utility.stopAnimation();
+            });
+        }else{
+            rlc.jobDetail=null;
+        }
+        rlc.resetChangeJdForm();
+        $('#changeJdStatusModal').modal('show');
+        setTimeout(function(){
+            setCSS();
+        },200);
+    }
+
+    /* function to change job description by candidate id */
+    rlc.changeJobDescription = function(){
+        if($("#changeJdStatusForm").valid()){
+            var req = {
+                "job_description_id":rlc.job_id,
+                "id":rlc.candidate_id
+            };
+            var promise = services.changeJobDescriptionByCandidateId(req);
+            promise.success(function (result) {
+                Utility.stopAnimation();
+                // console.log(result);
+                    Utility.stopAnimation();
+                    try {
+                        $('#changeJdStatusModal').modal('hide');
+                        toastr.success(result.data.message);
+                        // ilc.init();
+                        rlc.fetchList(-1);
+                        // $("#changeStatusForm")[0].reset();
+                    } catch (e) {
+                        toastr.error("Unable to save data");
+                        Raven.captureException(e)
+                    }
+            }, function myError(r) {
+                toastr.error(r.data.message, 'Sorry!');
+                Utility.stopAnimation();
+            });
+        }
+    }
+
     rlc.init();
 
 });

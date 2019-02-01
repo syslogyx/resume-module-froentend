@@ -19,7 +19,7 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
     jb.jobType ="Permanent-full time";
     var loggedInUser = services.getIdentity()==undefined?undefined:JSON.parse(services.getIdentity());
     jb.loggedRoleId = loggedInUser == undefined ? undefined :loggedInUser.identity.role;
-    // console.log(loggedInUser);
+    // console.log(jb.loggedRoleId);
 
     jb.jobStatusData = RESOURCES.JOB_STATUS;
    // jb.changeStatus = 0;

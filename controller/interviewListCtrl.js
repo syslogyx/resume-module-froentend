@@ -17,6 +17,7 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
     ilc.candidateId = null;
     ilc.currentInterviewList = [];
     ilc.scheduledDate='';
+    ilc.jobDetail = null;
    
     /* Function to search user id */
     // ilc.search = function (id, page) {       
@@ -146,6 +147,17 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
       return time.join (''); // return adjusted time or original string
     }
 
+    /* Function to reset form */
+    ilc.resetForm = function(){
+        $("#changeJdStatusForm")[0].reset();
+        ilc.job_id=null;
+        $("div.form-group").each(function () {
+            $(this).removeClass('has-error');
+            $('span.help-block-error').remove();
+            applySelect2();
+        });
+    }
+
     /* function to open jd list status modal */
     ilc.openChangeJdStatusModel = function($candidateId){
         ilc.candidate_id = $candidateId;
@@ -158,7 +170,10 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
                 toastr.error(r.data.message, 'Sorry!');
                 Utility.stopAnimation();
             });
+        }else{
+            ilc.jobDetail=null;
         }
+        ilc.resetForm();
         $('#changeJdStatusModal').modal('show');
         setTimeout(function(){
             setCSS();

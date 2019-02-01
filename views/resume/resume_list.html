@@ -291,10 +291,11 @@
                         </td>  -->
                         <td style="text-align: center; width:72px">
                             <a ng-if="data.status=='Active'" href="/basic_screening_test?candidate_id={{data.id}}&token={{data.unique_token}}&name={{data.first_name+' '+data.middle_name+' '+data.last_name}}" type="button" class="btn" title="Screening" style="outline: 0;padding:0px;"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-file-o" aria-hidden="true"></i></a>
-                            <a ng-if="data.status=='Pass' || data.status=='Clear'" type="button" class="btn" title="Assign Interviewer" ng-click="rlc.openAssignInterviewerModal(data)" style="outline: 0;padding:0px;"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-cog" aria-hidden="true"></i></a>
+                            <a ng-if="(data.status=='Pass' || data.status=='Clear')" type="button" class="btn" title="Assign Interviewer" ng-click="rlc.openAssignInterviewerModal(data)" style="outline: 0;padding:0px;"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-cog" aria-hidden="true"></i></a>
 
                             <a ng-if="data.status=='Schedule'" type="button" class="btn" title="Reschedule Interviewer" ng-click="rlc.openRescheduleModal(data,data.candidate_user_assocs)" style="outline: 0;padding:0px;"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-clock-o" aria-hidden="true"></i></a>
                            <!--  <a ng-if="data.status=='Pass'" type="button" class="btn" title="Change Status" ng-click="rlc.openChangeStatusModal(data)" style="outline: 0;padding:0px;"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-exchange" aria-hidden="true"></i></a> -->
+                           <a ng-if="data.status == 'Fail' && data.status != 'Pass'" type="button" class="btn" title="Change JD" ng-click="rlc.openChangeJdStatusModel(data.id)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-refresh" aria-hidden="true"></i></a>
                            <a type="button" href="/round_inforamtions?id={{data.id}}" class="btn" title="View Technical Details"style="outline: 0;padding:0px" ng-if="rlc.hashPathId == 'selected'"><i style="cursor: pointer;margin-left: 5px;color:#5cb85c" class="fa fa-eye" aria-hidden="true"></i></a>
                             <a href="/resume/{{data.unique_token}}?id={{data.id}}" type="button" target="_blank" class="btn" title="Edit" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-pencil" aria-hidden="true"></i></a>
                         </td>     
@@ -371,6 +372,42 @@
         </div>
     </div>
     <!-- End schedule Interview Model -->
+
+    <div class="modal fade changeJdStatusModal" id="changeJdStatusModal" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content" style="border-radius: 0px!important;" >
+                <div class="modal-header" id="popUpModalHeader"> 
+                    <button type="button" class="close" data-dismiss="modal" ng-click="rlc.resetChangeJdForm()" style="margin-right: 5px;">&times;</button>
+                    <h4 class="modal-title popUpModalTitle">Change Job Code</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="changeJdStatusForm">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12" style="margin-top: 1%;">
+                                    <span>Do you want to change job code?</span>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-12" style="margin-top: 1%;">
+                                    <label class="mandatory" style="font-size: 14px">Job code </label>
+                                    <select class="form-control" name="job_code" id="job_code" ng-model="rlc.job_id">
+                                        <option value="" style="color:#ccc !important;">Select job code</option>
+                                        <option ng-repeat="jd in rlc.jdList" value="{{jd.id}}">{{jd.job_code}} {{jd.sub_title != '' ? (jd.sub_title) : ''}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer" style="margin-top: 0px;"> 
+                    <button type="button" id="changeStatusBtn" class="btn btn-primary"  data-ng-click="rlc.changeJobDescription();" >Save</button>
+                    <button type="reset" id="closeModal" class="btn btn-warning"  ng-click="rlc.resetChangeJdForm()" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Start Change Status of candidate Model -->
     <div class="modal fade changeStatusModel" id="changeStatusModel" role="dialog">
@@ -714,9 +751,12 @@
         </div>
         <!-- End Bg checklist document list Model -->
 
+        
+
     
 </section>
 <script>
+
     $.validator.addMethod("mynumber", function (value, element) {
         return this.optional(element) || /^\$?([0-9]{1,3},([0-9]{3},)*[0-9]{3}|[0-9]+)(.[0-9][0-9])?$/.test(value);
     }, "Invalid CTC format.");
@@ -1146,6 +1186,53 @@
         }
     });
 
+    $("#changeJdStatusForm").validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error',
+                errorPlacement: function (error, element) {
+
+                    var type = $(element).attr("type");
+                    if ($(element).attr("id") === "")
+                    {
+                        element.parent().append(error);
+
+                    }
+                    else if ($(element).attr("id") === "job_code")
+                    {
+                        element.parent().append(error);
+
+                    }else{
+                        error.insertAfter(element);
+                    }
+                },
+                rules: {
+                    job_code: {
+                        required: true
+                    }
+                },
+                messages: {
+                    job_code: {
+                        required: "Job code is required."
+                    }
+                },
+                highlight: function (element) { // hightlight error inputs
+                    $(element).closest('.form-group').addClass('has-error');
+
+                    $(element).next().children().children().attr('style', 'border-color:#dd4b39!important');
+                    // set error class to the control group
+                },
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                            .closest('.form-group').removeClass('has-error');
+                    $(element)
+                            .next().children().children().attr('style', 'border-color:'); // set error class to the control group
+                },
+                success: function (label) {
+                    label
+                            .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                }
+            });
+
     $(".s2mn").on("change", function () { $(this).valid(); });            
 </script>
 <script>
@@ -1206,6 +1293,12 @@
         });
 
         $('#bgChecklistDocsModal.modal').on('hidden.bs.modal', function (e) {
+                $(this).removeClass('has-error');
+                $('span.help-block-error').remove();
+                $('.ms-selectable > ul').css('border','1px solid #ccc');
+                $('.ms-selection > ul').css('border','1px solid #ccc');
+        });
+        $('#changeJdStatusModal.modal').on('hidden.bs.modal', function (e) {
                 $(this).removeClass('has-error');
                 $('span.help-block-error').remove();
                 $('.ms-selectable > ul').css('border','1px solid #ccc');

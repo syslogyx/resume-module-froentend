@@ -194,11 +194,11 @@ b, strong,th,h1,h2,h3,h4,h5,h6 {
 }
 
 .dashbaordContainer{
-    padding: 40px;
-    overflow: auto;
+    padding: 0px;
+    /*overflow: auto;
 
     padding-left: 15px;
-    padding-right: 15px;
+    padding-right: 15px;*/
 
 }
 
