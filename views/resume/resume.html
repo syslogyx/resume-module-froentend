@@ -303,7 +303,7 @@
                                                                 <div class="input-group-addon">
                                                                     <i  class="fa fa-calendar"></i>
                                                                 </div>
-                                                                <input type="text" class="form-control" id="dob" name="dob" placeholder="Enter date" ng-model="dateOfBirth">
+                                                                <input type="text" class="form-control" id="dob" name="dob" placeholder="Enter date" ng-model="dateOfBirth" readonly='true' style="cursor:default;background-color: white;">
                                                             </div>
                                                       </div>
                                                 </div>   
@@ -1117,4 +1117,15 @@
      // });
 
 
+</script>
+<script>
+    $(document).ready(function () {
+        $('#dob').bind('keydown',function(e){
+            if (e.which == 13) //13 is Enter/Return key.
+                e.stopImmediatePropagation();
+        }).datepicker({
+            autoclose: true,
+            todayHighlight: true
+        });
+    });
 </script>

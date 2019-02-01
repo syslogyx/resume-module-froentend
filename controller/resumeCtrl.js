@@ -157,9 +157,9 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
 
 
 
-    $scope.init = function(){
-		/* Getting all qualification list */
-        $('#dob').datepicker({
+    function setTime(){
+        //Date picker
+       $('#dob').datepicker({
             autoclose: true,
             todayHighlight: true
         }).on('show', function(e){
@@ -169,7 +169,21 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
             $(this).valid();
             $scope.dateOfBirth = $(this).val();
         });
+    }
 
+    $scope.init = function(){
+       
+        setTimeout(function(){setTime();},10);
+
+        $('#dob').bind('keydown',function(e){
+            if (e.which == 13) //13 is Enter/Return key.
+                e.stopImmediatePropagation();
+        }).datepicker({
+            autoclose: true,
+            todayHighlight: true
+        });
+
+        /* Getting all qualification list */
         var promise = services.getAllQualificationList();
         promise.success(function (result) {
             Utility.stopAnimation();
@@ -183,7 +197,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
         });
 
         $scope.getActiveJd();
-        
+       
         if ($scope.candidateId > 0) {
             $scope.title = 'Update';
             $scope.setCandidateDataById($scope.candidateId);
@@ -191,7 +205,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
             $scope.fetchCandidateInfo();
         }
 
-	}
+    }
 
     $scope.setCandidateDataById = function(id){
         $('body').addClass('sidebar-collapse');
