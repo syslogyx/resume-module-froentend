@@ -151,6 +151,15 @@
         border-bottom-right-radius: 4px !important;
     }
 
+    /*.swal-wide{
+        width:430px !important;
+        min-height: 330px !important;
+    }
+*/
+    .swal2-modal.swal2-show {
+        width: 430px !important;
+    }
+
 </style>
 <!--     Fonts and icons     -->
 <link href="/resources/lib/font-awesome-4.5.0/css/font-awesome.css" rel="stylesheet" />
@@ -768,7 +777,13 @@
                                                             <span style="color:#dd4b39;">{{fileSizeError}}</span>
                                                         </div>
                                                     </div>
-
+                                                    <div class="col-sm-12" style="margin-top: 35%;    animation: fadeIn 2s infinite alternate;color: #e6490b;">
+                                                        <strong>Note:</strong>
+                                                        <ul style="margin-left: 20px;">
+                                                            <li>Please review your details before submitting. </li>
+                                                            <li>You cannot edit the same after final submit.</li>
+                                                        </ul>
+                                                    </div>
                                                 </form>
                                             </div>
                                         </div>
@@ -1065,8 +1080,8 @@
                                 </div> -->
                             </div>
                             <div class="modal-footer">
-                                <button type='button' class='btn btn-warning' name='Submit' value='Save & Submit' ng-click="saveResumeData();">Save & Submit</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Edit Details</button>
+                                <button type='button' class='btn btn-fill btn-success' name='Submit' value='Save & Submit' ng-click="saveResumeData();">Save & Submit</button>
+                                <button type="button" class="btn btn-fill btn-default" data-dismiss="modal">Edit Details</button>
                             </div>
                         </div>
                      </div>

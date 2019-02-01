@@ -249,6 +249,7 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
             cancelButtonColor: '#d33',
             cancelButtonText: "No",
             confirmButtonText: "Yes",
+            allowOutsideClick: false,
         }).then(function () {
             var req = {
                 "id":id,

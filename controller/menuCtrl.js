@@ -16,7 +16,7 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
             {"Title": "JD Management", "Link": "/jobs", "icon": "fa fa-tasks", "active":"deactive"},
             {"Title": "Candidate Management", "Link": "/resume_list#non-selected", "icon": "fa fa-file-text", "active":"deactive"},
             {"Title": "Screening", "Link": "/questions", "icon": "fa fa-question-circle", "active":"deactive"},
-            {"Title": "Scheduled Interview", "Link": "/interview_list", "icon": "fa fa-calendar", "active":"deactive"},
+            {"Title": "Scheduled Interviews", "Link": "/interview_list", "icon": "fa fa-calendar", "active":"deactive"},
             {"Title": "Forward Resumes", "Link": "/forward_resumes", "icon": "fa fa-circle-o", "active":"deactive"},
             {"Title": "Background Checklist", "Link": "/background_checklist", "icon": "fa fa-check-square-o", "active":"deactive"},
             {"Title": "User Management", "Link": "user#all", "icon": "fa fa-user-plus", "active":"deactive"}
@@ -27,7 +27,7 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
             {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"active"}, 
             {"Title": "Candidate Management", "Link": "/resume_list#non-selected", "icon": "fa fa-file-text", "active":"deactive"},
             {"Title": "Screening", "Link": "/questions", "icon": "fa fa-question-circle", "active":"deactive"},
-            {"Title": "Scheduled Interview", "Link": "/interview_list", "icon": "fa fa-calendar", "active":"deactive"},
+            {"Title": "Scheduled Interviews", "Link": "/interview_list", "icon": "fa fa-calendar", "active":"deactive"},
             {"Title": "Forward Resumes", "Link": "/forward_resumes", "icon": "fa fa-circle-o", "active":"deactive"},
             {"Title": "Background Checklist", "Link": "/background_checklist", "icon": "fa fa-check-square-o", "active":"deactive"},
             // {"Title": "User Management", "Link": "user#all", "icon": "fa fa-user-plus", "active":"deactive"}
@@ -42,8 +42,8 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
     }else if (loggedInUser.identity.role==RESOURCES.ROLE_INTERVIWER) {
         $scope.menuList = [
             // {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"active"}, 
-            {"Title": "Today's interviews", "Link": "/today_interviews", "icon": "fa fa-calendar", "active":"active"},
-            {"Title": "Scheduled interview", "Link": "/interview_list", "icon": "fa fa-calendar", "active":"deactive"}
+            {"Title": "Today's Interviews", "Link": "/today_interviews", "icon": "fa fa-calendar", "active":"active"},
+            {"Title": "Scheduled Interviews", "Link": "/interview_list", "icon": "fa fa-calendar", "active":"deactive"}
         ];
         $scope.showUpdateProfile = true;
     }else if (loggedInUser.identity.role==RESOURCES.ROLE_CANDIDATE) {
