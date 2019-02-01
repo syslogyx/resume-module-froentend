@@ -348,12 +348,13 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
 
 
     /*Function to open assign interviewer modal */
-    rlc.openAssignInterviewerModal =function($candidateId,$jdId,$status){
-        rlc.candidateId = $candidateId;
-        rlc.jdId = $jdId;
-        rlc.getAllInterviewerListNotPresentInAssoc(rlc.candidateId,rlc.jdId);
-        rlc.candidateStatus = $status;
-        $scope.round = $status == 'Clear' ? 'Round 1' : 'Round 2';
+    rlc.openAssignInterviewerModal =function($cdata){
+        rlc.assignCandidateName = $cdata.first_name+' '+$cdata.middle_name+' '+$cdata.last_name;
+        rlc.candidateId = $cdata.id;
+        rlc.jdId = $cdata.job_description_id;
+        rlc.getAllInterviewerListNotPresentInAssoc($cdata.id,$cdata.job_description_id);
+        rlc.candidateStatus = $cdata.status;
+        $scope.round = ($cdata.status == 'Clear' ? 'Round 1' : 'Round 2');
         $scope.scheduleTime = '';
         $('#assignStatusModel').modal('show');
         $("#assignStatusBtn").attr('disabled',false);
@@ -415,7 +416,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     }
 
     /* Function to open interview reshedule modal */
-    rlc.openRescheduleModal = function(data){
+    rlc.openRescheduleModal = function(cdata,data){
         $scope.interviewRescheduleData = data;
         console.log(data);
         if($scope.interviewRescheduleData.length != null){
@@ -427,6 +428,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
             $scope.interviewType = $scope.interviewRescheduleData[0].mode_of_interview;
             $scope.assoc_id = $scope.interviewRescheduleData[0].id;
             $scope.job_description_id = $scope.interviewRescheduleData[0].job_description_id;
+            $scope.reassignCandidateName = cdata.first_name+' '+cdata.middle_name+' '+cdata.last_name;
             $("#reScheduleInterviewBtn").attr('disabled',false);
             $('#rescheduleModel').modal('show');
             setTimeout(function() { rlc.datepickerInit();}, 500);

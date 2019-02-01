@@ -208,28 +208,30 @@
         rules: {
             "stream[]": {
                 required: true
-            }                       
+            },
+            "no_of_question":{
+                number:true
+            }                 
         },
         messages: {
             "stream[]": {
                 required: "Stream is required."
-            }  
+            },
+            "no_of_question":{
+                number:"Enter Valid number."
+            } 
         },
         highlight: function (element) { // hightlight error inputs
             $(element).closest('.form-group').addClass('has-error');
-
             $(element).next().children().children().attr('style', 'border-color:#dd4b39!important');
             // set error class to the control group
         },
         unhighlight: function (element) { // revert the change done by hightlight
-            $(element)
-                    .closest('.form-group').removeClass('has-error');
-            $(element)
-                    .next().children().children().attr('style', 'border-color:'); // set error class to the control group
+            $(element).closest('.form-group').removeClass('has-error');
+            $(element).next().children().children().attr('style', 'border-color:'); // set error class to the control group
         },
         success: function (label) {
-            label
-                    .closest('.form-group').removeClass('has-error'); // set success class to the control group
+            label.closest('.form-group').removeClass('has-error'); // set success class to the control group
         }
     });
 

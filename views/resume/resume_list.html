@@ -291,9 +291,9 @@
                         </td>  -->
                         <td style="text-align: center; width:72px">
                             <a ng-if="data.status=='Active'" href="/basic_screening_test?candidate_id={{data.id}}&token={{data.unique_token}}&name={{data.first_name+' '+data.middle_name+' '+data.last_name}}" type="button" class="btn" title="Screening" style="outline: 0;padding:0px;"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-file-o" aria-hidden="true"></i></a>
-                            <a ng-if="data.status=='Pass' || data.status=='Clear'" type="button" class="btn" title="Assign Interviewer" ng-click="rlc.openAssignInterviewerModal(data.id,data.job_description_id,data.status)" style="outline: 0;padding:0px;"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-cog" aria-hidden="true"></i></a>
+                            <a ng-if="data.status=='Pass' || data.status=='Clear'" type="button" class="btn" title="Assign Interviewer" ng-click="rlc.openAssignInterviewerModal(data)" style="outline: 0;padding:0px;"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-cog" aria-hidden="true"></i></a>
 
-                            <a ng-if="data.status=='Schedule'" type="button" class="btn" title="Reschedule Interviewer" ng-click="rlc.openRescheduleModal(data.candidate_user_assocs)" style="outline: 0;padding:0px;"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-clock-o" aria-hidden="true"></i></a>
+                            <a ng-if="data.status=='Schedule'" type="button" class="btn" title="Reschedule Interviewer" ng-click="rlc.openRescheduleModal(data,data.candidate_user_assocs)" style="outline: 0;padding:0px;"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-clock-o" aria-hidden="true"></i></a>
                            <!--  <a ng-if="data.status=='Pass'" type="button" class="btn" title="Change Status" ng-click="rlc.openChangeStatusModal(data)" style="outline: 0;padding:0px;"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-exchange" aria-hidden="true"></i></a> -->
                            <a type="button" href="/round_inforamtions?id={{data.id}}" class="btn" title="View Technical Details"style="outline: 0;padding:0px" ng-if="rlc.hashPathId == 'selected'"><i style="cursor: pointer;margin-left: 5px;color:#5cb85c" class="fa fa-eye" aria-hidden="true"></i></a>
                             <a href="/resume/{{data.unique_token}}?id={{data.id}}" type="button" target="_blank" class="btn" title="Edit" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-pencil" aria-hidden="true"></i></a>
@@ -316,7 +316,7 @@
             <div class="modal-content" style="border-radius: 0px!important;" >
                 <div class="modal-header" id="popUpModalHeader"> 
                     <button type="button" class="close" data-dismiss="modal" ng-click="rlc.resetForm()" style="margin-right: 5px;">&times;</button>
-                    <h4 class="modal-title popUpModalTitle">Assign Interviewer</h4>
+                    <h4 class="modal-title popUpModalTitle">Assign Interviewer of <span style="color:#3c8dbc;">{{rlc.assignCandidateName}}</span></h4>
                 </div>
                 <div class="modal-body">
                     <form id="assignStatusForm">                            
@@ -425,7 +425,7 @@
             <div class="modal-content" style="border-radius: 0px!important;" >
                 <div class="modal-header" id="popUpModalHeader"> 
                     <button type="button" class="close" data-dismiss="modal" ng-click="rlc.resetForm()" style="margin-right: 5px;">&times;</button>
-                    <h4 class="modal-title popUpModalTitle">Reschedule Interview</h4>
+                    <h4 class="modal-title popUpModalTitle">Reschedule Interview of <span style="color:#3c8dbc;">{{reassignCandidateName}}</span></h4>
                 </div>
                 <div class="modal-body">
                     <form id="rescheduleForm">                           
