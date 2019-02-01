@@ -29,7 +29,7 @@
         <div class="box box-primary" id="filter">
             <div class="box-body">
                 <div class="row">
-                    <div class="col-md-4" ng-if="ilc.logInUserRole == '1'">
+                    <div class="col-md-3" ng-if="ilc.logInUserRole == '1'">
                         <div class="form-group">
                           <label>Interviewer</label>
                           <select id="jobCode" name="jobCode" ng-model="ilc.userId" class="form-control" style="width: 100%;"  ng-options="x.id as x.name for x in ilc.interviewerList">
@@ -44,6 +44,12 @@
                                 <option value="" style="color:#ccc !important;">Select job code</option>
                                 <option ng-repeat="jd in ilc.activeJobDetail" value="{{jd.id}}">{{jd.job_code}} {{jd.sub_title != '' ? (jd.sub_title) : ''}}</option>
                             </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <div class="form-group">
+                            <label class="" for="">Scheduled Date</label>
+                            <input class="form-control" type="text" id="scheduled_date" name="scheduled_date" ng-model="ilc.scheduledDate" placeholder="Enter date">
                         </div>
                     </div>
                     <div class="col-md-1" style="text-align: center;">
@@ -243,4 +249,25 @@
             }
         }
         setCSS();
+    
+</script>
+<script>
+    $(document).ready(function () {
+
+        $('#scheduled_date').datepicker({
+            autoclose: true,
+            todayHighlight: true
+        }).on('changeDate', function(selected){
+             // $(this).valid();
+        });
+
+        // $('#scheduled_date').bind('keydown',function(e){
+        //     if (e.which == 13) //13 is Enter/Return key.
+        //         e.stopImmediatePropagation();
+        // }).datepicker({
+        //     autoclose: true,
+        //     todayHighlight: true,
+        //     startDate: "today"
+        // }); 
+    });
 </script>

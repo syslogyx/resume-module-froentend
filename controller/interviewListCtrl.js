@@ -16,6 +16,7 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
     ilc.userId = loggedInUser.identity.role==1?null:loggedInUser.id;
     ilc.candidateId = null;
     ilc.currentInterviewList = [];
+    ilc.scheduledDate='';
    
     /* Function to search user id */
     // ilc.search = function (id, page) {       
@@ -27,6 +28,7 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
 
     ilc.resetFilter = function(){
         ilc.jobCodeId = null;
+        ilc.scheduledDate='';
         if(ilc.logInUserRole != 4){
             ilc.userId = null;
             ilc.fetchList(-1);
@@ -82,11 +84,16 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
         else{
             ilc.pageno = page;
         }
-
+        var sdate='';
+        if(ilc.scheduledDate !=''){
+            sdate = ilc.scheduledDate.split("/").reverse().join("-");
+        }
         var req = {
             "user_id":ilc.userId,
-            "job_description_id":ilc.jobCodeId
+            "job_description_id":ilc.jobCodeId,
+            "schedule_date":sdate
         }
+        console.log(req);
 
         var requestParam = {
             page:ilc.pageno,
