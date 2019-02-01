@@ -232,13 +232,13 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
             'to_total_experience':rlc.toTotalYearExperiance,
             // 'search_alphabet':alphabet
             'search_alphabet':rlc.alpha,
-            'status':rlc.hashPathId
+            'status':rlc.hashPathId,
+            'role_id':role_id
         }
 
         if(email != undefined && mobile != undefined && role_id == 6){
             req.email = email;
             req.contact_no = mobile;
-            req.role_id = role_id;
         }
         // console.log(req);
 
