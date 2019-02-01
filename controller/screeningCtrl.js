@@ -86,7 +86,8 @@ app.controller('screeningCtrl', function ($scope, $rootScope, $http, services, $
                 if(response.data.status_code == 200){
                     sc.title = 'Update Question';
                     sc.stream = response.data.data.stream_id;
-                    sc.question = response.data.data.question;            
+                    sc.question = response.data.data.question; 
+                    sc.expected_answer = response.data.data.expected_answer;           
                 }else{
                     toastr.error(response.data.message, 'Sorry!');
                 }
