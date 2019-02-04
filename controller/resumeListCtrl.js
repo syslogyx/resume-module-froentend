@@ -354,6 +354,8 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
 
     /*Function to open assign interviewer modal */
     rlc.openAssignInterviewerModal =function($cdata){
+        // $('#assignStatusForm')[0].reset();
+        // rlc.interviewer = null;
         rlc.assignCandidateName = $cdata.first_name+' '+$cdata.middle_name+' '+$cdata.last_name;
         rlc.candidateId = $cdata.id;
         rlc.jdId = $cdata.job_description_id;
@@ -361,6 +363,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         rlc.candidateStatus = $cdata.status;
         $scope.round = ($cdata.status == 'Clear' ? 'Round 1' : 'Round 2');
         $scope.scheduleTime = '';
+        rlc.resetForm();
         $('#assignStatusModel').modal('show');
         $("#assignStatusBtn").attr('disabled',false);
     }

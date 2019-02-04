@@ -18,14 +18,7 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
     ilc.currentInterviewList = [];
     ilc.scheduledDate='';
     ilc.jobDetail = null;
-   
-    /* Function to search user id */
-    // ilc.search = function (id, page) {       
-    //     ilc.userId = id;
-    //     ilc.jobCodeId = id;
-    //     ilc.fetchList(page);
-       
-    // };
+
 
     ilc.resetFilter = function(){
         ilc.jobCodeId = null;

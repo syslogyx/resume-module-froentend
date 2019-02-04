@@ -28,7 +28,7 @@ app.controller("resultCtrl", function (services, AclService, $scope, $http, $loc
 
     /* Function to cancle interview result form */
     res.cancelResult = function() {
-         $location.url('/interview_list');
+         $location.url('/today_interviews');
     }
     
     /* Function to submit interviewer result feedback form */
@@ -39,7 +39,7 @@ app.controller("resultCtrl", function (services, AclService, $scope, $http, $loc
             promise.then(function mySuccess(response) {
                 try {
                     // $location.path('/resume_list#non-selected');
-                    window.location = '/interview_list';
+                    window.location = '/today_interviews';
                     toastr.success(response.data.message);
                 } catch (e) {
                     toastr.error(response.data.message, 'Sorry!');
