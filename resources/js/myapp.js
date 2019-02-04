@@ -101,7 +101,15 @@ var app = angular.module("myapp", ['ngRoute', 'mm.acl', 'ngCookies' , 'ui.sortab
 //             });  
 //         }  
 //     };  
-// });  
+// }); 
+app.filter('removeSpaces', [function() {
+    return function(string) {
+        if (!angular.isString(string)) {
+            return string;
+        }
+        return string.replace(/[\s]/g, '');
+    };
+}]);
 
 app.factory("menuService", ["$rootScope", function ($rootScope) {
         "use strict";

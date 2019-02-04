@@ -78,7 +78,7 @@
                         <th>Scheduled Date</th>                        
                         <th>Scheduled Time</th>           
                         <th>Round</th>           
-                        <th style="text-align: center;">Action</th>
+                        <!-- <th style="text-align: center;" >Action</th> -->
                     </tr>
                 </thead>
                 <!-- <pre>{{ilc.interviewList|json}}</pre> -->
@@ -90,10 +90,10 @@
                         <td>{{data.schedule_date | date: 'dd-MM-yyyy'}}</td>
                         <td>{{ilc.tConvert(data.schedule_time)}}</td>
                         <td>{{data.technical_round}}</td>
-                        <td style="text-align: center">
+                        <!-- <td style="text-align: center">
                             <a  ng-href="/interview_feedback?cId={{data.candidate_id}}&uId={{data.user_id}}&round={{data.technical_round}}&jd_id={{data.job_description_id}}" ng-if="data.all_candidates.candidate_technical_result[0].status != 'Pass' && data.all_candidates.candidate_technical_result[0].status != 'Fail' && ilc.logInUserRole != '1' && data.all_candidates.candidate_technical_result.length == 0" type="button" class="btn" title="Feedback" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-comments" aria-hidden="true"></i></a>
                             <a ng-if="data.all_candidates.status == 'Fail' && data.all_candidates.status != 'Pass' && ilc.logInUserRole == '1'" type="button" class="btn" title="Change JD" ng-click="ilc.openChangeJdStatusModel(data.candidate_id)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-refresh" aria-hidden="true"></i></a>
-                        </td>
+                        </td> -->
                     </tr>
                     <tr ng-if="ilc.interviewList == null || ilc.interviewList.length == 0">
                         <td style="text-align: center;" colspan="7">No Records Found</td> 

@@ -269,10 +269,16 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     rlc.init = function(){
         // debugger;
         // console.log(rlc.alphabet);
-
+        // console.log();
+        // if(window.location.pathname == '/resume_list' && window.location.hash == '#selected'){
+        //     $("#CandidateManagement").removeClassClass('deactive');
+        //     $("#CandidateManagement").addClass('active');
+        //     // console.log("true");
+        // }
         if (rlc.hashPathId === 'non-selected') {
             $("#selected").parent().removeClass('active');
             $("#non-selected").parent().addClass('active');
+            // $("#CandidateManagement").addClass('active');
         }else if (rlc.hashPathId === 'selected'){
             $("#non-selected").parent().removeClass('active');
             $("#selected").parent().addClass('active');

@@ -19,7 +19,7 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
             {"Title": "Scheduled Interviews", "Link": "/interview_list", "icon": "fa fa-calendar", "active":"deactive"},
             {"Title": "Forward Resumes", "Link": "/forward_resumes", "icon": "fa fa-circle-o", "active":"deactive"},
             {"Title": "Background Checklist", "Link": "/background_checklist", "icon": "fa fa-check-square-o", "active":"deactive"},
-            {"Title": "User Management", "Link": "user#all", "icon": "fa fa-user-plus", "active":"deactive"}
+            {"Title": "User Management", "Link": "/user#all", "icon": "fa fa-user-plus", "active":"deactive"}
         ];
         $scope.showUpdateProfile = true;
     }else if (loggedInUser.identity.role==RESOURCES.ROLE_HR) {
@@ -30,7 +30,7 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
             {"Title": "Scheduled Interviews", "Link": "/interview_list", "icon": "fa fa-calendar", "active":"deactive"},
             {"Title": "Forward Resumes", "Link": "/forward_resumes", "icon": "fa fa-circle-o", "active":"deactive"},
             {"Title": "Background Checklist", "Link": "/background_checklist", "icon": "fa fa-check-square-o", "active":"deactive"},
-            // {"Title": "User Management", "Link": "user#all", "icon": "fa fa-user-plus", "active":"deactive"}
+            // {"Title": "User Management", "Link": "/user#all", "icon": "fa fa-user-plus", "active":"deactive"}
         ];      
         $scope.showUpdateProfile = true;
     }else if (loggedInUser.identity.role==RESOURCES.ROLE_COLLEGUE) {
@@ -111,7 +111,9 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
             $scope.name = $scope.user.identity.name;
             $scope.logInUserRole  =   $scope.user.identity.role;
             //console.log( $scope.logInUserRole);
-            $scope.menuClick(window.location.pathname);
+            // $scope.menuClick(window.location.pathname);
+            var pathUrl = window.location.pathname+(window.location.hash !=''?window.location.hash:'')
+            $scope.menuClick(pathUrl);
         }
 
     };
