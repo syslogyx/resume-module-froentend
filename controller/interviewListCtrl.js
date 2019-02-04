@@ -28,6 +28,7 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
             ilc.fetchList(-1);
         }else{
             ilc.interviewList = null;
+            ilc.currentInterviewList = [];
         }
     }
 
@@ -45,9 +46,9 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
         // }
         ilc.getAllInterviewerList();
         ilc.getActiveJd();
-        if(ilc.logInUserRole == 4){
-            ilc.getTodaysScheduledInterviewList();
-        }
+        // if(ilc.logInUserRole == 4){
+        //     ilc.getTodaysScheduledInterviewList();
+        // }
     }
 
 
@@ -205,30 +206,32 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
     }
 
     ilc.getTodaysScheduledInterviewList = function(){
-
-        var req = {
-            "user_id":ilc.userId
-        }
-
-        var requestParam = {
-            page:ilc.pageno,
-            limit:ilc.limit
-        } 
-
-        var promise = services.getTodaysScheduledInterviewList(req,requestParam);        
-        promise.success(function (result) { 
-            // console.log(result.status_code);
-            if (result.status_code == 200) {                
-                ilc.currentInterviewList = result.data.data;
-                pagination.applyPagination(result.data,ilc);
-            }else{
-                ilc.currentInterviewList = [];
+       if($("#todayInterviewFilterForm").valid()){
+            var req = {
+                "user_id":ilc.userId,
+                "job_description_id":ilc.jobCodeId
             }
-            Utility.stopAnimation();  
-        }, function myError(r) {
-            toastr.error(r.data.message, 'Sorry!');
-            Utility.stopAnimation();
-        });
+
+            var requestParam = {
+                page:ilc.pageno,
+                limit:ilc.limit
+            } 
+
+            var promise = services.getTodaysScheduledInterviewList(req,requestParam);        
+            promise.success(function (result) { 
+                // console.log(result.status_code);
+                if (result.status_code == 200) {                
+                    ilc.currentInterviewList = result.data.data;
+                    pagination.applyPagination(result.data,ilc);
+                }else{
+                    ilc.currentInterviewList = [];
+                }
+                Utility.stopAnimation();  
+            }, function myError(r) {
+                toastr.error(r.data.message, 'Sorry!');
+                Utility.stopAnimation();
+            });
+        }
     }
 
     ilc.init();
