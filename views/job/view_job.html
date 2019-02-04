@@ -1,0 +1,139 @@
+<section class="content" ng-cloak>
+<br><br>
+    <form role="form" name="addForm" id="viewJobForm" >
+        <div class="box box-default" >
+            <div class="row box-header with-border boxhead">
+                <div class="col-xs-6">
+                    <h1 class="formheading">
+                        <b>View Job</b>
+                    </h1>
+                </div>
+
+                <div class="col-xs-6">
+                    <div class="pull-right" style="margin-top: 5px; margin-right: 20px;">
+                        <a ng-href="/jobs"><button type="button" class="btn btn-default btn-sm" data-toggle="modal" title="Back" data-target="" data-ng-click="" style="border:white;color:#428bca;outline: 0;"><i class="fa fa-arrow-left" aria-hidden="true"></i></button></a>  
+                    </div> 
+                </div>                
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">  
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="" for="">Job Title</label>
+                            <input type="text" class="form-control" ng-model="jb.jobTitle" name="job_title" id="job_title" placeholder="Enter job title" disabled>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="" for="">Subtitle</label>
+                            <input type="text" class="form-control" ng-model="jb.subTitle" name="sub_title" id="sub_title" placeholder="Enter subtitle" disabled>
+                        </div>
+                    </div>
+                     <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="" for="">Notice Period</label>
+                            <input type="text" class="form-control" ng-model="jb.noticePeroid" name="notice_peroid" id="notice_peroid"  placeholder="Enter notice period" disabled>
+                        </div>
+                    </div>
+                    
+                </div> 
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="" for="">No. of Requirement</label>
+                            <input type="text" class="form-control" ng-model="jb.requirementNo" name="requirement_no" id="requirement_no"  placeholder="Enter number of requirement" disabled>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="" for="">Experience</label>
+                            <input type="text" class="form-control" ng-model="jb.experiance" name="experiance" id="experiance"  placeholder="Enter experience" disabled>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="" for="">Job Location</label>
+                            <input type="text" class="form-control" ng-model="jb.jobLocation" name="job_location" id="job_location"  placeholder="Enter job location" disabled>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="" for="">Job Type</label>
+                            <input type="text" class="form-control" ng-model="jb.jobType" name="job_type" id="job_type"  placeholder="Enter job type" disabled>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="" for="">CTC</label>
+                            <input type="text" class="form-control" ng-model="jb.ctc" name="ctc" id="ctc"  placeholder="Enter CTC" disabled>
+                        </div>
+                    </div>
+                     <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="" for="">Client Name</label>
+                            <select id="companyId" ng-model="jb.companyId" name="companyId" class="form-control s2mn" placeholder="Enter company name" style="width:100%;" ng-options="x.id as x.name for x in jb.companyList" ng-selected="jb.companyId ? true : false" disabled>
+                                <option value="" style="color:#ccc;">Select client</option>
+                            </select>
+                        </div> 
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="" for="">Description</label>
+                           <textarea placeholder="Enter description" class="form-control" id="description" name="description" ng-model="jb.description" rows="2" disabled></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="" for="">Required Skills</label>
+                            <textarea placeholder="Enter required skills" class="form-control" id="required_skill" name="required_skill" ng-model="jb.requiredSkill" rows="2" disabled></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="" for="">Additional Skills</label>
+                           <textarea placeholder="Enter additional skills" class="form-control" id="additional_skill" name="additional_skill" ng-model="jb.additionalSkill" rows="2" disabled></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="" for="">Roles And Responsibility</label>
+                            <textarea placeholder="Enter roles & responsibility" class="form-control" id="role_responsibility" name="role_responsibility" ng-model="jb.roleResponsibility" rows="2" disabled></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="" for="">Project Description</label>
+                           <textarea placeholder="Enter project description" class="form-control" id="project_title" name="project_title" ng-model="jb.project_title" rows="2" disabled></textarea>
+                        </div>
+                    </div>                                        
+                </div>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer" style="margin-right:14px!important">
+                <div class="pull pull-right">
+                    <input type="button" value="Cancel" class="btn btn-warning" data-ng-click="jb.cancelJob()"  style="outline: 0;"/> 
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+
+<script>
+    $(document).ready(function () {
+        $("html, body").animate({scrollTop: 0}, "fast");
+    });
+</script>
+

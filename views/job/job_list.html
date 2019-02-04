@@ -36,7 +36,7 @@
                         <th style="text-align: center;">No. of Requirement</th>
                         <th>Experience</th>                        
                         <th>Job Location</th>
-                        <th>Job Type</th> 
+                        <!-- <th>Job Type</th>  -->
                         <th>Job Code</th>                   
                         <th style="text-align: center;" ng-if="jb.loggedRoleId != 6">Action</th>
                         <th style="text-align: center;">Status</th>
@@ -51,10 +51,11 @@
                         <td style="text-align: center;">{{jl.no_of_requiremet}}</td>
                         <td >{{jl.experience}}</td>                        
                         <td >{{jl.job_location}}</td>                        
-                        <td >{{jl.job_type}}</td>
+                       <!--  <td >{{jl.job_type}}</td> -->
                         <td >{{jl.job_code}}</td>
-                        <td style="text-align: center;" ng-if="jb.loggedRoleId != 6"> 
-                            <a type="button" class="btn" ng-href="jobs/edit?id={{jl.id}}" title="Edit" style="outline: 0;padding:0px"><i class="fa fa-pencil" aria-hidden="true" ></i></a>
+                        <td style="text-align: center;" > 
+                            <a type="button" class="btn" ng-href="jobs/edit?id={{jl.id}}" title="Edit" style="outline: 0;padding:0px" ng-if="jb.loggedRoleId != 6"><i class="fa fa-pencil" aria-hidden="true" ></i></a>
+                            <a type="button" class="btn" ng-href="jobs/view?id={{jl.id}}" title="View" style="outline: 0;padding:0px"><i class="fa fa-eye" aria-hidden="true" ></i></a>
                         </td>     
                         <td style="text-align: center;">    
                             <toggle id="enabled_{{$index}}" name="enabled_{{$index}}" size="btn-sm" off-class="btn-danger" on-class="btn-success" ng-model="jl.status" id="toggle-status-switch" ng-click="jb.changeJobStatus(jl.status,jl.id);"  on="Active" off="Inactive"></toggle>
