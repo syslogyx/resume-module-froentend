@@ -47,12 +47,14 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
 
     /* Function to initialise interview list controller */
     ilc.init = function(){
-        if(ilc.logInUserRole != 4){
+        // if(ilc.logInUserRole != 4){
             ilc.fetchList(-1);
-        }
+        // }
         ilc.getAllInterviewerList();
         ilc.getActiveJd();
-        ilc.getTodaysScheduledInterviewList();
+        if(ilc.logInUserRole == 4){
+            ilc.getTodaysScheduledInterviewList();
+        }
     }
 
 

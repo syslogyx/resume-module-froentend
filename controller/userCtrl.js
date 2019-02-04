@@ -94,15 +94,12 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
     /* Function to initialise user controller */
     usr.init = function () { 
 
-        // if(window.location.pathname == '/user' && window.location.hash == '#all'){
-        //     $("#UserManagement").removeClass('deactive');
+        // if(window.location.pathname == '/user' && window.location.hash == '#all'){;
         //     $("#UserManagement").addClass('active');
         //     // console.log("true");
         // }else if(window.location.pathname == '/user' && window.location.hash == '#candidate'){
-        //     $("#UserManagement").removeClass('deactive');
         //     $("#UserManagement").addClass('active');
         // }else if(window.location.pathname == '/user' && window.location.hash == '#client'){
-        //     $("#UserManagement").removeClass('deactive');
         //     $("#UserManagement").addClass('active');
         // }
         if (usr.hashPathId == 'all') {

@@ -271,7 +271,6 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         // console.log(rlc.alphabet);
         // console.log();
         // if(window.location.pathname == '/resume_list' && window.location.hash == '#selected'){
-        //     $("#CandidateManagement").removeClassClass('deactive');
         //     $("#CandidateManagement").addClass('active');
         //     // console.log("true");
         // }

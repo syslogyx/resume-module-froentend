@@ -10,7 +10,7 @@
                 <div class="dataTables_length text-right" id="example_length">
                     <label>Show 
                         <select id="table_length" aria-controls="example" style="outline: 0;">
-                            <!-- <option value="1">1</option> -->
+                            <option value="1">1</option>
                             <option value="10">10</option>
                             <option value="25">25</option>
                             <option value="50">50</option>
@@ -19,14 +19,14 @@
                     entries</label>
                 </div>
             </div>
-            <!-- <div class="col-md-2 pull-right" style="margin-top:1%;">
+            <div class="col-md-2 pull-right" style="margin-top:1%;">
                 <button type="button" class="btn btn-primary btn-circle btn-sm pull-right" data-toggle="collapse" title="Filter" data-target="#filter"><i class="fa fa-filter" aria-hidden="true" style="padding-right:0.3px"></i></button>
-            </div>   -->          
+            </div>            
         </div> 
         <br>        
 
-        <!-- <div class="box box-primary collapse" id="filter"> -->
-        <div class="box box-primary" id="filter">
+        <div class="box box-primary collapse" id="filter">
+        <!-- <div class="box box-primary" id="filter"> -->
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-3" ng-if="ilc.logInUserRole == '1'">
@@ -73,8 +73,9 @@
                 <thead class="thead-default">
                     <tr>
                         <th style="text-align: center;">Sr No.</th>
-                        <th>Interviewer</th>                        
+                        <th ng-if="ilc.logInUserRole != 4">Interviewer Name</th>                        
                         <th>Candidate Name</th>
+                        <th>Job Code</th>
                         <th>Scheduled Date</th>                        
                         <th>Scheduled Time</th>           
                         <th>Round</th>           
@@ -85,8 +86,9 @@
                 <tbody>
                     <tr ng-repeat="data in ilc.interviewList">
                         <td style="text-align: center;" ng-bind="(ilc.pageno - 1) * ilc.limit + ($index + 1)"></td>
-                        <td>{{data.users.name}}</td>
+                        <td ng-if="ilc.logInUserRole != 4">{{data.users.name}}</td>
                         <td>{{data.all_candidates.first_name +' '+ data.all_candidates.middle_name +' '+ data.all_candidates.last_name}}</td>
+                        <td>{{data.job_description.job_code +' '+data.job_description.sub_title}}</td>
                         <td>{{data.schedule_date | date: 'dd-MM-yyyy'}}</td>
                         <td>{{ilc.tConvert(data.schedule_time)}}</td>
                         <td>{{data.technical_round}}</td>

@@ -13,11 +13,9 @@ app.controller('forwardResumeListCtrl', function ($scope, $rootScope, $http, ser
 
     frlc.init = function(){
         // if(window.location.pathname == '/forward_resumes'){
-        //     $("#ForwardResumes").removeClass('deactive');
         //     $("#ForwardResumes").addClass('active');
         // }else if(window.location.pathname == '/round_details'){
-        //     $("#ForwardResumes").removeClass('active');
-        //     $("#ForwardResumes").addClass('deactive');
+        //     $("#ForwardResumes").addClass('active');
         // }
         frlc.getActiveCompanyList();
     }
