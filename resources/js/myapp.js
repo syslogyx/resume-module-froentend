@@ -1,7 +1,7 @@
 ﻿var Utility = {
 
-    apiBaseUrl: "http://127.0.0.1:8000/api/",
-      // apiBaseUrl: "http://172.16.1.97:8000/api/",
+     apiBaseUrl: "http://127.0.0.1:8000/api/",
+       // apiBaseUrl: "http://172.16.1.97:8000/api/",
       // apiBaseUrl: "http://172.16.2.37:9000/api/",
 
     // apiBaseUrl: "http://127.0.0.1:8000/api/",
@@ -1637,6 +1637,25 @@ app.config(function ($routeProvider, $locationProvider) {
 
             .when('/jobs/edit', {
                 templateUrl: 'views/job/create_job.html',
+                controller: 'jobCtrl',
+                controllerAs: 'jb',
+                resolve: {
+                    'acl': ['$q', 'AclService', function ($q, AclService) {
+                            return true;
+                            
+                            if (AclService.can('view_dash')) {
+                                // Has proper permissions
+                                return true;
+                            } else {
+                                // Does not have permission
+                                return $q.reject('LoginRequired');
+                            }
+                        }]
+                }
+            })
+
+            .when('/jobs/view', {
+                templateUrl: 'views/job/view_job.html',
                 controller: 'jobCtrl',
                 controllerAs: 'jb',
                 resolve: {
