@@ -60,12 +60,12 @@
 
 <script>
         $.validator.addMethod('regex', function (value, element, regexp) {
-                if (regexp.constructor != RegExp)
-                    regexp = new RegExp(regexp);
-                else if (regexp.global)
-                    regexp.lastIndex = 0;
-                return this.optional(element) || regexp.test(value);
-            }, 'Please enter a valid Email Address.');
+            if (regexp.constructor != RegExp)
+                regexp = new RegExp(regexp);
+            else if (regexp.global)
+                regexp.lastIndex = 0;
+            return this.optional(element) || regexp.test(value);
+        }, 'Please enter a valid Email Address.')
         
         $.validator.addMethod("mo_number", function (phone_number, element){
             phone_number = phone_number.replace(/\s+/g, "");
@@ -94,7 +94,12 @@
                     required: true
                 },
                 contact_no: {
-                    required:true,
+                    required:{
+                        depends:function(){
+                            $(this).val($.trim($(this).val()).split(" ").join(""));
+                            return true;
+                        }
+                    },
                     mo_number: true,
                     minlength: 10,
                     maxlength: 12,

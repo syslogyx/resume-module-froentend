@@ -44,8 +44,6 @@
         margin-bottom: 10px !important;
         /*background-color: #fff !important;*/
     }
-
-
 </style>
 <section class="content" ng-cloak  id="roundListCtrl">
     <div class="container-fluid" style="overflow-y: hidden;">
@@ -151,10 +149,13 @@
                         <td ng-bind="(data.companies_tech_round_info == null || data.companies_tech_round_info.length == 0) ? 'Pending for round details' : data.feedback_received_date == null ? 'Pending for company Final Result' : data.hr_interview_on_date == null ? 'Pending for company HR details': data.final_status"></td>
                         <td ng-bind="rdc.setFormatteddate(data.data_sent_to_company_date)"></td>
                         <td class="text-center" nowrap>
-                            <a type="button" class="btn btn-xs" title="View Details" style="outline: 0;padding:0px" ng-click="rdc.openCandidateViewModel(data.companies_tech_round_info,data.companies.name,data.candidates)"><i class="fa fa-eye" aria-hidden="true" ></i></a>
-                            <a type="button" class="btn btn-xs" title="Add Round Info" style="outline: 0;padding:0px" ng-click="rdc.openAddRoundInfoModel(data.id,data.companies.name,data.candidates)" ng-if="(data.companies_tech_round_info == null || data.companies_tech_round_info.length == 0) && (data.final_status == null) && (data.company_final_status == null)"><i class="fa fa-plus" aria-hidden="true" ></i></a>
-                            <a type="button" class="btn btn-xs" title="Final Round Result" style="outline: 0;padding:0px" ng-click="rdc.openAddFinalRoundResultModal(data.id,data.companies.name,data.candidates)" ng-if="(data.companies_tech_round_info.length > 0 && data.final_status == null && data.company_final_status == null)"><i class="fa fa-newspaper-o" aria-hidden="true" ></i></a>
-                            <a type="button" class="btn btn-xs" title="Final HR Result" style="outline: 0;padding:0px" ng-click="rdc.openAddHrFinalRoundResultModal(data.id,data.candidate_id,data.companies.name,data.candidates)" ng-if="(data.companies_tech_round_info.length > 0 &&  data.final_status == null && data.hr_status == null) && (data.company_final_status != null) "><i class="fa fa-user" aria-hidden="true"></i></a>
+                            <a type="button" class="btn btn-xs" title="View Details" style="outline: 0;" ng-click="rdc.openCandidateViewModel(data.companies_tech_round_info,data.companies.name,data.candidates)"><i class="fa fa-eye" aria-hidden="true" ></i></a>
+
+                            <a type="button" class="btn btn-xs" title="Add Round Info" style="outline: 0;" ng-click="rdc.openAddRoundInfoModel(data.id,data.companies.name,data.candidates)" ng-if="(data.companies_tech_round_info == null || data.companies_tech_round_info.length == 0) && (data.final_status == null) && (data.company_final_status == null)"><i class="fa fa-plus" aria-hidden="true" ></i></a>
+
+                            <a type="button" class="btn btn-xs" title="Final Round Result" style="outline: 0;" ng-click="rdc.openAddFinalRoundResultModal(data.id,data.companies.name,data.candidates)" ng-if="(data.companies_tech_round_info.length > 0 && data.final_status == null && data.company_final_status == null)"><i class="fa fa-newspaper-o" aria-hidden="true" ></i></a>
+
+                            <a type="button" class="btn btn-xs" title="Final HR Result" style="outline: 0;" ng-click="rdc.openAddHrFinalRoundResultModal(data.id,data.candidate_id,data.companies.name,data.candidates)" ng-if="(data.companies_tech_round_info.length > 0 &&  data.final_status == null && data.hr_status == null) && (data.company_final_status != null) "><i class="fa fa-user" aria-hidden="true"></i></a>
                         </td>
                         <!-- <td ng-bind="(rlc.pageno - 1) * rlc.limit + ($index + 1)"></td>
                         <td ng-bind="data.first_name+' '+data.middle_name+' '+data.last_name"></td> -->
@@ -290,7 +291,7 @@
                         </form>
                     </div>
                     <div class="modal-footer" style="margin-top: 0px;"> 
-                        <button type="button" id="changePasswordBtn" class="btn btn-primary"  data-ng-click="rdc.saveRoundInfo()" >Save</button>
+                        <button type="button" id="saveRoundDetailsBtn" class="btn btn-primary"  data-ng-click="rdc.saveRoundInfo()" >Save</button>
                         <button type="reset" id="closeModal" class="btn btn-warning" data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
@@ -336,7 +337,7 @@
                         </form>
                     </div>
                     <div class="modal-footer" style="margin-top: 0px;"> 
-                        <button type="button" id="changePasswordBtn" class="btn btn-success"  data-ng-click="rdc.saveFinalRoundDetails()" >Save</button>
+                        <button type="button" id="saveFinalRoundDetailsBtn" class="btn btn-success"  data-ng-click="rdc.saveFinalRoundDetails()" >Save</button>
                         <button type="reset" id="closeModal" class="btn btn-warning"  ng-click="rdc.resetFinalRoundDetailsForm()" data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
@@ -387,11 +388,11 @@
                                             <option value="">Select final status</option>
                                         </select>
                                     </div>
-                                    <div class="col-md-4 form-group">
+                                    <div class="col-md-4 form-group" id="tentativeDOJDiv">
                                         <label class="mandatory" for="">Tentative DOJ </label>
                                         <input class="tentative_doj form-control" type="text" id="tentative_doj" name="tentative_doj" ng-model="rdc.tentative_doj" placeholder="Enter tentative DOJ" readonly='true' style="cursor:default;background-color: white;">
                                     </div>
-                                    <div class="col-md-4 form-group">
+                                    <div class="col-md-4 form-group" id="atualDOJDiv">
                                         <label class="mandatory" for="">Actual DOJ</label>
                                         <input class="actual_doj form-control" type="text" id="actual_doj" name="actual_doj" ng-model="rdc.actual_doj" placeholder="Enter actual DOJ" readonly='true' style="cursor:default;background-color: white;">
                                     </div>
@@ -400,7 +401,7 @@
                         </form>
                     </div>
                     <div class="modal-footer" style="margin-top: 0px;"> 
-                        <button type="button" id="changePasswordBtn" class="btn btn-success"  data-ng-click="rdc.saveHRRoundDetails()" >Save</button>
+                        <button type="button" id="saveFinalHRRoundDetailsBtn" class="btn btn-success"  data-ng-click="rdc.saveHRRoundDetails()" >Save</button>
                         <button type="reset" id="closeModal" class="btn btn-warning"  ng-click="rdc.resetHrRoundDetailsForm()" data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
@@ -634,8 +635,6 @@
     $.validator.addClassRules("company_remark", { remarkRequired: true});
 
 
-
-
     // to validate hr round form
     $("#addRoundInfoForm").validate({
         errorElement: 'span', //default input error message container
@@ -676,7 +675,6 @@
 
 </script>
 <script>
-
     $(document).ready(function () {
         $("html, body").animate({scrollTop: 0}, "fast");
         $('.modal').on('hidden.bs.modal', function (e) {
@@ -744,5 +742,22 @@
             todayHighlight: true,
             startDate: "today"
         }); 
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+        $("#hr_status").change(function() {
+            console.log($(this).val());
+            debugger
+            if ($(this).val() == "string:Fail") {
+                $("#tentativeDOJDiv").hide();
+                $("#atualDOJDiv").hide();
+
+            }
+            else{
+                $("#tentativeDOJDiv").show();
+                $("#atualDOJDiv").show();
+            }
+        });
     });
 </script>

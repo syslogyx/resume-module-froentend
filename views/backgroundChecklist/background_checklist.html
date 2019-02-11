@@ -44,10 +44,10 @@
                         <!-- <td>{{bl.mandatory == 1 ? 'True' : 'False'}}</td> -->
                         <td>{{bl.type}}</td>     
                         <td style="text-align: center;"> 
-                            <a type="button" class="btn" ng-href="background_checklist/edit?id={{bl.id}}" title="Edit" style="outline: 0;padding:0px"><i class="fa fa-pencil" aria-hidden="true" ></i></a>
+                            <a type="button" class="btn btn-xs" ng-href="background_checklist/edit?id={{bl.id}}" title="Edit" style="outline: 0;"><i class="fa fa-pencil" aria-hidden="true" ></i></a>
                         </td>     
                         <td style="text-align: center;">
-                            <toggle id="enabled_{{$index}}" name="enabled_{{$index}}" size="btn-sm" off-class="btn-danger" on-class="btn-success" ng-model="bl.status" id="toggle-status-switch" ng-click=" bcl.changeBgChecklistStatus(bl.status,bl.id,$index);" on="Active" off="Inactive"></toggle>
+                            <toggle id="enabled_{{$index}}" name="enabled_{{$index}}" size="btn-xs" off-class="btn-danger" on-class="btn-success" ng-model="bl.status" id="toggle-status-switch" ng-click=" bcl.changeBgChecklistStatus(bl.status,bl.id,$index);" on="Active" off="Inactive"></toggle>
                         </td>
                     </tr>
                     <tr ng-if="bcl.backgroundCheckList == null || bcl.backgroundCheckList.length == 0">

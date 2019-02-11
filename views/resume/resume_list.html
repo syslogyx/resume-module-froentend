@@ -281,25 +281,31 @@
                             <a type="button" class="btn" title="Download Resume" ng-click="rlc.downloadResumeDoc(data.id)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-download" aria-hidden="true"></i></a>
                         </td> -->
                         <td style="text-align: center;">
-                            <a type="button" class="btn" title="View Uploaded document List" ng-click="rlc.viewBgChecklistModal(data)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-eye" aria-hidden="true"></i></a>
+                            <a type="button" class="btn btn-xs" title="View Uploaded document List" ng-click="rlc.viewBgChecklistModal(data)" style="outline: 0;"><i style="cursor: pointer;" class="fa fa-eye" aria-hidden="true"></i></a>
                         </td>
                         <td style="text-align: center;" nowrap> 
-                            <a type="button" class="btn" title="Download PDF" ng-click="rlc.downloadResumePDF(data.id)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;color: red;" class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
+                            <a type="button" class="btn btn-xs" title="Download PDF" ng-click="rlc.downloadResumePDF(data.id)" style="outline: 0;"><i style="cursor: pointer;color: red;" class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
                         </td>
-                      <!--   <td style="text-align: center;"> 
-                            <a type="button" class="btn" title="Download PDF" ng-click="rlc.downloadResumePDFWithoutContact(data.id)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;color: red;" class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
-                        </td>  ||  (data.candidate_technical_result[tech_last_result].technical_round != 'Round 2' && data.candidate_technical_result[tech_last_result].status != 'Pass') -->
+                        <!--   <td style="text-align: center;"> 
+                            <a type="button" class="btn btn-xs" title="Download PDF" ng-click="rlc.downloadResumePDFWithoutContact(data.id)" style="outline: 0;"><i style="cursor: pointer;color: red;" class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
+                        </td>  -->
+                        <!-- ||  (data.candidate_technical_result[tech_last_result].technical_round != 'Round 2' && data.candidate_technical_result[tech_last_result].status != 'Pass') -->
                         <td style="text-align: center; width:72px" ng-init="data.candidate_technical_result.length >= 2 && data.status!='Clear'? tech_last_result = (data.candidate_technical_result.length -1) : ''">
                             <!-- ng-init="data.candidate_technical_result.length >= 2 && data.status!='Clear'? tech_last_result = (data.candidate_technical_result.length -1) : ''" -->
-                            <a ng-if="data.status=='Active'" href="/basic_screening_test?candidate_id={{data.id}}&token={{data.unique_token}}&name={{data.first_name+' '+data.middle_name+' '+data.last_name}}" type="button" class="btn" title="Screening" style="outline: 0;padding:0px;"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-file-o" aria-hidden="true"></i></a>
-                            <a  ng-if="(data.status=='Pass' || data.status=='Clear') && (data.candidate_technical_result[tech_last_result].technical_round != 'Round 2')" type="button" class="btn" title="Assign Interviewer" ng-click="rlc.openAssignInterviewerModal(data)" style="outline: 0;padding:0px;"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-cog" aria-hidden="true"></i></a>
-                           <!--  <a  ng-if="data.status=='Pass' || data.status=='Clear'" type="button" class="btn" title="Assign Interviewer" ng-click="rlc.openAssignInterviewerModal(data)" style="outline: 0;padding:0px;"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-cog" aria-hidden="true"></i></a> -->
+                            <a ng-if="data.status=='Active'" href="/basic_screening_test?candidate_id={{data.id}}&token={{data.unique_token}}&name={{data.first_name+' '+data.middle_name+' '+data.last_name}}" type="button" class="btn btn-xs" title="Screening" style="outline: 0;"><i style="cursor: pointer;" class="fa fa-file-o" aria-hidden="true"></i></a>
 
-                            <a ng-if="data.status=='Schedule'" type="button" class="btn" title="Reschedule Interviewer" ng-click="rlc.openRescheduleModal(data,data.candidate_user_assocs)" style="outline: 0;padding:0px;"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-clock-o" aria-hidden="true"></i></a>
-                           <!--  <a ng-if="data.status=='Pass'" type="button" class="btn" title="Change Status" ng-click="rlc.openChangeStatusModal(data)" style="outline: 0;padding:0px;"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-exchange" aria-hidden="true"></i></a> -->
-                           <a ng-if="data.status == 'Fail' && data.status != 'Pass'" type="button" class="btn" title="Change JD" ng-click="rlc.openChangeJdStatusModel(data.id)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-refresh" aria-hidden="true"></i></a>
-                           <a type="button" href="/round_inforamtions?id={{data.id}}" class="btn" title="View Technical Details"style="outline: 0;padding:0px" ng-if="rlc.hashPathId == 'selected'"><i style="cursor: pointer;margin-left: 5px;color:#5cb85c" class="fa fa-eye" aria-hidden="true"></i></a>
-                            <a href="/resume/{{data.unique_token}}?id={{data.id}}" type="button" target="_blank" class="btn" title="Edit" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a  ng-if="(data.status=='Pass' || data.status=='Clear') && (data.candidate_technical_result[tech_last_result].technical_round != 'Round 2')" type="button" class="btn btn-xs" title="Assign Interviewer" ng-click="rlc.openAssignInterviewerModal(data)" style="outline: 0;"><i style="cursor: pointer;" class="fa fa-cog" aria-hidden="true"></i></a>
+                           <!--  <a  ng-if="data.status=='Pass' || data.status=='Clear'" type="button" class="btn btn-xs" title="Assign Interviewer" ng-click="rlc.openAssignInterviewerModal(data)" style="outline: 0;"><i style="cursor: pointer;" class="fa fa-cog" aria-hidden="true"></i></a> -->
+
+                            <a ng-if="data.status=='Schedule'" type="button" class="btn btn-xs" title="Reschedule Interviewer" ng-click="rlc.openRescheduleModal(data,data.candidate_user_assocs)" style="outline: 0;"><i style="cursor: pointer;" class="fa fa-clock-o" aria-hidden="true"></i></a>
+
+                           <!--  <a ng-if="data.status=='Pass'" type="button" class="btn btn-xs" title="Change Status" ng-click="rlc.openChangeStatusModal(data)" style="outline: 0;"><i style="cursor: pointer;" class="fa fa-exchange" aria-hidden="true"></i></a> -->
+                           
+                           <a ng-if="data.status == 'Fail' && data.status != 'Pass'" type="button" class="btn btn-xs" title="Change JD" ng-click="rlc.openChangeJdStatusModel(data.id)" style="outline: 0;"><i style="cursor: pointer;" class="fa fa-refresh" aria-hidden="true"></i></a>
+
+                           <a type="button" href="/round_inforamtions?id={{data.id}}" class="btn btn-xs" title="View Technical Details"style="outline: 0;" ng-if="rlc.hashPathId == 'selected'"><i style="cursor: pointer;color:#5cb85c" class="fa fa-eye" aria-hidden="true"></i></a>
+
+                            <a href="/resume/{{data.unique_token}}?id={{data.id}}" type="button" target="_blank" class="btn btn-xs" title="Edit" style="outline: 0;"><i style="cursor: pointer;" class="fa fa-pencil" aria-hidden="true"></i></a>
                         </td>     
                     </tr>
                     <tr ng-if="rlc.resumeList == null || rlc.resumeList.length == 0">
@@ -404,7 +410,7 @@
                     </form>
                 </div>
                 <div class="modal-footer" style="margin-top: 0px;"> 
-                    <button type="button" id="changeStatusBtn" class="btn btn-primary"  data-ng-click="rlc.changeJobDescription();" >Save</button>
+                    <button type="button" id="changeJobCodeBtn" class="btn btn-primary"  data-ng-click="rlc.changeJobDescription();" >Save</button>
                     <button type="reset" id="closeModal" class="btn btn-warning"  ng-click="rlc.resetChangeJdForm()" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
@@ -568,7 +574,7 @@
     </div>
     <!-- End download pdf setting Model -->
 
-    <!-- Start Bg checklist document list Model -->
+    <!-- Not in Use Start Bg checklist document list Model -->
     <div class="modal fade bgChecklistDocsModal1" id="bgChecklistDocsModal1" role="dialog">
         <div class="modal-dialog modal-md">
             <form id="bgChecklistDocsForm">
@@ -752,9 +758,6 @@
             </div>
         </div>
         <!-- End Bg checklist document list Model -->
-
-        
-
     
 </section>
 <script>
@@ -763,24 +766,39 @@
         return this.optional(element) || /^\$?([0-9]{1,3},([0-9]{3},)*[0-9]{3}|[0-9]+)(.[0-9][0-9])?$/.test(value);
     }, "Invalid CTC format.");
 
+    // $.validator.addMethod("checkForFromCTC", function (value, element,param) {
+    //     var otherElement = $(param).val();
+    //     console.log(otherElement);
+    //     return this.optional(element) || /^\$?([0-9]{1,3},([0-9]{3},)*[0-9]{3}|[0-9]+)(.[0-9][0-9])?$/.test(otherElement);
+    // }, "Invalid format of From CTC.");
+
+    // $.validator.addMethod("checkForToCTC", function (value, element,param) {
+    //     var otherElement = $(param).val();
+    //     return this.optional(element) || /^\$?([0-9]{1,3},([0-9]{3},)*[0-9]{3}|[0-9]+)(.[0-9][0-9])?$/.test(otherElement);
+    // }, "Invalid format of To CTC.");
+
     $.validator.addMethod("checkGreaterThan",function (value, element, param) {
-          var $otherElement = $(param).val();
-          if($otherElement != ''){
-            parseInt($otherElement, 10);
+          var otherElement = $(param).val();
+          console.log(param);
+          console.log(otherElement);
+          if(otherElement != '' && !isNaN(otherElement)){
+            parseInt(otherElement, 10);
           }else{
             return true;
           }
-          return this.optional(element) || parseInt(value, 10) > $otherElement;
+          return this.optional(element) || parseInt(value, 10) > otherElement || parseInt(value, 10) == otherElement;
     });
 
     $.validator.addMethod("checkLessThan",function (value, element, param) {
-          var $otherElement = $(param).val();
-          if($otherElement != ''){
-            parseInt($otherElement, 10);
+          var otherElement = $(param).val();
+          console.log(param);
+          console.log(otherElement);
+          if(otherElement != '' && !isNaN(otherElement)){
+            parseInt(otherElement, 10);
           }else{
             return true;
-          }         
-          return parseInt(value, 10) < $otherElement|| this.optional(element);
+          }       
+          return parseInt(value, 10) < otherElement || this.optional(element) || parseInt(value, 10) == otherElement;
     });
 
     $("#assignStatusForm").validate({
@@ -952,7 +970,7 @@
     $("#candidateResumeFilterForm").validate({
         errorElement: 'span', //default input error message container
         errorClass: 'help-block help-block-error',
-        focusInvalid: true, // set focus the last invalid input
+        // focusInvalid: true, // set focus the last invalid input
         ignore: "", // validate all fields including form hidden input
         errorPlacement: function (error, element) {
             var type = $(element).attr("type");
@@ -961,6 +979,7 @@
         rules: {
             ctc_from:{
                 mynumber :true,
+                // checkForToCTC:"#ctc_to",
                 required: function(element){
                     return $("#ctc_to").val()!="";
                 },
@@ -968,6 +987,7 @@
             },
             ctc_to:{
                 mynumber :true,
+                // checkForFromCTC:"#ctc_from",
                 required: function(element){
                     return $("#ctc_from").val()!="";
                 },

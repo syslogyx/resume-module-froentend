@@ -125,9 +125,9 @@
                         <td ng-if="usr.hashPathId == 'all'"> {{ul.company_name}} </td>
                         <td ng-if="usr.hashPathId == 'all'"> {{ul.role.name}} </td>
                         <td style="text-align: center;" ng-if="usr.hashPathId == 'all'">
-                            <a type="button" class="btn" ng-href="user/edit?id={{ul.id}}" title="Edit" style="outline: 0;padding:0px" ng-disabled="{{ul.role_id != '5' ? 'false':'true'}}"><i class="fa fa-pencil" aria-hidden="true" ></i></a>
+                            <a type="button" class="btn btn-xs" ng-href="user/edit?id={{ul.id}}" title="Edit" style="outline: 0;" ng-disabled="{{ul.role_id != '5' ? 'false':'true'}}"><i style="cursor: pointer;" class="fa fa-pencil" aria-hidden="true" ></i></a>
 
-                            <a type="button" class="btn"  data="{{ul.id}}" title="Change Password" ng-click="usr.sendUserId(ul.id,ul.name);usr.resetForm()" style="outline: 0;padding:0px" ng-disabled="{{ul.role_id != '5' ? 'false':'true'}}"><i style="cursor: pointer;margin-left: 5px" class="fa fa-key" aria-hidden="true"></i></a>
+                            <a type="button" class="btn btn-xs"  data="{{ul.id}}" title="Change Password" ng-click="usr.sendUserId(ul.id,ul.name);usr.resetForm()" style="outline: 0;" ng-disabled="{{ul.role_id != '5' ? 'false':'true'}}"><i style="cursor: pointer;" class="fa fa-key" aria-hidden="true"></i></a>
                         </td>     
                     </tr>
                     <tr ng-if="usr.allUsersList == null || usr.allUsersList.length == 0">

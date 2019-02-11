@@ -364,13 +364,14 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         $scope.round = ($cdata.status == 'Clear' ? 'Round 1' : 'Round 2');
         $scope.scheduleTime = '';
         rlc.resetForm();
-        $('#assignStatusModel').modal('show');
         $("#assignStatusBtn").attr('disabled',false);
+        $('#assignStatusModel').modal('show');
     }
 
     /* Function to schedule candidate interview */
     rlc.scheduleInterview = function(){
         if ($("#assignStatusForm").valid()) {
+            $("#assignStatusBtn").attr('disabled',true);
             var req = {
                 "candidate_id":rlc.candidateId,
                 "technical_round":$scope.round,
@@ -385,15 +386,16 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
             promise.then(function mySuccess(response) {
                 Utility.stopAnimation();
                 try {
-                    $("#assignStatusBtn").attr('disabled',true);
                     $('#assignStatusModel').modal('hide');
                     toastr.success(response.data.message);
                     rlc.init();
                 } catch (e) {
+                    $("#assignStatusBtn").attr('disabled',false);
                     toastr.error("Unable to schedule Interview.");
                     Raven.captureException(e)
                 }
             }, function myError(r) { 
+                $("#assignStatusBtn").attr('disabled',false);
                 toastr.error(r.data.message);
                 Utility.stopAnimation();
             });
@@ -447,6 +449,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     /* Function to reschedule candidate interview */
     rlc.reScheduleInterview = function(){
         if ($("#rescheduleForm").valid()) {
+            $("#reScheduleInterviewBtn").attr('disabled',true);
             var req = {
                 "id":$scope.assoc_id,
                 "candidate_id":rlc.candidateId,
@@ -461,15 +464,16 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
             promise.then(function mySuccess(response) {
                 Utility.stopAnimation();
                 try {
-                    $("#reScheduleInterviewBtn").attr('disabled',true);
                     $('#rescheduleModel').modal('hide');
                     toastr.success(response.data.message);
                     rlc.init();
                 } catch (e) {
+                    $("#reScheduleInterviewBtn").attr('disabled',false);
                     toastr.error("Unable to reschedule Interview");
                     Raven.captureException(e)
                 }
             }, function myError(r) { 
+                $("#reScheduleInterviewBtn").attr('disabled',false);
                 toastr.error(r.data.message);
                 Utility.stopAnimation();
             });
@@ -485,6 +489,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
             rlc.roundDetails = data['candidate_user_assocs'][0]['technical_round'];
             rlc.change_candidate_id = data.id;
             // rlc.candidate_status = data['status'];
+            $("#changeStatusBtn").attr('disabled',false);
             $('#changeStatusModel').modal('show');
             setTimeout(function() { rlc.datepickerInit();}, 500);
         }
@@ -493,6 +498,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     /* Function to change candidate status */
     rlc.changeStatus = function(){
         if($('#changeStatusForm').valid()){
+            $("#changeStatusBtn").attr('disabled',true);
             var req = {
                 "status":rlc.candidate_status,
                 "id":rlc.change_candidate_id
@@ -508,10 +514,12 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
                     rlc.init();
                     // $("#changeStatusForm")[0].reset();
                 } catch (e) {
+                    $("#changeStatusBtn").attr('disabled',false);
                     toastr.error("Unable to save data");
                     Raven.captureException(e)
                 }
-            }, function myError(r) { 
+            }, function myError(r) {
+                $("#changeStatusBtn").attr('disabled',false); 
                 toastr.error(r.data.message);
                 Utility.stopAnimation();
             });
@@ -652,23 +660,21 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         }
     }
     rlc.second=15;
-    rlc.timer=function(){       
-            
-            rlc.x = setInterval(function() {
-                $scope.$apply(rlc.clock);   
-            }, 1000);
+    rlc.timer=function(){                  
+        rlc.x = setInterval(function() {
+            $scope.$apply(rlc.clock);   
+        }, 1000);
     }
     
     rlc.clock=function(){
-              rlc.second--;             
-              if (rlc.second == 0) {
-                rlc.second=15;
-                clearInterval(rlc.x);
-                rlc.waiting=false;
-                var promise = services.downloadBgCheckListDocZip(rlc.candidateName);
-                $("#bgChecklistDocsModal").modal("hide");
-              }
-    
+        rlc.second--;             
+        if (rlc.second == 0) {
+        rlc.second=15;
+        clearInterval(rlc.x);
+        rlc.waiting=false;
+        var promise = services.downloadBgCheckListDocZip(rlc.candidateName);
+        $("#bgChecklistDocsModal").modal("hide");
+        }
     }
 
     /* Function to reset form */
@@ -698,6 +704,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
             rlc.jobDetail=null;
         }
         rlc.resetChangeJdForm();
+        $("#changeJobCodeBtn").attr('disabled',false);
         $('#changeJdStatusModal').modal('show');
         setTimeout(function(){
             setCSS();
@@ -707,6 +714,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     /* function to change job description by candidate id */
     rlc.changeJobDescription = function(){
         if($("#changeJdStatusForm").valid()){
+            $("#changeJobCodeBtn").attr('disabled',true);
             var req = {
                 "job_description_id":rlc.job_id,
                 "id":rlc.candidate_id
@@ -714,19 +722,19 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
             var promise = services.changeJobDescriptionByCandidateId(req);
             promise.success(function (result) {
                 Utility.stopAnimation();
-                // console.log(result);
-                    Utility.stopAnimation();
-                    try {
-                        $('#changeJdStatusModal').modal('hide');
-                        toastr.success(result.data.message);
-                        // ilc.init();
-                        rlc.fetchList(-1);
-                        // $("#changeStatusForm")[0].reset();
-                    } catch (e) {
-                        toastr.error("Unable to save data");
-                        Raven.captureException(e)
-                    }
+                try {
+                    $('#changeJdStatusModal').modal('hide');
+                    toastr.success(result.message);
+                    // ilc.init();
+                    rlc.fetchList(-1);
+                    // $("#changeStatusForm")[0].reset();
+                } catch (e) {
+                    $("#changeJobCodeBtn").attr('disabled',false);
+                    toastr.error("Unable to save data");
+                    Raven.captureException(e)
+                }
             }, function myError(r) {
+                $("#changeJobCodeBtn").attr('disabled',false);
                 toastr.error(r.data.message, 'Sorry!');
                 Utility.stopAnimation();
             });

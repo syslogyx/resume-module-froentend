@@ -46,10 +46,10 @@
                         <td nowrap>{{cp.contact_no}}</td>     
                         <td>{{cp.address}}</td>
                         <td style="text-align: center;"> 
-                            <a type="button" class="btn" ng-href="client/edit?id={{cp.id}}" title="Edit" style="outline: 0;padding:0px"><i class="fa fa-pencil" aria-hidden="true" ></i></a>
+                            <a type="button" class="btn btn-xs" ng-href="client/edit?id={{cp.id}}" title="Edit" style="outline: 0;"><i class="fa fa-pencil" aria-hidden="true" ></i></a>
                         </td>     
                         <td style="text-align: center;">
-                            <toggle id="enabled_{{$index}}" name="enabled_{{$index}}" size="btn-sm" off-class="btn-danger" on-class="btn-success" ng-model="cp.status" id="toggle-status-switch" ng-click=" cmp.changeClientStatus(cp.status,cp.id,$index);" on="Active" off="Inactive"></toggle>
+                            <toggle id="enabled_{{$index}}" name="enabled_{{$index}}" size="btn-xs" off-class="btn-danger" on-class="btn-success" ng-model="cp.status" id="toggle-status-switch" ng-click=" cmp.changeClientStatus(cp.status,cp.id,$index);" on="Active" off="Inactive"></toggle>
                         </td>
                     </tr>
                     <tr ng-if="cmp.clientList == null || cmp.clientList.length == 0">

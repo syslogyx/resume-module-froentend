@@ -61,8 +61,7 @@
                     <div class="col-md-1 " style="text-align: center;">
                       <div class="form-group" >
                         <br>
-                        <button type="button" class="btn btn-block btn-primary fa fa-refresh" ng-click="ilc.resetFilter()" style="margin-top:5px"></button>           
-
+                        <button type="button" class="btn btn-block btn-primary fa fa-refresh" ng-click="ilc.resetFilter()" style="margin-top:5px"></button>
                       </div>
                     </div>
                 </div>
@@ -93,8 +92,8 @@
                         <td>{{ilc.tConvert(data.schedule_time)}}</td>
                         <td>{{data.technical_round}}</td>
                         <!-- <td style="text-align: center">
-                            <a  ng-href="/interview_feedback?cId={{data.candidate_id}}&uId={{data.user_id}}&round={{data.technical_round}}&jd_id={{data.job_description_id}}" ng-if="data.all_candidates.candidate_technical_result[0].status != 'Pass' && data.all_candidates.candidate_technical_result[0].status != 'Fail' && ilc.logInUserRole != '1' && data.all_candidates.candidate_technical_result.length >= 0" type="button" class="btn" title="Feedback" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-comments" aria-hidden="true"></i></a>
-                            <a ng-if="data.all_candidates.status == 'Fail' && data.all_candidates.status != 'Pass' && ilc.logInUserRole == '1'" type="button" class="btn" title="Change JD" ng-click="ilc.openChangeJdStatusModel(data.candidate_id)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-refresh" aria-hidden="true"></i></a>
+                            <a  ng-href="/interview_feedback?cId={{data.candidate_id}}&uId={{data.user_id}}&round={{data.technical_round}}&jd_id={{data.job_description_id}}" ng-if="data.all_candidates.candidate_technical_result[0].status != 'Pass' && data.all_candidates.candidate_technical_result[0].status != 'Fail' && ilc.logInUserRole != '1' && data.all_candidates.candidate_technical_result.length >= 0" type="button" class="btn btn-xs" title="Feedback" style="outline: 0;"><i style="cursor: pointer;" class="fa fa-comments" aria-hidden="true"></i></a>
+                            <a ng-if="data.all_candidates.status == 'Fail' && data.all_candidates.status != 'Pass' && ilc.logInUserRole == '1'" type="button" class="btn btn-xs" title="Change JD" ng-click="ilc.openChangeJdStatusModel(data.candidate_id)" style="outline: 0;"><i style="cursor: pointer;" class="fa fa-refresh" aria-hidden="true"></i></a>
                         </td> -->
                     </tr>
                     <tr ng-if="ilc.interviewList == null || ilc.interviewList.length == 0">
@@ -272,8 +271,7 @@
                 e.stopImmediatePropagation();
         }).datepicker({
             autoclose: true,
-            todayHighlight: true,
-            startDate: "today"
+            todayHighlight: true
         }); 
     });
 </script>

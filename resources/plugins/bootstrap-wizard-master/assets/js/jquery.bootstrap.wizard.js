@@ -282,4 +282,5 @@ $.fn.bootstrapWizard.defaults = {
 	onTabShow:        null
 };
 
+
 })(jQuery);

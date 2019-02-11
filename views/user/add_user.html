@@ -49,6 +49,7 @@
                             <input type="text" class="form-control" ng-model="usr.contactEmail" name="contactEmail" id="contactEmail"  placeholder="Enter email" autocomplete="off">
                         </div>
                     </div>
+                    
                     <div class="col-md-4" id="passwordDiv"  ng-if="usr.title == 'Add New User'">
                         <div class="form-group">
                             <label class="mandatory" for="">Password</label>
@@ -60,6 +61,13 @@
                         <div class="form-group">
                             <label for="">Password</label>
                             <input type="password" class="form-control" data-ng-model="usr.password" name="edit-password" id="edit-password"  placeholder="Enter password" autocomplete="new-password">
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="" for="">Company Name</label>
+                            <input type="text" class="form-control" ng-model="usr.comapnyName" name="companyName" id="companyName"  placeholder="Enter Company" autocomplete="off" disabled>
                         </div>
                     </div>
                 </div>
@@ -86,7 +94,7 @@
                 return this.optional(element) || regexp.test(value);
             }, 'Please enter a valid Email Address.');
 
-            $.validator.addMethod("number", function (phone_number, element) {
+            $.validator.addMethod("mynumber", function (phone_number, element) {
                 phone_number = phone_number.replace(/\s+/g, "");
                 return this.optional(element) || phone_number.length > 9 &&
                         phone_number.match(/^((\+[1-9]{1,4}[ \-]*)|(\([0-9]{2,3}\)[ \-]*)|([0-9]{2,4})[ \-]*)*?[0-9]{3,4}?[ \-]*[0-9]{3,4}?$/);
@@ -125,7 +133,7 @@
                                 return true;
                             }
                         },
-                        number: true,
+                        mynumber: true,
                         minlength: 10,
                         maxlength: 12,
                     },
@@ -151,9 +159,9 @@
                     userType: {
                         required: "Role is required."
                     },
-                    companyName: {
-                        required: "Company Name is required."
-                    },
+                    // companyName: {
+                    //     required: "Company Name is required."
+                    // },
                     contactEmail: {
                         required: "Email is required.",
                         contactEmail: "Please enter a valid Email Address.",

@@ -127,7 +127,17 @@ app.controller('clientCtrl', function ($scope, $rootScope, $http, services, $loc
                     Raven.captureException(e)
                 }
             }, function myError(r) {
-                toastr.error('Something went wrong');
+                var htmlerror ='<ul style="list-style:none;"><li >';
+                $.each(r.data.data, function(k, v) {
+                    if(k=='email'){
+                        htmlerror = htmlerror+v +'</li><li>';
+                    }
+                    if(k=='contact_no'){
+                        htmlerror = htmlerror+v+'</li><li>';
+                    }
+                  });
+                toastr.error(htmlerror);
+                // toastr.error('Something went wrong');
                 Utility.stopAnimation();
             });
         }

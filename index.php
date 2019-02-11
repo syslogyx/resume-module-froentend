@@ -242,7 +242,7 @@
             <div class="menuSec" ng-controller="menuCtrl" style="min-height: 50px;">
                 <footer class="main-footer" style="height: 50px;">
                     <div class="pull-right hidden-xs">
-                        <b>Version</b> 1.0.2
+                        <b>Version</b> 1.0.3
                     </div>
                     <strong>Copyright &copy; 2018 <a href="http://www.syslogyx.com/">Syslogyx Technologies Pvt. Ltd.</a></strong> All rights
                     reserved.
@@ -352,7 +352,7 @@
                     });
 
                     $(window).on('popstate', function(event) {
-                        console.log("back button clicked");
+                        // console.log("back button clicked");
                         $(".modal").modal("hide");
                         $('.modal-backdrop').remove();
                         // $('.modal').remove();

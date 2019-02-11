@@ -245,7 +245,7 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
         rdc.candidateName = candidateInfo.first_name+' '+candidateInfo.middle_name+' '+candidateInfo.last_name;
         rdc.fId = forwardedId;
         rdc.techForm = [{forwarded_id:rdc.fId,company_round_date:"",company_tech_status:"",company_tech_round_type:"",companies_tech_remark:""}];
-        $("#changePasswordBtn").attr('disabled',false);
+        $("#saveRoundDetailsBtn").attr('disabled',false);
         $('#addRoundInfoModal').modal('show');
         setTimeout(function(){
             setCSS();
@@ -255,6 +255,7 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
 
     rdc.saveRoundInfo = function(){
         if ($("#addRoundInfoForm").valid()) {
+            $("#saveRoundDetailsBtn").attr('disabled',true);
             for (var k = 0; k < rdc.techForm.length; k++) {
                 delete rdc.techForm[k]['$$hashKey'];
             }
@@ -266,15 +267,16 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
             promise.then(function mySuccess(response) {
                 // console.log(response.data);
                 Utility.stopAnimation();
-                if(response.data.status_code == 200){ 
-                    $("#changePasswordBtn").attr('disabled',true);                   
+                if(response.data.status_code == 200){                   
                     $('#addRoundInfoModal').modal('hide');
                     toastr.success(response.data.message);
                     rdc.init();
-                }else{                    
+                }else{ 
+                    $("#saveRoundDetailsBtn").attr('disabled',false);                   
                     toastr.error("Unable to save details.");
                 }
             }, function myError(r) { 
+                $("#saveRoundDetailsBtn").attr('disabled',false);
                 toastr.error(r.data.message);
                 Utility.stopAnimation();
             });
@@ -287,28 +289,26 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
     // }
 
     rdc.openAddFinalRoundResultModal = function($id,$client_name,candidateInfo){
-        $('#addFinalRoundResultModal').modal('show');
-        setTimeout(function(){
-            setCSS();
-        },200);
         rdc.fId = $id;
         rdc.cName = $client_name;
         rdc.candidateName = candidateInfo.first_name+' '+candidateInfo.middle_name+' '+candidateInfo.last_name;
-        setTimeout(function() { rdc.datepickerInit();}, 500);
+        $("#saveFinalRoundDetailsBtn").attr('disabled',false);
+        $('#addFinalRoundResultModal').modal('show');
+        setTimeout(function() { setCSS(); rdc.datepickerInit();}, 300);
     }
 
     rdc.saveFinalRoundDetails =function(){
         if($("#addFinalRoundResultForm").valid()){
+            $("#saveFinalRoundDetailsBtn").attr('disabled',true);
             var req = {
                 "forwarded_id":rdc.fId,
                 "feedback_received_date":rdc.feedback_received_date.split("/").reverse().join("-"),
                 "company_final_status":rdc.company_final_status,
                 "company_final_remark":rdc.company_final_remark
             }
-            // console.log(req);
+
             var promise = services.updateRoundDetails(req,rdc.fId);
             promise.then(function mySuccess(response) {
-                // console.log(response.data);
                 Utility.stopAnimation();
                 if(response.data.status_code == 200){                    
                     $('#addFinalRoundResultModal').modal('hide');
@@ -318,10 +318,12 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
                     $("#addFinalRoundResultForm")[0].reset()
                     toastr.success(response.data.message);
                     rdc.init();
-                }else{                    
+                }else{ 
+                    $("#saveFinalRoundDetailsBtn").attr('disabled',false);                   
                     toastr.error("Unable to save details.");
                 }
             }, function myError(r) { 
+                $("#saveFinalRoundDetailsBtn").attr('disabled',false);
                 toastr.error(r.data.message);
                 Utility.stopAnimation();
             });
@@ -333,42 +335,45 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
     }
 
     rdc.openAddHrFinalRoundResultModal = function($id,$candidate_id,$client_name,candidateInfo){
-        $('#addFinalHrRoundResultModal').modal('show');
-        setTimeout(function(){
-            setCSS();
-        },200);
         rdc.fId = $id;
         rdc.cId = $candidate_id;
         rdc.cName = $client_name;
         rdc.candidateName = candidateInfo.first_name+' '+candidateInfo.middle_name+' '+candidateInfo.last_name;
-        setTimeout(function() { rdc.datepickerInit();}, 500);
+        $("#saveFinalHRRoundDetailsBtn").attr('disabled',false);
+        $('#addFinalHrRoundResultModal').modal('show');
+        $("#tentativeDOJDiv").show();
+        $("#atualDOJDiv").show();
+        setTimeout(function() { setCSS(); rdc.datepickerInit();}, 300);
     }
 
     rdc.saveHRRoundDetails = function(){
+        console.log(rdc.tentative_doj);
         if($('#addHrRoundResultForm').valid()){
+            $("#saveFinalHRRoundDetailsBtn").attr('disabled',true);
             var req = {
                 "candidate_id":rdc.cId,
                 "hr_interview_on_date":rdc.hr_interview_on_date.split("/").reverse().join("-"),
                 "hr_status":rdc.hr_status,
                 "hr_remark":rdc.hr_remark,
                 "final_status":rdc.final_status,
-                "tentative_doj":rdc.tentative_doj.split("/").reverse().join("-"),
-                "actual_doj":rdc.actual_doj.split("/").reverse().join("-")
+                "tentative_doj":rdc.tentative_doj != undefined? rdc.tentative_doj.split("/").reverse().join("-"): null,
+                "actual_doj":rdc.actual_doj!= undefined? rdc.actual_doj.split("/").reverse().join("-"): null
             }
-            // console.log(req);
+
             var promise = services.updateRoundDetails(req,rdc.fId);
             promise.then(function mySuccess(response) {
-                // console.log(response.data);
                 Utility.stopAnimation();
                 if(response.data.status_code == 200){                    
                     $('#addFinalHrRoundResultModal').modal('hide');
                     $('#addHrRoundResultForm')[0].reset();
                     toastr.success(response.data.message);
                     rdc.init();
-                }else{                    
+                }else{
+                $("#saveFinalHRRoundDetailsBtn").attr('disabled',false);                    
                     toastr.error("Unable to save details.");
                 }
             }, function myError(r) { 
+                $("#saveFinalHRRoundDetailsBtn").attr('disabled',false);
                 toastr.error(r.data.message);
                 Utility.stopAnimation();
             });

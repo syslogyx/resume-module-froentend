@@ -157,6 +157,7 @@ app.controller('screeningCtrl', function ($scope, $rootScope, $http, services, $
                 cancelButtonColor: '#d33',
                 cancelButtonText: "No",
                 confirmButtonText: "Yes",
+                allowOutsideClick: false,
             }).then(function(isConfirm) {
                 console.log(isConfirm);
                 if (isConfirm) {
@@ -180,7 +181,7 @@ app.controller('screeningCtrl', function ($scope, $rootScope, $http, services, $
             }, function(dismiss) {
                 if (dismiss === 'cancel') {
                     setTimeout(function(){
-                        bcl.init();
+                        sc.init();
                     },100);  
                 }
             }).catch(swal.noop);

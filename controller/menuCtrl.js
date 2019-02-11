@@ -167,6 +167,7 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
     /*Function to update login user profile data */
     $scope.saveUser = function () {setCSS();
         if ($("#updateUserForm").valid()) {
+            $("#updateUserProfile").attr('disabled',true);
             var req = {
                 "name": $scope.userName,
                 "email": $scope.userEmail,
@@ -181,15 +182,17 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
             var promise = services.updateUser(req);
 
             promise.then(function mySuccess(result) {
-                $("#updateUserProfile").attr('disabled',true);
+                
                 Utility.stopAnimation();
                 if(result.data.status_code == 200){
                     $("#updateUserModal").modal("toggle");
                     toastr.success('User profile updated successfully..');
                 }else{
+                    $("#updateUserProfile").attr('disabled',false);
                     toastr.error(result.data.data.email[0], 'Sorry!');
                 }
             }, function myError(r) {
+                $("#updateUserProfile").attr('disabled',false);
                 toastr.error(r.data.data.email[0], 'Sorry!');
                 Utility.stopAnimation();
             });

@@ -163,7 +163,7 @@ $(document).ready(function(){
     //         required: "Objective is required.",
     //     },
     // });
-    
+    var baseUrl = Utility.apiBaseUrl;
     // Code for the Validator
     var $validator = $('.wizard-card form').validate({
         errorElement: 'span', //default input error message container
@@ -239,26 +239,68 @@ $(document).ready(function(){
                 required:true,
             },
 		    mobile_no: {
-		      required: {
+		        required: {
                     depends:function(){
                         $(this).val($.trim($(this).val()).split(" ").join(""));
                         return true;
                     }
                 },
+                // remote:
+                // {
+                //     url: baseUrl + 'validate',
+                //     type: "post",
+                //     dataType: 'json',
+                //     data:
+                //             {
+                //                 mobile_no: function ()
+                //                 {
+                //                     return JSON.stringify({mobile_no: $("#mobile_no").val(),
+                //                         id: $("#candidateID").val()});
+                //                 }
+                //             }   
+                // },
                 number1: true,
                 minlength: 10,
                 maxlength: 12,
 		    },
 		    email: {
-		      required: true,
-              regex: /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i,
-		    },
+		        required: true,
+                regex: /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i,
+                // remote:
+                // {
+                //     url: baseUrl + 'validate',
+                //     type: "post",
+                //     dataType: 'json',
+                //     data:
+                //             {
+                //                 email: function ()
+                //                 {
+                //                     return JSON.stringify({email: $("#email").val(),
+                //                         id: $("#candidateID").val()});
+                //                 }
+                //             }   
+                // },
+    		},
             dob:{
                 required: true,
             },
             pan_number:{
                 required: true,
                 pan: true,
+                // remote:
+                // {
+                //     url: baseUrl + 'validate',
+                //     type: "post",
+                //     dataType: 'json',
+                //     data:
+                //             {
+                //                 pan_number: function ()
+                //                 {
+                //                     return JSON.stringify({pan_number: $("#panNumber").val(),
+                //                         id: $("#candidateID").val()});
+                //                 }
+                //             }   
+                // },
             },
             corresponding_address:{
                 required: true,
@@ -333,6 +375,7 @@ $(document).ready(function(){
             },
             mobile_no: {
                 required: "Mobile number is required.",
+                //remote:"User mobile number is already taken."
             },
             gender:{
                 required:"Gender is required",
@@ -343,13 +386,14 @@ $(document).ready(function(){
             email: {
                 required: "Email is required.",
                 contactEmail: "Please enter a valid Email Address.",
-                remote: "User email is already taken."
+                //remote: "User email is already taken."
             },
             dob: {
                 required: "Date of birth is required.",
             },
             pan_number: {
                 required: "PAN number is required.",
+                //remote: "User PAN number is already taken."
             },
             corresponding_address: {
                 required: "Correspondence address is required.",
@@ -369,7 +413,7 @@ $(document).ready(function(){
             stream:{
                 required: "Stream is required.",
             },
-             percentage:{
+            percentage:{
                 required: "percentage is required.",
                 min: "Please enter a value greater than or equal to 50."
             },

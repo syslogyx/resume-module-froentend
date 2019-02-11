@@ -44,10 +44,19 @@
         width:60%;
         margin:0% 20%;
     }
+    #wizardResumeSuccessmsg{
+        width: 80%;
+        margin: 0% 10%;
+    }
+
     @media (max-width: 1200px) {
         #updateWizardResumeSuccessmsg{
             width:100%;
             margin:0%;
+        }
+        #wizardResumeSuccessmsg{
+            width: 100%;
+            margin: 0%;
         }
     }
     .wizard-navigation ul li {
@@ -214,7 +223,7 @@
                             <hr class="border">
                             <div class="wizard-new-container">     
                                 <div class="wizard-navigation col-md-3" style="background-color:#2a58ad;">
-                                    <ul>
+                                    <ul class="nav nav-pills">
                                         <li><a href="#presonalDetails" data-toggle="tab"><img id="syslogo" src="resources/img/tab_icons/personal_details_ic.png" alt="" /> Personal Details</a></li>
                                         <li><a href="#educationalDetails" data-toggle="tab"><img id="syslogo" src="resources/img/tab_icons/educational_details_ic.png" alt="" /> Educational Details</a></li>
                                         <li><a href="#otherAchievements" data-toggle="tab"><img id="syslogo" src="resources/img/tab_icons/other_achievements_ic.png" alt="" />  Other Achievements</a></li>
@@ -283,7 +292,8 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="mandatory">Mobile Number</label>
-                                                        <input id="mobileNo" name="mobile_no" type="text" class="form-control" placeholder="Enter mobile number" ng-model="mobileNumber">
+                                                        <input id="mobile_no" name="mobile_no" type="text" class="form-control" placeholder="Enter mobile number" ng-model="mobileNumber">
+                                                        <input type="hidden" id="candidateID" name="candidateID" value="{{candidateId}}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -586,21 +596,16 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="col-sm-3 form-group">
-                                                    <!-- <label class="">Total Experience (Years)</label> -->
                                                     <label class="">Total Exp. (Years)</label>
                                                     <select id="total_year_experience" name="total_year_experience" class="form-control total_year_experience addDisabledProperty" placeholder="Enter year experience" ng-model="totalYearIndustryExperiance" ng-options="x.id as x.name for x in experienceYears" ng-disabled="(opportunityFor!='Fresher') ? false : true">
                                                     </select>
                                                 </div>
                                                 <div class="col-sm-3 form-group">
-                                                    <!-- <label class="">Total Experience (Month)</label> -->
                                                     <label class="">Total Exp. (Month)</label>
                                                     <select id="total_month_experience" name="total_month_experience" class="form-control total_month_experience addDisabledProperty" placeholder="Enter month experience" ng-model="totalMonthIndustryExperiance" ng-options="x.id as x.name for x in experienceMonths" ng-disabled="(opportunityFor!='Fresher') ? false : true">
                                                     </select>
                                                 </div>
-                                                <div class="col-sm-3 form-group">
-                                                    <label class="mandatory">Current CTC</label>
-                                                    <input id="current_ctc" name="current_ctc" type="text" class="form-control addDisabledProperty" placeholder="Enter current CTC" ng-model="currentCTC" ng-disabled="(opportunityFor!='Fresher') ? false : true">
-                                                </div>
+                                                <div class="col-sm-3 form-group"><label class="mandatory" style="margin-bottom: 2.5px">Current CTC</label><input id="current_ctc" name="current_ctc" type="text" class="form-control addDisabledProperty" placeholder="Enter current CTC" ng-model="currentCTC" ng-disabled="(opportunityFor!='Fresher') ? false : true"></div>
                                                 <div class="col-sm-3 form-group">
                                                     <label class="">CTC Unit</label>
                                                     <select id="ctc_key" name="ctc_key" class="form-control addDisabledProperty" ng-model="currency_unit" disabled="">
@@ -987,7 +992,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class=""><b>Relevance Experience:</b></label>
-                                            <span>{{ ts.relevanceYearExperience}}.{{ts.relevanceMonthExperience}}</span>
+                                            <span>{{ ts.relevanceYearExperience }} Years  {{ts.relevanceMonthExperience }}  Months</span>
                                         </div>
                                     </div>
                                 </div>
@@ -1080,7 +1085,7 @@
                                 </div> -->
                             </div>
                             <div class="modal-footer">
-                                <button type='button' class='btn btn-fill btn-success' name='Submit' value='Save & Submit' ng-click="saveResumeData();">Save & Submit</button>
+                                <button type='button' id='submitResumeWizard' class='btn btn-fill btn-success' name='Submit' value='Save & Submit' ng-click="saveResumeData();">Save & Submit</button>
                                 <button type="button" class="btn btn-fill btn-default" data-dismiss="modal">Edit Details</button>
                             </div>
                         </div>

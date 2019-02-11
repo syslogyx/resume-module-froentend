@@ -531,27 +531,27 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
             }
             
             $('#previewModal').modal('show');
+            // $("#submitResumeWizard").attr('disabled',false);
         }
     }
 
     $scope.qualificatinData = function(){
         var json=[];
+        $('html').find('.parentQualification').each(function(){
+            var jsonQ={qualification_id:"",stream:"",percentage:"",university:"",college:"",start_year:"",end_year:""};
+            jsonQ.qualification_id=$(this).find('.qualification').val();
+            jsonQ.stream=$(this).find('.stream').val();
+            jsonQ.percentage=$(this).find('.percentage').val();
+            jsonQ.university=$(this).find('.university').val();
+            jsonQ.college=$(this).find('.college').val();
+            jsonQ.start_year=$(this).find('.start_year').val();
+            jsonQ.end_year=$(this).find('.end_year').val();
 
-            $('html').find('.parentQualification').each(function(){
-                var jsonQ={qualification_id:"",stream:"",percentage:"",university:"",college:"",start_year:"",end_year:""};
-                jsonQ.qualification_id=$(this).find('.qualification').val();
-                jsonQ.stream=$(this).find('.stream').val();
-                jsonQ.percentage=$(this).find('.percentage').val();
-                jsonQ.university=$(this).find('.university').val();
-                jsonQ.college=$(this).find('.college').val();
-                jsonQ.start_year=$(this).find('.start_year').val();
-                jsonQ.end_year=$(this).find('.end_year').val();
-
-                json.push(jsonQ);
-            })
-            $scope.qualifications = json;
-             $scope.quaData = json;
-             return json;
+            json.push(jsonQ);
+        })
+        $scope.qualifications = json;
+        $scope.quaData = json;
+        return json;
     }
 
     $scope.setIndustrialExpData = function(){
@@ -611,8 +611,8 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
             title: "Sure?",
             // text: "Please review your details before submitting. "+
             // "You cannot edit the same after final submit.",
-            html: 'Please review your details before save & submit. <br>' +
-                    'You cannot edit the same after final submit.',
+            html: 'Please review your details before submitting.<br>' +
+                  'You cannot edit the same after final submit.',
             // customClass: 'swal-wide',
             type: "warning",
             showCancelButton: true,
@@ -623,6 +623,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
             allowOutsideClick: false,
         }).then(function () {
             if($('.wizard-card form').valid()){
+                
                 $('#previewModal').modal('hide');
                 $scope.setIndustrialExpData();
                 $("#wizardResumeSuccessmsg").css('display','none');
@@ -711,15 +712,14 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
                             var promise2 = services.uploadresumeFile(json);
                             promise2.then(function mySuccess(response) {
                             Utility.stopAnimation();
-                            try {
-                                toastr.success('file uploaded successfully.');
-
-                            } catch (e) {
-                                toastr.error("file not uploaded successfully.");
-                                Raven.captureException(e)
+                                try {
+                                    // toastr.success('File uploaded successfully.');
+                                } catch (e) {
+                                    toastr.error("File not uploaded successfully.");
+                                    Raven.captureException(e)
                                 }
                             }, function myError(r) {
-                                toastr.error('something went wrong');
+                                toastr.error(r.data.message,'Something went wrong');
                                 Utility.stopAnimation();
                             });                                    
                         }

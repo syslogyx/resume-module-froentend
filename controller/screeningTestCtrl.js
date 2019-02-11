@@ -93,6 +93,7 @@ app.controller('screeningTestCtrl', function ($scope, $rootScope, $http, service
 
     /* Function to open status conformation modal */
     st.onButtonsave = function(){
+        $("#changeStatusBtn").attr('disabled',false);  
         if($("#screeningTestForm").valid()){
             $('#statusConfirmationModel').modal('show');
         }
@@ -103,8 +104,10 @@ app.controller('screeningTestCtrl', function ($scope, $rootScope, $http, service
 
     /* Function to submit screening test result */
     st.submitResult = function(){  
-        if($("#changeStatusForm").valid()){            
+        if($("#changeStatusForm").valid()){ 
+            $("#changeStatusBtn").attr('disabled',true);           
             $data = st.questionList;
+            console.log($data);
             st.candidateId = $location.search()["candidate_id"];
             st.refereralToken = $location.search()["token"];
             
@@ -135,11 +138,13 @@ app.controller('screeningTestCtrl', function ($scope, $rootScope, $http, service
                     toastr.success(response.data.message);
                 } catch (e) {
                     toastr.error(response.data.message, 'Sorry!');
+                    $("#changeStatusBtn").attr('disabled',false);  
                     Raven.captureException(e)
                 }
                 $('#statusConfirmationModel').modal('hide');
                 Utility.stopAnimation();
             }, function myError(r) {
+                $("#changeStatusBtn").attr('disabled',false);  
                 toastr.error('Something went wrong');
                 Utility.stopAnimation();
             });

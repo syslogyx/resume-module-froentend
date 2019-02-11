@@ -9,7 +9,7 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
     usr.contactEmail ="";
     usr.password ="";
     usr.skip = true;
-    usr.comapnyName='Syslogyx Pvt. Ltd.'
+    usr.comapnyName='Syslogyx Technologies Pvt. Ltd.'
 
     var viewPath = $location.path().split("/")[1];
     console.log(viewPath);
@@ -234,6 +234,7 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
     /* Function to show user id and name in password change modal */
     usr.sendUserId=function(id,name){
         $('#changePasswordModal').modal({backdrop: 'static', keyboard: false});
+        $("#changePasswordBtn").attr('disabled',false);
         usr.userId=id;
         usr.userName=name;
         setTimeout(function(){
@@ -250,7 +251,8 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
             usr.highlightcolor2="";
         } 
  
-        if($("#changePasswordForm").valid() && usr.newPassword==usr.repeatPassword){ 
+        if($("#changePasswordForm").valid() && usr.newPassword==usr.repeatPassword){
+            $("#changePasswordBtn").attr('disabled',true);
             var req = {
                 "user_id":id,
                 "new_password": usr.newPassword,
@@ -268,14 +270,17 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
                         $location.url('/user#all');
                     }
                     else{
+                        $("#changePasswordBtn").attr('disabled',false);
                         toastr.error(response.message);
                     }
                     $("#changePasswordModal").modal('hide');
                 } catch (e) {
+                    $("#changePasswordBtn").attr('disabled',false);
                     toastr.error("Password not changed successfully.");
                     Raven.captureException(e)
                 }
             }, function myError(r) {
+                $("#changePasswordBtn").attr('disabled',false);
                 toastr.error(r.data.message);
                 Utility.stopAnimation();
             });
