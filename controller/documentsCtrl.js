@@ -52,7 +52,7 @@ app.controller('documentsCtrl', function ($scope,menuService,services,$cookieSto
             Utility.stopAnimation();
             doc.backgroundCheckList = result.data;
             for (var i = 0; i < doc.backgroundCheckList.length; i++) {
-                   doc.backgroundCheckList[i]['alias'] = doc.backgroundCheckList[i].name.replace(/[\s]/g, '');
+                   doc.backgroundCheckList[i]['alias'] = doc.backgroundCheckList[i].name.replace(/[\s]/g, '').replace(/[^a-zA-Z ]/g, '');
             }   
             console.log(doc.backgroundCheckList);
         }, function myError(r) {

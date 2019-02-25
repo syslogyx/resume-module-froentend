@@ -19,7 +19,9 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
             {"Title": "Scheduled Interviews", "Link": "/interview_list", "icon": "fa fa-calendar", "active":"deactive"},
             {"Title": "Forward Resumes", "Link": "/forward_resumes", "icon": "fa fa-circle-o", "active":"deactive"},
             {"Title": "Background Checklist", "Link": "/background_checklist", "icon": "fa fa-check-square-o", "active":"deactive"},
-            {"Title": "User Management", "Link": "/user#all", "icon": "fa fa-user-plus", "active":"deactive"}
+            {"Title": "User Management", "Link": "/user#all", "icon": "fa fa-user-plus", "active":"deactive"},
+            {"Title": "Technology", "Link": "/technologies", "icon": "fa fa-plus", "active":"deactive"},
+            {"Title": "Import Details", "Link": "", "icon": "fa fa-upload", "active":"deactive"}
         ];
         $scope.showUpdateProfile = true;
     }else if (loggedInUser.identity.role==RESOURCES.ROLE_HR) {

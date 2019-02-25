@@ -208,8 +208,8 @@
                                         <div class="col-md-12">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="mandatory" for="">Mobile</label>
-                                                    <input type="text" class="form-control" id="mobileNo" name="mobileNo" ng-model="mobileNo" placeholder="Enter mobile number">
+                                                    <label class="mandatory" for="">Contact No.</label>
+                                                    <input type="text" class="form-control" id="mobileNo" name="mobileNo" ng-model="mobileNo" placeholder="Enter number">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -242,7 +242,7 @@
             <div class="menuSec" ng-controller="menuCtrl" style="min-height: 50px;">
                 <footer class="main-footer" style="height: 50px;">
                     <div class="pull-right hidden-xs">
-                        <b>Version</b> 1.0.3
+                        <b>Version</b> 1.0.4
                     </div>
                     <strong>Copyright &copy; 2018 <a href="http://www.syslogyx.com/">Syslogyx Technologies Pvt. Ltd.</a></strong> All rights
                     reserved.
@@ -345,6 +345,7 @@
         <script src="/controller/forwardResumeListCtrl.js"></script>
         <script src="/controller/roundDtlsCtrl.js"></script>
         <script src="/controller/techDetailsCtrl.js"></script>
+        <script src="/controller/technologiesCtrl.js"></script>
 
          <script>
                     $( window ).scroll(function() {
@@ -406,6 +407,12 @@
                     return this.optional(element) || regexp.test(value);
                 }, 'Please enter a valid Email Address.');
 
+                $.validator.addMethod("mynumber", function (phone_number, element) {
+                    phone_number = phone_number.replace(/\s+/g, "");
+                    return this.optional(element) || phone_number.length > 9 &&
+                            phone_number.match(/^((\+[1-9]{1,4}[ \-]*)|(\([0-9]{2,3}\)[ \-]*)|([0-9]{2,4})[ \-]*)*?[0-9]{3,4}?[ \-]*[0-9]{3,4}?$/);
+                }, 'Please enter a valid contact number.');
+
                 $("#updateUserForm").validate({
                     errorElement: 'span', //default input error message container
                     errorClass: 'help-block help-block-error',
@@ -431,8 +438,16 @@
                             regex: /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i
                         },
                         mobileNo: {
-                            required: true
-                        }
+                            required: {
+                                depends:function(){
+                                    $(this).val($.trim($(this).val()).split(" ").join(""));
+                                    return true;
+                                }
+                            },
+                            mynumber: true,
+                            minlength: 10,
+                            maxlength: 12,
+                        },
                     },
                     messages: {
                         userName: {
@@ -442,7 +457,7 @@
                             required: "Email is required."
                         },
                         mobileNo: {
-                            required: "Mobile No. is required"
+                            required: "Contact number is required."
                         }
                     },
                     highlight: function (element) { // hightlight error inputs

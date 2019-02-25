@@ -35,7 +35,7 @@
                      <div class="col-md-4">
                         <div class="form-group">
                             <label class="mandatory" for="">Contact No.</label>
-                            <input type="text" class="form-control" data-ng-model="usr.contactNo" name="contactNo" id="contactNo"  placeholder="Enter contact number">
+                            <input type="text" class="form-control" data-ng-model="usr.contactNo" name="contactNo" id="contactNo"  placeholder="Enter number">
                         </div>
                     </div>
                     
@@ -98,7 +98,7 @@
                 phone_number = phone_number.replace(/\s+/g, "");
                 return this.optional(element) || phone_number.length > 9 &&
                         phone_number.match(/^((\+[1-9]{1,4}[ \-]*)|(\([0-9]{2,3}\)[ \-]*)|([0-9]{2,4})[ \-]*)*?[0-9]{3,4}?[ \-]*[0-9]{3,4}?$/);
-            }, 'Please enter a valid mobile number.');
+            }, 'Please enter a valid contact number.');
 
 
             var baseUrl = Utility.apiBaseUrl;

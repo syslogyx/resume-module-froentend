@@ -631,13 +631,27 @@ a.pm_close {
     overflow: hidden;
     outline: 0;
 }
+label{
+    font-weight: 400;
+    font-weight: bold;
+}
+
+/*.dataTables_length label {
+     font-weight: 700;
+}
+.searchbar label{
+    font-weight: 700; 
+}*/
 
 label.mandatory:after {
-    content: ' *';
+    /*content: ' *';
     color: #FB3A3A;
     display: inline;
     margin-bottom: 0px;
-    font-size: medium;
+    font-size: medium;*/
+    content: ' *';
+    color: #FB3A3A;
+    display: inline;
 }
 
 .moving-pulse-button {
@@ -765,7 +779,8 @@ textarea{
 }
 @media (max-width: 1200px) {
     .content{
-    margin-top: 20%;
+    /*margin-top: 20%;*/
+    margin-top: 5%;
     }
      .contsiner{
     margin-top: 14%;

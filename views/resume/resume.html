@@ -1,11 +1,11 @@
 <style>
-    label.mandatory:after {
+    /*label.mandatory:after {
         content: ' *';
         color: #FB3A3A;
         display: inline;
         margin-bottom: 0px;
         font-size: medium;
-    }
+    }*/
 
     .moving-tab {
         display:none;
@@ -313,7 +313,7 @@
                                                                 <div class="input-group-addon">
                                                                     <i  class="fa fa-calendar"></i>
                                                                 </div>
-                                                                <input type="text" class="form-control" id="dob" name="dob" placeholder="Enter date" ng-model="dateOfBirth" readonly='true' style="cursor:default;background-color: white;">
+                                                                <input type="text" class="form-control" id="dob" name="dob" placeholder="Enter date" ng-model="dateOfBirth" data-date-end-date="-1d" readonly='true' style="cursor:default;background-color: white;">
                                                             </div>
                                                       </div>
                                                 </div>   
@@ -368,6 +368,8 @@
                                                 <div class="col-md-6">
                                                   <div class="form-group">
                                                     <label class="mandatory">Permanent Address</label>
+                                                    <!-- <input type="checkbox" name="checked" ng-change="copyCorrAddToPerAdd(this,event)" style="margin-left: 45px;">
+                                                    <span> Copy Address</span> -->
                                                     <textarea class="form-control" id="permanentAddress" placeholder="Enter address" name="permanent_address" ng-model="permanentAddr" rows="1"></textarea>
                                                   </div>
                                                 </div>
@@ -557,7 +559,8 @@
                                                 <div class="col-sm-3">
                                                     <div class="form-group">
                                                         <label class="mandatory">Technology</label>
-                                                        <input type="text" id="technologyName_{{$index}}" name="technology_name_{{$index}}" class="form-control technology_name" placeholder="Enter technology name" ng-model="t.technology_name">
+                                                        <input type="text" id="technologyName_{{$index}}" name="technology_name_{{$index}}" class="form-control technology_name" placeholder="Enter technology name" ng-model="t.technology_name" style="padding:6px 8px;">
+                                                        <!-- style="margin-top: -2.5%;" -->
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-4">
@@ -605,7 +608,8 @@
                                                     <select id="total_month_experience" name="total_month_experience" class="form-control total_month_experience addDisabledProperty" placeholder="Enter month experience" ng-model="totalMonthIndustryExperiance" ng-options="x.id as x.name for x in experienceMonths" ng-disabled="(opportunityFor!='Fresher') ? false : true">
                                                     </select>
                                                 </div>
-                                                <div class="col-sm-3 form-group"><label class="mandatory" style="margin-bottom: 2.5px">Current CTC</label><input id="current_ctc" name="current_ctc" type="text" class="form-control addDisabledProperty" placeholder="Enter current CTC" ng-model="currentCTC" ng-disabled="(opportunityFor!='Fresher') ? false : true"></div>
+                                                <div class="col-sm-3 form-group"><label class="mandatory">Current CTC</label><input id="current_ctc" name="current_ctc" type="text" class="form-control addDisabledProperty" placeholder="Enter CTC" ng-model="currentCTC" ng-disabled="(opportunityFor!='Fresher') ? false : true"></div>
+                                                <!-- style="margin-top: -2.5%;" -->
                                                 <div class="col-sm-3 form-group">
                                                     <label class="">CTC Unit</label>
                                                     <select id="ctc_key" name="ctc_key" class="form-control addDisabledProperty" ng-model="currency_unit" disabled="">
@@ -752,17 +756,14 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <div class="col-sm-6">
-                                                     <div class="form-group">
-                                                        <label class="mandatory">Indian language (s)</label>
-                                                        <input id="indianLanguage" name="indian_lang" type="text" class="form-control" placeholder="Enter comma seperated language" ng-model="indianLang">
-                                                      </div>
+                                                <div class="col-sm-6 form-group">
+                                                    <label class="mandatory">Indian language (s)</label>
+                                                    <input id="indianLanguage" name="indian_lang" type="text" class="form-control" placeholder="Enter comma seperated language" ng-model="indianLang">
+                                                    <!-- style="margin-top: -2.5%;" -->
                                                 </div>
-                                                <div class="col-sm-6">
-                                                     <div class="form-group">
-                                                        <label class="">Foreign language (s)</label>
-                                                        <input id="foreignLanguage" name="foreign_lang" type="text" class="form-control" placeholder="Enter comma seperated language" ng-model="foreignLang">
-                                                      </div>
+                                                <div class="col-sm-6 form-group">
+                                                    <label class="">Foreign language (s)</label>
+                                                    <input id="foreignLanguage" name="foreign_lang" type="text" class="form-control" placeholder="Enter comma seperated language" ng-model="foreignLang">
                                                 </div>
                                             </div>
                                         </div>
@@ -786,7 +787,7 @@
                                                         <strong>Note:</strong>
                                                         <ul style="margin-left: 20px;">
                                                             <li>Please review your details before submitting. </li>
-                                                            <li>You cannot edit the same after final submit.</li>
+                                                            <li>You can not edit the same after final submit.</li>
                                                         </ul>
                                                     </div>
                                                 </form>
@@ -1123,7 +1124,7 @@
 
 
 </script>
-<script>
+<!-- <script>
     $(document).ready(function () {
         $('#dob').bind('keydown',function(e){
             if (e.which == 13) //13 is Enter/Return key.
@@ -1133,4 +1134,4 @@
             todayHighlight: true
         });
     });
-</script>
+</script> -->

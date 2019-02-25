@@ -1,6 +1,6 @@
 <section class="content" ng-cloak>
 <br><br>
-    <form role="form" name="addForm" id="jobForm" >
+    <form role="form" name="addForm" id="jobForm">
         <div class="box box-default" >
             <div class="row box-header with-border boxhead">
                 <div class="col-xs-6">
@@ -20,6 +20,14 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
+                            <label class="mandatory" for="">Technology</label>
+                            <select id="job_technology" name="job_technology" class="form-control s2mn" placeholder="Select technology" ng-model="jb.technology" ng-options="x.id as x.name for x in jb.technologyList"  style="width:100%;" ng-selected="jb.companyId ? true : false">
+                                <option value="" style="color:#ccc !important;">Select technology</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
                             <label class="mandatory" for="">Job Title</label>
                             <input type="text" class="form-control" ng-model="jb.jobTitle" name="job_title" id="job_title" placeholder="Enter job title" >
                         </div>
@@ -29,17 +37,15 @@
                             <label class="mandatory" for="">Subtitle</label>
                             <input type="text" class="form-control" ng-model="jb.subTitle" name="sub_title" id="sub_title" placeholder="Enter subtitle" >
                         </div>
-                    </div>
-                     <div class="col-md-4">
+                    </div>                   
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label class="mandatory" for="">Notice Period</label>
                             <input type="text" class="form-control" ng-model="jb.noticePeroid" name="notice_peroid" id="notice_peroid"  placeholder="Enter notice period">
                         </div>
                     </div>
-                    
-                </div> 
-
-                <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="mandatory" for="">No. of Requirement</label>
@@ -52,15 +58,15 @@
                             <input type="text" class="form-control" ng-model="jb.experiance" name="experiance" id="experiance"  placeholder="Enter experience">
                         </div>
                     </div>
+                </div>
+
+                <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="mandatory" for="">Job Location</label>
                             <input type="text" class="form-control" ng-model="jb.jobLocation" name="job_location" id="job_location"  placeholder="Enter job location">
                         </div>
                     </div>
-                </div>
-
-                <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="mandatory" for="">Job Type</label>
@@ -75,16 +81,28 @@
                             <input type="text" class="form-control" ng-model="jb.ctc" name="ctc" id="ctc"  placeholder="Enter CTC">
                         </div>
                     </div>
-                     <div class="col-md-4">
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="mandatory" for="">Valid till date</label>
+                            <input type="text" class="form-control" ng-model="jb.valid_till_date" name="valid_till_date" id="valid_till_date"  placeholder="Enter date" readonly='true' style="cursor:default;background-color: white;">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label class="mandatory" for="">Client Name</label>
-                            <!-- <label class="mandatory" for="">Status</label> -->
-                           <!--  <input type="text" class="form-control" ng-model="jb.companyId" name="status" id="status"  placeholder="Enter status"> -->
                             <select id="companyId" ng-model="jb.companyId" name="companyId" class="form-control s2mn" placeholder="Enter company name" style="width:100%;" ng-options="x.id as x.name for x in jb.companyList" ng-selected="jb.companyId ? true : false" >
                                 <option value="" style="color:#ccc;">Select client</option>
                             </select>
                         </div> 
                     </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="mandatory" for="">Project Description</label>
+                           <textarea placeholder="Enter project description" class="form-control" id="project_title" name="project_title" ng-model="jb.project_title" rows="1"></textarea>
+                        </div>
+                    </div>                      
                 </div>
                 <div class="row">
                     <div class="col-md-6">
@@ -113,14 +131,6 @@
                             <textarea placeholder="Enter roles & responsibility" class="form-control" id="role_responsibility" name="role_responsibility" ng-model="jb.roleResponsibility" rows="2"></textarea>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="mandatory" for="">Project Description</label>
-                           <textarea placeholder="Enter project description" class="form-control" id="project_title" name="project_title" ng-model="jb.project_title" rows="2"></textarea>
-                        </div>
-                    </div>                                        
                 </div>
             </div>
             <!-- /.box-body -->
@@ -158,11 +168,18 @@
                     {
                         element.parent().append(error);
 
+                    }else if ($(element).attr("id") === "job_technology")
+                    {
+                        element.parent().append(error);
+
                     }else{
                         error.insertAfter(element);
                     }
                 },
                 rules: {
+                    job_technology: {
+                        required: true
+                    },
                     job_title: {
                         required: true
                     },
@@ -203,6 +220,9 @@
                     role_responsibility: {
                         required: true
                     },
+                    valid_till_date: {
+                        required: true
+                    },
                     companyId: {
                         required: true
                     },
@@ -211,6 +231,9 @@
                     }
                 },
                 messages: {
+                    job_technology: {
+                        required: "Technology is required."
+                    },
                     job_title: {
                         required: "Job title is required."
                     },
@@ -251,6 +274,9 @@
                     role_responsibility: {
                         required: "Roles and responsibility is required."
                     },
+                    valid_till_date: {
+                        required: "Date is required."
+                    },
                     companyId: {
                         required: "Client name is required."
                     },
@@ -280,6 +306,15 @@
 </script>
 <script>
             $(document).ready(function () {
+                /* Function to restrict keyboard enter key on datepicker*/
+                $('#valid_till_date').bind('keydown',function(e){
+                    if (e.which == 13) //13 is Enter/Return key.
+                        e.stopImmediatePropagation();
+                }).datepicker({
+                    startDate: "today",
+                    autoclose: true,
+                    todayHighlight: true
+                }); 
                 $("html, body").animate({scrollTop: 0}, "fast");
             });
 </script>

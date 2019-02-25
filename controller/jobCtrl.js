@@ -8,6 +8,7 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
     jb.limit = 0;
     jb.skip = true;
     jb.jobList = [];
+    jb.technologyList = [];
     jb.jobTypeData =[
         {id: "Permanent-full time", name: "Permanent-full time"},
         {id: "Permanent-part time", name: "Permanent-part time"},
@@ -126,8 +127,10 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
                 jb.status = response.data.data.status,                
                 jb.job_code = response.data.data.job_code,                
                 jb.companyId = response.data.data.company_id,                
-                jb.project_title = response.data.data.project_title,                
-
+                jb.companyName = response.data.data.companies.name,                
+                jb.project_title = response.data.data.project_title,   
+                jb.technology = response.data.data.technology_id,
+                jb.valid_till_date = response.data.data.valid_till_date.split("-").reverse().join("/")
                 applySelect2();   
             }, function myError(r) {
                 toastr.error(r.data.message, 'Sorry!');
@@ -136,6 +139,7 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
         }
 
         jb.getActiveCompanyList();
+        jb.getActvieTechnologyListList();
     }
 
 
@@ -151,6 +155,19 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
         });
     }
 
+    jb.getActvieTechnologyListList = function(){        
+        var promise = services.getAllActvieTechnologyList();
+        promise.success(function (result) {
+            Utility.stopAnimation();
+            console.log(result.data);
+            jb.technologyList = result.data;
+        }, function myError(r) {
+            jb.technologyList = [];
+            toastr.error(r.data.message, 'Sorry!');
+            Utility.stopAnimation();
+        });
+    }
+
     /* Function to reset add job form */
     jb.resetForm = function(){
     	$("div.form-group").each(function () {
@@ -159,6 +176,7 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
             applySelect2();
         });
         jb.changeStatus ='';
+        $('#valid_till_date').datepicker('setDate',null);
     }
 
     /* Function to create/update job */
@@ -179,7 +197,9 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
                 "ctc":jb.ctc,
                 "notice_period":jb.noticePeroid,
                 "company_id":jb.companyId,
-                "project_title":jb.project_title
+                "project_title":jb.project_title,
+                "technology_id":jb.technology,
+                "valid_till_date":jb.valid_till_date.split("/").reverse().join("-"),
                 //"status":jb.status
             }
             // console.log(req);

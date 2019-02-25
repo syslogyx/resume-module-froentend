@@ -1,12 +1,12 @@
 ﻿var Utility = {
 
-     // apiBaseUrl: "http://127.0.0.1:8000/api/",
+     apiBaseUrl: "http://127.0.0.1:8000/api/",
        // apiBaseUrl: "http://172.16.1.97:8000/api/",
       // apiBaseUrl: "http://172.16.2.37:9000/api/",
 
     // apiBaseUrl: "http://127.0.0.1:8000/api/",
     // apiBaseUrl: "http://172.16.1.180:8000/api/",
-     apiBaseUrl: "https://recruitmentapi.syslogyx.com/api/",
+     // apiBaseUrl: "https://recruitmentapi.syslogyx.com/api/",
 
     formatDate: function (date, format) {
         var tDate = null;
@@ -1448,6 +1448,100 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
+    this.getAllTechnologyList = function (request) {
+        if(request == undefined){
+            page = -1;
+            limit = -1;
+        }else{
+            page = request.page;
+            limit = request.limit;
+        }
+        Utility.startAnimation();
+        return $http({
+            method: 'GET',
+            url: RESOURCES.SERVER_API + "technologies?page=" + page + "&limit=" + limit,
+            dataType: 'json',
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+    this.saveTechnology = function (req) {
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "technologies/create",
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+                
+            }
+        })
+    };
+
+    this.updateTechnology = function (req) {
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "technologies/update/" + req.id,
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+    this.getTechnologyById = function (id) {
+        Utility.startAnimation();
+        return $http({
+            method: 'GET',
+            url: RESOURCES.SERVER_API + "technologiesInfoByID/" + id + "/view",
+            dataType: 'json',
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+    this.updateTechnologyStatus = function(req){
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "technologies/changestatus/" + req.id,
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+    this.getAllActvieTechnologyList = function () {
+        Utility.startAnimation();
+        return $http({
+            method: 'GET',
+            url: RESOURCES.SERVER_API + "technologies_list",
+            dataType: 'json',
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+    this.getActiveTechnologyDetails = function () {
+        Utility.startAnimation();
+        return $http({
+            method: 'GET',
+            url: RESOURCES.SERVER_API + "technologies/list/dashboard",
+            dataType: 'json',
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
 
 });
 
@@ -2002,6 +2096,62 @@ app.config(function ($routeProvider, $locationProvider) {
                         }]
                 }
             })
+            .when('/technologies', {
+                templateUrl: 'views/technologies/technology_list.html',
+                controller: 'technologiesCtrl',
+                controllerAs: 'tec',
+                resolve: {
+                    'acl': ['$q', 'AclService', function ($q, AclService) {
+                            return true;
+                            //console.log(AclService.getRoles());
+                            if (AclService.can('view_dash')) {
+                                // Has proper permissions
+                                return true;
+                            } else {
+                                // Does not have permission
+                                return $q.reject('LoginRequired');
+                            }
+                        }]
+                }
+            })
+
+            .when('/technologies/add_technology', {
+                templateUrl: 'views/technologies/create_technology.html',
+                controller: 'technologiesCtrl',
+                controllerAs: 'tec',
+                resolve: {
+                    'acl': ['$q', 'AclService', function ($q, AclService) {
+                            return true;
+                            //console.log(AclService.getRoles());
+                            if (AclService.can('view_dash')) {
+                                // Has proper permissions
+                                return true;
+                            } else {
+                                // Does not have permission
+                                return $q.reject('LoginRequired');
+                            }
+                        }]
+                }
+            })
+
+            .when('/technologies/edit', {
+                templateUrl: 'views/technologies/create_technology.html',
+                controller: 'technologiesCtrl',
+                controllerAs: 'tec',
+                resolve: {
+                    'acl': ['$q', 'AclService', function ($q, AclService) {
+                            return true;
+                            
+                            if (AclService.can('view_dash')) {
+                                // Has proper permissions
+                                return true;
+                            } else {
+                                // Does not have permission
+                                return $q.reject('LoginRequired');
+                            }
+                        }]
+                }
+            })
  
 
     $locationProvider.html5Mode(true);
@@ -2052,49 +2202,49 @@ jQuery.validator.addMethod("customEmail", function (value, element) {
     return this.optional(element) || /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(value);
 }, "Please enter a valid email address.");
 
-app.controller('sidebarCtrl', function ($scope, $rootScope, $filter,sidebarFactory, services) {
-    $scope.data = '';
-    //method to change date format to dd/mm/yyyy
-    convertDateStraight = function (input) {
-        if (input != null) {
-            return $filter('date')(new Date(input), 'dd/MM/yyyy');
-        }
-    }
+// app.controller('sidebarCtrl', function ($scope, $rootScope, $filter,sidebarFactory, services) {
+//     $scope.data = '';
+//     //method to change date format to dd/mm/yyyy
+//     convertDateStraight = function (input) {
+//         if (input != null) {
+//             return $filter('date')(new Date(input), 'dd/MM/yyyy');
+//         }
+//     }
 
-    // $scope.template = sidebarFactory.template;
-    $scope.$on('templateData', function (event, data) {
-        $scope.templateData = data;
+//     // $scope.template = sidebarFactory.template;
+//     $scope.$on('templateData', function (event, data) {
+//         $scope.templateData = data;
 
-        $scope.userTechArray = data.data;
+//         $scope.userTechArray = data.data;
 
-        if (data.title == 'Fund Request Info') {
-            $scope.showTemp = 'fa fa-info';
-        } else if (data.title == 'User') {
-            $scope.showTemp = 'fa fa-users';
-        } else if (data.title == 'Particular') {
-            $scope.showTemp = 'fa fa-cart-plus';
-        } else if (data.title == '') {
-            $scope.showTemp = 'mdi mdi-view-headline';
-        }
+//         if (data.title == 'Fund Request Info') {
+//             $scope.showTemp = 'fa fa-info';
+//         } else if (data.title == 'User') {
+//             $scope.showTemp = 'fa fa-users';
+//         } else if (data.title == 'Particular') {
+//             $scope.showTemp = 'fa fa-cart-plus';
+//         } else if (data.title == '') {
+//             $scope.showTemp = 'mdi mdi-view-headline';
+//         }
 
-    });
+//     });
 
-    $scope.showTab = function (data) {
-        $scope.showTemp = data;
-    }
+//     $scope.showTab = function (data) {
+//         $scope.showTemp = data;
+//     }
 
-    $scope.dismissViewTimeAllocLogModal = function () {
-        $("#viewActivityLogModal").modal('hide');
-        $('*[id*=viewTimeAllocLog]:visible').each(function () {
-            $(this).removeAttr('disabled');
-        });
-    }
+//     $scope.dismissViewTimeAllocLogModal = function () {
+//         $("#viewActivityLogModal").modal('hide');
+//         $('*[id*=viewTimeAllocLog]:visible').each(function () {
+//             $(this).removeAttr('disabled');
+//         });
+//     }
 
-    $scope.collapseDiv = function (index) {
-        console.log(index);
-        $scope.ind = index;
-    }
+//     $scope.collapseDiv = function (index) {
+//         console.log(index);
+//         $scope.ind = index;
+//     }
 
-})
+// })
 
 

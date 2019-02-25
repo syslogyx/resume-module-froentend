@@ -63,7 +63,7 @@ $(document).ready(function(){
     }, "Please enter only letters.");
 
     $.validator.addMethod("mynumber", function (value, element) {
-            return this.optional(element) || /^\$?([0-9]{1,3},([0-9]{3},)*[0-9]{3}|[0-9]+)(.[0-9][0-9])?$/.test(value);
+            return this.optional(element) || /^\d+(\.\d{1,2})?$/.test(value);
         }, "Invalid ctc format.");
 
     $.validator.addMethod("spellcheck", function (value, element) {
@@ -332,7 +332,7 @@ $(document).ready(function(){
             current_ctc:{
                 required: true,
                 number:true,
-                mynumber :true  
+                mynumber :true
             },
             // file: {
             //     required: true,
@@ -450,7 +450,8 @@ $(document).ready(function(){
             current_ctc:{
                 required: "Current CTC is required.",
                 number:"Enter the numeric value",
-                mynumber:"Please enter only two digit after decimal."
+                // mynumber:"Please enter only two digit after decimal."
+                mynumber:"Enter only two digits after decimal."
             },
             company_name:{
                 required: "Company name is required.",

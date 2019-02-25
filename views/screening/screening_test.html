@@ -112,7 +112,7 @@
             </div>
             <div class="box-footer" style="margin-right:14px!important">
                 <div class="pull pull-right">
-                    <input type="submit" value="Save" data-ng-click="st.onButtonsave()" class="btn btn-success" style="outline: 0;" ng-disabled="st.questionList==''"/>
+                    <input type="submit" value="Save" data-ng-click="st.onButtonsave()" class="btn btn-success" style="outline: 0;" ng-disabled="st.questionList == null || st.questionList.length == 0"/>
                     <a ng-href="/resume_list#non-selected" class="btn btn-warning">Cancel</a>  
                     <!-- <input type="reset" value="Reset" ng-click="st.resetForm()" class="btn" style="outline: 0;"/>  -->
                 </div>
@@ -160,6 +160,9 @@
 <style type="text/css">
     .help-block{
         margin-bottom: 0;
+    }
+    .select2-container{
+            margin: 2px;
     }
 </style>
 <script type="text/javascript">

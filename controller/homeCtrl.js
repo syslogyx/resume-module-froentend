@@ -29,7 +29,27 @@ app.controller('homeCtrl', function ($scope,RESOURCES,$rootScope,menuService,ser
     $scope.init = function(){
 		$scope.$root.$broadcast("myEvent", {});
 		var token = services.getAuthKey();
+
+        if(hme.role_client == hme.logInUserRole){
+            hme.getTechnologies();
+        }
+
 	}
+
+    hme.getTechnologies = function(){
+        var promise = services.getActiveTechnologyDetails();
+        promise.success(function (result) {
+            Utility.stopAnimation();
+            console.log(result.data);
+            hme.technologyList = result.data;
+        }, function myError(r) {
+            hme.technologyList = [];
+            toastr.error(r.data.message, 'Sorry!');
+            Utility.stopAnimation();
+        });
+    }
+
+
 
 	$scope.init();
 });

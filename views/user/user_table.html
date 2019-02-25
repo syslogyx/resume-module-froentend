@@ -177,7 +177,7 @@
                                     <label class="mandatory" style="font-size: 14px">Confirm Password :</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input  id="repeatPassword" type="password" class="form-control"  name="repeatPassword" ng-model="usr.repeatPassword" placeholder=" Confirm Password">
+                                    <input  id="repeatPassword" type="password" class="form-control"  name="repeatPassword" ng-model="usr.repeatPassword" placeholder="Confirm Password">
                                     <span ng-if="usr.newPassword!=usr.repeatPassword" style="color: #dd4b39;border-color: #dd4b39;">{{usr.errMessage}}</span>
                                 </div>
                             </div>
@@ -221,7 +221,7 @@
                     minlength:"Minimum 5 characters are required"
                 },
                 repeatPassword: {
-                    required: "Repeat Password is required"
+                    required: "Confirm Password is required"
                 }
             },
             highlight: function (element) { // hightlight error inputs

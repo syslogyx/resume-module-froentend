@@ -350,7 +350,7 @@
                             <div class="row">
                                 <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
                                     <label class="mandatory"> Schedule date </label>
-                                    <input type="text" name="schedule_date" class="form-control" id="schedule_date" ng-model="scheduleDate" placeholder="Select Date" readonly='true' style="cursor:default;background-color: white;">
+                                    <input type="text" name="schedule_date" class="form-control" id="schedule_date" ng-model="scheduleDate" placeholder="Select date" readonly='true' style="cursor:default;background-color: white;">
                                 </div>
                                 <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
                                     <label class="mandatory"> Time </label>
@@ -671,7 +671,7 @@
                                     </ul>
                                     <div class="tab-content">
                                         <div class="active tab-pane" id="bg_checklist">
-                                            <div class="row ">
+                                            <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="table-responsive no-padding">
                                                         <table class="table table-hover">
@@ -705,19 +705,9 @@
                                         <div class="tab-pane" id="cv_selection_list">
                                             <div class="row">
                                                 <div class="col-md-6 form-group">
-                                                    <span> <b style="color:#dd4b39;">NOTE: </b><br> * Please select atleast one section name to add in cv.</span>
+                                                    <span> <b style="color:#dd4b39;">NOTE: </b><br> * Please select at least one section to add in CV.</span>
                                                 </div>
                                             </div>
-                                            <!-- <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="col-md-6 form-group">
-                                                            <label>Not Selected</label>
-                                                    </div>
-                                                    <div class="col-md-6 form-group">
-                                                            <label>Selected</label>
-                                                    </div>
-                                                </div>
-                                            </div> -->
                                             <div class="row rowMargin">
                                                 <div col="col-md-12">
                                                     <form id="pdfSettingFormForZip">
@@ -757,14 +747,19 @@
                 </div>
             </div>
         </div>
+    </div>
         <!-- End Bg checklist document list Model -->
     
 </section>
 <script>
 
+
     $.validator.addMethod("mynumber", function (value, element) {
         return this.optional(element) || /^\$?([0-9]{1,3},([0-9]{3},)*[0-9]{3}|[0-9]+)(.[0-9][0-9])?$/.test(value);
     }, "Invalid CTC format.");
+    // $.validator.addMethod("mynumber", function (value, element) {
+    //     return this.optional(element) || /^\d+(\.\d{1,2})?$/.test(value);
+    // }, "Enter only two digits after decimal.");
 
     // $.validator.addMethod("checkForFromCTC", function (value, element,param) {
     //     var otherElement = $(param).val();
@@ -779,10 +774,13 @@
 
     $.validator.addMethod("checkGreaterThan",function (value, element, param) {
           var otherElement = $(param).val();
-          console.log(param);
-          console.log(otherElement);
+          console.log("otherElement >>>"+otherElement);
+          console.log("otherElement value>>>"+parseInt(otherElement, 10));
+          console.log("value>>>"+value);
+          console.log("parseInt value>>>"+parseInt(value, 10));
           if(otherElement != '' && !isNaN(otherElement)){
             parseInt(otherElement, 10);
+            // console.log("empty");
           }else{
             return true;
           }
@@ -791,8 +789,6 @@
 
     $.validator.addMethod("checkLessThan",function (value, element, param) {
           var otherElement = $(param).val();
-          console.log(param);
-          console.log(otherElement);
           if(otherElement != '' && !isNaN(otherElement)){
             parseInt(otherElement, 10);
           }else{
@@ -970,7 +966,7 @@
     $("#candidateResumeFilterForm").validate({
         errorElement: 'span', //default input error message container
         errorClass: 'help-block help-block-error',
-        // focusInvalid: true, // set focus the last invalid input
+        focusInvalid: true, // set focus the last invalid input
         ignore: "", // validate all fields including form hidden input
         errorPlacement: function (error, element) {
             var type = $(element).attr("type");
@@ -978,6 +974,7 @@
         },
         rules: {
             ctc_from:{
+                number:true,
                 mynumber :true,
                 // checkForToCTC:"#ctc_to",
                 required: function(element){
@@ -986,6 +983,7 @@
                 checkLessThan: "#ctc_to",
             },
             ctc_to:{
+                number:true,
                 mynumber :true,
                 // checkForFromCTC:"#ctc_from",
                 required: function(element){
@@ -1030,19 +1028,23 @@
         },
         messages: {
             ctc_from:{
+                number:"Enter the numeric value",
                 required: "From CTC is required.",
                 checkLessThan: "Must be Less than To CTC value.",
             },
             ctc_to:{
+                number:"Enter the numeric value",
                 required: "To CTC is required.",
                 checkGreaterThan: "Must be greater than Form CTC value.",
             },          
             from_total_year_experience: {
                 required: "From Total Exp is required.",
+                number:"Enter the numeric value",
                 checkLessThan: "Must be Less than To Total Exp.",
             },
             to_total_year_experience: {
                 required: "To Total Exp is required.",
+                number:"Enter the numeric value",
                 checkGreaterThan: "Must be greater than Form Total Exp.",
             },
             // from_total_month_experience: {
@@ -1298,7 +1300,7 @@
         $("html, body").animate({scrollTop: 0}, "fast");
         $('#assignStatusModel.modal,#changeStatusModel.modal').on('hidden.bs.modal', function (e) {
             $(this).find('form').trigger('reset'); 
-             $("div.form-group").each(function () {
+            $("div.form-group").each(function () {
                 $(this).removeClass('has-error');
                 $('span.help-block-error').remove();            
                 applySelect2();
@@ -1310,13 +1312,17 @@
         $('#pdfSettingModel.modal').on('hidden.bs.modal', function (e) {
                 $(this).removeClass('has-error');
                 $('span.help-block-error').remove();
+                $('#ms-my-select').find('.ms-selectable > span').remove();
+                $('#ms-my-select').find('.ms-selection > span').remove();
                 $('.ms-selectable > ul').css('border','1px solid #ccc');
                 $('.ms-selection > ul').css('border','1px solid #ccc');
         });
 
         $('#bgChecklistDocsModal.modal').on('hidden.bs.modal', function (e) {
                 $(this).removeClass('has-error');
-                $('span.help-block-error').remove();
+                $('span.help-block-error').remove();                
+                $('#ms-my-select_for_zip').find('.ms-selectable > span').remove();
+                $('#ms-my-select_for_zip').find('.ms-selection > span').remove();
                 $('.ms-selectable > ul').css('border','1px solid #ccc');
                 $('.ms-selection > ul').css('border','1px solid #ccc');
         });

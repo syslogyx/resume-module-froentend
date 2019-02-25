@@ -12,7 +12,7 @@ app.controller('screeningTestCtrl', function ($scope, $rootScope, $http, service
     st.pageno = 0;
     st.limit = 0;
     st.skip = true;
-    st.questionList ='';
+    st.questionList = null;
 
     st.options = RESOURCES.ANSWER_OPTIONS;
     st.statusData = RESOURCES.RESULT_STATUS;
@@ -55,7 +55,7 @@ app.controller('screeningTestCtrl', function ($scope, $rootScope, $http, service
                     st.questionList = [];
                 }
             }, function myError(r) {
-                st.questionList = null;
+                st.questionList = [];
                 toastr.error(r.data.message, 'Sorry!');
                 Utility.stopAnimation();
 
@@ -66,7 +66,7 @@ app.controller('screeningTestCtrl', function ($scope, $rootScope, $http, service
     /* Function to reset form */
     st.resetFilterForm = function(){
         $("#filterForm")[0].reset();
-        st.questionList =  null;
+        st.questionList = [];
         st.stream =  null;
         st.init();
         $("#filterForm div.form-group").each(function (e) {
@@ -86,8 +86,7 @@ app.controller('screeningTestCtrl', function ($scope, $rootScope, $http, service
         });
 
         st.interview_duration = '';
-        st.observation = '';
-        
+        st.observation = '';        
         st.init();
     }
 

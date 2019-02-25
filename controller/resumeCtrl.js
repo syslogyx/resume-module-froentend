@@ -4,7 +4,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
     $scope.candidateId = $location.search()["id"] !== undefined ? $location.search()["id"] : null;
     $scope.currency_unit='Lac';
     $scope.title = '';
-
+    
     var authKey = services.getIdentity()==undefined?undefined:JSON.parse(services.getIdentity());
   
     // console.log(JSON.parse(services.getIdentity()));
@@ -24,11 +24,25 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
     $scope.backCurrentImg='resources/img/Bg_img.jpg';
     $scope.currentCTC = null;
 
-    // console.log($routeParams.token);
+    console.log($routeParams.token);
     // $scope.jobDetail=[
     //     {id: 1, name: "Android"},
     //     {id: 2, name: "Java"}
     // ];
+
+    // $scope.copyCorrAddToPerAdd = function(bf,e) {
+    //   e.preventDefault();
+    //   //console.log(bf.checked);
+    //   if(bf.checked){
+    //     // var text1 = document.getElementById("corrAdd").value;
+    //     $scope.permanentAddr = $scope.correspondingAddr;
+    //   }else{
+    //     $scope.permanentAddr ='';
+    //   }
+    //     // document.getElementById("perAdd").value = $scope.permanentAddr;
+    //     $('#permanentAddress').valid();
+                    
+    // }
 
     $scope.getActiveJd = function(){
          var promise = services.getAllActiveJDList();
@@ -90,6 +104,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
              $(this).valid();
              $(this).val();
             startDate =  selected.date;
+            // console.log(startDate);
             $('.end_year').datepicker('setStartDate', startDate);
         }).on("show", function (e) {
             $(this).valid();
@@ -159,12 +174,12 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
 
     function setTime(){
         //Date picker
-       $('#dob').datepicker({
+        $('#dob').bind('keydown',function(e){
+            if (e.which == 13) //13 is Enter/Return key.
+                e.stopImmediatePropagation();
+        }).datepicker({
             autoclose: true,
-            todayHighlight: true
-        }).on('show', function(e){
-            var date = new Date();
-            $('#dob').datepicker('setEndDate', date);
+            todayHighlight: true,
         }).on("changeDate", function (e) {
             $(this).valid();
             $scope.dateOfBirth = $(this).val();
@@ -174,14 +189,6 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
     $scope.init = function(){
        
         setTimeout(function(){setTime();},10);
-
-        $('#dob').bind('keydown',function(e){
-            if (e.which == 13) //13 is Enter/Return key.
-                e.stopImmediatePropagation();
-        }).datepicker({
-            autoclose: true,
-            todayHighlight: true
-        });
 
         /* Getting all qualification list */
         var promise = services.getAllQualificationList();
@@ -612,7 +619,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
             // text: "Please review your details before submitting. "+
             // "You cannot edit the same after final submit.",
             html: 'Please review your details before submitting.<br>' +
-                  'You cannot edit the same after final submit.',
+                  'You can not edit the same after final submit.',
             // customClass: 'swal-wide',
             type: "warning",
             showCancelButton: true,

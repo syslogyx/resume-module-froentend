@@ -82,7 +82,7 @@
                                         <form class="bgUploadForm" method="post" enctype="multipart/form-data" id="backgroundUploadForm_{{bglist.id}}">
                                             <div class="form-group">
                                                 <div class="col-md-9">
-                                                    <input type="{{bglist.type}}" class="form-control upload_file" name="file[]" id="file_{{bglist.id}}" ng-model="file" ng-files="getTheFiles($files)" multiple="{{bglist.type =='file' ? 'true':'false'}}" ng-if="bglist.type=='file'" accept="image/*,application/pdf" required>
+                                                    <input type="{{bglist.type}}" class="form-control upload_file" name="file[]" id="file_{{bglist.id}}" ng-model="file" ng-files="getTheFiles($files)" multiple="{{bglist.type =='file' ? 'true':'false'}}" ng-if="bglist.type=='file'" accept="image/*,application/pdf" required style="height:auto">
                                                 </div>
                                                 <div class="col-md-3">   
                                                     <button type="button" class="btn btn-primary" ng-click="doc.uploadBgCheckForm(bglist.id,$index,bglist.alias)" ng-disabled='bglist.displayFlag =="False"'>Upload File</button>

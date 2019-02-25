@@ -172,14 +172,12 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     /*pagination for Candidates*/
     rlc.fetchList = function(page){
         rlc.limit = $('#table_length').val();
-        // var alphabet = $('#alphabetic_sort').val();
 
         if(rlc.limit == undefined){
             rlc.limit = -1;
         }
         if(page == -1){
             rlc.pageno = 1;
-            //console.log($('#pagination-sec').data("twbs-pagination"));
             if($('#pagination-sec').data("twbs-pagination")){
                     $('#pagination-sec').twbsPagination('destroy');
             }
@@ -218,9 +216,6 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         var mobile = loggedInUser == undefined ? undefined :loggedInUser.identity.mobile;
         var role_id = loggedInUser == undefined ? undefined :loggedInUser.identity.role;
 
-        // console.log(email);
-        // console.log(mobile);
-        // console.log(role_id);
         var req = {
             'job_description_id':rlc.jobCodeId,
             // 'ctc':rlc.ctcKey,
@@ -240,7 +235,6 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
             req.email = email;
             req.contact_no = mobile;
         }
-        // console.log(req);
 
         var requestParam = {
             page:rlc.pageno,
@@ -250,13 +244,13 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         var promise = services.getAllCandidates(req,requestParam);        
         promise.success(function (result) {
             // console.log(result.status_code);
+            Utility.stopAnimation();
             if (result.status_code == 200) {                
                 rlc.resumeList = result.data.data; 
                 pagination.applyPagination(result.data,rlc);
             }else{
                 rlc.resumeList = [];
             }
-            Utility.stopAnimation();
         }, function myError(r) {
             toastr.error(r.data.message, 'Sorry!');
             Utility.stopAnimation();
@@ -418,6 +412,8 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     /* Function to reset PDF form */
     rlc.resetPdfForm = function(){
         $("#pdfSettingForm")[0].reset();
+        $('#ms-my-select').find('.ms-selectable > span').remove();
+        $('#ms-my-select').find('.ms-selection > span').remove();
         $("div.form-group").each(function () {
             $(this).removeClass('has-error');
             $('span.help-block-error').remove();
@@ -669,11 +665,11 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     rlc.clock=function(){
         rlc.second--;             
         if (rlc.second == 0) {
-        rlc.second=15;
-        clearInterval(rlc.x);
-        rlc.waiting=false;
-        var promise = services.downloadBgCheckListDocZip(rlc.candidateName);
-        $("#bgChecklistDocsModal").modal("hide");
+            rlc.second=15;
+            clearInterval(rlc.x);
+            rlc.waiting=false;
+            var promise = services.downloadBgCheckListDocZip(rlc.candidateName);
+            $("#bgChecklistDocsModal").modal("hide");
         }
     }
 
