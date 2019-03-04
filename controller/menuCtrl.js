@@ -21,7 +21,7 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
             {"Title": "Background Checklist", "Link": "/background_checklist", "icon": "fa fa-check-square-o", "active":"deactive"},
             {"Title": "User Management", "Link": "/user#all", "icon": "fa fa-user-plus", "active":"deactive"},
             {"Title": "Technology", "Link": "/technologies", "icon": "fa fa-plus", "active":"deactive"},
-            {"Title": "Import Details", "Link": "", "icon": "fa fa-upload", "active":"deactive"}
+            {"Title": "Import Details", "Link": "/import_excel", "icon": "fa fa-upload", "active":"deactive"}
         ];
         $scope.showUpdateProfile = true;
     }else if (loggedInUser.identity.role==RESOURCES.ROLE_HR) {
@@ -53,6 +53,7 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
             // {"Title": "Dashboard", "Link": "/home", "icon": "fa fa-dashboard", "active":"active"}, 
             {"Title": "My Resume", "Link": "/view_resume", "icon": "fa fa-file-text", "active":"active"},
             {"Title": "Documents", "Link": "/upload_background_form", "icon": "fa fa-file", "active":"deactive"}
+            // {"Title": "Update Profile", "Link": "/resume/", "icon": "fa fa-file", "active":"deactive"}
         ];
         $scope.showUpdateProfile = false;
     }else if (loggedInUser.identity.role==RESOURCES.ROLE_CLIENT) {

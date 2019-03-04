@@ -24,7 +24,11 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
 
     jb.jobStatusData = RESOURCES.JOB_STATUS;
    // jb.changeStatus = 0;
-   // jb.changeStatus = jb.jobStatusData[0].id;   
+   // jb.changeStatus = jb.jobStatusData[0].id; 
+
+    jb.searchJobDescription = function(){
+        jb.fetchList(-1);
+    }  
 
     /* To fetch data according table length */
     setTimeout(function(){
@@ -63,12 +67,14 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
             page:jb.pageno,
             limit:jb.limit,
         }
+        
         if(jb.loggedRoleId != 6){            
             var promise = services.getAllJobList(requestParam);
             promise.success(function (result) {
                 Utility.stopAnimation();
                 if(result.data != null){
                     jb.jobList = result.data.data;
+                    $scope.totalRequirement = 0;
                     pagination.applyPagination(result.data,jb);
                 }
             }, function myError(r) {
@@ -83,12 +89,14 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
             var req = {
                 'email':email,
                 'contact_no':mobile,
+                // "technology_id":jb.technologyId
             }
             var promise = services.getAllJobListByCompanyDetails(requestParam,req);
             promise.success(function (result) {
                 Utility.stopAnimation();
                 if(result.data != null){
                     jb.jobList = result.data.data;
+                    $scope.totalRequirement = 0;
                     pagination.applyPagination(result.data,jb);
                 }
             }, function myError(r) {
@@ -102,10 +110,11 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
     /* Function to initialise job controller */
     jb.init = function(){
         jb.limit = $('#table_length').val();
-        jb.fetchList(-1);        
+             
 
         /* Editing perticular job*/
         jb.id = $location.search()["id"];
+        jb.technologyId = $location.search()["tech_id"];
         if (jb.id > 0) {
             var promise = services.getJobById(jb.id);
             promise.then(function mySuccess(response) {
@@ -130,16 +139,29 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
                 jb.companyName = response.data.data.companies.name,                
                 jb.project_title = response.data.data.project_title,   
                 jb.technology = response.data.data.technology_id,
-                jb.valid_till_date = response.data.data.valid_till_date.split("-").reverse().join("/")
+                jb.technologyName = response.data.data.technologies.name,
+                jb.valid_till_date = response.data.data.valid_till_date != null ? response.data.data.valid_till_date.split("-").reverse().join("/") : ''
                 applySelect2();   
             }, function myError(r) {
                 toastr.error(r.data.message, 'Sorry!');
                 Utility.stopAnimation();
             });
+        }else{
+            jb.fetchList(-1);
         }
 
         jb.getActiveCompanyList();
         jb.getActvieTechnologyListList();
+    }
+
+    jb.resetFilter = function(){
+        $("div.form-group").each(function () {
+            $(this).removeClass('has-error');
+            $('span.help-block-error').remove();
+            applySelect2();
+        });
+        jb.technologyId ='';
+        jb.fetchList(-1);
     }
 
 

@@ -137,43 +137,43 @@ app.controller('forwardResumeListCtrl', function ($scope, $rootScope, $http, ser
     };
 
     frlc.saveForwardResume = function(){
-            var cdata = frlc.candiadteList;
-            var request = {
-                "data":[]
-            }
+        var cdata = frlc.candiadteList;
+        var request = {
+            "data":[]
+        }
 
-            for (var i = 0; i < cdata.length; i++) {
-                if(cdata[i].checked == true){                    
-                    var obj= {
-                        "company_id": cdata[i].job_description.company_id,
-                        "job_description_id":cdata[i].job_description_id,
-                        "candidate_id": cdata[i].id,
-                        "cv_received_on_date":cdata[i].created_at.split(" ", 1).toString()
-                    }
-                    request.data.push(obj);
+        for (var i = 0; i < cdata.length; i++) {
+            if(cdata[i].checked == true){                    
+                var obj= {
+                    "company_id": cdata[i].job_description.company_id,
+                    "job_description_id":cdata[i].job_description_id,
+                    "candidate_id": cdata[i].id,
+                    "cv_received_on_date":cdata[i].created_at.split(" ", 1).toString()
                 }
+                request.data.push(obj);
             }
-            
-            if(request.data.length > 0){
-                var promise = services.saveForwardedCandidateResumes(request);
-                promise.then(function mySuccess(response) {
-                    console.log(response);
-                    Utility.stopAnimation();
-                    try {
-                        toastr.success(response.data.message);
-                        // frlc.resetFilter();
-                        $location.url('/round_details');
-                    } catch (e) {
-                        toastr.error(response.data.message, 'Sorry!');
-                        Raven.captureException(e)
-                    }
-                }, function myError(r) {
-                    toastr.error('Something went wrong');
-                    Utility.stopAnimation();
-                });
-            }else{
-               toastr.error('Please select at least one candidate.'); 
-            }
+        }
+        
+        if(request.data.length > 0){
+            var promise = services.saveForwardedCandidateResumes(request);
+            promise.then(function mySuccess(response) {
+                console.log(response);
+                Utility.stopAnimation();
+                try {
+                    toastr.success(response.data.message);
+                    // frlc.resetFilter();
+                    $location.url('/round_details');
+                } catch (e) {
+                    toastr.error(response.data.message, 'Sorry!');
+                    Raven.captureException(e)
+                }
+            }, function myError(r) {
+                toastr.error('Something went wrong');
+                Utility.stopAnimation();
+            });
+        }else{
+           toastr.error('Please select at least one candidate.'); 
+        }
     }
 
 

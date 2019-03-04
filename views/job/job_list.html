@@ -24,7 +24,30 @@
                 </button>
             </div>            
         </div> 
-        <br>        
+        <br>  
+
+        <!--  ng-class="{'in' : jdc.technologyId !=''}" -->
+        <!-- <div class="box box-primary collapse in" id="filter">
+            <div class="box-body">
+                <form id="candidateResumeFilterForm">                    
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                              <label>Technology</label>
+                                <select id="jobCode" name="jobCode" ng-model="jb.technologyId" class="form-control" >
+                                    <option value="" style="color:#ccc !important;">Select technology</option>
+                                    <option ng-repeat="tech in jb.technologyList" value="{{tech.id}}">{{tech.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4" style="margin-top: 2.2%">
+                            <button type="button" class="btn btn-primary" ng-click="jb.searchJobDescription()">Search</button> 
+                            <button type="button" class="btn btn-primary fa fa-refresh" ng-click="jb.resetFilter()"></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div> -->      
         
         <div class="table-responsive no-padding">
             <table class="table table-hover">
@@ -32,23 +55,25 @@
                     <tr>
                         <th style="text-align: center;">Sr No.</th>
                         <th>Title</th>                        
+                        <th>Technology</th>                        
                         <th ng-if="jb.loggedRoleId != 6">Client Name</th>                        
                         <th style="text-align: center;">No. of Requirement</th>
                         <th>Experience</th>                        
                         <th>Job Location</th>
                         <!-- <th>Job Type</th>  -->
                         <th>Job Code</th>                   
-                        <th style="text-align: center;" ng-if="jb.loggedRoleId != 6">Action</th>
+                        <th style="text-align: center;">Action</th>
                         <th style="text-align: center;">Status</th>
                     </tr>
                 </thead>
                <!--  <pre>{{jb.jobList|json}}</pre> -->
                 <tbody>
-                    <tr ng-repeat="jl in jb.jobList">
+                    <tr ng-repeat="jl in jb.jobList" ng-init="totalRequirement = 0">
                         <td style="text-align: center;" ng-bind="(jb.pageno - 1) * jb.limit + ($index + 1)"></td>
                         <td >{{jl.title}}</td>
+                        <td >{{jl.technologies.name}}</td>
                         <td ng-if="jb.loggedRoleId != 6">{{jl.companies.name}}</td>
-                        <td style="text-align: center;">{{jl.no_of_requiremet}}</td>
+                        <td style="text-align: center;" ng-init="$parent.totalRequirement = $parent.totalRequirement + jl.no_of_requiremet">{{jl.no_of_requiremet}}</td>
                         <td >{{jl.experience}}</td>                        
                         <td >{{jl.job_location}}</td>                        
                        <!--  <td >{{jl.job_type}}</td> -->
@@ -58,12 +83,18 @@
                             <a type="button" class="btn btn-xs" ng-href="jobs/view?id={{jl.id}}" title="View" style="outline: 0;"><i class="fa fa-eye" aria-hidden="true" ></i></a>
                         </td>     
                         <td style="text-align: center;">    
-                            <toggle id="enabled_{{$index}}" name="enabled_{{$index}}" size="btn-xs" off-class="btn-danger" on-class="btn-success" ng-model="jl.status" id="toggle-status-switch" ng-click="jb.changeJobStatus(jl.status,jl.id);"  on="Active" off="Inactive"></toggle>
+                            <toggle id="enabled_{{$index}}" name="enabled_{{$index}}" size="btn-xs" off-class="btn-danger" on-class="btn-success" ng-model="jl.status" id="toggle-status-switch" ng-change="jb.changeJobStatus(jl.status,jl.id);"  on="Active" off="Inactive"></toggle>
+                            <!-- ng-disabled="jb.loggedRoleId == 6 ? true : false" -->
                            <!-- <switch id="enabled_{{$index}}" name="enabled_{{$index}}" ng-model="jl.status" on="Active" off="Inactive" class="green" ng-click="jb.changeJobStatus(jl.status,jl.id);"></switch> -->
                         </td>
                     </tr>
+                    <!-- <tr>
+                        <td colspan="3" style="text-align: center;"><strong>Total Requirements</strong></td>
+                        <td style="text-align: center;">{{totalRequirement}}</td>
+                        <td colspan="6"></td>
+                    </tr> -->
                     <tr ng-if="jb.jobList == null || jb.jobList.length == 0">
-                        <td style="text-align: center;" colspan="7">No Records Found</td> 
+                        <td style="text-align: center;" colspan="10">No Records Found</td> 
                     </tr>
                 </tbody>
             </table>

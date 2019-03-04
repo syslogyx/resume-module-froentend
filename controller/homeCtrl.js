@@ -37,7 +37,13 @@ app.controller('homeCtrl', function ($scope,RESOURCES,$rootScope,menuService,ser
 	}
 
     hme.getTechnologies = function(){
-        var promise = services.getActiveTechnologyDetails();
+        var email = loggedInUser == undefined ? undefined :loggedInUser.identity.email;
+        var mobile = loggedInUser == undefined ? undefined :loggedInUser.identity.mobile;
+        var req = {
+            'email':email,
+            'contact_no':mobile,
+        }
+        var promise = services.getActiveTechnologyDetails(req);
         promise.success(function (result) {
             Utility.stopAnimation();
             console.log(result.data);

@@ -1,7 +1,7 @@
 <section class="content dashboard" style="min-height: 525px;">
     <div class="container-fluid dashbaordContainer">
         <div ng-class="{'margin-left-client': hme.logInUserRole == hme.role_client, 'margin-left-others': hme.logInUserRole == hme.role_hr, 'margin-left-others': hme.logInUserRole == hme.role_admin}"> 
-            <h3>Welcome <span style="color:#3c8dbc;font-size: smaller;">{{hme.name }} !</span></h3>
+            <h3>Welcome <span style="color:#1e5598;font-size: smaller;">{{hme.name }} !</span></h3>
         </div>
 
         <!-- Start Dashboard for admin -->
@@ -86,11 +86,31 @@
                         </div>
                         <div class="box-body">
                             <ul id="details_list" style="list-style: none;">
-                                <li><strong>Job Description</strong><a class="pull-right">{{tec.job_description_count}}</a></li>
-                                <li><strong>Total JD Requirements</strong><a class="pull-right">{{tec.total_no_of_requiremet_count}}</a></li>
-                                <li><strong>Shared Candidates</strong><a class="pull-right">{{tec.forwarded_candidates_count}}</a></li>
-                                <li><strong>Shortlist Candidates</strong><a class="pull-right">{{tec.shortlisted_candidates_count}}</a></li>
-                                <li><strong>Joined Candidates</strong><a class="pull-right">{{tec.joined_candidates_count}}</a></li>
+                                <li>
+                                    <strong>Job Description</strong>
+                                    <a class="pull-right" ng-href="/jobs/jd_list?tech_id={{tec.id}}" ng-if="tec.job_description_count > 0"><!-- /jobs/jd_list?tech_id={{tec.id}} /jobs?tech_id={{tec.id}} -->{{tec.job_description_count}}</a>
+                                    <a class="pull-right" ng-if="tec.job_description_count == 0" style="cursor: default;">{{tec.job_description_count}}</a>
+                                </li>
+                                <li>
+                                    <strong>Total JD Requirements</strong>
+                                    <a class="pull-right" ng-href="/jobs/jd_list?tech_id={{tec.id}}" ng-if="tec.total_no_of_requiremet_count > 0">{{tec.total_no_of_requiremet_count}}</a>
+                                    <a class="pull-right" ng-if="tec.total_no_of_requiremet_count == 0" style="cursor: default;">{{tec.total_no_of_requiremet_count}}</a>
+                                </li>
+                                <li>
+                                    <strong>Shared Candidates</strong>
+                                    <a class="pull-right" ng-href="/candidate_list?tech_id={{tec.id}}&status=Forwarded&jd_id={{tec.jd_ids}}" ng-if="tec.forwarded_candidates_count > 0">{{tec.forwarded_candidates_count}}</a>
+                                    <a class="pull-right" ng-if="tec.forwarded_candidates_count == 0" style="cursor: default;">{{tec.forwarded_candidates_count}}</a>
+                                </li>
+                                <li>
+                                    <strong>Shortlist Candidates</strong>
+                                    <a class="pull-right" ng-href="/candidate_list?tech_id={{tec.id}}&status=Pass&jd_id={{tec.jd_ids}}" ng-if="tec.shortlisted_candidates_count > 0">{{tec.shortlisted_candidates_count}}</a>
+                                    <a class="pull-right" ng-if="tec.shortlisted_candidates_count == 0" style="cursor: default;">{{tec.shortlisted_candidates_count}}</a>
+                                </li>
+                                <li>
+                                    <strong>Joined Candidates</strong>
+                                    <a class="pull-right" ng-href="/candidate_list?tech_id={{tec.id}}&status=Joined&jd_id={{tec.jd_ids}}" ng-if="tec.joined_candidates_count > 0">{{tec.joined_candidates_count}}</a>
+                                    <a class="pull-right" ng-if="tec.joined_candidates_count == 0" style="cursor: default;">{{tec.joined_candidates_count}}</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -127,14 +147,14 @@
         margin-left:28px !important;
     }
     .box{
-        border: 1px solid #3C8DBC;
-        border-top: 5px solid #3C8DBC;
+        border: 1px solid #1e5598;
+        border-top: 5px solid #1e5598;
         border-radius: 5px;
         /*background: transparent;*/
         margin-bottom:10px;
     }
     .main-box-header{
-        background-color: #3C8DBC;
+        background-color: #1e5598;
         color: #ffffff;
         text-align: center;
     }
@@ -147,7 +167,7 @@
         border-bottom: 0px solid;
     }
     .box-header{
-        background-color: #3C8DBC;
+        background-color: #1e5598;
         color: #ffffff;
     }
     .set-padding{

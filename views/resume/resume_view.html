@@ -12,6 +12,11 @@
                            <b> Resume of</b>  <span style="color:#3c8dbc;">{{ firstName +' '+ middleName +' '+ lastName}}</span>
                     </h1>
                 </div>
+                <div class="col-xs-6">
+                    <div class="pull-right" style="margin-top: 5px; margin-right: 20px;">
+                        <a ng-href="/resume/{{myunique_token}}?id={{myOwnId}}" target="_blank" class="btn btn-primary btn-sm" style="outline: 0;"><i class="fa fa-edit"></i> Update Details</a>  
+                    </div> 
+                </div>
             </div>
             <div class="box-body"> 
                 <h4>PERSONAL DETAILS :</h4>

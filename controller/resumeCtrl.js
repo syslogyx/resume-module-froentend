@@ -229,7 +229,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
                 var res = response.data;
                 $totalExpArray = "";
                 if(res.status_code == 200){
-                    $scope.job_id = res.data.job_description_id.toString();
+                    $scope.job_id = res.data.job_description_id  != null ? res.data.job_description_id.toString() : null;
                     $scope.opportunityFor = res.data.opprtunity_for;
                     $scope.firstName = res.data.first_name;
                     $scope.middleName = res.data.middle_name;
@@ -237,7 +237,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
                     $scope.email = res.data.email;
                     $scope.mobileNumber = res.data.mobile_no;
                     $scope.currency_unit = res.data.currency_unit;
-                    $scope.dateOfBirth = res.data.date_of_birth.split("-").reverse().join("/");
+                    $scope.dateOfBirth = res.data.date_of_birth != null ? res.data.date_of_birth.split("-").reverse().join("/") : null;
                     $scope.panNumber = res.data.pan_number;
                     $scope.passportNumber = res.data.passport;
                     $scope.gender = res.data.gender;
@@ -271,7 +271,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
     }
 
     $scope.populateObjectiveData = function(data){
-        if(data != ""){
+        if(data != "" && data != null){
             $cdata = JSON.parse(data);
             $scope.objectiveDiv.splice(0, 1);
             for (var i = 0; i < $cdata.length; i++) {
@@ -281,7 +281,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
     }
 
     $scope.populateSummaryData = function(data){
-        if(data != ""){
+        if(data != "" && data != null){
             $cdata = JSON.parse(data);
             $scope.summaryDiv.splice(0, 1);
             for (var i = 0; i < $cdata.length; i++) {
@@ -687,7 +687,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
                     "foreign_languages":$scope.foreignLang,
                     "indian_languages":$scope.indianLang
                 }
-                console.log(req);
+                // console.log(req);
                 var promise = '';
                 $isAuthkeyExist = false;
                 if ($scope.candidateId > 0) {
@@ -817,7 +817,9 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
                 var res = response.data;
                 $totalExpArray = "";
                 if(res.status_code == 200){
-                    $scope.job_id = res.data.job_description.sub_title;
+                    $scope.job_id = res.data.job_description != null ? res.data.job_description.sub_title : null;
+                    $scope.myOwnId = res.data.id;
+                    $scope.myunique_token = res.data.unique_token;
                     $scope.opportunityFor = res.data.opprtunity_for;
                     $scope.firstName = res.data.first_name;
                     $scope.middleName = res.data.middle_name;
@@ -825,7 +827,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
                     $scope.email = res.data.email;
                     $scope.mobileNumber = res.data.mobile_no;
                     $scope.currency_unit = res.data.currency_unit;
-                    $scope.dateOfBirth = res.data.date_of_birth.split("-").reverse().join("/");
+                    $scope.dateOfBirth = res.data.date_of_birth != null ? res.data.date_of_birth.split("-").reverse().join("/") : null;
                     $scope.panNumber = res.data.pan_number;
                     $scope.passportNumber = res.data.passport;
                     $scope.gender = res.data.gender;

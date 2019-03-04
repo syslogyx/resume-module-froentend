@@ -1,8 +1,9 @@
 ﻿var Utility = {
 
-     apiBaseUrl: "http://127.0.0.1:8000/api/",
+     // apiBaseUrl: "http://127.0.0.1:8000/api/",
        // apiBaseUrl: "http://172.16.1.97:8000/api/",
       // apiBaseUrl: "http://172.16.2.37:9000/api/",
+      apiBaseUrl: "http://172.16.1.180:9000/api/",
 
     // apiBaseUrl: "http://127.0.0.1:8000/api/",
     // apiBaseUrl: "http://172.16.1.180:8000/api/",
@@ -1417,9 +1418,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
                 'Content-Type': RESOURCES.CONTENT_TYPE
             }
         })
-    };
-
-    
+    };    
 
     this.saveForwardedCandidateResumes = function (req) {
         Utility.startAnimation();
@@ -1429,12 +1428,10 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             dataType: 'json',
             data: $.param(req),
             headers: {
-                'Content-Type': RESOURCES.CONTENT_TYPE
-                
+                'Content-Type': RESOURCES.CONTENT_TYPE                
             }
         })
     };
-
 
     this.getCandidateTechRoundDtls = function (id) {
         Utility.startAnimation();
@@ -1531,12 +1528,80 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
-    this.getActiveTechnologyDetails = function () {
+    this.readCSVFile  = function(request){ 
+    console.log(request);     
         Utility.startAnimation();
         return $http({
-            method: 'GET',
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "read_excel",
+            dataType: 'form-data',
+            data: request,
+            headers: {
+                'Content-Type': undefined
+            }
+        })
+    };
+
+    this.getActiveTechnologyDetails = function (req) {
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
             url: RESOURCES.SERVER_API + "technologies/list/dashboard",
             dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+    this.importCandidatesDetails = function (req) {
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "import_excel",
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE,
+            }
+        })
+    };
+
+    this.getfilteredJdList = function(requestBody,requestParam){
+        if(requestParam == undefined){
+            page = -1;
+            limit = -1;
+        }else{
+            page = requestParam.page;
+            limit = requestParam.limit;
+        }
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',            
+            url: RESOURCES.SERVER_API + "job_description/filter?page=" + page + "&limit=" + limit,
+            dataType: 'json',
+            data: $.param(requestBody),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+    this.getfilteredCandidateList = function(requestBody,requestParam){
+        if(requestParam == undefined){
+            page = -1;
+            limit = -1;
+        }else{
+            page = requestParam.page;
+            limit = requestParam.limit;
+        }
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',            
+            url: RESOURCES.SERVER_API + "candidate/filter/clients?page=" + page + "&limit=" + limit,
+            dataType: 'json',
+            data: $.param(requestBody),
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
             }
@@ -1964,6 +2029,25 @@ app.config(function ($routeProvider, $locationProvider) {
                 }
             })
 
+            .when('/import_excel', {
+                templateUrl: 'views/utility/import_excel.html',
+                controller: 'utilityCtrl',
+                controllerAs: 'ucl',
+                resolve: {
+                    'acl': ['$q', 'AclService', function ($q, AclService) {
+                            return true;
+                            
+                            if (AclService.can('view_dash')) {
+                                // Has proper permissions
+                                return true;
+                            } else {
+                                // Does not have permission
+                                return $q.reject('LoginRequired');
+                            }
+                        }]
+                }
+            })
+
             .when('/client', {
                 templateUrl: 'views/client/client_list.html',
                 controller: 'clientCtrl',
@@ -2152,6 +2236,46 @@ app.config(function ($routeProvider, $locationProvider) {
                         }]
                 }
             })
+
+            .when('/jobs/jd_list', {
+                templateUrl: 'views/job/job_description_list.html',
+                controller: 'jobDescriptionListCtrl',
+                controllerAs: 'jdc',
+                resolve: {
+                    'acl': ['$q', 'AclService', function ($q, AclService) {
+                            return true;
+                            
+                            if (AclService.can('view_dash')) {
+                                // Has proper permissions
+                                return true;
+                            } else {
+                                // Does not have permission
+                                return $q.reject('LoginRequired');
+                            }
+                        }]
+                }
+            })
+
+            .when('/candidate_list', {
+                templateUrl: 'views/resume/candidate_list.html',
+                controller: 'candidateListCtrl',
+                controllerAs: 'clc',
+                resolve: {
+                    'acl': ['$q', 'AclService', function ($q, AclService) {
+                            return true;
+                            
+                            if (AclService.can('view_dash')) {
+                                // Has proper permissions
+                                return true;
+                            } else {
+                                // Does not have permission
+                                return $q.reject('LoginRequired');
+                            }
+                        }]
+                }
+            })
+
+            
  
 
     $locationProvider.html5Mode(true);

@@ -19,19 +19,23 @@
             <div class="box-body">  
                 <div class="row">
                     <div class="col-md-4 form-group">
+                        <label>Technology:</label><br>
+                        <span ng-bind="jb.technologyName == null ? 'NA' :  jb.technologyName"></span>
+                    </div>
+                    <div class="col-md-4 form-group">
                         <label>Job Title:</label><br>
                         <span ng-bind="jb.jobTitle == null ? 'NA' :  jb.jobTitle"></span>
                     </div>
                     <div class="col-md-4 form-group">
                         <label>Subtitle:</label><br>
                         <span ng-bind="jb.subTitle == null ? 'NA' :  jb.subTitle"></span>
-                    </div>
+                    </div>                   
+                </div>
+                <div class="row">
                     <div class="col-md-4 form-group">
                         <label>Notice Period:</label><br>
                         <span ng-bind="jb.noticePeroid == null ? 'NA' : jb.noticePeroid"></span>
-                    </div>                    
-                </div>
-                <div class="row">
+                    </div> 
                     <div class="col-md-4 form-group">
                         <label>No. of Requirement:</label><br>
                         <span ng-bind="jb.requirementNo == null ? 'NA' : jb.requirementNo"></span>
@@ -39,13 +43,13 @@
                     <div class="col-md-4 form-group">
                         <label>Experience:</label><br>
                         <span ng-bind="jb.experiance == null ? 'NA' : jb.experiance"></span>
-                    </div>
-                    <div class="col-md-4 form-group">
-                        <label>Job Location:</label><br>
-                        <span ng-bind="jb.jobLocation == null ? 'NA' : jb.jobLocation"></span>
                     </div>                    
                 </div>
                 <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label>Job Location:</label><br>
+                        <span ng-bind="jb.jobLocation == null ? 'NA' : jb.jobLocation"></span>
+                    </div>
                     <div class="col-md-4 form-group">
                         <label>Job Type:</label><br>
                         <span ng-bind="jb.jobType == null ? 'NA' : jb.jobType"></span>
@@ -53,11 +57,21 @@
                     <div class="col-md-4 form-group">
                         <label>CTC:</label><br>
                         <span ng-bind="jb.ctc == null ? 'NA' : jb.ctc"></span>
+                    </div>                    
+                </div>
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label>Valid till date:</label><br>
+                        <span ng-bind="jb.valid_till_date == null ? 'NA' : jb.valid_till_date"></span>
                     </div>
                     <div class="col-md-4 form-group">
                         <label>Client Name:</label><br>
                         <span ng-bind="jb.companyName == null ? 'NA' : jb.companyName"></span>
-                    </div>                    
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label>Project Description:</label><br>
+                        <span ng-bind="jb.project_title == null ? 'NA' : jb.project_title"></span>
+                    </div>           
                 </div>
                 <div class="row">
                     <div class="col-md-6 form-group">
@@ -67,7 +81,7 @@
                     <div class="col-md-6 form-group">
                         <label>Required Skills:</label><br>
                         <span ng-bind="jb.requiredSkill == null ? 'NA' : jb.requiredSkill"></span>
-                    </div>                  
+                    </div>               
                 </div>
                 <div class="row">
                     <div class="col-md-6 form-group">
@@ -79,17 +93,11 @@
                         <span ng-bind="jb.roleResponsibility == null ? 'NA' : jb.roleResponsibility"></span>
                     </div>                  
                 </div>
-                <div class="row">
-                    <div class="col-md-6 form-group">
-                        <label>Project Description:</label><br>
-                        <span ng-bind="jb.project_title == null ? 'NA' : jb.project_title"></span>
-                    </div>                
-                </div>
             </div>
             <!-- /.box-body -->
             <div class="box-footer" style="margin-right:14px!important">
                 <div class="pull pull-right">
-                    <input type="button" value="Cancel" class="btn btn-warning" data-ng-click="jb.cancelJob()"  style="outline: 0;"/> 
+                    <input type="button" value="Back" class="btn btn-warning" data-ng-click="jb.cancelJob()"  style="outline: 0;"/> 
                 </div>
             </div>
         </div>

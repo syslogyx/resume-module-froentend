@@ -146,14 +146,40 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
 
     /*Function to get all active job description list */
     rlc.getActiveJd = function(){
-        var promise = services.getAllActiveJDList();
-        promise.success(function (result) {
-            Utility.stopAnimation();
-            rlc.jobDetail = result.data; 
-        }, function myError(r) {
-            toastr.error(r.data.message, 'Sorry!');
-            Utility.stopAnimation();
-        });
+        rlc.loggedRoleId = loggedInUser == undefined ? undefined :loggedInUser.identity.role;
+        if(rlc.loggedRoleId != 6){            
+            var promise = services.getAllActiveJDList();
+            promise.success(function (result) {
+                Utility.stopAnimation();
+                rlc.jobDetail = result.data; 
+            }, function myError(r) {
+                toastr.error(r.data.message, 'Sorry!');
+                Utility.stopAnimation();
+            });
+        }else{
+            var email = loggedInUser == undefined ? undefined :loggedInUser.identity.email;
+            var mobile = loggedInUser == undefined ? undefined :loggedInUser.identity.mobile;
+            var requestParam = {
+                page:0,
+                limit:0,
+            }
+            var req = {
+                'email':email,
+                'contact_no':mobile,
+                // "technology_id":jb.technologyId
+            }
+            var promise = services.getAllJobListByCompanyDetails(requestParam,req);
+            promise.success(function (result) {
+                Utility.stopAnimation();
+                if(result.data != null){
+                    rlc.jobDetail = result.data.data;
+                }
+            }, function myError(r) {
+                toastr.error(r.data.message, 'Sorry!');
+                Utility.stopAnimation();
+
+            });
+        }
     }
 
     /*Record limit for Candidates in pagination*/
@@ -172,7 +198,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     /*pagination for Candidates*/
     rlc.fetchList = function(page){
         rlc.limit = $('#table_length').val();
-
+        console.log(rlc.alpha);
         if(rlc.limit == undefined){
             rlc.limit = -1;
         }

@@ -25,11 +25,11 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
         ilc.scheduledDate='';
         if(ilc.logInUserRole != 4){
             ilc.userId = null;
-            ilc.fetchList(-1);
         }else{
             ilc.interviewList = null;
             ilc.currentInterviewList = [];
         }
+        ilc.fetchList(-1);
     }
 
     /*Record limit for Candidates in pagination */

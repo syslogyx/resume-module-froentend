@@ -1,0 +1,93 @@
+<section class="content" ng-cloak id="jobCtrl">
+    <div class="container-fluid" style="overflow-y: hidden;">
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Job Description List</h4>
+            </div>
+            <div class="col-md-6" style="margin-top:1.5%;">
+                <div class="dataTables_length text-right" id="example_length">
+                    <label>Show 
+                        <select id="table_length" aria-controls="example" style="outline: 0;">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select> 
+                    entries</label>
+                </div>
+            </div>
+            <!-- <div class="col-md-2 pull-right" style="margin-top:1%;">
+                <button type="button" class="btn btn-primary btn-circle btn-sm pull-right" data-toggle="collapse" title="Filter" data-target="#filter"><i class="fa fa-filter" aria-hidden="true" style="padding-right:0.3px"></i></button>
+            </div> -->            
+        </div> 
+        <br> 
+
+        <div class="box box-primary collapse in" id="filter">
+            <!--  ng-class="{'in' : jdc.technologyId !=''}" -->
+            <div class="box-body">
+                <form id="candidateResumeFilterForm">                    
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                              <label>Technology</label>
+                                <select id="jobCode" name="jobCode" ng-model="jdc.technologyId" class="form-control" >
+                                    <option value="" style="color:#ccc !important;">Select technology</option>
+                                    <option ng-repeat="tech in jdc.technologyList" value="{{tech.id}}">{{tech.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4" style="margin-top: 2.2%">
+                            <button type="button" class="btn btn-primary" ng-click="jdc.searchJobDescription()">Search</button> 
+                            <button type="button" class="btn btn-primary fa fa-refresh" ng-click="jdc.resetFilter()"></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>         
+        
+        <div class="table-responsive no-padding">
+            <table class="table table-hover">
+                <thead class="thead-default">
+                    <tr>
+                        <th style="text-align: center;">Sr No.</th>
+                        <th>Title</th>       
+                        <th>Technology</th>       
+                        <th style="text-align: center;">No. of Requirement</th>
+                        <th>Experience</th>                        
+                        <th>Job Location</th>
+                        <th>Job Code</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="jl in jdc.jobList" ng-init="totalRequirement = 0">
+                        <td style="text-align: center;" ng-bind="(jdc.pageno - 1) * jdc.limit + ($index + 1)"></td>
+                        <td ng-bind="jl.title"></td>
+                        <td ng-bind="jl.technologies.name"></td>
+                        <td style="text-align: center;" ng-init="$parent.totalRequirement = $parent.totalRequirement + jl.no_of_requiremet" ng-bind="jl.no_of_requiremet"></td>
+                        <td ng-bind="jl.experience"></td>                        
+                        <td ng-bind="jl.job_location"></td> 
+                        <td ng-bind="jl.job_code"></td>
+                        <td><a type="button" class="btn btn-xs" ng-href="jobs/view?id={{jl.id}}" title="View" style="outline: 0;"><i class="fa fa-eye" aria-hidden="true" ></i></a></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center;"><strong>Total Requirements</strong></td>
+                        <td style="text-align: center;">{{totalRequirement}}</td>
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr ng-if="jdc.jobList == null || jdc.jobList.length == 0">
+                        <td style="text-align: center;" colspan="6">No Records Found</td> 
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row col-sm-12" style="padding-right: 0px;">
+                <ul id="pagination-sec" class="pagination-sm" style="float: right;margin-top: 5px;margin-bottom:45px;margin-right:-1.2%"></ul>
+            </div>
+        </div> 
+    </div>
+
+</section>
+<script>
+    $(".s2mn").on("change", function () { $(this).valid(); });
+</script>

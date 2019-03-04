@@ -5,6 +5,8 @@ app.controller("resultCtrl", function (services, AclService, $scope, $http, $loc
     res.interviewerList='';
     res.round = RESOURCES.TECHNICAL_ROUND;  
     res.statusData = RESOURCES.RESULT_STATUS;
+    var loggedInUser = services.getIdentity()==undefined?undefined:JSON.parse(services.getIdentity());
+
 
     res.tecForm = {
     	"candidate_id":null,
@@ -21,6 +23,7 @@ app.controller("resultCtrl", function (services, AclService, $scope, $http, $loc
     	res.getCandidateList();
     	res.getAllInterviewerList();
     	res.tecForm.candidate_id = $location.search()["cId"];
+        console.log(res.tecForm.candidate_id);
         res.tecForm.user_id = parseInt($location.search()["uId"]);
 	    res.tecForm.job_description_id = parseInt($location.search()["jd_id"]);
 	    res.tecForm.technical_round = $location.search()["round"].toString();
@@ -72,11 +75,18 @@ app.controller("resultCtrl", function (services, AclService, $scope, $http, $loc
 
     /* Function to get all candidate list */
     res.getCandidateList = function(){
-    	var req = {
+    	var requestParam = {
     		"page":0,
             "limit":0
     	};
-    	var promise = services.getAllCandidates(req);  
+
+        var email = loggedInUser == undefined ? undefined :loggedInUser.identity.email;
+        var mobile = loggedInUser == undefined ? undefined :loggedInUser.identity.mobile;
+        var role_id = loggedInUser == undefined ? undefined :loggedInUser.identity.role;
+        var req = {
+            "role_id":role_id
+        }
+    	var promise = services.getAllCandidates(req,requestParam);
         promise.success(function (result) {
                 // console.log(result);
             if (result.data) {
