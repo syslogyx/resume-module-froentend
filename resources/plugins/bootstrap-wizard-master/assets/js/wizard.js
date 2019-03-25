@@ -220,7 +220,7 @@ $(document).ready(function(){
               maxlength: 25,
 		    },
             middle_name: {
-              required: true,
+              // required: true,
               lettersonly: true,
               maxlength: 25,
             },
