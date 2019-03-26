@@ -1,0 +1,58 @@
+{
+  "status_code": 200,
+  "message": "Data",
+  "data": {
+    "total_no_of_client_cv": 10,
+    "technology_details": [
+      {
+        "id": 1,
+        "name": "Embedded",
+        "total_candidate_count": 45,
+        "selected_candidates_count": 15,
+        "shortlist_through_other_vendor_count": 1,
+        "joined_tcs_directly": 5,
+        "joined_somewhere_else": 3,
+        "rejected": 2,
+        "no_response_from_Candidate": 1,
+        "expecting_high_ctc": 0,
+        "bgc_form_not_shared_not_interested_candidate": 3
+      },
+      {
+        "id": 2,
+        "name": "Android",
+        "total_candidate_count": 25,
+        "selected_candidates_count": 10,
+        "shortlist_through_other_vendor": 10,
+        "joined_tcs_directly": 5,
+        "joined_somewhere_else": 2,
+        "rejected": 2,
+        "no_response_from_Candidate": 1,
+        "expecting_high_ctc": 1,
+        "bgc_form_not_shared_not_interested_candidate": 3
+      },
+      {
+        "id": 3,
+        "name": "Java",
+        "total_candidate_count": 45,
+        "selected_candidates_count": 15,
+        "shortlist_through_other_vendor_count": 1,
+        "joined_tcs_directly": 5,
+        "joined_somewhere_else": 3,
+        "rejected": 2,
+        "no_response_from_Candidate": 1,
+        "expecting_high_ctc": 0,
+        "bgc_form_not_shared_not_interested_candidate": 3
+      }
+    ],
+    "candidate_mgmt_details": {
+      "job_description_count": 0,
+      "total_no_of_requirement_count": 0,
+      "jd_ids": [],
+      "shortlisted_candidates_count": 0,
+      "shared_candidates_count": 0,
+      "joined_candidates_count": 0,
+      "inprogress_interviews_count": 0,
+      "onbording": 0
+    }
+  }
+}

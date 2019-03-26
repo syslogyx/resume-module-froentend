@@ -1608,6 +1608,43 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
+    this.getAdminDashboardDetails = function () {
+        Utility.startAnimation();
+        return $http({
+            method: 'GET',
+            url: RESOURCES.SERVER_API + "dashboard/admin",
+            dataType: 'json',
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+    this.getHrDashboardDetails = function () {
+        Utility.startAnimation();
+        return $http({
+            method: 'GET',
+            url: RESOURCES.SERVER_API + "dashboard/hr",
+            dataType: 'json',
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+    this.getClientDashboardDetails = function (req) {
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "dashboard/client",
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
 });
 
 app.config(function ($routeProvider, $locationProvider) {

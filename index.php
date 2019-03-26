@@ -68,6 +68,8 @@
         <link rel="stylesheet" type="text/css" href="/resources/css/jquery-ui.css">
         <link href="/resources/plugins/angular-ui-switch-master/angular-ui-switch.min.css" rel="stylesheet">
         <link href="/resources/plugins/lou-multi-select-e052211/css/multi-select.css" rel="stylesheet">
+        <!-- pie_chart -->
+        <link rel="stylesheet" href="/resources/pie_chart/jqwidgets/styles/jqx.base.css" type="text/css" />
         <style>
             [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-    ng-cloak{
                 display: none !important;
@@ -327,6 +329,13 @@
         <script src="/resources/plugins/jquery.twbsPagination/jquery.twbsPagination.min.js"></script>
         <!-- <script src="/resources/plugins/Jquery-freezeheader-plugin/js/jquery.freezeheader.js"></script> -->
         <script src="/resources/js/ui-bootstrap-tpls.js"></script>
+
+        <script type="text/javascript" src="/resources/pie_chart/jqwidgets/jqxcore.js"></script>
+        <script type="text/javascript" src="/resources/pie_chart/jqwidgets/jqxdraw.js"></script>
+        <script type="text/javascript" src="/resources/pie_chart/jqwidgets/jqxchart.core.js"></script>
+        <!-- <script type="text/javascript" src="scripts/demos.js"></script> -->
+        <script type="text/javascript" src="/resources/pie_chart/jqwidgets/jqxdata.js"></script>
+        
         <script src="/resources/js/myapp.js"></script>  
         <script src="/controller/homeCtrl.js"></script>
         <script src="/controller/loginCtrl.js"></script>  
