@@ -49,6 +49,15 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
         // if(ilc.logInUserRole == 4){
         //     ilc.getTodaysScheduledInterviewList();
         // }
+        
+        /* Redirect 
+        from dashbord to shows todays interview list*/
+        ilc.todayStatus = $location.search()["status"];
+        if(ilc.todayStatus == 'today'){
+            ilc.scheduledDate = Utility.formatDate(new Date());
+            ilc.userId = null;
+            ilc.fetchList(-1);
+        }
     }
 
 

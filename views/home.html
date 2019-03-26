@@ -26,7 +26,14 @@
                     <!-- <img src="resources/img/Admin_dashboard/Live_jd_img.png" width="325px" height="261px"> -->
                     <div class="box box-default totalcountBox">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Live JD</h3>
+                            <div class="col-md-10 " style='padding-left:0px'>
+                                <h3 class="box-title">Live JD</h3>
+                            </div>
+                            <div class="col-md-2 ">
+                                <div class="pull-right" >
+                                    <a ng-href="/jobs"><button type="button" class="btn btn-default btn-sm"  title="View" style="background-color:#fd7e14;color:#fff;"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
+                                </div> 
+                            </div>  
                         </div>
                         <div class="box-body">
                             <h1 class="box-content">{{hme.adminDashboradRecord.total_jd_count}}</h1>
@@ -37,7 +44,14 @@
                    <!--  <img src="resources/img/Admin_dashboard/Clients_img.png" width="325px" height="261px"> -->
                     <div class="box box-default totalcountBox">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Clients</h3>
+                            <div class="col-md-10 " style='padding-left:0px'>
+                                <h3 class="box-title">Clients</h3>
+                            </div>
+                            <div class="col-md-2 ">
+                                <div class="pull-right" >
+                                    <a ng-href="/client"><button type="button" class="btn btn-default btn-sm"  title="View" style="background-color:#fd7e14;color:#fff;"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
+                                </div> 
+                            </div> 
                         </div>
                         <div class="box-body">
                             <h1 class="box-content">{{hme.adminDashboradRecord.total_client_count}}</h1>
@@ -48,7 +62,14 @@
                     <!-- <img src="resources/img/Admin_dashboard/Candidates_img.png" width="365px" height="261px"> -->
                     <div class="box box-default totalcountBox">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Candidates Management</h3>
+                            <div class="col-md-10 " style='padding-left:0px'>
+                                <h3 class="box-title">Candidates Management</h3>
+                            </div>
+                            <div class="col-md-2 ">
+                                <div class="pull-right" >
+                                    <a ng-href="/resume_list#non-selected"><button type="button" class="btn btn-default btn-sm"  title="View" style="background-color:#fd7e14;color:#fff;"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
+                                </div> 
+                            </div> 
                         </div>
                         <div class="box-body">
                             <ul id="candidate_details_list" style="list-style: none;">
@@ -116,7 +137,14 @@
                 <div class="col-md-6">
                     <div class="box box-default totalcountBox">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Candidates Management</h3>
+                            <div class="col-md-10 " style='padding-left:0px'>
+                                <h3 class="box-title">Candidates Management</h3>
+                            </div>
+                            <div class="col-md-2" style='padding-right:0px'>
+                                <div class="pull-right" >
+                                    <a ng-href="/resume_list#non-selected"><button type="button" class="btn btn-default btn-sm"  title="View" style="background-color:#fd7e14;color:#fff;"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
+                                </div> 
+                            </div>
                         </div>
                         <div class="box-body">
                             <ul id="candidate_details_list" style="list-style: none;">
@@ -165,11 +193,18 @@
                 <div class="col-md-6">
                     <div class="box box-default totalcountBox">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Today's Interview Schedule</h3>
+                            <div class="col-md-10 " style='padding-left:0px'>
+                                <h3 class="box-title">Today's Interview Schedule</h3>
+                            </div>
+                            <div class="col-md-2" style='padding-right:0px'>
+                                <div class="pull-right" >
+                                    <a ng-href="/interview_list?status=today"><button type="button" class="btn btn-default btn-sm"  title="View" style="background-color:#fd7e14;color:#fff;"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
+                                </div> 
+                            </div> 
                         </div>
                         <div class="box-body">
                             <ul id="candidate_details_list" style="list-style: none;">
-                                <li ng-repeat="td in hme.hrDashboradRecord.technology_details" style="margin-top: 10px;margin-bottom: 10px;">
+                                <li ng-repeat="td in hme.hrDashboradRecord.technology_details" >
                                     <div class="row"> 
                                         <div class="col-md-12">
                                             <span class='candidate_details_key'>{{td.name}}<strong class='candidate_details_value'>{{td.total_todayinterview_candidate_count}}</strong></span>
