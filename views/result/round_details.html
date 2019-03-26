@@ -156,6 +156,9 @@
                             <a type="button" class="btn btn-xs" title="Final Round Result" style="outline: 0;" ng-click="rdc.openAddFinalRoundResultModal(data.id,data.companies.name,data.candidates)" ng-if="(data.companies_tech_round_info.length > 0 && data.final_status == null && data.company_final_status == null)"><i class="fa fa-newspaper-o" aria-hidden="true" ></i></a>
 
                             <a type="button" class="btn btn-xs" title="Final HR Result" style="outline: 0;" ng-click="rdc.openAddHrFinalRoundResultModal(data.id,data.candidate_id,data.companies.name,data.candidates)" ng-if="(data.companies_tech_round_info.length > 0 &&  data.final_status == null && data.hr_status == null) && (data.company_final_status != null) "><i class="fa fa-user" aria-hidden="true"></i></a>
+
+                            <a type="button" class="btn btn-xs" title="Change Status" style="outline: 0;" ng-click="rdc.openChangeStatusModal(data.candidate_id)" ng-if="data.hr_status != null"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+
                         </td>
                         <!-- <td ng-bind="(rlc.pageno - 1) * rlc.limit + ($index + 1)"></td>
                         <td ng-bind="data.first_name+' '+data.middle_name+' '+data.last_name"></td> -->
@@ -317,20 +320,26 @@
                         <form id="addFinalRoundResultForm">                            
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <div class="col-md-4 form-group">
-                                        <label class="mandatory" for="">Feedback Received Date</label>
-                                        <input class="feedback-received-date form-control" type="text" id="feedback_received_date" name="feedback_received_date" ng-model="rdc.feedback_received_date" placeholder="Select date" readonly='true' style="cursor:default;background-color: white;">
+                                    <div class="col-md-4">
+                                        <div class="form-group">                    
+                                            <label class="mandatory" for="">Feedback Received Date</label>
+                                            <input class="feedback-received-date form-control" type="text" id="feedback_received_date" name="feedback_received_date" ng-model="rdc.feedback_received_date" placeholder="Select date" readonly='true' style="cursor:default;background-color: white;">
+                                        </div>
                                     </div>
-                                    <div class="col-md-4 form-group">
-                                        <label class="mandatory" for="">Client's Final Status</label>
-                                        <select class="comp-status form-control" type="text" id="companies_final_status" name="companies_final_status" ng-model="rdc.company_final_status" ng-options="x.name as x.name for x in rdc.roundStatus" data-placeholder="Select status">
-                                            <option value="">Select status</option>
-                                        </select>
-
+                                    <!-- {{rdc.clientRoundStatus}} -->
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="mandatory" for="">Client's Final Status</label>
+                                            <select class="comp-status form-control" type="text" id="companies_final_status" name="companies_final_status" ng-model="rdc.company_final_status" ng-options="x.name as x.name for x in rdc.clientRoundStatus" data-placeholder="Select status">
+                                                <option value="">Select status</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div class="col-md-4 form-group">
-                                        <label class="mandatory" for="">Client's Final Remark</label>
-                                        <textarea class="companies_final_remark form-control" type="text" id="companies_final_remark" name="companies_final_remark" ng-model="rdc.company_final_remark" rows="1" placeholder="Enter remark"></textarea>
+                                    <div class="col-md-4">
+                                        <div class="form-group">                    
+                                            <label class="mandatory" for="">Client's Final Remark</label>
+                                            <textarea class="companies_final_remark form-control" type="text" id="companies_final_remark" name="companies_final_remark" ng-model="rdc.company_final_remark" rows="1" placeholder="Enter remark"></textarea>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -363,38 +372,49 @@
                         <form id="addHrRoundResultForm">                            
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <div class="col-md-4 form-group">
-                                        <label class="mandatory" for="">HR interview date</label>
-                                        <input class="hr_interview_on_date form-control" type="text" id="hr_interview_on_date" name="hr_interview_on_date" ng-model="rdc.hr_interview_on_date" placeholder="Enter HR interview date" readonly='true' style="cursor:default;background-color: white;">
+                                    <div class="col-md-4">
+                                        <div class="form-group">                    
+                                            <label class="mandatory" for="">HR interview date</label>
+                                            <input class="hr_interview_on_date form-control" type="text" id="hr_interview_on_date" name="hr_interview_on_date" ng-model="rdc.hr_interview_on_date" placeholder="Enter HR interview date" readonly='true' style="cursor:default;background-color: white;">
+                                        </div>
                                     </div>
-                                    <div class="col-md-4 form-group">
-                                        <label class="mandatory" for="">HR Final Status</label>
-                                        <select class="hr_status form-control" type="text" id="hr_status" name="hr_status" ng-model="rdc.hr_status" ng-options="x.name as x.name for x in rdc.roundStatus" data-placeholder="Select HR final status">
-                                            <option value="">Select HR final status</option>
-                                        </select>
-
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="mandatory" for="">HR Final Status</label>
+                                            <select class="hr_status form-control" type="text" id="hr_status" name="hr_status" ng-model="rdc.hr_status" ng-options="x.name as x.name for x in rdc.roundStatus" data-placeholder="Select HR final status">
+                                                <option value="">Select HR final status</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div class="col-md-4 form-group">
-                                        <label class="mandatory" for="">HR Remark</label>
-                                        <textarea class="hr_remark form-control" type="text" id="hr_remark" name="hr_remark" ng-model="rdc.hr_remark" rows="1" placeholder="Enter HR remark"></textarea>
+                                    <div class="col-md-4">
+                                        <div class="form-group">              
+                                            <label class="mandatory" for="">HR Remark</label>
+                                            <textarea class="hr_remark form-control" type="text" id="hr_remark" name="hr_remark" ng-model="rdc.hr_remark" rows="1" placeholder="Enter HR remark"></textarea>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <div class="col-md-4 form-group">
-                                        <label class="mandatory" for="">Final Status</label>
-                                        <select class="final_status form-control" type="text" id="final_status" name="final_status" ng-model="rdc.final_status" ng-options="x.name as x.name for x in rdc.finalRoundStatus" data-placeholder="Select final status">
-                                            <option value="">Select final status</option>
-                                        </select>
+                                    <div class="col-md-4">
+                                        <div class="form-group">                    
+                                            <label class="mandatory" for="">Final Status</label>
+                                            <select class="final_status form-control" type="text" id="final_status" name="final_status" ng-model="rdc.final_status" ng-options="x.name as x.name for x in rdc.finalRoundStatus" data-placeholder="Select final status">
+                                                <option value="">Select final status</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div class="col-md-4 form-group" id="tentativeDOJDiv">
-                                        <label class="mandatory" for="">Tentative DOJ </label>
-                                        <input class="tentative_doj form-control" type="text" id="tentative_doj" name="tentative_doj" ng-model="rdc.tentative_doj" placeholder="Enter tentative DOJ" readonly='true' style="cursor:default;background-color: white;">
+                                    <div class="col-md-4" id="tentativeDOJDiv" ng-show="rdc.final_status == 'Joined' && rdc.hr_status == 'Pass' && rdc.final_status != null && rdc.hr_status != null">
+                                        <div class="form-group">
+                                            <label class="mandatory" for="">Tentative DOJ </label>
+                                            <input class="tentative_doj form-control" type="text" id="tentative_doj" name="tentative_doj" ng-model="rdc.tentative_doj" placeholder="Enter tentative DOJ" readonly='true' style="cursor:default;background-color: white;">
+                                        </div>
                                     </div>
-                                    <div class="col-md-4 form-group" id="atualDOJDiv">
-                                        <label class="mandatory" for="">Actual DOJ</label>
-                                        <input class="actual_doj form-control" type="text" id="actual_doj" name="actual_doj" ng-model="rdc.actual_doj" placeholder="Enter actual DOJ" readonly='true' style="cursor:default;background-color: white;">
+                                    <div class="col-md-4" id="atualDOJDiv" ng-show="rdc.final_status == 'Joined' && rdc.hr_status == 'Pass' && rdc.final_status != null && rdc.hr_status != null">
+                                        <div class="form-group">
+                                            <label class="mandatory" for="">Actual DOJ</label>
+                                            <input class="actual_doj form-control" type="text" id="actual_doj" name="actual_doj" ng-model="rdc.actual_doj" placeholder="Enter actual DOJ" readonly='true' style="cursor:default;background-color: white;">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -409,6 +429,52 @@
         </div>
         <!-- End Add Final Round Result Modal -->
 
+        <!-- Start Change Status of candidate Model -->
+        <div class="modal fade changeStatusModel" id="changeStatusModel" role="dialog">
+            <div class="modal-dialog modal-xs">
+                <div class="modal-content" style="border-radius: 0px!important;" >
+                    <div class="modal-header" id="popUpModalHeader"> 
+                        <button type="button" class="close" data-dismiss="modal" ng-click="rlc.resetForm()" style="margin-right: 5px;">&times;</button>
+                        <h4 class="modal-title popUpModalTitle">Change Status</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="changeStatusForm">  
+                            <!-- <div class="row form-group">
+                                <div class="col-md-4" style="margin-top: 1%;">
+                                    <label class="mandatory">Interviewer Name:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    {{ rlc.interviewer_name }}
+                                </div>                          
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-4" style="margin-top: 1%;">
+                                    <label class="mandatory">Round:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    {{ rlc.roundDetails }}
+                                </div>
+                            </div> -->
+                            <div class="row form-group">
+                                <div class="col-md-2" style="margin-top: 1%;">
+                                    <label class="mandatory">Status:</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <select class="form-control" id="change_status" name="change_status" ng-model="rdc.candidate_status" ng-options="x.name as x.name for x in rdc.finalRoundStatus">
+                                        <option value="">Select Status</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer" style="margin-top: 0px;"> 
+                        <button type="button" id="changeStatusBtn" class="btn btn-primary"  data-ng-click="rdc.changeStatus();">Save</button>
+                        <button type="reset" id="closeModal" class="btn btn-warning"  ng-click="rdc.resetForm()" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Change Status of candidate Model -->
         
     </div>    
 </section>
@@ -673,6 +739,46 @@
         }
     });
 
+    $("#changeStatusForm").validate({
+        errorElement: 'span', //default input error message container
+        errorClass: 'help-block help-block-error',
+        focusInvalid: true, // set focus the last invalid input
+        ignore: "", // validate all fields including form hidden input
+        errorPlacement: function (error, element) {
+
+            var type = $(element).attr("type");            
+            error.insertAfter(element);
+        },
+        rules: {
+            change_status: {
+                required: true
+            }
+        },
+        messages: {
+            change_status:{
+                required: "Status is required."
+            }
+            
+        },
+         highlight: function (element) { // hightlight error inputs
+            $(element)
+                .closest('.form-group').addClass('has-error');
+            $(element)
+                .next().children().children().attr('style', 'border-color:#dd4b39!important');
+            // set error class to the control group
+        },
+        unhighlight: function (element) { // revert the change done by hightlight
+            $(element)
+                .closest('.form-group').removeClass('has-error');
+            $(element)
+                .next().children().children().attr('style', 'border-color:'); // set error class to the control group
+        },
+        success: function (label) {
+            label
+                .closest('.form-group').removeClass('has-error'); // set success class to the control group
+        }
+    });
+
 </script>
 <script>
     $(document).ready(function () {
@@ -744,7 +850,7 @@
         }); 
     });
 </script>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     $(function() {
         $("#hr_status").change(function() {
             console.log($(this).val());
@@ -760,4 +866,4 @@
             }
         });
     });
-</script>
+</script> -->

@@ -7,6 +7,7 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
     rdc.techForm = null;
     rdc.interviewType = RESOURCES.INTERVIEW_TYPE;
     rdc.roundStatus = RESOURCES.RESULT_STATUS;
+    rdc.clientRoundStatus = RESOURCES.CLIENT_RESULT_STATUS;
     rdc.finalRoundStatus = RESOURCES.CANDIDATE_STATUS;
     rdc.fId = null;
     rdc.feedback_received_date = null;
@@ -393,6 +394,44 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
         setTimeout(function(){
             setCSS();
         },200);
+    }
+
+    /* Function to open change candidate status modal */
+    rdc.openChangeStatusModal = function(candidateId){
+        $("#changeStatusBtn").attr('disabled',false);
+        rdc.change_candidate_id = candidateId;
+        $('#changeStatusModel').modal('show');           
+    }
+
+    /* Function to change candidate status */
+    rdc.changeStatus = function(){
+        if($('#changeStatusForm').valid()){
+            $("#changeStatusBtn").attr('disabled',true);
+            var req = {
+                "status":rdc.candidate_status,
+                "id":rdc.change_candidate_id
+            };
+            var promise = services.updateCandidateStatus(req);
+            // debugger;
+            promise.then(function mySuccess(response) {
+                console.log(response);
+                Utility.stopAnimation();
+                try {
+                    $('#changeStatusModel').modal('hide');
+                    toastr.success(response.data.message);
+                    rdc.init();
+                    // $("#changeStatusForm")[0].reset();
+                } catch (e) {
+                    $("#changeStatusBtn").attr('disabled',false);
+                    toastr.error("Unable to save data");
+                    Raven.captureException(e)
+                }
+            }, function myError(r) {
+                $("#changeStatusBtn").attr('disabled',false); 
+                toastr.error(r.data.message);
+                Utility.stopAnimation();
+            });
+        }
     }
 
     rdc.init();
