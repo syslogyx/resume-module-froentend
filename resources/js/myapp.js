@@ -245,11 +245,22 @@ app.constant('RESOURCES', (function () {
         ],
 
         // defined result status constants
+        CLIENT_RESULT_STATUS: [
+            {'id':2,'name':'Fail'},
+            {'id':1,'name':'Selected'}
+        ],
+
+        // defined result status constants
         CANDIDATE_STATUS: [
-            {'id':1,'name':'Selected'},
-            {'id':2,'name':'On Hold'},
-            {'id':3,'name':'Block'},
-            {'id':4,'name':'Joined'}
+            // {'id':1,'name':'Selected'},
+            {'id':1,'name':'Joined'},
+            {'id':2,'name':'Block'},
+            {'id':3,'name':'On Hold'},
+            {'id':4,'name':'Rejected'},
+            {'id':6,'name':'Join Somewhere Else'},
+            {'id':7,'name':'No Response from Candidate'},
+            {'id':8,'name':'Expecting High CTC'},
+            {'id':9,'name':'BGC Form not shared / candidate not interested'},
         ],
 
         //CONTENT_TYPE: 'application/json; charset=UTF-8'

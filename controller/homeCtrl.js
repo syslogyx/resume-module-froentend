@@ -379,13 +379,13 @@ app.controller('homeCtrl', function ($scope,RESOURCES,$rootScope,menuService,ser
                 showToolTips: true,               
                 enableAnimations: true,
                 showLegend: true,
-                showBorderLine: true,
+                showBorderLine: false,
                 legendLayout: { left: 350, top: 200, width: 150, height: 300, flow: 'vertical' },
                 padding: { left:5, top: 5, right: 5, bottom: 5 },
                 titlePadding: { left: 0, top: 20, right: 0, bottom: 10 },
                 source: PieData,
                 colorScheme: 'scheme02',
-                borderLineColor: 'white',
+                // borderLineColor: 'white',
                 seriesGroups:
                 [{
                     type: 'donut',
