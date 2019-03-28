@@ -333,6 +333,7 @@
         <script type="text/javascript" src="/resources/pie_chart/jqwidgets/jqxcore.js"></script>
         <script type="text/javascript" src="/resources/pie_chart/jqwidgets/jqxdraw.js"></script>
         <script type="text/javascript" src="/resources/pie_chart/jqwidgets/jqxchart.core.js"></script>
+        
         <!-- <script type="text/javascript" src="scripts/demos.js"></script> -->
         <script type="text/javascript" src="/resources/pie_chart/jqwidgets/jqxdata.js"></script>
         

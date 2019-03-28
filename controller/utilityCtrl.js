@@ -139,7 +139,7 @@ app.controller('utilityCtrl', function (services, AclService, $scope, $http, $lo
                     title: "Confirm?",
                     // text: "Are you sure you want to change job status?",
                     html:'<input type="checkbox" name="send_mails" id="send_mails"/>' +
-                            ' Check to sent mail to all candidates',
+                            ' Check if you wish to send the mail to all candidates',
                     type: "warning",
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
