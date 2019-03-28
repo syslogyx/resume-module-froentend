@@ -6,7 +6,7 @@ app.controller('homeCtrl', function ($scope,RESOURCES,$rootScope,menuService,ser
 
    /* Fetch login candidate info from cookies*/
     var loggedInUser = JSON.parse($cookieStore.get('identity'));
-    console.log(loggedInUser);
+    // console.log(loggedInUser);
     hme.logInUserRole  =   loggedInUser.identity.role;
     hme.logInUserID = loggedInUser.id;
     hme.name  =  loggedInUser.identity.name;
@@ -69,8 +69,11 @@ app.controller('homeCtrl', function ($scope,RESOURCES,$rootScope,menuService,ser
             try {
                 if(response.data.status_code == 200){
                     hme.adminDashboradRecord = response.data.data;
-                    hme.drawPieChartForAdminOverallcandidates(response.data.data.technology_details);
-                    hme.drawPieChartForAdminJoinedcandidates(response.data.data.technology_details);
+                    // console.log(hme.adminDashboradRecord);
+                    if(hme.adminDashboradRecord != null && hme.adminDashboradRecord != undefined){                        
+                        hme.drawPieChartForAdminOverallcandidates(response.data.data.technology_details);
+                        hme.drawPieChartForAdminJoinedcandidates(response.data.data.technology_details);
+                    }
                 }
                 else{  
                     hme.adminDashboradRecord = [];  
@@ -88,15 +91,15 @@ app.controller('homeCtrl', function ($scope,RESOURCES,$rootScope,menuService,ser
     hme.drawPieChartForAdminOverallcandidates = function(adminDashboradRecord){
         if(adminDashboradRecord != null){
             var PieData = [];
-            for (var i = 0; i < adminDashboradRecord.length; i++) {               
-                obj = {
-                    value    : adminDashboradRecord[i].total_overall_candidate_count,
-                    color    : '#0d5aba',
-                    highlight: '#0d5aba',
-                    Browser  :  adminDashboradRecord[i].name,
-                    label :  adminDashboradRecord[i].total_overall_candidate_count,
-                };
-                PieData.push(obj);
+            for (var i = 0; i < adminDashboradRecord.length; i++) {           
+                    obj = {
+                        value    : adminDashboradRecord[i].total_overall_candidate_count > 0 ? adminDashboradRecord[i].total_overall_candidate_count : '',
+                        color    : '#0d5aba',
+                        highlight: '#0d5aba',
+                        Browser  :  adminDashboradRecord[i].name,
+                        label :  adminDashboradRecord[i].total_overall_candidate_count > 0 ? adminDashboradRecord[i].total_overall_candidate_count : '',
+                    };
+                    PieData.push(obj);
             }
             
             // hme.chart_data = PieData;
@@ -143,15 +146,15 @@ app.controller('homeCtrl', function ($scope,RESOURCES,$rootScope,menuService,ser
     hme.drawPieChartForAdminJoinedcandidates = function(adminDashboradRecord){
         if(adminDashboradRecord != null){
             var PieData = [];
-            for (var i = 0; i < adminDashboradRecord.length; i++) {               
-                obj = {
-                    value    : adminDashboradRecord[i].total_joined_candidate_count,
-                    color    : '#f56954',
-                    highlight: '#f56954',
-                    Browser  :  adminDashboradRecord[i].name,
-                    label :  adminDashboradRecord[i].total_joined_candidate_count,
-                };
-                PieData.push(obj);
+            for (var i = 0; i < adminDashboradRecord.length; i++) {  
+                    obj = {
+                        value    : adminDashboradRecord[i].total_joined_candidate_count > 0 ? adminDashboradRecord[i].total_joined_candidate_count:'',
+                        color    : '#f56954',
+                        highlight: '#f56954',
+                        Browser  :  adminDashboradRecord[i].name,
+                        label :  adminDashboradRecord[i].total_joined_candidate_count > 0 ? adminDashboradRecord[i].total_joined_candidate_count:'',
+                    };
+                    PieData.push(obj);
             }
             
             // hme.chart_data = PieData;
@@ -225,11 +228,11 @@ app.controller('homeCtrl', function ($scope,RESOURCES,$rootScope,menuService,ser
             var PieData = [];
             for (var i = 0; i < hrDashboradTechlRecord.length; i++) {               
                 obj = {
-                    value    : hrDashboradTechlRecord[i].total_overall_candidate_count,
+                    value    : hrDashboradTechlRecord[i].total_overall_candidate_count > 0 ? hrDashboradTechlRecord[i].total_overall_candidate_count : '',
                     color    : '#f56954',
                     highlight: '#f56954',
                     Browser  :  hrDashboradTechlRecord[i].name,
-                    label :  hrDashboradTechlRecord[i].total_overall_candidate_count,
+                    label :  hrDashboradTechlRecord[i].total_overall_candidate_count > 0 ? hrDashboradTechlRecord[i].total_overall_candidate_count : '',
                 };
                 PieData.push(obj);
             } 
@@ -279,11 +282,11 @@ app.controller('homeCtrl', function ($scope,RESOURCES,$rootScope,menuService,ser
             var PieData = [];
             for (var i = 0; i < hrDashboradTechRecord.length; i++) {               
                 obj = {
-                    value    : hrDashboradTechRecord[i].total_joined_candidate_count,
+                    value    : hrDashboradTechRecord[i].total_joined_candidate_count > 0 ? hrDashboradTechRecord[i].total_joined_candidate_count : '',
                     color    : '#f56954',
                     highlight: '#f56954',
                     Browser  :  hrDashboradTechRecord[i].name,
-                    label :  hrDashboradTechRecord[i].total_joined_candidate_count,
+                    label :  hrDashboradTechRecord[i].total_joined_candidate_count > 0 ? hrDashboradTechRecord[i].total_joined_candidate_count:'',
                 };
                 PieData.push(obj);
             }
@@ -360,11 +363,11 @@ app.controller('homeCtrl', function ($scope,RESOURCES,$rootScope,menuService,ser
             var PieData = [];
             for (var i = 0; i < clientDashboradSharedRecord.length; i++) {               
                 obj = {
-                    value    : clientDashboradSharedRecord[i].total_candidate_count,
+                    value    : clientDashboradSharedRecord[i].total_candidate_count > 0 ? clientDashboradSharedRecord[i].total_candidate_count : '',
                     color    : '#0d5aba',
                     highlight: '#0d5aba',
                     Browser  :  clientDashboradSharedRecord[i].name,
-                    label :  clientDashboradSharedRecord[i].total_candidate_count,
+                    label :  clientDashboradSharedRecord[i].total_candidate_count > 0 ? clientDashboradSharedRecord[i].total_candidate_count : '',
                 };
                 PieData.push(obj);
             }

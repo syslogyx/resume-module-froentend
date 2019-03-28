@@ -71,7 +71,7 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
 
     /*Function to active selected menu */
     $scope.menuClick=function(link){
-        console.log(link);
+        // console.log(link);
       for (var i = 0; i < $scope.menuList.length; i++) {
         if(link==$scope.menuList[i].Link){
           $scope.menuList[i].active='active';

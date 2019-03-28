@@ -130,7 +130,7 @@
                     <div id='hrJoinedChartContainer' class='chartData'></div>
                 </div>
             </div>
-            <div class="row col-xs-12" ng-if='hme.logInUserRole == hme.role_hr'>
+            <div class="row col-xs-12" ng-if='hme.logInUserRole == hme.role_hr' style="display: flex">
                 <!-- <div class="col-md-6 zoom no-padding align-image-center">
                     <img src="resources/img/HR_dashboard/Candidates_Management_img.png" width="500px" height="auto">
                 </div> -->
@@ -146,7 +146,7 @@
                                 </div> 
                             </div>
                         </div>
-                        <div class="box-body">
+                        <div class="box-body" style="flex: 1;">
                             <ul id="candidate_details_list" style="list-style: none;">
                                 <li>
                                     <div class="row"> 
@@ -202,7 +202,7 @@
                                 </div> 
                             </div> 
                         </div>
-                        <div class="box-body">
+                        <div class="box-body" style="flex: 1;">
                             <ul id="candidate_details_list" style="list-style: none;">
                                 <li ng-repeat="td in hme.hrDashboradRecord.technology_details" >
                                     <div class="row"> 
