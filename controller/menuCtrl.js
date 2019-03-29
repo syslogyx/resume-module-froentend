@@ -168,7 +168,8 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
     }
 
     /*Function to update login user profile data */
-    $scope.saveUser = function () {setCSS();
+    $scope.saveUser = function () {
+        setCSS();
         if ($("#updateUserForm").valid()) {
             $("#updateUserProfile").attr('disabled',true);
             var req = {
@@ -196,9 +197,21 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
                 }
             }, function myError(r) {
                 $("#updateUserProfile").attr('disabled',false);
-                toastr.error(r.data.data.email[0], 'Sorry!');
+                // toastr.error(r.data.data.email[0], 'Sorry!');
+                var htmlerror ='<ul style="list-style:none;"><li >';
+                $.each(r.data.data, function(k, v) {
+                    if(k=='email'){
+                        htmlerror = htmlerror+v +'</li><li>';
+                    }
+                    if(k=='mobile'){
+                        htmlerror = htmlerror+v+'</li><li>';
+                    }
+                });
+                toastr.error(htmlerror);
                 Utility.stopAnimation();
             });
+
+
         }
     }
 });

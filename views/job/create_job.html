@@ -303,19 +303,28 @@
             });
             
             $(".s2mn").on("change", function () { $(this).valid(); });
+            $("html, body").animate({scrollTop: 0}, "fast");
 </script>
 <script>
-            $(document).ready(function () {
-                /* Function to restrict keyboard enter key on datepicker*/
-                $('#valid_till_date').bind('keydown',function(e){
-                    if (e.which == 13) //13 is Enter/Return key.
-                        e.stopImmediatePropagation();
-                }).datepicker({
-                    startDate: "today",
-                    autoclose: true,
-                    todayHighlight: true
-                }); 
-                $("html, body").animate({scrollTop: 0}, "fast");
-            });
+    $(document).ready(function () {
+        /* Function to restrict keyboard enter key on datepicker*/
+        // $('#valid_till_date').bind('keydown',function(e){
+        //     if (e.which == 13) //13 is Enter/Return key.
+        //     e.stopImmediatePropagation();
+        // }).datepicker({
+        //     startDate: "today",
+        //     autoclose: true,
+        //     todayHighlight: true
+        // }); 
+
+        $('#valid_till_date').bind('keydown',function(e){
+            if (e.which == 13) //13 is Enter/Return key.
+            e.stopImmediatePropagation();
+        }).datepicker({
+            autoclose: true,
+            todayHighlight: true
+        }); 
+        
+    });
 </script>
 

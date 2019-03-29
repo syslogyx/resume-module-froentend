@@ -412,7 +412,7 @@
         <script>
             $(document).ready(function () {
 
-                $.validator.addMethod('regex', function (value, element, regexp) {
+                $.validator.addMethod('userEmailregex', function (value, element, regexp) {
                     if (regexp.constructor != RegExp)
                         regexp = new RegExp(regexp);
                     else if (regexp.global)
@@ -420,7 +420,7 @@
                     return this.optional(element) || regexp.test(value);
                 }, 'Please enter a valid Email Address.');
 
-                $.validator.addMethod("mynumber", function (phone_number, element) {
+                $.validator.addMethod("mymobilenumber", function (phone_number, element) {
                     phone_number = phone_number.replace(/\s+/g, "");
                     return this.optional(element) || phone_number.length > 9 &&
                             phone_number.match(/^((\+[1-9]{1,4}[ \-]*)|(\([0-9]{2,3}\)[ \-]*)|([0-9]{2,4})[ \-]*)*?[0-9]{3,4}?[ \-]*[0-9]{3,4}?$/);
@@ -448,7 +448,7 @@
                         },
                         userEmail: {
                             required: true,
-                            regex: /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i
+                            userEmailregex: /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i
                         },
                         mobileNo: {
                             required: {
@@ -457,7 +457,7 @@
                                     return true;
                                 }
                             },
-                            mynumber: true,
+                            mymobilenumber: true,
                             minlength: 10,
                             maxlength: 12,
                         },

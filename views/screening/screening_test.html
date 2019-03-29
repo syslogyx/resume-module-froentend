@@ -189,6 +189,17 @@
         $(this).valid(); // trigger validation on this element
     });
 
+    
+    $.validator.addMethod("greaterThanZero", function (value, element){
+        console.log(value);
+        // console.log(element);
+        if(value < 1){
+            console.log('value is 0');
+        }
+        // phone_number = phone_number.replace(/\s+/g, "");
+        return this.optional(element) || value < 1;
+    }, 'Please enter number greater than zero.');
+
 
     $("#filterForm").validate({
         errorElement: 'span', //default input error message container
@@ -213,7 +224,8 @@
                 required: true
             },
             "no_of_question":{
-                digits:true
+                digits:true,
+                greaterThanZero:true
             }                 
         },
         messages: {
