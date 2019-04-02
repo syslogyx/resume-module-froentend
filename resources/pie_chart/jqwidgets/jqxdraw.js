@@ -663,6 +663,7 @@ License: https://jqwidgets.com/license/
    var q = this._activeParent();
    var m = document.createElementNS(this._svgns, "text");
    this.attr(m, k);
+   // console.log(u);
    for (var l = 0; l < u.length; l++) {
     var d = u[l];
     var f = m.ownerDocument.createTextNode(d);
@@ -672,6 +673,8 @@ License: https://jqwidgets.com/license/
     try {
      s = m.getBBox()
     } catch (p) {}
+     // console.log(s);
+     // console.log(s.width);
     var n = a.jqx._rup(s.width);
     var c = a.jqx._rup(s.height * o);
     m.removeChild(f);

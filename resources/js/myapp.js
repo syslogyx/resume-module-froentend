@@ -260,7 +260,7 @@ app.constant('RESOURCES', (function () {
             {'id':6,'name':'Join Somewhere Else'},
             {'id':7,'name':'No Response from Candidate'},
             {'id':8,'name':'Expecting High CTC'},
-            {'id':9,'name':'BGC Form not shared / candidate not interested'},
+            {'id':9,'name':'BGC Form shared / candidate not interested'},
         ],
 
         //CONTENT_TYPE: 'application/json; charset=UTF-8'

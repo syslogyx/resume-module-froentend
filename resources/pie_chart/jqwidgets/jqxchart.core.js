@@ -995,11 +995,11 @@ License: https://jqwidgets.com/license/
       "class": c.toThemeProperty("jqx-chart-legend-text", null),
       opacity: 0.5
      };
-     var e = g.measureText(d, 0, h);
-     var b = g.text(d, f.x + f.width - e.width - 5, f.y + f.height - e.height - 5, e.width, e.height, 0, h);
-     a(b).on("click", function() {
-      location.href = "http://" + d + "/?ref=" + c.widgetName
-     })
+     // var e = g.measureText(d, 0, h);
+     // var b = g.text(d, f.x + f.width - e.width - 5, f.y + f.height - e.height - 5, e.width, e.height, 0, h);
+     // a(b).on("click", function() {
+     //  location.href = "http://" + d + "/?ref=" + c.widgetName
+     // })
     }
    }
   },

@@ -110,6 +110,7 @@ app.controller('homeCtrl', function ($scope,RESOURCES,$rootScope,menuService,ser
 
             var settings = {
                 title: "Overall Candidates",
+                description:'',
                 showToolTips: true,               
                 enableAnimations: true,
                 showLegend: true,
@@ -165,6 +166,7 @@ app.controller('homeCtrl', function ($scope,RESOURCES,$rootScope,menuService,ser
 
             var settings = {
                 title: "Joined Candidates",
+                description:'',
                 showToolTips: true,               
                 enableAnimations: true,
                 showLegend: true,
@@ -244,6 +246,7 @@ app.controller('homeCtrl', function ($scope,RESOURCES,$rootScope,menuService,ser
 
             var settings = {
                 title: "Overall Candidates",
+                description:'',
                 showToolTips: true,               
                 enableAnimations: true,
                 showLegend: true,
@@ -298,6 +301,7 @@ app.controller('homeCtrl', function ($scope,RESOURCES,$rootScope,menuService,ser
 
             var settings = {
                 title: "Joined Candidates",
+                description:'',
                 showToolTips: true,               
                 enableAnimations: true,
                 showLegend: true,
@@ -349,6 +353,8 @@ app.controller('homeCtrl', function ($scope,RESOURCES,$rootScope,menuService,ser
                     hme.clientDashboradRecord = [];  
                 }
             } catch (e) { 
+                // console.log(e);
+                // debugger;
                 toastr.error('Sorry!');
                 Raven.captureException(e)
             }
@@ -379,6 +385,7 @@ app.controller('homeCtrl', function ($scope,RESOURCES,$rootScope,menuService,ser
 
             var settings = {
                 title: "Shared CV",
+                description:'',
                 showToolTips: true,               
                 enableAnimations: true,
                 showLegend: true,
