@@ -91,7 +91,8 @@
     }
 
     .nav>li>a{
-        padding: 17px 15px !important;
+        /*padding: 17px 15px !important;*/
+        padding: 10px 7px !important;
     }
     .wizard-new-container {
         /*height: 200px;
@@ -169,6 +170,16 @@
         width: 430px !important;
     }
 
+    #panNumber-error{white-space: pre-wrap;}
+
+    body{
+        overflow: hidden;
+    }
+
+    .wizard-card .tab-content{
+        padding: 10px 10px !important;
+    }
+
 </style>
 <!--     Fonts and icons     -->
 <link href="/resources/lib/font-awesome-4.5.0/css/font-awesome.css" rel="stylesheet" />
@@ -186,20 +197,21 @@
 <link rel="stylesheet" href="/resources/plugins/sweetalert2-6.6.0/sweetalert2.min.css">
 
 <section class="content" ng-cloak style="padding:0px" ng-controller="resumeCtrl" id="resumeCtrl">
-<div id="back_image" class="image-container set-full-height" style="background-image:url({{backCurrentImg}});background-size: auto;background-position:initial;">
+<!-- <div id="back_image" class="image-container set-full-height" style="background-image:url({{backCurrentImg}});background-size: auto;background-position:initial;"> -->
+<div id="back_image" class="image-container" style="background-image:url({{backCurrentImg}});">
     <!--   Big container   -->
     <div class="container">
         <div class="row">
             <div class="col-sm-10 col-sm-offset-1">
                 <!-- Wizard container  -->
-                <div class="wizard-container ">
+                <div class="wizard-container" style="padding-top: 35px;">
 
                     <div class="card wizard-card" data-color="orange" id="wizardProfile">
                         <form action="" method="" id="resumeForm" autocomplete="off">
                             <div class="wizard-header">
                                 <div class='row'>
                                     <div class='col-sm-12'>
-                                        <div class='col-md-4' style="padding-left:3%;padding-top:1%">
+                                        <div class='col-md-4' style="padding-left:3%;padding-top:0%">
                                             <img id="syslogo" src="resources/img/SyslogyxLogo.png" alt="" width="95%" height="40%"/>
                                         </div>
                                         <div class='col-md-8' ng-if="title == ''">
@@ -221,8 +233,8 @@
                                 </div>
                             </div>
                             <hr class="border">
-                            <div class="wizard-new-container">     
-                                <div class="wizard-navigation col-md-3" style="background-color:#2a58ad;">
+                            <div class="wizard-new-container" style="height: 415px;">     
+                                <div class="wizard-navigation col-md-3 col-xs-4" style="background-color:#2a58ad;">
                                     <ul class="nav nav-pills">
                                         <li><a href="#presonalDetails" data-toggle="tab"><img id="syslogo" src="resources/img/tab_icons/personal_details_ic.png" alt="" /> Personal Details</a></li>
                                         <li><a href="#educationalDetails" data-toggle="tab"><img id="syslogo" src="resources/img/tab_icons/educational_details_ic.png" alt="" /> Educational Details</a></li>
@@ -234,7 +246,7 @@
                                         <li><a href="#uploadDocument" data-toggle="tab"><img id="syslogo" src="resources/img/tab_icons/upload_document_ic.png" alt="" />  Upload Resume</a></li>
                                     </ul>
                                 </div>
-                                <div class="tab-content col-md-9">
+                                <div class="tab-content col-md-9 col-xs-8" style="height: 415px; min-height: 100%; overflow-x: hidden; overflow-y: scroll;">
                                 <!-- <div class="tab-content col-md-9" style="flex: 1"> -->
                                     <div class="tab-pane" id="presonalDetails">
                                         <div class="row">
@@ -735,7 +747,7 @@
                                             <div class="col-sm-12"  ng-repeat="h in hobbyDiv">
                                                 <div class="col-sm-10">
                                                      <div class="form-group">
-                                                        <label class="mandatory">Hobby</label>
+                                                        <label class="mandatory">Hobby {{$index +1}}</label>
                                                         <input id="hobbie_{{$index}}" name="hobbie_{{$index}}" type="text" class="form-control hobbie" placeholder="Enter hobby" ng-model="h.hobbie_name">
                                                       </div>
                                                 </div>

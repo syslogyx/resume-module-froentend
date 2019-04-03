@@ -21,7 +21,7 @@
                     <img src="resources/img/Admin_dashboard/Selected_img.png" width="500px">
                 </div>
             </div> -->
-            <div class="row col-xs-12" ng-if='hme.logInUserRole == hme.role_admin'> 
+            <div class="row col-xs-12 no-padding" ng-if='hme.logInUserRole == hme.role_admin'> 
                 <div class="col-md-4">
                     <!-- <img src="resources/img/Admin_dashboard/Live_jd_img.png" width="325px" height="261px"> -->
                     <div class="box box-default totalcountBox">
@@ -130,23 +130,23 @@
                     <div id='hrJoinedChartContainer' class='chartData'></div>
                 </div>
             </div>
-            <div class="row col-xs-12" ng-if='hme.logInUserRole == hme.role_hr' style="display: flex">
+            <div class="row col-xs-12 no-padding" ng-if='hme.logInUserRole == hme.role_hr' >
                 <!-- <div class="col-md-6 zoom no-padding align-image-center">
                     <img src="resources/img/HR_dashboard/Candidates_Management_img.png" width="500px" height="auto">
                 </div> -->
                 <div class="col-md-6">
                     <div class="box box-default totalcountBox">
                         <div class="box-header with-border">
-                            <div class="col-md-10 " style='padding-left:0px'>
+                            <div class="col-sm-10 col-xs-10 no-padding">
                                 <h3 class="box-title">Candidates Management</h3>
                             </div>
-                            <div class="col-md-2" style='padding-right:0px'>
+                            <div class="col-sm-2 col-xs-2 no-padding">
                                 <div class="pull-right" >
                                     <a ng-href="/resume_list#non-selected"><button type="button" class="btn btn-default btn-sm"  title="View" style="background-color:#fd7e14;color:#fff;"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
                                 </div> 
                             </div>
                         </div>
-                        <div class="box-body" style="flex: 1;">
+                        <div class="box-body">
                             <ul id="candidate_details_list" style="list-style: none;">
                                 <li>
                                     <div class="row"> 
@@ -193,16 +193,16 @@
                 <div class="col-md-6">
                     <div class="box box-default totalcountBox">
                         <div class="box-header with-border">
-                            <div class="col-md-10 " style='padding-left:0px'>
+                            <div class="col-sm-10 col-xs-10 no-padding">
                                 <h3 class="box-title">Today's Interview Schedule</h3>
                             </div>
-                            <div class="col-md-2" style='padding-right:0px'>
+                            <div class="col-sm-2 col-xs-2 no-padding">
                                 <div class="pull-right" >
                                     <a ng-href="/interview_list?status=today"><button type="button" class="btn btn-default btn-sm"  title="View" style="background-color:#fd7e14;color:#fff;"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
                                 </div> 
                             </div> 
                         </div>
-                        <div class="box-body" style="flex: 1;">
+                        <div class="box-body">
                             <ul id="candidate_details_list" style="list-style: none;">
                                 <li ng-repeat="td in hme.hrDashboradRecord.technology_details" >
                                     <div class="row"> 

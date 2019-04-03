@@ -39,7 +39,7 @@ $(document).ready(function(){
 
     $.validator.addMethod("pan", function(value, element) {
         return this.optional(element) || /^[A-Z]{5}\d{4}[A-Z]{1}$/.test(value);
-    },'Please enter a valid Pan Number. Ex. ABCDE1234F');
+    },'Please enter a valid PAN number.                                          Ex. ABCDE1234F');
 
     // $.validator.addMethod('filesize', function(value, element, param) {
     // return this.optional(element) || (element.files[0].size <= param);
@@ -247,17 +247,26 @@ $(document).ready(function(){
                 },
                 // remote:
                 // {
-                //     url: baseUrl + 'validate',
+                //     url: baseUrl + 'candidate/validate',
                 //     type: "post",
                 //     dataType: 'json',
                 //     data:
-                //             {
-                //                 mobile_no: function ()
-                //                 {
-                //                     return JSON.stringify({mobile_no: $("#mobile_no").val(),
-                //                         id: $("#candidateID").val()});
-                //                 }
-                //             }   
+                //     {
+                //         mobile_no: function ()
+                //         {
+                //             return JSON.stringify({
+                //                 mobile_no: $("#mobile_no").val()
+                //                 // ,id: $("#candidateID").val()
+                //             });
+                //         }
+                //     },
+                //     // success: function(res) {
+                //     //     if(res.exists){
+                //     //         alert('true');
+                //     //     }else{
+                //     //         alert('false');
+                //     //     }
+                //     // },   
                 // },
                 number1: true,
                 minlength: 10,
@@ -268,17 +277,32 @@ $(document).ready(function(){
                 regex: /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i,
                 // remote:
                 // {
-                //     url: baseUrl + 'validate',
+                //     url: baseUrl + 'candidate/validate',
                 //     type: "post",
                 //     dataType: 'json',
-                //     data:
-                //             {
-                //                 email: function ()
-                //                 {
-                //                     return JSON.stringify({email: $("#email").val(),
-                //                         id: $("#candidateID").val()});
-                //                 }
-                //             }   
+                //     // data:
+                //     // {
+                //     //     email: function ()
+                //     //     {
+                //     //         return JSON.stringify({
+                //     //             email: $("#email").val()
+                //     //             // ,id: $("#candidateID").val()
+                //     //         });
+                //     //     }
+
+                //     // },
+                //     data: {
+                //             email: function() {
+                //             return JSON.stringify({email: $("#email").val()});
+                //             }
+                //         },
+                //     // success: function(res) {
+                //     //     if(res.exists){
+                //     //         alert('true');
+                //     //     }else{
+                //     //         alert('false');
+                //     //     }
+                //     // },    
                 // },
     		},
             dob:{
@@ -289,17 +313,26 @@ $(document).ready(function(){
                 pan: true,
                 // remote:
                 // {
-                //     url: baseUrl + 'validate',
+                //     url: baseUrl + 'candidate/validate',
                 //     type: "post",
                 //     dataType: 'json',
                 //     data:
-                //             {
-                //                 pan_number: function ()
-                //                 {
-                //                     return JSON.stringify({pan_number: $("#panNumber").val(),
-                //                         id: $("#candidateID").val()});
-                //                 }
-                //             }   
+                //     {
+                //         pan_number: function ()
+                //         {
+                //             return JSON.stringify({
+                //                 pan_number: $("#panNumber").val()
+                //                 // ,id: $("#candidateID").val()
+                //             });
+                //         }
+                //     },
+                //     // success: function(res) {
+                //     //     if(res.exists){
+                //     //         alert('true');
+                //     //     }else{
+                //     //         alert('false');
+                //     //     }
+                //     // }, 
                 // },
             },
             corresponding_address:{
@@ -375,7 +408,7 @@ $(document).ready(function(){
             },
             mobile_no: {
                 required: "Mobile number is required.",
-                //remote:"User mobile number is already taken."
+                // remote:"User mobile number is already taken."
             },
             gender:{
                 required:"Gender is required",
@@ -386,14 +419,14 @@ $(document).ready(function(){
             email: {
                 required: "Email is required.",
                 contactEmail: "Please enter a valid Email Address.",
-                //remote: "User email is already taken."
+                // remote: "User email is already taken."
             },
             dob: {
                 required: "Date of birth is required.",
             },
             pan_number: {
                 required: "PAN number is required.",
-                //remote: "User PAN number is already taken."
+                // remote: "User PAN number is already taken."
             },
             corresponding_address: {
                 required: "Correspondence address is required.",
