@@ -374,6 +374,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
 
     /*Function to open assign interviewer modal */
     rlc.openAssignInterviewerModal =function($cdata){
+        $('#schedule_date').datepicker('setDate',null);
         // $('#assignStatusForm')[0].reset();
         // rlc.interviewer = null;
         rlc.assignCandidateName = $cdata.first_name+' '+$cdata.middle_name+' '+$cdata.last_name;
@@ -766,4 +767,3 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     rlc.init();
 
 });
-

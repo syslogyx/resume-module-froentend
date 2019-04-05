@@ -3,6 +3,7 @@ app.controller('utilityCtrl', function (services, AclService, $scope, $http, $lo
     var ucl = this;
     ucl.saveBtnStatus = false;
     ucl.candidateDetailsList = [];
+    ucl.checkstatus = false;
 
     $scope.getTheFiles = function ($files) {
         $scope.file=$files[0];
@@ -61,6 +62,14 @@ app.controller('utilityCtrl', function (services, AclService, $scope, $http, $lo
                 Utility.stopAnimation();
                 if(response.data.status_code == 200){
                     ucl.candidateDetailsList = response.data.data;
+                     angular.forEach(ucl.candidateDetailsList, function (candidate) {
+                        if(candidate.is_record_exist != 'true'){
+                            ucl.checkstatus = false;
+                        }else{
+                            ucl.checkstatus = true;
+                        }
+                    });
+
                     ucl.saveBtnStatus = true;
                     // toastr.success(response.data.message);
                 }else{
@@ -74,6 +83,7 @@ app.controller('utilityCtrl', function (services, AclService, $scope, $http, $lo
                 Utility.stopAnimation();
             });
         }
+        ucl.checkUncheckAll();
     }
 
     /*Function to set total experiance of candidate */

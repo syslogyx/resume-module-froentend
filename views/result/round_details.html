@@ -153,7 +153,7 @@
 
                             <a type="button" class="btn btn-xs" title="Add Round Info" style="outline: 0;" ng-click="rdc.openAddRoundInfoModel(data.id,data.companies.name,data.candidates)" ng-if="(data.companies_tech_round_info == null || data.companies_tech_round_info.length == 0) && (data.final_status == null) && (data.company_final_status == null)"><i class="fa fa-plus" aria-hidden="true" ></i></a>
 
-                            <a type="button" class="btn btn-xs" title="Final Round Result" style="outline: 0;" ng-click="rdc.openAddFinalRoundResultModal(data.id,data.companies.name,data.candidates)" ng-if="(data.companies_tech_round_info.length > 0 && data.final_status == null && data.company_final_status == null)"><i class="fa fa-newspaper-o" aria-hidden="true" ></i></a>
+                            <a type="button" class="btn btn-xs" title="Final Round Result" style="outline: 0;" ng-click="rdc.openAddFinalRoundResultModal(data.id,data.candidate_id,data.companies.name,data.candidates)" ng-if="(data.companies_tech_round_info.length > 0 && data.final_status == null && data.company_final_status == null)"><i class="fa fa-newspaper-o" aria-hidden="true" ></i></a>
 
                             <a type="button" class="btn btn-xs" title="Final HR Result" style="outline: 0;" ng-click="rdc.openAddHrFinalRoundResultModal(data.id,data.candidate_id,data.companies.name,data.candidates)" ng-if="(data.companies_tech_round_info.length > 0 &&  data.final_status == null && data.hr_status == null) && (data.company_final_status != null) "><i class="fa fa-user" aria-hidden="true"></i></a>
 

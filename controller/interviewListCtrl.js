@@ -23,6 +23,7 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
     ilc.resetFilter = function(){
         ilc.jobCodeId = null;
         ilc.scheduledDate='';
+        $('#scheduled_date').datepicker('setDate',null);
         if(ilc.logInUserRole != 4){
             ilc.userId = null;
         }else{

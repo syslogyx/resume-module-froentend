@@ -242,6 +242,7 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
     }
 
     rdc.openAddRoundInfoModel = function(forwardedId,clientName,candidateInfo){
+        rdc.resetAllDatepicker();
         rdc.cName = clientName;
         rdc.candidateName = candidateInfo.first_name+' '+candidateInfo.middle_name+' '+candidateInfo.last_name;
         rdc.fId = forwardedId;
@@ -289,9 +290,11 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
 
     // }
 
-    rdc.openAddFinalRoundResultModal = function($id,$client_name,candidateInfo){
-        rdc.fId = $id;
-        rdc.cName = $client_name;
+    rdc.openAddFinalRoundResultModal = function(id,candidate_id,client_name,candidateInfo){
+        rdc.resetAllDatepicker();
+        rdc.fId = id;
+        rdc.fCandidateID = candidate_id;
+        rdc.cName = client_name;
         rdc.candidateName = candidateInfo.first_name+' '+candidateInfo.middle_name+' '+candidateInfo.last_name;
         $("#saveFinalRoundDetailsBtn").attr('disabled',false);
         $('#addFinalRoundResultModal').modal('show');
@@ -305,7 +308,8 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
                 "forwarded_id":rdc.fId,
                 "feedback_received_date":rdc.feedback_received_date.split("/").reverse().join("-"),
                 "company_final_status":rdc.company_final_status,
-                "company_final_remark":rdc.company_final_remark
+                "company_final_remark":rdc.company_final_remark,
+                "candidate_id":rdc.fCandidateID 
             }
 
             var promise = services.updateRoundDetails(req,rdc.fId);
@@ -335,10 +339,11 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
 
     }
 
-    rdc.openAddHrFinalRoundResultModal = function($id,$candidate_id,$client_name,candidateInfo){
-        rdc.fId = $id;
-        rdc.cId = $candidate_id;
-        rdc.cName = $client_name;
+    rdc.openAddHrFinalRoundResultModal = function(id,candidate_id,client_name,candidateInfo){
+        rdc.resetAllDatepicker();
+        rdc.fId = id;
+        rdc.cId = candidate_id;
+        rdc.cName = client_name;
         rdc.candidateName = candidateInfo.first_name+' '+candidateInfo.middle_name+' '+candidateInfo.last_name;
         $("#saveFinalHRRoundDetailsBtn").attr('disabled',false);
         $('#addFinalHrRoundResultModal').modal('show');
@@ -387,6 +392,7 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
     }
 
     rdc.openCandidateViewModel =function(data,clientName,candidateInfo){
+        rdc.resetAllDatepicker();
         rdc.cName = clientName;
         rdc.candidateName = candidateInfo.first_name+' '+candidateInfo.middle_name+' '+candidateInfo.last_name;
         rdc.viewRoundInfoList = data;
@@ -432,6 +438,17 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
                 Utility.stopAnimation();
             });
         }
+    }
+
+    rdc.resetAllDatepicker = function(){
+        $('#feedback_received_date').datepicker('setDate',null);
+        $('#hr_interview_on_date').datepicker('setDate',null);
+        $('#tentative_doj').datepicker('setDate',null);
+        $('#actual_doj').datepicker('setDate',null);
+        rdc.feedback_received_date = '';
+        rdc.hr_interview_on_date = '';
+        rdc.tentative_doj = '';
+        rdc.actual_doj = '';
     }
 
     rdc.init();

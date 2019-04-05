@@ -225,7 +225,8 @@
             },
             "no_of_question":{
                 digits:true,
-                greaterThanZero:true
+                // greaterThanZero:true,
+                min: 1
             }                 
         },
         messages: {
@@ -233,7 +234,8 @@
                 required: "Stream is required."
             },
             "no_of_question":{
-                digits:"Enter valid digits."
+                digits:"Enter valid digits.",
+                min:'Enter number of question greater than zero.'
             } 
         },
         highlight: function (element) { // hightlight error inputs

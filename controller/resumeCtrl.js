@@ -7,7 +7,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
     
     var authKey = services.getIdentity()==undefined?undefined:JSON.parse(services.getIdentity());
   
-    // console.log(JSON.parse(services.getIdentity()));
+    console.log(authKey);
 
     // $scope.backImgUrls=[
     //     'resources/img/resumeimg/1_Personal_Details_img.jpg',
@@ -24,7 +24,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
     $scope.backCurrentImg='resources/img/Bg_img.jpg';
     $scope.currentCTC = null;
 
-    console.log($routeParams.token);
+    // console.log($routeParams.token);
     // $scope.jobDetail=[
     //     {id: 1, name: "Android"},
     //     {id: 2, name: "Java"}
@@ -614,18 +614,24 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
     };
 
     $scope.saveResumeData = function(){
-         swal({
+        var msg = '';
+        if($scope.candidateId > 0){
+            msg1 = 'Please review your details before submitting.';
+        }else{
+            msg1 = 'Please review your details before submitting.<br>You can not edit the same after final submit.';   
+        }
+
+        swal({
             title: "Sure?",
             // text: "Please review your details before submitting. "+
             // "You cannot edit the same after final submit.",
-            html: 'Please review your details before submitting.<br>' +
-                  'You can not edit the same after final submit.',
+            html: msg1,
             // customClass: 'swal-wide',
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            cancelButtonText: "Cancel",
+            cancelButtonText: "Preview",
             confirmButtonText: "Submit",
             allowOutsideClick: false,
         }).then(function () {
@@ -700,7 +706,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
                         $isAuthkeyExist = true;
                     }else{
                         $isAuthkeyExist = false;
-                        toastr.error("You are not authorized user to perform this activity");
+                        toastr.error("You are not authorized user to perform this activity.");
                     }
                 }else{
                     $isAuthkeyExist = true;
@@ -735,7 +741,11 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
                         try {
                             // toastr.success("Thanks for showing your interest! Will get back to you soon!");   
                             if($scope.candidateId > 0){
-                                // toastr.success("Candidate Details Updated Successfully...!!");                            
+                                // toastr.success("Candidate Details Updated Successfully...!!");       
+                                if(authKey != undefined && authKey.identity.email == $scope.email){
+                                    authKey.identity.name = $scope.firstName+' '+$scope.middleName+' '+$scope.lastName;
+                                    services.setIdentity(authKey);
+                                }                     
                                 $("#wizardProfile").css('display','none');
                                 $("#wizardResumeSuccessmsg").css('display','none');
                                 $("#updateWizardResumeSuccessmsg").css('display','');

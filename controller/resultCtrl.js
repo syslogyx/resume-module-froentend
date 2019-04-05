@@ -20,6 +20,7 @@ app.controller("resultCtrl", function (services, AclService, $scope, $http, $loc
 
     /* Function to initialise result controller */
     res.init = function(){
+        // debugger
     	res.getCandidateList();
     	res.getAllInterviewerList();
     	res.tecForm.candidate_id = $location.search()["cId"];
@@ -80,18 +81,18 @@ app.controller("resultCtrl", function (services, AclService, $scope, $http, $loc
             "limit":0
     	};
 
-        var email = loggedInUser == undefined ? undefined :loggedInUser.identity.email;
-        var mobile = loggedInUser == undefined ? undefined :loggedInUser.identity.mobile;
-        var role_id = loggedInUser == undefined ? undefined :loggedInUser.identity.role;
-        var req = {
-            "role_id":role_id
-        }
-    	var promise = services.getAllCandidates(req,requestParam);
+        // var email = loggedInUser == undefined ? undefined :loggedInUser.identity.email;
+        // var mobile = loggedInUser == undefined ? undefined :loggedInUser.identity.mobile;
+        // var role_id = loggedInUser == undefined ? undefined :loggedInUser.identity.role;
+        // var req = {
+        //     "role_id":role_id
+        // }
+    	var promise = services.getAllCandidatesList();
         promise.success(function (result) {
                 // console.log(result);
             if (result.data) {
-                res.candidateList = result.data.data; 
-                // console.log(res.interviewerList);
+                res.candidateList = result.data; 
+                console.log(res.candidateList);
                 Utility.stopAnimation();                
             }    
         }, function myError(r) {

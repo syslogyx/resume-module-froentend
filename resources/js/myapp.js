@@ -1,9 +1,9 @@
 ﻿var Utility = {
 
      // apiBaseUrl: "http://127.0.0.1:8000/api/",
-       // apiBaseUrl: "http://172.16.1.97:8000/api/",
+       apiBaseUrl: "http://172.16.1.97:8000/api/",
       // apiBaseUrl: "http://172.16.2.37:9000/api/",
-      apiBaseUrl: "http://172.16.1.180:9000/api/",
+      // apiBaseUrl: "http://172.16.1.180:9000/api/",
 
     // apiBaseUrl: "http://127.0.0.1:8000/api/",
     // apiBaseUrl: "http://172.16.1.180:8000/api/",
@@ -667,6 +667,19 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             // url: RESOURCES.SERVER_API + "candidate_details",
             dataType: 'json',
             data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+
+    this.getAllCandidatesList = function () {
+        Utility.startAnimation();
+        return $http({
+            method: 'GET',
+            url: RESOURCES.SERVER_API + "list/all_candidates",
+            dataType: 'json',
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
             }

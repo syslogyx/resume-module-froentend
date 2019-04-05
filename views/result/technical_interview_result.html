@@ -22,7 +22,7 @@
                         <div class="form-group">
                             <label class="" for="">Candidate</label>
                             <select  class="form-control" name="candidate_name" id="candidate_name" disabled="" ng-model="res.tecForm.candidate_id" disabled="">
-                                <option value="" style="color:#ccc !important;">Select candidate</option> x.first_name + x.middle_name + x.last_name
+                                <option value="" style="color:#ccc !important;">Select candidate</option> <!-- x.first_name + x.middle_name + x.last_name -->
                                 <option value="{{x.id}}" ng-repeat="x in res.candidateList track by x.id">{{x.first_name +' '+ x.middle_name +' '+ x.last_name}}</option>
                             </select>
                         </div>

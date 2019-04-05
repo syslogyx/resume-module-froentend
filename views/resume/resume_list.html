@@ -475,7 +475,7 @@
                 <div class="modal-body">
                     <form id="rescheduleForm">                           
                         <div class="row">
-                            <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
+                            <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px;min-height: 70px; ">
                                 <label class="mandatory"> Interviewer </label>
                                 <!-- <select id="interviewer" name="interviewer[]" class="form-control s2mn" ng-model="rlc.interviewer" data-placeholder="Select interviewer" ng-options="x.id as x.name for x in rlc.interviewerList" multiple="multiple" >
                                     <option value="">Select Interviewer</option>
@@ -485,7 +485,7 @@
                                 </select>
                             </div>
 
-                            <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
+                            <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px;min-height: 70px; ">
                                 <label class=""> Round  </label>
                                 <select id="round" name="round" class="form-control" ng-model="round" data-placeholder="Select Round" ng-options="x.name as x.name for x in rlc.round" disabled="">
                                     <option value="">Select Round</option>
@@ -493,11 +493,11 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
+                            <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px;min-height: 70px; ">
                                 <label class="mandatory"> Schedule date </label>
                                 <input type="text" name="reschedule_date" class="form-control" id="reschedule_date" ng-model="scheduleDate" placeholder="Select Date" readonly='true' style="cursor:default;background-color: white;">
                             </div>
-                            <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
+                            <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px;min-height: 70px; ">
                                 <label class="mandatory"> Time </label>
                                 <div>                                    
                                     <div class="input-group bootstrap-timepicker timepicker">
@@ -508,7 +508,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
+                            <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px;min-height: 70px; ">
                                 <label class="mandatory"> Interview Mode  </label>
                                 <select id="interview_type" name="reinterview_type" class="form-control" ng-model="interviewType" data-placeholder="Select interview mode" ng-options="x.name as x.name for x in rlc.interviewType">
                                     <option value="">Select interview mode</option>
@@ -754,47 +754,52 @@
 <script>
 
 
-    $.validator.addMethod("mynumber", function (value, element) {
-        return this.optional(element) || /^\$?([0-9]{1,3},([0-9]{3},)*[0-9]{3}|[0-9]+)(.[0-9][0-9])?$/.test(value);
-    }, "Invalid CTC format.");
     // $.validator.addMethod("mynumber", function (value, element) {
-    //     return this.optional(element) || /^\d+(\.\d{1,2})?$/.test(value);
-    // }, "Enter only two digits after decimal.");
+    //     return this.optional(element) || /^\$?([0-9]{1,3},([0-9]{3},)*[0-9]{3}|[0-9]+)(.[0-9][0-9])?$/.test(value);
+    // }, "Invalid CTC format.");
 
-    // $.validator.addMethod("checkForFromCTC", function (value, element,param) {
-    //     var otherElement = $(param).val();
-    //     console.log(otherElement);
-    //     return this.optional(element) || /^\$?([0-9]{1,3},([0-9]{3},)*[0-9]{3}|[0-9]+)(.[0-9][0-9])?$/.test(otherElement);
-    // }, "Invalid format of From CTC.");
+    $.validator.addMethod("mynumber", function (value, element) {
+        return this.optional(element) || /^\d*\.?\d{0,2}$/.test(value);
+    }, "Enter two digits after decimal.");
 
-    // $.validator.addMethod("checkForToCTC", function (value, element,param) {
-    //     var otherElement = $(param).val();
-    //     return this.optional(element) || /^\$?([0-9]{1,3},([0-9]{3},)*[0-9]{3}|[0-9]+)(.[0-9][0-9])?$/.test(otherElement);
-    // }, "Invalid format of To CTC.");
+    // $.validator.addMethod("checkGreaterThan",function (value, element, param) {
+    //       var otherElement = $(param).val();
+    //       if(otherElement != '' && !isNaN(otherElement)){
+    //         parseInt(otherElement, 10);
+    //       }else{
+    //         return true;
+    //       }
+    //       return this.optional(element) || parseInt(value, 10) > otherElement || parseInt(value, 10) == otherElement;
+    // });
 
     $.validator.addMethod("checkGreaterThan",function (value, element, param) {
-          var otherElement = $(param).val();
-          console.log("otherElement >>>"+otherElement);
-          console.log("otherElement value>>>"+parseInt(otherElement, 10));
-          console.log("value>>>"+value);
-          console.log("parseInt value>>>"+parseInt(value, 10));
-          if(otherElement != '' && !isNaN(otherElement)){
-            parseInt(otherElement, 10);
-            // console.log("empty");
-          }else{
+        var otherElement = $(param).val();
+        if(otherElement != '' && !isNaN(otherElement)){
+            parseFloat(otherElement);
+        }else{
             return true;
-          }
-          return this.optional(element) || parseInt(value, 10) > otherElement || parseInt(value, 10) == otherElement;
+        }
+        return this.optional(element) || parseFloat(value) > otherElement || parseFloat(value) == otherElement;
     });
 
+    // $.validator.addMethod("checkLessThan",function (value, element, param) {
+    //       var otherElement = $(param).val();
+    //       if(otherElement != '' && !isNaN(otherElement)){
+    //         parseInt(otherElement, 10);
+    //       }else{
+    //         return true;
+    //       }       
+    //       return parseInt(value, 10) < otherElement || this.optional(element) || parseInt(value, 10) == otherElement;
+    // });
+
     $.validator.addMethod("checkLessThan",function (value, element, param) {
-          var otherElement = $(param).val();
-          if(otherElement != '' && !isNaN(otherElement)){
-            parseInt(otherElement, 10);
-          }else{
+        var otherElement = $(param).val();
+        if(otherElement != '' && !isNaN(otherElement)){
+            parseFloat(otherElement);
+        }else{
             return true;
-          }       
-          return parseInt(value, 10) < otherElement || this.optional(element) || parseInt(value, 10) == otherElement;
+        }       
+        return this.optional(element) || parseFloat(value) < otherElement || parseFloat(value) == otherElement;
     });
 
     $("#assignStatusForm").validate({
@@ -1262,6 +1267,7 @@
 <script>
     $(document).ready(function () {
 
+
         /* Select-all and deselect all functionality of section name in pdf download*/
         $('#select-all').click(function(){
           $('#my-select').multiSelect('select_all');
@@ -1276,6 +1282,7 @@
         });
         $('#deselect-all').click(function(){
           $('#my-select').multiSelect('deselect_all');
+          $('#my-select').multiSelect('select', '1');
           $('#my-select').valid();
           return false;
         });

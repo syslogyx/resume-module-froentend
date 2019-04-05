@@ -34,7 +34,7 @@
                 <table id="tableid" class="table table-hover table-striped">
                     <thead class="thead-default">
                         <tr>
-                            <th style="text-align: center;"><input type="checkbox" ng-model="ucl.checkall" ng-click="ucl.checkUncheckAll()" ng-if="ucl.candidateDetailsList == null || ucl.candidateDetailsList.length > 0"/></th>
+                            <th style="text-align: center;"><input type="checkbox" ng-disabled="ucl.checkstatus == true" ng-model="ucl.checkall" ng-click="ucl.checkUncheckAll()" ng-if="ucl.candidateDetailsList == null || ucl.candidateDetailsList.length > 0" /></th>
                             <th style="text-align: center;">Sr No.</th>
                             <th>Candidate Name</th>
                             <th>Email</th>

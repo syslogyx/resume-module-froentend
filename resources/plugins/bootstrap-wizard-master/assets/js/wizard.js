@@ -245,29 +245,22 @@ $(document).ready(function(){
                         return true;
                     }
                 },
-                // remote:
-                // {
-                //     url: baseUrl + 'candidate/validate',
-                //     type: "post",
-                //     dataType: 'json',
-                //     data:
-                //     {
-                //         mobile_no: function ()
-                //         {
-                //             return JSON.stringify({
-                //                 mobile_no: $("#mobile_no").val()
-                //                 // ,id: $("#candidateID").val()
-                //             });
-                //         }
-                //     },
-                //     // success: function(res) {
-                //     //     if(res.exists){
-                //     //         alert('true');
-                //     //     }else{
-                //     //         alert('false');
-                //     //     }
-                //     // },   
-                // },
+                remote:
+                {
+                    url: baseUrl + 'candidate/validate',
+                    type: "post",
+                    dataType: 'json',
+                    data:
+                    {
+                        candidate_mobile_no: function ()
+                        {
+                            return JSON.stringify({
+                                mobile_no: $("#mobile_no").val(),
+                                id: $("#candidateID").val()
+                            });
+                        }
+                    }
+                },
                 number1: true,
                 minlength: 10,
                 maxlength: 12,
@@ -275,35 +268,23 @@ $(document).ready(function(){
 		    email: {
 		        required: true,
                 regex: /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i,
-                // remote:
-                // {
-                //     url: baseUrl + 'candidate/validate',
-                //     type: "post",
-                //     dataType: 'json',
-                //     // data:
-                //     // {
-                //     //     email: function ()
-                //     //     {
-                //     //         return JSON.stringify({
-                //     //             email: $("#email").val()
-                //     //             // ,id: $("#candidateID").val()
-                //     //         });
-                //     //     }
+                remote:
+                {
+                    url: baseUrl + 'candidate/validate',
+                    type: "post",
+                    dataType: 'json',
+                    data:
+                    {
+                        candidate_email: function ()
+                        {
+                            return JSON.stringify({
+                                email: $("#email").val(),
+                                id: $("#candidateID").val()
+                            });
+                        }
 
-                //     // },
-                //     data: {
-                //             email: function() {
-                //             return JSON.stringify({email: $("#email").val()});
-                //             }
-                //         },
-                //     // success: function(res) {
-                //     //     if(res.exists){
-                //     //         alert('true');
-                //     //     }else{
-                //     //         alert('false');
-                //     //     }
-                //     // },    
-                // },
+                    },
+                },
     		},
             dob:{
                 required: true,
@@ -311,29 +292,22 @@ $(document).ready(function(){
             pan_number:{
                 required: true,
                 pan: true,
-                // remote:
-                // {
-                //     url: baseUrl + 'candidate/validate',
-                //     type: "post",
-                //     dataType: 'json',
-                //     data:
-                //     {
-                //         pan_number: function ()
-                //         {
-                //             return JSON.stringify({
-                //                 pan_number: $("#panNumber").val()
-                //                 // ,id: $("#candidateID").val()
-                //             });
-                //         }
-                //     },
-                //     // success: function(res) {
-                //     //     if(res.exists){
-                //     //         alert('true');
-                //     //     }else{
-                //     //         alert('false');
-                //     //     }
-                //     // }, 
-                // },
+                remote:
+                {
+                    url: baseUrl + 'candidate/validate',
+                    type: "post",
+                    dataType: 'json',
+                    data:
+                    {
+                        candidate_pan_number: function ()
+                        {
+                            return JSON.stringify({
+                                pan_number: $("#panNumber").val(),
+                                id: $("#candidateID").val()
+                            });
+                        }
+                    },
+                },
             },
             corresponding_address:{
                 required: true,
@@ -408,7 +382,7 @@ $(document).ready(function(){
             },
             mobile_no: {
                 required: "Mobile number is required.",
-                // remote:"User mobile number is already taken."
+                remote:"User mobile number is already taken."
             },
             gender:{
                 required:"Gender is required",
@@ -419,14 +393,14 @@ $(document).ready(function(){
             email: {
                 required: "Email is required.",
                 contactEmail: "Please enter a valid Email Address.",
-                // remote: "User email is already taken."
+                remote: "User email is already taken."
             },
             dob: {
                 required: "Date of birth is required.",
             },
             pan_number: {
                 required: "PAN number is required.",
-                // remote: "User PAN number is already taken."
+                remote: "User PAN number is already taken."
             },
             corresponding_address: {
                 required: "Correspondence address is required.",
