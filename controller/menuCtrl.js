@@ -108,10 +108,11 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
         $scope.token = services.getAuthKey();
         if ($scope.token != undefined) {
             $scope.user = JSON.parse($cookieStore.get('identity'));
-            /*console.log("sdfsdfsdfsd  "+$scope.user.identity.name);*/
             $scope.name = $scope.user.identity.name;
             $scope.userId = $scope.user.id;
             $scope.name = $scope.user.identity.name;
+            $scope.profile_image =$scope.user.identity.avatar;
+            $scope.profile_image_with_path = 'https://recruitmentapi.syslogyx.com/app/public/img/'+$scope.user.identity.avatar;
             $scope.logInUserRole  =   $scope.user.identity.role;
             //console.log( $scope.logInUserRole);
             // $scope.menuClick(window.location.pathname);

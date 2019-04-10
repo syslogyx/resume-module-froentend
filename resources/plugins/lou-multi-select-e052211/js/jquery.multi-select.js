@@ -356,6 +356,8 @@
     'select' : function(value, method){
       if (typeof value === 'string'){ value = [value]; }
 
+      // $('#pdfSettingForm').find('#my-select-error').css('display','none');
+      // $('.ms-list').css('border-color','black');
       var that = this,
           ms = this.$element,
           msIds = $.map(value, function(val){ return(that.sanitize(val)); }),

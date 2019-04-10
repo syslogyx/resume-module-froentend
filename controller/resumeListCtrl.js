@@ -12,6 +12,12 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     rlc.jdId = null;
     rlc.notSameInterviewerList = null;
 
+    rlc.defaultSelectSectionList =[
+        {"id":1,"section_name":"Name"},
+        {"id":2,"section_name":"Email"},
+        {"id":3,"section_name":"Phone"}
+    ];
+
     var loggedInUser = services.getIdentity()==undefined?undefined:JSON.parse(services.getIdentity());
     console.log(loggedInUser);
     
@@ -60,6 +66,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
             for (var i = 0; i < result.length; i++) {
                 rlc.alphabet.push(result[i]);
             }
+            console.log(rlc.alphabet);
         }, function myError(r) {
             toastr.error(r.data.message, 'Sorry!');
             Utility.stopAnimation();
@@ -102,8 +109,11 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         }).on('changeDate', function(selected){
              $(this).valid();
         });
+
         $('#schedule_time').timepicker({
             showInputs: false
+        }).on('change', function(){
+             $(this).valid();
         });
 
         var date = new Date();
@@ -117,6 +127,8 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         });
         $('#reschedule_time').timepicker({
             showInputs: false
+        }).on('change', function(){
+             $(this).valid();
         });
 
         // $('#my-select').multiSelect({
@@ -602,8 +614,9 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     /* Function to download PDF with section selection setting */
     rlc.downloadPdfWithSectionSetting = function(){
         if($('#pdfSettingForm').valid()){
-            console.log(rlc.seletedSection);
-            var promise = services.downloadResumePDF(rlc.Cid,$('#my-select').val().toString());
+            //to add default name, emial and phone section to download pdf
+            var selectSectionListStr = "1,2,3,"+$('#my-select').val().toString();
+            var promise = services.downloadResumePDF(rlc.Cid,selectSectionListStr);
             $('#pdfSettingModel').modal('hide');
         }
     }
@@ -671,7 +684,8 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
                 // $("#downloadZipBtn").attr('disabled',true);
                 rlc.waiting=true;
                 rlc.timer();
-                var promise = services.createBgCheckListDocZip(rlc.candidateID,$('#my-select_for_zip').val().toString());        
+                var selectSectionListStr = "1,2,3,"+$('#my-select_for_zip').val().toString();
+                var promise = services.createBgCheckListDocZip(rlc.candidateID,selectSectionListStr);        
                 promise.success(function (result) {  
                     Utility.stopAnimation();
                 }, function myError(r) {

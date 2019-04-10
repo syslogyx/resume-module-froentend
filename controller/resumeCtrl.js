@@ -23,6 +23,8 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
     // $scope.backCurrentImg=$scope.backImgUrls[0];
     $scope.backCurrentImg='resources/img/Bg_img.jpg';
     $scope.currentCTC = null;
+    $scope.permanentAddr ='';
+    $scope.correspondingAddr ='';
 
     // console.log($routeParams.token);
     // $scope.jobDetail=[
@@ -45,7 +47,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
     // }
 
     $scope.getActiveJd = function(){
-         var promise = services.getAllActiveJDList();
+        var promise = services.getAllActiveJDList();
         promise.success(function (result) {
             Utility.stopAnimation();
             $scope.jobDetail = result.data; 
@@ -95,7 +97,6 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
     $scope.objectiveDiv = [{objective:""}];
 
     $scope.datepickerInit = function(){
-
         $('.start_year').datepicker({
             format: "yyyy",
             autoclose: true,
@@ -117,6 +118,28 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
         }).on("changeDate", function (e) {
             $(this).valid();
         });
+    }
+
+    $scope.copyPerAdd = function(){
+        if( $scope.checkvalue){
+            $scope.correspondingAddr = $scope.permanentAddr; 
+            if($scope.correspondingAddr != ''){
+                $("#correspondingAddress").valid();
+            } 
+        }
+    }
+
+    $scope.checkcorrAddr = function(){
+        if ( $scope.checkvalue) {
+            $scope.checkvalue = true;
+        } else {
+            $scope.checkvalue = false;
+        }
+        if ($scope.checkvalue == true) {
+            $scope.correspondingAddr = $scope.permanentAddr;
+        } else {
+           $scope.correspondingAddr ='';
+        }
     }
 
     $scope.opportunityForChange=function(){
@@ -170,8 +193,6 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
         }        
     };
 
-
-
     function setTime(){
         //Date picker
         $('#dob').bind('keydown',function(e){
@@ -187,9 +208,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
     }
 
     $scope.init = function(){
-       
         setTimeout(function(){setTime();},10);
-
         /* Getting all qualification list */
         var promise = services.getAllQualificationList();
         promise.success(function (result) {
@@ -211,7 +230,6 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
         }else{
             $scope.fetchCandidateInfo();
         }
-
     }
 
     $scope.setCandidateDataById = function(id){
@@ -221,7 +239,9 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
         // $('.content-wrapper').css('margin-left','0px !important');  
         $("#cw").css('margin-left','0px');     
         $("#file").prop('disabled', true);
+        $("#profile_pic_file").prop('disabled', true);
         $("#fileEditError").css('display', 'block');
+        $("#fileEditError1").css('display', 'block');
 
             var promise = services.getCandidateDetailsById(id);
             promise.then(function mySuccess(response) {
@@ -611,6 +631,12 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
 
     $scope.getTheFiles = function ($files) {
         $scope.file=$files[0];
+        $('#file').valid();
+    };
+
+    $scope.getProfilePicFiles = function ($files) {
+        $scope.profileImage=$files[0];
+        $('#profile_pic_file').valid();
     };
 
     $scope.saveResumeData = function(){
@@ -716,7 +742,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
                 if($isAuthkeyExist){                
                     promise.then(function mySuccess(response) {
                         if(response.data.status_code == 200 && $scope.candidateId == null){
-                            // debugger;
+                            /*To upload Resume file*/
                             var json= new FormData();
                             json.append("file_name",$scope.file);
                             json.append("candidate_id",response.data.data.id);
@@ -734,7 +760,29 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
                             }, function myError(r) {
                                 toastr.error(r.data.message,'Something went wrong');
                                 Utility.stopAnimation();
-                            });                                    
+                            });   
+
+                            /*To upload profile Image*/
+                            var imagejson= new FormData();
+                            imagejson.append("file_name",$scope.profileImage);
+                            imagejson.append("candidate_id",response.data.data.id);
+                            imagejson.append("timestamp",response.data.data.timestamp);
+                            imagejson.append("email",response.data.data.email);
+                            imagejson.append("mobile",response.data.data.mobile_no);
+                            
+                            var promise3 = services.uploadProfileIamge(imagejson);
+                            promise3.then(function mySuccess(response) {
+                            Utility.stopAnimation();
+                                try {
+                                    // toastr.success('File uploaded successfully.');
+                                } catch (e) {
+                                    toastr.error("Image not uploaded successfully.");
+                                    Raven.captureException(e)
+                                }
+                            }, function myError(r) {
+                                toastr.error(r.data.message,'Something went wrong');
+                                Utility.stopAnimation();
+                            });                                   
                         }
 
                         Utility.stopAnimation();

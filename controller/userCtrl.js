@@ -9,13 +9,12 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
     usr.contactEmail ="";
     usr.password ="";
     usr.skip = true;
-    usr.comapnyName='Syslogyx Technologies Pvt. Ltd.'
+    usr.comapnyName='Syslogyx Technologies Pvt. Ltd.';
+    usr.alphabet = ['All'];
 
     var viewPath = $location.path().split("/")[1];
-    console.log(viewPath);
     var hashPathname = window.location.hash;
     usr.hashPathId = hashPathname.substring(1, hashPathname.length);
-    console.log(usr.hashPathId);
 
     /* Getting login user info */
     var loggedInUserName = JSON.parse($cookieStore.get('identity'));
@@ -31,13 +30,44 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
 
     /*Function to cancle add user view */
     usr.cancelUser = function() {
-         // $location.path('/user');
          $location.url('/user#all');
+    }
+    /*Function to get all users firdt charactor list */
+    function genCharArray() {
+        var promise = services.getUsersListOfAlphabets(usr.hashPathId);
+        promise.success(function (result) {
+            Utility.stopAnimation();
+            for (var i = 0; i < result.length; i++) {
+                usr.alphabet.push(result[i]);
+            }
+            console.log(usr.alphabet);
+        }, function myError(r) {
+            toastr.error(r.data.message, 'Sorry!');
+            Utility.stopAnimation();
+        });
+    }
+     /*Function to get  users list according to selected charactor */
+    usr.onAlphabetClick = function(data,index){       
+        usr.alpha = data;
+        // console.log(rlc.alpha);
+        usr.fetchList(-1);
+        $('.alpabet-list').each(function(e){
+            if($(this).find('li a')[0].id == $('#alpabet_'+index)[0].id){
+                $('#alpabet_'+index).addClass('red');
+            }else{
+                $(this).find('li a').removeClass('red');
+                $(this).find('li a').addClass('blue');
+            }
+        });
     }
 
     /*Record limit for Users in pagination */
     setTimeout(function(){
         $('#table_length').on('change',function(){
+            usr.fetchList(-1);
+        });
+
+        $('#alphabetic_sort').on('change',function(){
             usr.fetchList(-1);
         });
     },100);
@@ -60,7 +90,8 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
         
 
         var req = {
-            "role_id":usr.hashPathId
+            "role_id":usr.hashPathId,
+            'search_alphabet':usr.alpha,
         }
 
         console.log(req);
@@ -91,6 +122,11 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
         });
     }
 
+    if($location.path() != "/user/add_user" && $location.path() != "/user/edit"){
+         genCharArray();
+    }
+   
+
     /* Function to initialise user controller */
     usr.init = function () { 
 
@@ -117,6 +153,7 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
         }
 
         if($location.path() != "/user/add_user" && $location.path() != "/user/edit"){
+            usr.onAlphabetClick("All","0");
             usr.fetchList(-1);
         }
 

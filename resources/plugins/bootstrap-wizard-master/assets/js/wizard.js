@@ -57,6 +57,10 @@ $(document).ready(function(){
         return value.match(new RegExp("." + param + "$"));
     },'Please select document or pdf file.');
 
+    $.validator.addMethod("acceptimage", function(value, element, param) {
+        return value.match(new RegExp("." + param + "$"));
+    },'Please select png/jpeg/jpg image file.');
+
     $.validator.addMethod("lettersonly", function(value, element) {
         // return this.optional(element) || /^[a-z]+$/i.test(value);
         return this.optional(element) || /^[a-zA-Z\s]+$/.test(value);
@@ -351,6 +355,11 @@ $(document).ready(function(){
                 accept: "(docx?|doc|pdf)",
                 filesize: 1048576
             },
+             profile_pic_file: {
+                required: true,
+                acceptimage: "(png|jpg|jpeg)",
+                filesize: 1048576
+            },
             indian_lang:{
                 required: true,
             },
@@ -481,6 +490,11 @@ $(document).ready(function(){
             file: {
                 required: "File is required" ,
                 accept: "Select document or pdf file",
+                filesize: "File size must be less than 1MB"
+            },
+            profile_pic_file: {
+                required: "File is required" ,
+                acceptimage: "Select jpg/png/jpeg image file",
                 filesize: "File size must be less than 1MB"
             }
         },

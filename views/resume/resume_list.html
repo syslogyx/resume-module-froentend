@@ -94,6 +94,11 @@
         padding-left: 5%;
     }
 
+    a:active ,.btn:focus{
+        color: #428bca;
+        text-decoration: none;
+    }
+
 </style>
 <section class="content" ng-cloak  id="resumeListCtrl">
     <div class="container-fluid" style="overflow-y: hidden;">
@@ -535,34 +540,45 @@
                     <h4 class="modal-title popUpModalTitle">Select Sections for PDF</h4>
                 </div>
                 <div class="modal-body">
-                    <form id="pdfSettingForm">   
-                            <!-- <div>
-                                <label  style="margin-bottom: 15px;">
-                                    <input class="icheckBox" apply-check-box id="chk_all" type="checkbox"  name="chk_all" checked> &nbsp;&nbsp;&nbsp;
-                                    Check All
-                                </label>
-                            </div> -->
-                            <div class="row form-group">                        
-                                <!-- <label  class="col-xs-3 " ng-repeat="section in rlc.pdfSectionsNameList" style="margin-bottom: 15px;">
-                                  <input class="icheckBox" apply-check-box data-index="{{section.id}}"  id="chk_{{section.id}}" type="checkbox"  name="selectedSectionNames[]" value="{{section.id}}" checked> &nbsp;&nbsp;&nbsp;{{section.section_name}}
-                                </label> -->
-                                <!-- {{rlc.seletedSection}} -->
-                                <div col="col-md-12">                                    
-                                    <select multiple="multiple" id="my-select" name="selectedSectionNames[]">
-                                        <option ng-repeat="sec in rlc.pdfSectionsNameList" value="{{sec.id}}" selected>{{sec.section_name}}</option>
-                                    </select>
+                    <form id="pdfSettingForm">
+                        <div class="row" style="margin-left:-6%">
+                            <div class="col-md-6">
+                                <label class="" style="font-family: sanspro_bold;color: #555555;font-weight: 700;">Default Selected Section:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="" style="text-align: center;margin-left: 7%;">
+                                   <a class="btn btn-outline btn-circles btn-sm green" ng-repeat ="data in rlc.defaultSelectSectionList" ng-model="rlc.defaultSelectSection" style="margin-right: 10px;cursor: text;" value="{{data.id}}">{{data.section_name}}&nbsp;&nbsp;</a>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div col="col-md-12">      
-                                    <div id="select-all-div" class="col-md-6 form-group">
-                                        <a href='#' id='select-all'>Select All</a>
-                                    </div>
-                                    <div id="deselect-all-div" class="col-md-6 form-group">                                        
-                                        <a href='#' id='deselect-all'>Deselect All</a>
-                                    </div>
+                        </div>
+                        <br>
+                        <!-- <div>
+                            <label  style="margin-bottom: 15px;">
+                                <input class="icheckBox" apply-check-box id="chk_all" type="checkbox"  name="chk_all" checked> &nbsp;&nbsp;&nbsp;
+                                Check All
+                            </label>
+                        </div> -->
+                        <div class="row form-group">                        
+                            <!-- <label  class="col-xs-3 " ng-repeat="section in rlc.pdfSectionsNameList" style="margin-bottom: 15px;">
+                              <input class="icheckBox" apply-check-box data-index="{{section.id}}"  id="chk_{{section.id}}" type="checkbox"  name="selectedSectionNames[]" value="{{section.id}}" checked> &nbsp;&nbsp;&nbsp;{{section.section_name}}
+                            </label> -->
+                            <!-- {{rlc.seletedSection}} -->
+                            <div col="col-md-12">                                    
+                                <select multiple="multiple" id="my-select" name="selectedSectionNames[]">
+                                    <option ng-repeat="sec in rlc.pdfSectionsNameList" value="{{sec.id}}" selected>{{sec.section_name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div col="col-md-12">      
+                                <div id="select-all-div" class="col-md-6 form-group">
+                                    <a href='#' id='select-all'>Select All</a>
                                 </div>
-                            </div>                  
+                                <div id="deselect-all-div" class="col-md-6 form-group">                                        
+                                    <a href='#' id='deselect-all'>Deselect All</a>
+                                </div>
+                            </div>
+                        </div>                  
                     </form>
                 </div>
                 <div class="modal-footer" style="margin-top: 0px;"> 
@@ -653,11 +669,11 @@
     <!-- End Bg checklist document list Model -->
 
     <!-- Start Bg checklist document list Model -->
-    <div class="modal fade bgChecklistDocsModal" id="bgChecklistDocsModal" role="dialog">
+    <div class="modal fade bgChecklistDocsModal" id="bgChecklistDocsModal" data-backdrop="static"  role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content" style="border-radius: 0px!important;">
                 <div class="modal-header" id="popUpModalHeader">
-                    <button type="button" class="close" data-dismiss="modal" style="margin-right: 5px;">&times;</button>
+                    <button type="button" class="close" data-dismiss="modal" style="margin-right: 5px;" ng-if="!rlc.waiting">&times;</button>
                     <h4 class="modal-title popUpModalTitle"> Background Check Documents And CV of <span style="color:#3c8dbc;">{{rlc.candidateNameToShowOnModal}}</span></h4>
                 </div>
                 <div class="modal-body">
@@ -708,6 +724,17 @@
                                                     <span> <b style="color:#dd4b39;">NOTE: </b><br> * Please select at least one section to add in CV.</span>
                                                 </div>
                                             </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="" style="font-family: sanspro_bold;color: #555555;font-weight: 700;">Default Selected Section:</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="" style="margin-left: 7%;">
+                                                       <a class="btn btn-outline btn-circles btn-sm green" ng-repeat ="data in rlc.defaultSelectSectionList" ng-model="rlc.defaultSelectSection" style="margin-right: 10px;cursor: text;" value="{{data.id}}">{{data.section_name}}&nbsp;&nbsp;</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>
                                             <div class="row rowMargin">
                                                 <div col="col-md-12">
                                                     <form id="pdfSettingFormForZip">
@@ -742,7 +769,7 @@
                             <div ng-if="!rlc.waiting">Download in Zip</div>
                             <div ng-if="rlc.waiting">Wait for {{rlc.second}} S</div>
                         </button>
-                        <button type="reset" id="closeModal" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+                        <button type="reset" id="closeModal" class="btn btn-warning" data-dismiss="modal" ng-if="!rlc.waiting">Cancel</button>
                     </div>
                 </div>
             </div>
@@ -752,7 +779,6 @@
     
 </section>
 <script>
-
 
     // $.validator.addMethod("mynumber", function (value, element) {
     //     return this.optional(element) || /^\$?([0-9]{1,3},([0-9]{3},)*[0-9]{3}|[0-9]+)(.[0-9][0-9])?$/.test(value);
@@ -1216,62 +1242,70 @@
     });
 
     $("#changeJdStatusForm").validate({
-                errorElement: 'span', //default input error message container
-                errorClass: 'help-block help-block-error',
-                errorPlacement: function (error, element) {
+        errorElement: 'span', //default input error message container
+        errorClass: 'help-block help-block-error',
+        errorPlacement: function (error, element) {
 
-                    var type = $(element).attr("type");
-                    if ($(element).attr("id") === "")
-                    {
-                        element.parent().append(error);
+            var type = $(element).attr("type");
+            if ($(element).attr("id") === "")
+            {
+                element.parent().append(error);
 
-                    }
-                    else if ($(element).attr("id") === "job_code")
-                    {
-                        element.parent().append(error);
+            }
+            else if ($(element).attr("id") === "job_code")
+            {
+                element.parent().append(error);
 
-                    }else{
-                        error.insertAfter(element);
-                    }
-                },
-                rules: {
-                    job_code: {
-                        required: true
-                    }
-                },
-                messages: {
-                    job_code: {
-                        required: "Job code is required."
-                    }
-                },
-                highlight: function (element) { // hightlight error inputs
-                    $(element).closest('.form-group').addClass('has-error');
+            }else{
+                error.insertAfter(element);
+            }
+        },
+        rules: {
+            job_code: {
+                required: true
+            }
+        },
+        messages: {
+            job_code: {
+                required: "Job code is required."
+            }
+        },
+        highlight: function (element) { // hightlight error inputs
+            $(element).closest('.form-group').addClass('has-error');
 
-                    $(element).next().children().children().attr('style', 'border-color:#dd4b39!important');
-                    // set error class to the control group
-                },
-                unhighlight: function (element) { // revert the change done by hightlight
-                    $(element)
-                            .closest('.form-group').removeClass('has-error');
-                    $(element)
-                            .next().children().children().attr('style', 'border-color:'); // set error class to the control group
-                },
-                success: function (label) {
-                    label
-                            .closest('.form-group').removeClass('has-error'); // set success class to the control group
-                }
-            });
+            $(element).next().children().children().attr('style', 'border-color:#dd4b39!important');
+            // set error class to the control group
+        },
+        unhighlight: function (element) { // revert the change done by hightlight
+            $(element)
+                    .closest('.form-group').removeClass('has-error');
+            $(element)
+                    .next().children().children().attr('style', 'border-color:'); // set error class to the control group
+        },
+        success: function (label) {
+            label
+                    .closest('.form-group').removeClass('has-error'); // set success class to the control group
+        }
+    });
 
     $(".s2mn").on("change", function () { $(this).valid(); });            
 </script>
 <script>
     $(document).ready(function () {
+        $('#default_select_section').select2()
+        // $('#select-all').hide();
+        // $('#deselect-all').show();
+        $('#my-select,#my-select_for_zip').on('change',function(){
+            $(this).valid();
 
+            // $('#deselect-all').show();
+            // $('#select-all').show();
+        })
 
         /* Select-all and deselect all functionality of section name in pdf download*/
         $('#select-all').click(function(){
           $('#my-select').multiSelect('select_all');
-          // $('#my-select').valid();
+          // $('#select-all').hide();
             $("div.form-group").each(function () {
                 $(this).removeClass('has-error');
                 $('span.help-block-error').remove();
@@ -1282,8 +1316,9 @@
         });
         $('#deselect-all').click(function(){
           $('#my-select').multiSelect('deselect_all');
-          $('#my-select').multiSelect('select', '1');
+          // $('#my-select').multiSelect('select', '1');
           $('#my-select').valid();
+          // $('#deselect-all').hide();
           return false;
         });
          /* Select-all and deselect all functionality of section name in zip download functionality containg pdf*/

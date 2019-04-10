@@ -121,13 +121,13 @@
 
                                 <li class=" dropdown user user-menu ">
                                     <a class="dropdown-toggle userSection" data-toggle="dropdown">
-                                        <img src="resources/img/default_profile.png" class="user-image" alt="User Image" >
+                                        <img src="{{profile_image != null ? profile_image_with_path : 'resources/img/default_profile.png'}}" class="user-image" alt="User Image" >
                                     </a>
                                     <ul class="dropdown-menu" id="logout" style="margin-top: 18%;">
                                     <!-- User image -->
 
                                         <li class="user-header">
-                                            <img src="resources/img/default_profile.png" class="img-circle" alt="User Image">
+                                            <img src="{{profile_image != null ? profile_image_with_path : 'resources/img/default_profile.png' }}" class="img-circle" alt="User Image">
                                             <p><span ng-href="" style="color: white;">{{name}}</span>
                                             </p>
                                         </li>
@@ -159,7 +159,7 @@
                         <!-- Sidebar user panel -->
                         <div class="user-panel push-menu">
                             <div class="pull-left image">
-                              <img src="resources/img/default_profile.png" class="img-circle" alt="User Image">
+                              <img src="{{profile_image != null ? profile_image_with_path : 'resources/img/default_profile.png' }}" class="img-circle" alt="User Image">
                             </div>
                             <div class="pull-left info" style='white-space: initial;'>
                               <p>{{name}}</p>

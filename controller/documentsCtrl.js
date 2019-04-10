@@ -109,5 +109,49 @@ app.controller('documentsCtrl', function ($scope,menuService,services,$cookieSto
         var promise = services.downloadSampleBackgroundForm();
     }
 
+    doc.downloadCandidateUploadFile =  function(documentId){
+        var promise = services.downloadBgFileByFileID(documentId);
+    }
+
+    doc.deleteDocumentByID = function(documentId){
+        swal({
+            title: "Sure?",
+            text: "Do you want to delete file?",
+            type: "warning",
+            showCancelButton: true,
+            closeOnConfirm: true,
+            confirmButtonText: "Yes",
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: '#d33',
+            cancelButtonText: "No",
+            animation: false,
+            customClass: 'animated tada',
+            allowOutsideClick: false,
+        }).then(function(isConfirm) {
+            if (isConfirm) {
+                var promise = services.deleteCandidateBgFileByID(documentId);
+                promise.then(function mySuccess(response) {
+                    Utility.stopAnimation();
+                    try {
+                        if(response.data.status_code == 200){
+                            toastr.success('File is deleted successfully.');
+                            setTimeout(function(){
+                                doc.init();
+                            },100);    
+                        }else if(response.data.status_code == 201){
+                            toastr.error(response.data.message, 'Sorry!');
+                        }
+                    } catch (e) {
+                        Raven.captureException(e)
+                    }
+                }, function myError(r) {
+                    toastr.error(r.data.message, 'Sorry!');
+                });
+            } else { 
+                console.log("cancel");
+            }      
+        }).catch(swal.noop);
+    }
+
     doc.init();
 });

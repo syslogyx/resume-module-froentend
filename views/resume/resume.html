@@ -180,6 +180,44 @@
         padding: 10px 10px !important;
     }
 
+    .tooltip {
+        opacity: initial !important;
+        font-style: normal !important;
+        font-weight: 200 !important;
+        display: initial !important;
+    }
+
+    .tooltip .tooltiptext {
+        font-size:11px !important;
+        visibility: hidden !important;
+        width: 120px !important;
+        background-color: black !important;
+        color: #fff !important;
+        text-align: center !important;
+        border-radius: 6px !important;
+        padding: 5px 0 !important;
+        position: absolute !important;
+        z-index: 1 !important;
+        bottom: 150% !important;
+        left: 50% !important;
+        margin-left: -60px !important;
+    }
+
+    .tooltip .tooltiptext::after {
+        content: "" !important;
+        position: absolute !important;
+        top: 100% !important;
+        left: 50% !important;
+        margin-left: -5px !important;
+        border-width: 5px !important;
+        border-style: solid !important;
+        border-color: black transparent transparent transparent !important;
+    }
+
+    .tooltip:hover .tooltiptext {
+        visibility: visible !important;
+    }
+
 </style>
 <!--     Fonts and icons     -->
 <link href="/resources/lib/font-awesome-4.5.0/css/font-awesome.css" rel="stylesheet" />
@@ -207,7 +245,7 @@
                 <div class="wizard-container" style="padding-top: 35px;">
 
                     <div class="card wizard-card" data-color="orange" id="wizardProfile">
-                        <form action="" method="" id="resumeForm" autocomplete="off">
+                        <form action="" method="" id="resumeForm" autocomplete="off" enctype="multipart/form-data">
                             <div class="wizard-header">
                                 <div class='row'>
                                     <div class='col-sm-12'>
@@ -373,17 +411,20 @@
                                             <div class="col-sm-12">                 
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label class="mandatory">Correspondence Address</label>
-                                                        <textarea class="form-control" id="correspondingAddress" placeholder="Enter address" name="corresponding_address" ng-model="correspondingAddr" rows="1"></textarea>
-                                                    </div>
+                                                        <label class="mandatory">Permanent Address</label>
+                                                        <textarea class="form-control" id="permanentAddress" placeholder="Enter address" name="permanent_address" ng-model="permanentAddr" rows="1" ng-change="copyPerAdd()"></textarea>
+                                                    </div>  
                                                 </div>
                                                 <div class="col-md-6">
-                                                  <div class="form-group">
-                                                    <label class="mandatory">Permanent Address</label>
-                                                    <!-- <input type="checkbox" name="checked" ng-change="copyCorrAddToPerAdd(this,event)" style="margin-left: 45px;">
-                                                    <span> Copy Address</span> -->
-                                                    <textarea class="form-control" id="permanentAddress" placeholder="Enter address" name="permanent_address" ng-model="permanentAddr" rows="1"></textarea>
-                                                  </div>
+                                                    <div class="form-group">
+                                                        <label class="mandatory">Correspondence Address</label>
+                                                        <input type="checkbox" id="checkedAdd" name="checkedAdd"  ng-click="checkcorrAddr()" ng-model="checkvalue" style="margin-left: 5px;">
+                                                        <span class="tooltip" for="chkPassport">Same As
+                                                          <span class="tooltiptext">Same As Permanent Address</span>
+                                                        </span>
+                                                        <!-- <span for="chkPassport">Same As</span> -->
+                                                        <textarea class="form-control" id="correspondingAddress" placeholder="Enter address" name="corresponding_address" ng-model="correspondingAddr" rows="1" ng-disabled="checkvalue == true && permanentAddr !=''"></textarea>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -785,24 +826,40 @@
                                             <div class="col-sm-12">
                                                 <form action="/uploadfile" method="post" enctype="multipart/form-data" id="fileUploadForm">
                                                     <div class="col-sm-12">
-                                                        <h5 class="info-text" style="text-align:left">Please upload a Word or PDF file. File size should not exceed 1MB.</h5>
+                                                        <h5 class="info-text" style="text-align:left;padding-left:0% !important"><b style="color:#dd4b39;">*</b> Please upload a Word or PDF file. File size should not exceed 1MB.</h5>
                                                         <!-- <h5 class="info-text" style="text-align:left" ng-if="candidateId !=null">File is already uploaded.</h5> -->
-                                                        <br>
+                                                        <!-- <br> -->
+                                                        <label class="mandatory">Upload Resume File</label>
                                                         <div class="form-group" data-id="{{candidateId}}">      
-                                                            <input type="file" class="form-control" name="file" id="file" ng-model="file" ng-files="getTheFiles($files)" style="height: auto;">        
+                                                            <input type="file" class="form-control" name="file" id="file" ng-model="file" ng-files="getTheFiles($files)" style="height: auto;" >        
                                                             <!--  <input type="file" class="form-control" name="file" id="file" onchange="angular.element(this).scope().uploadFile(this.files)" aria-describedby="fileHelp"  upload-files > -->
-                                                            <span id="fileEditError" style="color:#dd4b39;display: none">File is already uploaded.</span>
+                                                            <span id="fileEditError1" style="color:#dd4b39;display: none">File is already uploaded.</span>
                                                             <span style="color:#dd4b39;">{{fileSizeError}}</span>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-12" style="margin-top: 35%;    animation: fadeIn 2s infinite alternate;color: #e6490b;">
-                                                        <strong>Note:</strong>
-                                                        <ul style="margin-left: 20px;">
-                                                            <li>Please review your details before submitting. </li>
-                                                            <li>You can not edit the same after final submit.</li>
-                                                        </ul>
-                                                    </div>
                                                 </form>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-12">
+                                                    <h5 class="info-text" style="text-align:left;padding-left:0% !important"><b style="color:#dd4b39;">*</b> Please upload a profile image in JPE or JPEG or PNG format. Image size should not exceed 1MB.</h5>
+                                                    <label class="mandatory">Profile Image</label>
+                                                    <div class="form-group" data-id="{{candidateId}}">      
+                                                        <input type="file" class="form-control" name="profile_pic_file" id="profile_pic_file" ng-model="profilePicFile" ng-files="getProfilePicFiles($files)" style="height: auto;">
+                                                        <span id="fileEditError" style="color:#dd4b39;display: none">File is already uploaded.</span>
+                                                        <span style="color:#dd4b39;">{{fileSizeError}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12" style="margin-top: 35%;    animation: fadeIn 2s infinite alternate;color: #e6490b;">
+                                                <strong>Note:</strong>
+                                                <ul style="margin-left: 20px;">
+                                                    <li>Please review your details before submitting. </li>
+                                                    <li>You can not edit the same after final submit.</li>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>

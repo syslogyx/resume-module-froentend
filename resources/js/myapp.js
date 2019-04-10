@@ -818,6 +818,19 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
+    this.uploadProfileIamge  = function(request){      
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "upload_profile_image",
+            dataType: 'form-data',
+            data: request,
+            headers: {
+                'Content-Type': undefined
+            }
+        })
+    };
+
 
     this.uploadBackgroundDocFile  = function(request){      
         Utility.startAnimation();
@@ -1092,6 +1105,24 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
 
     this.downloadSampleBackgroundForm = function () {        
         window.open(RESOURCES.SERVER_API +'download_sample_bgform');        
+    };
+
+    this.downloadBgFileByFileID = function (documentId) {        
+        window.open(RESOURCES.SERVER_API +'download_candidate_bg_file/'+documentId);        
+    };
+
+    this.deleteCandidateBgFileByID = function (documentId) {
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "candidate_bg_file/"+documentId+"/delete",
+            dataType: 'json',
+            // data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+                
+            }
+        })
     };
 
     this.getAllCompanyList = function (request) {
@@ -1663,6 +1694,18 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             url: RESOURCES.SERVER_API + "dashboard/client",
             dataType: 'json',
             data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+
+    this.getUsersListOfAlphabets = function(type){
+        Utility.startAnimation();
+        return $http({
+            method: 'GET',
+            url: RESOURCES.SERVER_API + "get_users_alphabets/"+type,
+            dataType: 'json',
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
             }

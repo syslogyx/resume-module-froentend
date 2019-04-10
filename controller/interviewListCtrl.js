@@ -18,14 +18,16 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
     ilc.currentInterviewList = [];
     ilc.scheduledDate='';
     ilc.jobDetail = null;
+    ilc.candidate =null;
 
 
     ilc.resetFilter = function(){
         ilc.jobCodeId = null;
         ilc.scheduledDate='';
+        ilc.candidate =null;
         $('#scheduled_date').datepicker('setDate',null);
         if(ilc.logInUserRole != 4){
-            ilc.userId = null;
+            // ilc.userId = null;
         }else{
             ilc.interviewList = null;
             ilc.currentInterviewList = [];
@@ -47,18 +49,31 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
         // }
         ilc.getAllInterviewerList();
         ilc.getActiveJd();
+        ilc.getAllCandidatesList();
         // if(ilc.logInUserRole == 4){
         //     ilc.getTodaysScheduledInterviewList();
         // }
         
-        /* Redirect 
-        from dashbord to shows todays interview list*/
+        /* Redirect from dashbord to shows todays interview list*/
         ilc.todayStatus = $location.search()["status"];
         if(ilc.todayStatus == 'today'){
             ilc.scheduledDate = Utility.formatDate(new Date());
             ilc.userId = null;
             ilc.fetchList(-1);
         }
+    }
+
+    ilc.getAllCandidatesList= function(){
+        var promise = services.getAllCandidatesList();
+        promise.success(function (result) {
+            if (result.data) {
+                ilc.candidateList = result.data; 
+                Utility.stopAnimation();                
+            }    
+        }, function myError(r) {
+            toastr.error(r.data.message, 'Sorry!');
+            Utility.stopAnimation();
+        });
     }
 
 
@@ -98,7 +113,8 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
         var req = {
             "user_id":ilc.userId,
             "job_description_id":ilc.jobCodeId,
-            "schedule_date":sdate
+            "schedule_date":sdate,
+            "candidate_id":ilc.candidate
         }
         console.log(req);
 
@@ -128,10 +144,8 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
     ilc.getAllInterviewerList = function(){        
         var promise = services.getInterviewerList();        
         promise.success(function (result) {
-                // console.log(result);
             if (result.data) {
                 ilc.interviewerList = result.data; 
-                // console.log(ilc.interviewerList);
                 Utility.stopAnimation();                
             }    
         }, function myError(r) {

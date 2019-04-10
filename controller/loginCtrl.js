@@ -15,15 +15,13 @@ app.controller("loginCtrl", function (services, AclService, $scope, $http, $loca
             // console.log(lgc.email)
             var promise = services.logIn(lgc.email, lgc.password);
             promise.then(function mySucces(r) {
-                // console.log(data);
-                //     debugger;
                 if (r.data != null) {
                     // set token in cookies
                     lgc.token = r.data.data.authToken;
                     // $cookieStore.put('authkey', lgc.token);
                     services.setAuthKey(lgc.token);
                     var role = r.data.data.role;
-                    // console.log(role);
+                    console.log(r.data);
                     var abilities = [];
                     var data = r.data.data;
                     $.each(data.permissionGroupList, function (k, v) {
@@ -47,7 +45,9 @@ app.controller("loginCtrl", function (services, AclService, $scope, $http, $loca
                             gender: data.gender,
                             designation: data.designation,
                             role: data.role,
-                            uniqueToken:data.unique_token
+                            uniqueToken:data.unique_token,
+                            avatar:data.avatar,
+                            path:data.path
                         }
                     }
                     services.setIdentity(identity);

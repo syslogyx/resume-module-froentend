@@ -37,10 +37,10 @@
                           </select>
                         </div>
                     </div>
-                    <div class="col-md-4" ng-if="ilc.logInUserRole == '4' || ilc.logInUserRole == '1'">
+                    <div class="col-md-3" ng-if="ilc.logInUserRole == '4' || ilc.logInUserRole == '1'">
                         <div class="form-group">
                             <label>Job Code</label>
-                            <select id="jobCode" name="jobCode" ng-model="ilc.jobCodeId" class="form-control" >
+                            <select id="jobCode" name="jobCode" ng-model="ilc.jobCodeId" class="form-control" style="width: 100%;">
                                 <option value="" style="color:#ccc !important;">Select job code</option>
                                 <option ng-repeat="jd in ilc.activeJobDetail" value="{{jd.id}}">{{jd.job_code}} {{jd.sub_title != '' ? (jd.sub_title) : ''}}</option>
                             </select>
@@ -52,7 +52,16 @@
                             <input class="form-control" type="text" id="scheduled_date" name="scheduled_date" ng-model="ilc.scheduledDate" placeholder="Enter date" readonly='true' style="cursor:default;background-color: white;">
                         </div>
                     </div>
-                    <div class="col-md-1" style="text-align: center;">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                          <label>Candidate</label>
+                          <select id="candidate" name="candidate" ng-model="ilc.candidate" class="form-control" style="width: 100%;">
+                            <option value="">Select Candidate</option>
+                            <option value="{{x.id}}" ng-repeat="x in ilc.candidateList track by x.id">{{x.first_name +' '+ x.middle_name +' '+ x.last_name}}</option>
+                          </select>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-1" style="text-align: center;">
                       <div class="form-group" >
                         <br>
                           <input type="button" value="Search" ng-click="ilc.fetchList(-1)" class="btn btn-primary" style="margin-top:5px" />
@@ -63,7 +72,13 @@
                         <br>
                         <button type="button" class="btn btn-block btn-primary fa fa-refresh" ng-click="ilc.resetFilter()" style="margin-top:5px"></button>
                       </div>
-                    </div>
+                    </div> -->
+                </div>
+            </div>
+            <div class="box-footer"> 
+                <div class="pull pull-right">
+                   <button type="button" id="changeStatusBtn" class="btn btn-primary"  data-ng-click="ilc.fetchList(-1)" title="Search">Search</button>
+                   <button type="button" class="btn btn-primary fa fa-refresh" ng-click="ilc.resetFilter()" title="Refresh"></button>
                 </div>
             </div>
         </div>  
@@ -170,6 +185,8 @@
         //        });
 
         // });
+
+        $(".select2").select2();
 
             // var baseUrl = Utility.apiBaseUrl;
             $("#changeJdStatusForm").validate({
