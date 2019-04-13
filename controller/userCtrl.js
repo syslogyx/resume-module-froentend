@@ -1,15 +1,15 @@
-app.controller('userCtrl', function ($scope, $rootScope, $http, services, $location, menuService, $cookieStore,pagination) {
+app.controller('userCtrl', function ($scope, $rootScope, $http, services, $location, menuService, $cookieStore, pagination) {
 
     var usr = this;
 
     usr.id = null;
     usr.title = 'Add New User';
-    usr.userName ="";
-    usr.contactNo ="";
-    usr.contactEmail ="";
-    usr.password ="";
+    usr.userName = "";
+    usr.contactNo = "";
+    usr.contactEmail = "";
+    usr.password = "";
     usr.skip = true;
-    usr.comapnyName='Syslogyx Technologies Pvt. Ltd.';
+    usr.comapnyName = 'Syslogyx Technologies Pvt. Ltd.';
     usr.alphabet = ['All'];
 
     var viewPath = $location.path().split("/")[1];
@@ -18,19 +18,19 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
 
     /* Getting login user info */
     var loggedInUserName = JSON.parse($cookieStore.get('identity'));
-    usr.logInUser  =  loggedInUserName.identity.name;
-    usr.logInUserId  =  loggedInUserName.id;
-    usr.logInUserRole  =  loggedInUserName.identity.role;
-    usr.uniqueToken  =  loggedInUserName.identity.uniqueToken;
+    usr.logInUser = loggedInUserName.identity.name;
+    usr.logInUserId = loggedInUserName.id;
+    usr.logInUserRole = loggedInUserName.identity.role;
+    usr.uniqueToken = loggedInUserName.identity.uniqueToken;
 
     /* Function to show view of add user */
-	usr.addNewUser = function () {
-        $location.url('/user/add_user');   
+    usr.addNewUser = function () {
+        $location.url('/user/add_user');
     }
 
     /*Function to cancle add user view */
-    usr.cancelUser = function() {
-         $location.url('/user#all');
+    usr.cancelUser = function () {
+        $location.url('/user#all');
     }
     /*Function to get all users firdt charactor list */
     function genCharArray() {
@@ -40,21 +40,19 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
             for (var i = 0; i < result.length; i++) {
                 usr.alphabet.push(result[i]);
             }
-            console.log(usr.alphabet);
         }, function myError(r) {
             toastr.error(r.data.message, 'Sorry!');
             Utility.stopAnimation();
         });
     }
-     /*Function to get  users list according to selected charactor */
-    usr.onAlphabetClick = function(data,index){       
+    /*Function to get  users list according to selected charactor */
+    usr.onAlphabetClick = function (data, index) {
         usr.alpha = data;
-        // console.log(rlc.alpha);
         usr.fetchList(-1);
-        $('.alpabet-list').each(function(e){
-            if($(this).find('li a')[0].id == $('#alpabet_'+index)[0].id){
-                $('#alpabet_'+index).addClass('red');
-            }else{
+        $('.alpabet-list').each(function (e) {
+            if ($(this).find('li a')[0].id == $('#alpabet_' + index)[0].id) {
+                $('#alpabet_' + index).addClass('red');
+            } else {
                 $(this).find('li a').removeClass('red');
                 $(this).find('li a').addClass('blue');
             }
@@ -62,49 +60,47 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
     }
 
     /*Record limit for Users in pagination */
-    setTimeout(function(){
-        $('#table_length').on('change',function(){
+    setTimeout(function () {
+        $('#table_length').on('change', function () {
             usr.fetchList(-1);
         });
 
-        $('#alphabetic_sort').on('change',function(){
+        $('#alphabetic_sort').on('change', function () {
             usr.fetchList(-1);
         });
-    },100);
+    }, 100);
 
     /* Function to fetch all users list */
-    usr.fetchList = function(page){
+    usr.fetchList = function (page) {
         usr.limit = $('#table_length').val();
-        if(usr.limit == undefined){
+        if (usr.limit == undefined) {
             usr.limit = -1;
         }
-        if(page == -1){
+        if (page == -1) {
             usr.pageno = 1;
-            if($('#pagination-sec').data("twbs-pagination")){
+            if ($('#pagination-sec').data("twbs-pagination")) {
                 $('#pagination-sec').twbsPagination('destroy');
             }
         }
-        else{
+        else {
             usr.pageno = page;
         }
-        
+
 
         var req = {
-            "role_id":usr.hashPathId,
-            'search_alphabet':usr.alpha,
+            "role_id": usr.hashPathId,
+            'search_alphabet': usr.alpha,
         }
 
-        console.log(req);
-
         var requestParam = {
-            page:usr.pageno,
-            limit:usr.limit,
+            page: usr.pageno,
+            limit: usr.limit,
         }
 
         var promise = '';
         // if(usr.logInUserRole==1){
-            // promise = services.getAllUsers(requestParam,req);
-            promise = services.findUser(req,requestParam);
+        // promise = services.getAllUsers(requestParam,req);
+        promise = services.findUser(req, requestParam);
         // }else if(usr.logInUserRole==2) {
         //     promise = services.getSelectedUsers(requestParam);;   
         // }
@@ -112,8 +108,8 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
             Utility.stopAnimation();
             if (result.data) {
                 usr.allUsersList = result.data.data;
-                pagination.applyPagination(result.data,usr);
-            }else{
+                pagination.applyPagination(result.data, usr);
+            } else {
                 usr.allUsersList = [];
             }
         }, function myError(r) {
@@ -122,13 +118,13 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
         });
     }
 
-    if($location.path() != "/user/add_user" && $location.path() != "/user/edit"){
-         genCharArray();
+    if ($location.path() != "/user/add_user" && $location.path() != "/user/edit") {
+        genCharArray();
     }
-   
+
 
     /* Function to initialise user controller */
-    usr.init = function () { 
+    usr.init = function () {
 
         // if(window.location.pathname == '/user' && window.location.hash == '#all'){;
         //     $("#UserManagement").addClass('active');
@@ -142,31 +138,31 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
             $("#candidate").parent().removeClass('active');
             $("#client").parent().removeClass('active');
             $("#all").parent().addClass('active');
-        }else if (usr.hashPathId == 'candidate'){
+        } else if (usr.hashPathId == 'candidate') {
             $("#all").parent().removeClass('active');
             $("#client").parent().removeClass('active');
             $("#candidate").parent().addClass('active');
-        }else if(usr.hashPathId == 'client'){
+        } else if (usr.hashPathId == 'client') {
             $("#all").parent().removeClass('active');
             $("#candidate").parent().removeClass('active');
             $("#client").parent().addClass('active');
         }
 
-        if($location.path() != "/user/add_user" && $location.path() != "/user/edit"){
-            usr.onAlphabetClick("All","0");
+        if ($location.path() != "/user/add_user" && $location.path() != "/user/edit") {
+            usr.onAlphabetClick("All", "0");
             usr.fetchList(-1);
         }
 
         /* Getting all user roles */
         var promise = '';
         //if(usr.logInUserRole==1){
-            promise = services.getAllRoles();
+        promise = services.getAllRoles();
         // }else if(usr.logInUserRole==2) {
         //     promise = services.getSelectedRoles();   
         // }
         promise.success(function (result) {
             Utility.stopAnimation();
-            usr.roleList = result.data;    
+            usr.roleList = result.data;
         }, function myError(r) {
             toastr.error(r.data.message, 'Sorry!');
             Utility.stopAnimation();
@@ -184,7 +180,7 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
                 usr.userType = response.data.data.role.id;
                 usr.contactNo = response.data.data.mobile;
                 usr.comapnyName = response.data.data.company_name;
-                applySelect2();   
+                applySelect2();
             }, function myError(r) {
                 toastr.error(r.data.message, 'Sorry!');
                 Utility.stopAnimation();
@@ -195,19 +191,19 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
     usr.init();
 
     /* Function to create new user */
-    usr.createUser = function(){
+    usr.createUser = function () {
         if ($("#userForm").valid()) {
             var req = {
-                "name" : usr.userName,
+                "name": usr.userName,
                 "email": usr.contactEmail,
-                "password" : usr.password,
-                "role_id":usr.userType,
-                "status":"Active",
-                "company_name" :usr.comapnyName,
-                "mobile" : usr.contactNo,
-                "unique_token":usr.uniqueToken
+                "password": usr.password,
+                "role_id": usr.userType,
+                "status": "Active",
+                "company_name": usr.comapnyName,
+                "mobile": usr.contactNo,
+                "unique_token": usr.uniqueToken
             };
-        
+
             var promise;
             if (usr.id) {
                 req.id = usr.id;
@@ -224,34 +220,34 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
             promise.then(function mySuccess(response) {
                 Utility.stopAnimation();
                 try {
-                    toastr.success('User ' + operationMessage +' successfully.');
+                    toastr.success('User ' + operationMessage + ' successfully.');
                     $location.url('/user#all');
                 } catch (e) {
                     toastr.error("User not saved successfully.");
                     Raven.captureException(e)
                 }
-            // }, function myError(r) {
-            //     toastr.error(r.data.message);
-            //     Utility.stopAnimation();
-            // });
+                // }, function myError(r) {
+                //     toastr.error(r.data.message);
+                //     Utility.stopAnimation();
+                // });
             }, function myError(r) {
-                    var htmlerror ='<ul style="list-style:none;"><li >';
-                    $.each(r.data.data, function(k, v) {
-                        if(k=='email'){
-                            htmlerror = htmlerror+v +'</li><li>';
-                        }
-                        if(k=='mobile'){
-                            htmlerror = htmlerror+v+'</li><li>';
-                        }
-                      });
-                    toastr.error(htmlerror);
-                    Utility.stopAnimation();
+                var htmlerror = '<ul style="list-style:none;"><li >';
+                $.each(r.data.data, function (k, v) {
+                    if (k == 'email') {
+                        htmlerror = htmlerror + v + '</li><li>';
+                    }
+                    if (k == 'mobile') {
+                        htmlerror = htmlerror + v + '</li><li>';
+                    }
                 });
+                toastr.error(htmlerror);
+                Utility.stopAnimation();
+            });
         }
     }
 
     /* Function to reset add user form */
-    usr.resetForm = function(){
+    usr.resetForm = function () {
         $("div.form-group").each(function () {
             $(this).removeClass('has-error');
             $('span.help-block-error').remove();
@@ -259,65 +255,63 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
         });
         usr.newPassword = '';
         usr.repeatPassword = '';
-        usr.errMessage="";
-        usr.error='';
-        usr.userType='';
-        setTimeout(function(){
+        usr.errMessage = "";
+        usr.error = '';
+        usr.userType = '';
+        setTimeout(function () {
             setCSS();
-        },500);
+        }, 500);
         usr.init();
     }
 
     /* Function to show user id and name in password change modal */
-    usr.sendUserId=function(id,name){
-        $('#changePasswordModal').modal({backdrop: 'static', keyboard: false});
-        $("#changePasswordBtn").attr('disabled',false);
-        usr.userId=id;
-        usr.userName=name;
-        setTimeout(function(){
+    usr.sendUserId = function (id, name) {
+        $('#changePasswordModal').modal({ backdrop: 'static', keyboard: false });
+        $("#changePasswordBtn").attr('disabled', false);
+        usr.userId = id;
+        usr.userName = name;
+        setTimeout(function () {
             setCSS();
-        },500);
+        }, 500);
     }
 
     /* Function to update user password */
-    usr.updatePassword=function(id){ 
-        if(usr.newPassword!=usr.repeatPassword){
-            usr.errMessage="Password not matched.";
-            usr.highlightcolor2="#dd4b39";
-        }else{
-            usr.highlightcolor2="";
-        } 
- 
-        if($("#changePasswordForm").valid() && usr.newPassword==usr.repeatPassword){
-            $("#changePasswordBtn").attr('disabled',true);
+    usr.updatePassword = function (id) {
+        if (usr.newPassword != usr.repeatPassword) {
+            usr.errMessage = "Password not matched.";
+            usr.highlightcolor2 = "#dd4b39";
+        } else {
+            usr.highlightcolor2 = "";
+        }
+
+        if ($("#changePasswordForm").valid() && usr.newPassword == usr.repeatPassword) {
+            $("#changePasswordBtn").attr('disabled', true);
             var req = {
-                "user_id":id,
+                "user_id": id,
                 "new_password": usr.newPassword,
                 "old_password": usr.oldPassword
             };
-            //console.log(req);
             // $("#changePasswordBtn").attr('disabled','disabled');
             var promise = services.updatePassword(req);
             promise.then(function mySuccess(response) {
-                console.log(response);
                 Utility.stopAnimation();
-                try{
-                    if(response.data){
+                try {
+                    if (response.data) {
                         toastr.success('Password changed successfully.');
                         $location.url('/user#all');
                     }
-                    else{
-                        $("#changePasswordBtn").attr('disabled',false);
+                    else {
+                        $("#changePasswordBtn").attr('disabled', false);
                         toastr.error(response.message);
                     }
                     $("#changePasswordModal").modal('hide');
                 } catch (e) {
-                    $("#changePasswordBtn").attr('disabled',false);
+                    $("#changePasswordBtn").attr('disabled', false);
                     toastr.error("Password not changed successfully.");
                     Raven.captureException(e)
                 }
             }, function myError(r) {
-                $("#changePasswordBtn").attr('disabled',false);
+                $("#changePasswordBtn").attr('disabled', false);
                 toastr.error(r.data.message);
                 Utility.stopAnimation();
             });
@@ -325,8 +319,8 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
     }
 
     /* Function to refresh user filter form */
-    usr.refreshUserfilter = function(){
-        usr.filteUsername ='';
+    usr.refreshUserfilter = function () {
+        usr.filteUsername = '';
         usr.filterDesignation = '';
         usr.filterContactEmail = '';
         applySelect2();
@@ -334,49 +328,47 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
     }
 
     /* Function to filter user list */
-    usr.findFilterWithUser = function(page){
+    usr.findFilterWithUser = function (page) {
         usr.limit = $('#table_length').val();
-        if(usr.limit == undefined){
+        if (usr.limit == undefined) {
             usr.limit = -1;
         }
-        if(page == -1){ 
+        if (page == -1) {
             usr.pageno = 1;
-            console.log($('#pagination-sec').data("twbs-pagination"));
-            if($('#pagination-sec').data("twbs-pagination")){
-                    $('#pagination-sec').twbsPagination('destroy');
+            if ($('#pagination-sec').data("twbs-pagination")) {
+                $('#pagination-sec').twbsPagination('destroy');
             }
         }
-        else{
+        else {
             usr.pageno = page;
         }
         var requestParam = {
-            page:usr.pageno,
-            limit:usr.limit,
+            page: usr.pageno,
+            limit: usr.limit,
         }
-        
+
         var req = {
-            "user_id":usr.filteUsername,
+            "user_id": usr.filteUsername,
             "designantions_id": usr.filterDesignation,
-            "contact_email":usr.filterContactEmail
+            "contact_email": usr.filterContactEmail
         };
-        console.log(req);
-        var promise = services.findUser(req,requestParam);
+        var promise = services.findUser(req, requestParam);
         promise.then(function mySuccess(response) {
             Utility.stopAnimation();
-            try {   
-                if(response.data.data){
+            try {
+                if (response.data.data) {
                     usr.allUsersList = response.data.data.data;
-                        // toastr.success('Filtered successfully.');
+                    // toastr.success('Filtered successfully.');
                 }
-                else{
+                else {
                     usr.allUsersList = response.data.data;
-                        // toastr.error("No matching results found.", 'Sorry!');
+                    // toastr.error("No matching results found.", 'Sorry!');
                 }
-                usr.applyPaginationForUser(response.data.data);     
+                usr.applyPaginationForUser(response.data.data);
             } catch (e) {
                 toastr.error("No matching results found.", 'Sorry!');
                 Raven.captureException(e)
-            }   
+            }
         }, function myError(r) {
             toastr.error(r.data.errors);
             Utility.stopAnimation();
@@ -384,27 +376,25 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
     }
 
     /* Pagination for filter user data */
-    usr.applyPaginationForUser = function (pageData) {  
-        //console.log(pageData);
+    usr.applyPaginationForUser = function (pageData) {
         $('#pagination-sec').twbsPagination({
             totalPages: pageData.last_page,
             visiblePages: 5,
             first: '',
             last: '',
             onPageClick: function (event, page) {
-                if(page==-1){
-                   toastr.error("No matching results found.", 'Sorry!'); 
+                if (page == -1) {
+                    toastr.error("No matching results found.", 'Sorry!');
                 }
-                else if(usr.filteUsername==undefined && usr.filterDesignation == undefined && usr.filterContactEmail == undefined && page==1){
+                else if (usr.filteUsername == undefined && usr.filterDesignation == undefined && usr.filterContactEmail == undefined && page == 1) {
                     toastr.error("Please select atleast one field.");
                 }
-                else if(usr.filteUsername==undefined && usr.filterDesignation == undefined && usr.filterContactEmail == undefined){
+                else if (usr.filteUsername == undefined && usr.filterDesignation == undefined && usr.filterContactEmail == undefined) {
                     // toastr.error("Please, Select atleast one field.");
                 }
-                else{
-                   toastr.success('Filtered successfully.'); 
+                else {
+                    toastr.success('Filtered successfully.');
                 }
-                console.log('Page: ' + page);
                 if (usr.skip) {
                     usr.skip = false;
                     return;
@@ -414,6 +404,6 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
             }
         });
     }
-   
+
 });
 

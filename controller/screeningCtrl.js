@@ -1,56 +1,54 @@
-app.controller('screeningCtrl', function ($scope, $rootScope, $http, services, $location, menuService, $cookieStore,pagination) {
+app.controller('screeningCtrl', function ($scope, $rootScope, $http, services, $location, menuService, $cookieStore, pagination) {
 
-    var sc = this;  
+    var sc = this;
 
     sc.id = null;
-    sc.title = 'Add New Question';  
+    sc.title = 'Add New Question';
     sc.pageno = 0;
     sc.limit = 0;
-    sc.questionList =''; 
+    sc.questionList = '';
 
     /*Record limit for screening questions in pagination */
-    setTimeout(function(){
-        $('#table_length').on('change',function(){
+    setTimeout(function () {
+        $('#table_length').on('change', function () {
             sc.fetchList(-1);
         });
-    },100);
+    }, 100);
 
     /* Function to show add screening question view */
-    sc.addNewJob = function(){
-    	$location.url('/screening/add_question');
+    sc.addNewJob = function () {
+        $location.url('/screening/add_question');
     }
 
     /* Function to cancle add screening question view */
-    sc.cancelQuestion= function() {
-         $location.url('/questions');
+    sc.cancelQuestion = function () {
+        $location.url('/questions');
     }
 
     /* Function to fetch screening question list */
-    sc.fetchList = function(page){
+    sc.fetchList = function (page) {
         sc.limit = $('#table_length').val();
-        if(sc.limit == undefined){
+        if (sc.limit == undefined) {
             sc.limit = -1;
         }
-        if(page == -1){
+        if (page == -1) {
             sc.pageno = 1;
-            // console.log($('#pagination-sec').data("twbs-pagination"));
-            if($('#pagination-sec').data("twbs-pagination")){
-                    $('#pagination-sec').twbsPagination('destroy');
+            if ($('#pagination-sec').data("twbs-pagination")) {
+                $('#pagination-sec').twbsPagination('destroy');
             }
         }
-        else{
+        else {
             sc.pageno = page;
         }
         var requestParam = {
-            page:sc.pageno,
-            limit:sc.limit,
+            page: sc.pageno,
+            limit: sc.limit,
         }
 
         var promise = services.getAllQuestionList(requestParam);
         promise.success(function (result) {
             Utility.stopAnimation();
-            if(result.data != null){
-                // console.log(result.data);
+            if (result.data != null) {
                 sc.questionList = result.data.data;
                 pagination.applyPagination(result.data, sc);
             }
@@ -62,8 +60,7 @@ app.controller('screeningCtrl', function ($scope, $rootScope, $http, services, $
     }
 
     /* Function to initialise screening controller */
-    sc.init = function(){
-        // debugger
+    sc.init = function () {
         sc.limit = $('#table_length').val();
         sc.fetchList(-1);
         /* To fetch get all strem list */
@@ -81,17 +78,16 @@ app.controller('screeningCtrl', function ($scope, $rootScope, $http, services, $
         if (sc.id > 0) {
             var promise = services.getQuestionById(sc.id);
             promise.then(function mySuccess(response) {
-                // console.log(response.data);
                 Utility.stopAnimation();
-                if(response.data.status_code == 200){
+                if (response.data.status_code == 200) {
                     sc.title = 'Update Question';
                     sc.stream = response.data.data.stream_id;
-                    sc.question = response.data.data.question; 
-                    sc.expected_answer = response.data.data.expected_answer;           
-                }else{
+                    sc.question = response.data.data.question;
+                    sc.expected_answer = response.data.data.expected_answer;
+                } else {
                     toastr.error(response.data.message, 'Sorry!');
                 }
-                applySelect2();   
+                applySelect2();
             }, function myError(r) {
                 toastr.error(r.data.message, 'Sorry!');
                 Utility.stopAnimation();
@@ -100,8 +96,8 @@ app.controller('screeningCtrl', function ($scope, $rootScope, $http, services, $
     }
 
     /* Function to reset add new screening form */
-    sc.resetForm = function(){
-    	$("div.form-group").each(function () {
+    sc.resetForm = function () {
+        $("div.form-group").each(function () {
             $(this).removeClass('has-error');
             $('span.help-block-error').remove();
             // applySelect2();
@@ -109,12 +105,12 @@ app.controller('screeningCtrl', function ($scope, $rootScope, $http, services, $
     }
 
     /* Function to create new screening question */
-    sc.createQuestion = function(){
+    sc.createQuestion = function () {
         if ($("#questionForm").valid()) {
-            var req ={
-                "stream_id":sc.stream,
-                "question":sc.question,
-                "expected_answer":sc.expected_answer
+            var req = {
+                "stream_id": sc.stream,
+                "question": sc.question,
+                "expected_answer": sc.expected_answer
             }
             var promise;
             if (sc.id) {
@@ -127,7 +123,7 @@ app.controller('screeningCtrl', function ($scope, $rootScope, $http, services, $
             }
             promise.then(function mySuccess(response) {
                 try {
-                    toastr.success('Question ' + operationMessage +' successfully.');
+                    toastr.success('Question ' + operationMessage + ' successfully.');
                     $location.url('/questions');
                 } catch (e) {
                     toastr.error("Question not saved successfully.");
@@ -142,51 +138,51 @@ app.controller('screeningCtrl', function ($scope, $rootScope, $http, services, $
     }
 
     /* Function to change status */
-    sc.changeQuestionStatus = function(status,id,index){
+    sc.changeQuestionStatus = function (status, id, index) {
         console.log("hello");
         var req = {
-            "id":id,
+            "id": id,
             "status": status == true ? 1 : 0
         };
         swal({
-                title: "Sure?",
-                text: "Are you sure you want to change status?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                cancelButtonText: "No",
-                confirmButtonText: "Yes",
-                allowOutsideClick: false,
-            }).then(function(isConfirm) {
-                console.log(isConfirm);
-                if (isConfirm) {
-                    var promise = services.updateQuestionStatus(req);
-                        promise.then(function mySuccess(response) {
-                        Utility.stopAnimation();
-                        try {
-                            console.log(response);
-                            toastr.success('Status is changed successfully.');
-                         } catch (e) {
-                            toastr.error('Status is changed successfully.');
-                            Raven.captureException(e)
-                        }
-                    }, function myError(r) {
-                        toastr.error(r.data.message, 'Sorry!');
-                    });
-                  } else { 
-                    console.log("cancel");
-                }
-                    
-            }, function(dismiss) {
-                if (dismiss === 'cancel') {
-                    setTimeout(function(){
-                        sc.init();
-                    },100);  
-                }
-            }).catch(swal.noop);
+            title: "Sure?",
+            text: "Are you sure you want to change status?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "No",
+            confirmButtonText: "Yes",
+            allowOutsideClick: false,
+        }).then(function (isConfirm) {
+            console.log(isConfirm);
+            if (isConfirm) {
+                var promise = services.updateQuestionStatus(req);
+                promise.then(function mySuccess(response) {
+                    Utility.stopAnimation();
+                    try {
+                        console.log(response);
+                        toastr.success('Status is changed successfully.');
+                    } catch (e) {
+                        toastr.error('Status is changed successfully.');
+                        Raven.captureException(e)
+                    }
+                }, function myError(r) {
+                    toastr.error(r.data.message, 'Sorry!');
+                });
+            } else {
+                console.log("cancel");
+            }
+
+        }, function (dismiss) {
+            if (dismiss === 'cancel') {
+                setTimeout(function () {
+                    sc.init();
+                }, 100);
+            }
+        }).catch(swal.noop);
     }
-    
+
     sc.init();
 
 });

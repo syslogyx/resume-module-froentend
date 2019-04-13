@@ -1,53 +1,63 @@
 <style type="text/css">
-	#bgCheckForm h4 {
-		color:#3c8dbc;
-	}
-    label.error{
-        color:#dd4b39;
+    #bgCheckForm h4 {
+        color: #3c8dbc;
     }
-    .btn.disabled, .btn[disabled]{
+
+    label.error {
+        color: #dd4b39;
+    }
+
+    .btn.disabled,
+    .btn[disabled] {
         pointer-events: visiblepainted;
     }
-    .check-green{
-        color:#4cae4c;
+
+    .check-green {
+        color: #4cae4c;
         font-size: 22px;
     }
-    .check-red{
-        color:#dd4b39;
+
+    .check-red {
+        color: #dd4b39;
         font-size: 22px;
     }
-    .bgUploadForm .form-group{
+
+    .bgUploadForm .form-group {
         margin-bottom: 0px !important;
     }
-    #bgChecklistTable tbody tr td{
-       vertical-align: middle !important;
+
+    #bgChecklistTable tbody tr td {
+        vertical-align: middle !important;
     }
-    #bgChecklistTable tbody tr td label{
-       margin-bottom: 0px !important;
+
+    #bgChecklistTable tbody tr td label {
+        margin-bottom: 0px !important;
     }
 </style>
 <section class="content" ng-cloak id="bgCheckForm">
     <br><br>
-	<div class="box box-primary" >
+    <div class="box box-primary">
         <div class="row box-header with-border boxhead">
-        	<div class="col-md-6">
+            <div class="col-md-6">
                 <h1 class="formheading">
                     <b>Download Form</b>
                 </h1>
             </div>
         </div>
-        <div class="box-body">                    
+        <div class="box-body">
             <div class="row">
-                <div class="col-md-3 form-group">                        
-                    <button type="button" class="btn btn-primary" ng-click="doc.downloadBgCheckForm()">Download BA BGC Form</button>
+                <div class="col-md-3 form-group">
+                    <button type="button" class="btn btn-primary" ng-click="doc.downloadBgCheckForm()">Download BA BGC
+                        Form</button>
                 </div>
-                <div class="col-md-3 form-group">                        
-                    <button type="button" class="btn btn-primary" ng-click="doc.downloadSampleForm()">View Sample BA BGC Form</button>
+                <div class="col-md-3 form-group">
+                    <button type="button" class="btn btn-primary" ng-click="doc.downloadSampleForm()">View Sample BA BGC
+                        Form</button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="box box-primary" >
+    <div class="box box-primary">
         <div class="row box-header with-border boxhead">
             <div class="col-md-6">
                 <h1 class="formheading">
@@ -58,7 +68,8 @@
         <div class="box-body">
             <div class="row">
                 <div class="col-md-6 form-group">
-                    <span> <b style="color:#dd4b39;">NOTE: </b><br> * Supported file formats- JPG, PNG, JPEG, PDF.<br>* Total file size of each background checklist should be less than 10 MB.</span>
+                    <span> <b style="color:#dd4b39;">NOTE: </b><br> * Supported file formats- JPG, PNG, JPEG, PDF.<br>*
+                        Total file size of each background checklist should be less than 10 MB.</span>
                 </div>
             </div>
             <div class="row">
@@ -77,16 +88,29 @@
 
                                 <tr ng-repeat="bglist in doc.backgroundCheckList">
                                     <!-- <td ng-bind="($index + 1)"></td> -->
-                                    <td style='width:40%'><label class="{{bglist.displayFlag =='True' ? 'mandatory' : ''}}" >{{bglist.name}}</label></td>
-                                    <td style="text-align: center;width:5%"><i ng-class="bglist.displayFlag == 'True' ? 'fa fa-close check-red':'fa fa-check check-green'" title="{{bglist.displayFlag =='False' ? 'File uploaded' : 'Not uploaded yet'}}"></i></td>
+                                    <td style='width:40%'><label
+                                            class="{{bglist.displayFlag =='True' ? 'mandatory' : ''}}">{{bglist.name}}</label>
+                                    </td>
+                                    <td style="text-align: center;width:5%"><i
+                                            ng-class="bglist.displayFlag == 'True' ? 'fa fa-close check-red':'fa fa-check check-green'"
+                                            title="{{bglist.displayFlag =='False' ? 'File uploaded' : 'Not uploaded yet'}}"></i>
+                                    </td>
                                     <td style='width:55%' ng-if="bglist.displayFlag=='True'" colspan="2">
-                                        <form class="bgUploadForm" method="post" enctype="multipart/form-data" id="backgroundUploadForm_{{bglist.id}}">
+                                        <form class="bgUploadForm" method="post" enctype="multipart/form-data"
+                                            id="backgroundUploadForm_{{bglist.id}}">
                                             <div class="form-group">
                                                 <div class="col-md-9">
-                                                    <input type="{{bglist.type}}" class="form-control upload_file" name="file[]" id="file_{{bglist.id}}" ng-model="file" ng-files="getTheFiles($files)" multiple="{{bglist.type =='file' ? 'true':'false'}}" ng-if="bglist.type=='file'" accept="image/*,application/pdf" required style="height:auto">
+                                                    <input type="{{bglist.type}}" class="form-control upload_file"
+                                                        name="file[]" id="file_{{bglist.id}}" ng-model="file"
+                                                        ng-files="getTheFiles($files)"
+                                                        multiple="{{bglist.type =='file' ? 'true':'false'}}"
+                                                        ng-if="bglist.type=='file'" accept="image/*,application/pdf"
+                                                        required style="height:auto">
                                                 </div>
-                                                <div class="col-md-3">   
-                                                    <button type="button" class="btn btn-primary" ng-click="doc.uploadBgCheckForm(bglist.id,$index,bglist.alias)" ng-disabled='bglist.displayFlag =="False"'>Upload File</button>
+                                                <div class="col-md-3">
+                                                    <button type="button" class="btn btn-primary"
+                                                        ng-click="doc.uploadBgCheckForm(bglist.id,$index,bglist.alias)"
+                                                        ng-disabled='bglist.displayFlag =="False"'>Upload File</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -94,7 +118,8 @@
                                     <!-- <pre>{{bglist.candidate_bg_documents}}</pre> -->
                                     <td ng-if="bglist.displayFlag!='True'" style="text-align: left;width:45%">
                                         <ul style="margin-bottom: 0px;">
-                                            <li ng-repeat="dom in bglist.candidate_bg_documents" style="    padding-bottom: 5px;">
+                                            <li ng-repeat="dom in bglist.candidate_bg_documents"
+                                                style="    padding-bottom: 5px;">
                                                 <span>{{dom.file_name}}</span>
                                             </li>
                                         </ul>
@@ -102,20 +127,26 @@
                                     <td ng-if="bglist.displayFlag!='True'" style="text-align: left;width:10%">
                                         <ul style="list-style: none;margin-bottom: 0px;">
                                             <li ng-repeat="dom in bglist.candidate_bg_documents">
-                                                <a type="button" class="btn btn-xs" title="View File" ng-click="doc.downloadCandidateUploadFile(dom.id)" style="outline: 0;"><i style="cursor: pointer;" class="fa fa-eye" aria-hidden="true"></i></a>
-                                                <a type="button" class="btn btn-xs" title="Delete File" ng-click="doc.deleteDocumentByID(dom.id)" style="outline: 0;"><i style="cursor: pointer;" class="fa fa-trash" aria-hidden="true"></i></a>
+                                                <a type="button" class="btn btn-xs" title="View File"
+                                                    ng-click="doc.downloadCandidateUploadFile(dom.id)"
+                                                    style="outline: 0;"><i style="cursor: pointer;" class="fa fa-eye"
+                                                        aria-hidden="true"></i></a>
+                                                <a type="button" class="btn btn-xs" title="Delete File"
+                                                    ng-click="doc.deleteDocumentByID(dom.id)" style="outline: 0;"><i
+                                                        style="cursor: pointer;" class="fa fa-trash"
+                                                        aria-hidden="true"></i></a>
                                             </li>
                                         </ul>
                                     </td>
                                 </tr>
                                 <tr ng-if="doc.backgroundCheckList == null || doc.backgroundCheckList.length == 0">
-                                    <td style="text-align: center;" colspan="3">No Records Found</td> 
+                                    <td style="text-align: center;" colspan="3">No Records Found</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-            </div>            
+            </div>
         </div>
     </div>
 </section>
@@ -126,15 +157,15 @@
         var fileSize = 0;
         if (lg > 0) {
             for (var i = 0; i < lg; i++) {
-                fileSize = fileSize+element.files[i].size; // get file size
+                fileSize = fileSize + element.files[i].size; // get file size
             }
-            if(fileSize <= 10485760){
+            if (fileSize <= 10485760) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         }
-    },"Total file size should not exceed 10 MB");
+    }, "Total file size should not exceed 10 MB");
 
     //validation method to add class rule for file size
     $.validator.addClassRules({
@@ -142,5 +173,5 @@
             filesize: 10485760
         }
     });
-    
+
 </script>

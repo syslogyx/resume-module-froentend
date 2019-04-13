@@ -1,7 +1,7 @@
 <section class="content" ng-cloak>
-<br><br>
-    <form role="form" name="addForm" id="technologyForm" >
-        <div class="box box-default" >
+    <br><br>
+    <form role="form" name="addForm" id="technologyForm">
+        <div class="box box-default">
             <div class="row box-header with-border boxhead">
                 <div class="col-xs-6">
                     <h1 class="formheading">
@@ -11,23 +11,28 @@
 
                 <div class="col-xs-6">
                     <div class="pull-right" style="margin-top: 5px; margin-right: 20px;">
-                        <a ng-href="/technologies"><button type="button" class="btn btn-default btn-sm" data-toggle="modal" title="Back" data-target="" data-ng-click="" style="border:white;color:#428bca;outline: 0;"><i class="fa fa-arrow-left" aria-hidden="true"></i></button></a>  
-                    </div> 
-                </div>                
+                        <a ng-href="/technologies"><button type="button" class="btn btn-default btn-sm"
+                                data-toggle="modal" title="Back" data-target="" data-ng-click=""
+                                style="border:white;color:#428bca;outline: 0;"><i class="fa fa-arrow-left"
+                                    aria-hidden="true"></i></button></a>
+                    </div>
+                </div>
             </div>
             <!-- /.box-header -->
-            <div class="box-body">  
+            <div class="box-body">
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="mandatory" for="">Technology Name</label>
-                            <input type="text" class="form-control" ng-model="tec.technologyName" name="technology_name" id="technology_name" placeholder="Enter technology name" >
+                            <input type="text" class="form-control" ng-model="tec.technologyName" name="technology_name"
+                                id="technology_name" placeholder="Enter technology name">
                         </div>
                     </div>
                     <div class="col-md-8">
                         <div class="form-group">
                             <label class="mandatory" for="">Description</label>
-                           <textarea placeholder="Enter description" class="form-control" id="description" name="description" ng-model="tec.description" rows="2"></textarea>
+                            <textarea placeholder="Enter description" class="form-control" id="description"
+                                name="description" ng-model="tec.description" rows="2"></textarea>
                         </div>
                     </div>
                 </div>
@@ -35,9 +40,12 @@
             <!-- /.box-body -->
             <div class="box-footer" style="margin-right:14px!important">
                 <div class="pull pull-right">
-                    <input type="submit" value="Save" data-ng-click="tec.createTechnology()" class="btn btn-success" style="outline: 0;"/> 
-                    <input type="button" value="Cancel" class="btn btn-warning" data-ng-click="tec.cancelTechnology()"  style="outline: 0;"/> 
-                    <input  ng-if="tec.title == 'Add New Technology'" type="reset" value="Reset" ng-click="tec.resetForm()" class="btn" style="outline: 0;"/> 
+                    <input type="submit" value="Save" data-ng-click="tec.createTechnology()" class="btn btn-success"
+                        style="outline: 0;" />
+                    <input type="button" value="Cancel" class="btn btn-warning" data-ng-click="tec.cancelTechnology()"
+                        style="outline: 0;" />
+                    <input ng-if="tec.title == 'Add New Technology'" type="reset" value="Reset"
+                        ng-click="tec.resetForm()" class="btn" style="outline: 0;" />
                 </div>
             </div>
         </div>
@@ -45,60 +53,58 @@
 </section>
 
 <script>
-        
 
-        var baseUrl = Utility.apiBaseUrl;
-        $("#technologyForm").validate({
-            errorElement: 'span', //default input error message container
-            errorClass: 'help-block help-block-error',
-            errorPlacement: function (error, element) {
 
-                var type = $(element).attr("type");
-                if ($(element).attr("id") === "")
-                {
-                    element.parent().append(error);
+    var baseUrl = Utility.apiBaseUrl;
+    $("#technologyForm").validate({
+        errorElement: 'span', //default input error message container
+        errorClass: 'help-block help-block-error',
+        errorPlacement: function (error, element) {
 
-                }
-                else{
-                    error.insertAfter(element);
-                }
-            },
-            rules: {
-                technology_name: {
-                    required: true
-                },
-                description: {
-                    required: true
-                },
-            },
-            messages: {
-                technology_name: {
-                    required: "Technology name is required."
-                },
-                description: {
-                    required: "Description is required."
-                },
-            },
-            highlight: function (element) { 
-                // hightlight error inputs
-                $(element).closest('.form-group').addClass('has-error');
-                // set error class to the control group
-                $(element).next().children().children().attr('style','border-color:#dd4b39!important');
-            },
-            unhighlight: function (element) { 
-                // revert the change done by hightlight
-                $(element).next().children().children().attr('style', 'border-color:');// set error class to the control group
-                $(element).closest('.form-group').removeClass('has-error');
-            },
-            success: function (label) {
-                // set success class to the control group
-                label.closest('.form-group').removeClass('has-error'); 
+            var type = $(element).attr("type");
+            if ($(element).attr("id") === "") {
+                element.parent().append(error);
+
             }
-        });
+            else {
+                error.insertAfter(element);
+            }
+        },
+        rules: {
+            technology_name: {
+                required: true
+            },
+            description: {
+                required: true
+            },
+        },
+        messages: {
+            technology_name: {
+                required: "Technology name is required."
+            },
+            description: {
+                required: "Description is required."
+            },
+        },
+        highlight: function (element) {
+            // hightlight error inputs
+            $(element).closest('.form-group').addClass('has-error');
+            // set error class to the control group
+            $(element).next().children().children().attr('style', 'border-color:#dd4b39!important');
+        },
+        unhighlight: function (element) {
+            // revert the change done by hightlight
+            $(element).next().children().children().attr('style', 'border-color:');// set error class to the control group
+            $(element).closest('.form-group').removeClass('has-error');
+        },
+        success: function (label) {
+            // set success class to the control group
+            label.closest('.form-group').removeClass('has-error');
+        }
+    });
 </script>
 <script>
-        $(document).ready(function () {
-            $("html, body").animate({scrollTop: 0}, "fast");
-        });
+    $(document).ready(function () {
+        $("html, body").animate({ scrollTop: 0 }, "fast");
+    });
 </script>
-

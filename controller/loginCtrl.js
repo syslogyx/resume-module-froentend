@@ -12,7 +12,6 @@ app.controller("loginCtrl", function (services, AclService, $scope, $http, $loca
     lgc.login = function () {
         if ($("#loginForm").valid()) {
             Utility.startAnimation();
-            // console.log(lgc.email)
             var promise = services.logIn(lgc.email, lgc.password);
             promise.then(function mySucces(r) {
                 if (r.data != null) {
@@ -21,7 +20,6 @@ app.controller("loginCtrl", function (services, AclService, $scope, $http, $loca
                     // $cookieStore.put('authkey', lgc.token);
                     services.setAuthKey(lgc.token);
                     var role = r.data.data.role;
-                    console.log(r.data);
                     var abilities = [];
                     var data = r.data.data;
                     $.each(data.permissionGroupList, function (k, v) {
@@ -32,7 +30,7 @@ app.controller("loginCtrl", function (services, AclService, $scope, $http, $loca
                         }
                     });
 
-                    var aclData = {admin: abilities}
+                    var aclData = { admin: abilities }
                     AclService.setAbilities(aclData);
 
                     var identity = {
@@ -41,13 +39,13 @@ app.controller("loginCtrl", function (services, AclService, $scope, $http, $loca
                         identity: {
                             name: data.name,
                             email: data.email,
-                            mobile:data.mobile,
+                            mobile: data.mobile,
                             gender: data.gender,
                             designation: data.designation,
                             role: data.role,
-                            uniqueToken:data.unique_token,
-                            avatar:data.avatar,
-                            path:data.path
+                            uniqueToken: data.unique_token,
+                            avatar: data.avatar,
+                            path: data.path
                         }
                     }
                     services.setIdentity(identity);
@@ -62,13 +60,12 @@ app.controller("loginCtrl", function (services, AclService, $scope, $http, $loca
                     /*console.log("Status code is not 200");*/
                 }
             }, function myError(r) {
-              /*  console.log(r);*/
                 if (r.hasOwnProperty("data")) {
-                    if (r.data != null){
+                    if (r.data != null) {
                         toastr.error(r.data.message, 'Sorry!');
-                    }else{
+                    } else {
                         toastr.error('Sorry! Check server!!!');
-                    }        
+                    }
                 }
                 Utility.stopAnimation();
             });

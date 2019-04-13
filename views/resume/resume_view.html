@@ -1,264 +1,266 @@
 <style type="text/css">
-	#resumeViewForm h4 {
-		color:#3c8dbc;
-	}
+    #resumeViewForm h4 {
+        color: #3c8dbc;
+    }
 </style>
-<section class="content" ng-cloak  id="resumeViewForm">
+<section class="content" ng-cloak id="resumeViewForm">
     <br><br>
-    	<div class="box box-primary" >
-            <div class="row box-header with-border boxhead">
-            	<div class="col-md-6">
-                    <h1 class="formheading">
-                           <b> Resume of</b>  <span style="color:#3c8dbc;">{{ firstName +' '+ middleName +' '+ lastName}}</span>
-                    </h1>
-                </div>
-                <div class="col-xs-6">
-                    <div class="pull-right" style="margin-top: 5px; margin-right: 20px;">
-                        <a ng-href="/resume/{{myunique_token}}?id={{myOwnId}}" target="_blank" class="btn btn-primary btn-sm" style="outline: 0;"><i class="fa fa-edit"></i> Update Details</a>  
-                    </div> 
+    <div class="box box-primary">
+        <div class="row box-header with-border boxhead">
+            <div class="col-md-6">
+                <h1 class="formheading">
+                    <b> Resume of</b> <span
+                        style="color:#3c8dbc;">{{ firstName +' '+ (middleName !=null ? middleName :'') +' '+ lastName}}</span>
+                </h1>
+            </div>
+            <div class="col-xs-6">
+                <div class="pull-right" style="margin-top: 5px; margin-right: 20px;">
+                    <a ng-href="/resume/{{myunique_token}}?id={{myOwnId}}" target="_blank"
+                        class="btn btn-primary btn-sm" style="outline: 0;"><i class="fa fa-edit"></i> Update Details</a>
                 </div>
             </div>
-            <div class="box-body"> 
-                <h4>PERSONAL DETAILS :</h4>
-                <div class="row">
-                    <div class="col-md-6 form-group">
-                        <label class=""><b>Job Code: </b></label>
-                        <span>{{job_id}}</span>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class=""><b>Opportunity For:</b></label>
-                            <span>{{ opportunityFor }}</span>
-                        </div>
+        </div>
+        <div class="box-body">
+            <h4>PERSONAL DETAILS :</h4>
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label class=""><b>Job Code: </b></label>
+                    <span>{{job_id}}</span>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class=""><b>Opportunity For:</b></label>
+                        <span>{{ opportunityFor }}</span>
                     </div>
                 </div>
-                <div class="row">
-                    <!-- <div class="col-md-6 form-group">
+            </div>
+            <div class="row">
+                <!-- <div class="col-md-6 form-group">
                         <label class=""><b>Name: </b></label>
                         <span>{{ firstName +' '+ middleName +' '+ lastName}}</span>
                     </div> -->
-                    <div class="col-md-6 form-group">
-                        <label class=""><b>Date of Birth:</b> </label>
-                        <span>{{ dateOfBirth}}</span>
+                <div class="col-md-6 form-group">
+                    <label class=""><b>Date of Birth:</b> </label>
+                    <span>{{ dateOfBirth}}</span>
+                </div>
+                <div class="col-md-6 form-group">
+                    <div class="">
+                        <label class=""><b>Email:</b></label>
+                        <span>{{ email}}</span>
                     </div>
-                    <div class="col-md-6 form-group">
-                        <div class="">
-                            <label class=""><b>Email:</b></label>
-                            <span>{{ email}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label class=""><b>Mobile Number:</b></label>
+                    <span>{{ mobileNumber}}</span>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label class=""><b>Gender:</b></label>
+                    <span>{{ gender}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label class=""><b>Passport No.: </b></label>
+                    <span>{{ passportNumber == null ? 'NA' : passportNumber}}</span>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class=""><b>PAN No.:</b></label>
+                        <span>{{ panNumber}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label class=""><b>Correspondence Address: </b></label>
+                    <span>{{ correspondingAddr }}</span>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class=""><b>Permanent Address:</b></label>
+                        <span>{{ permanentAddr}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label class=""><b>Marital Status: </b></label>
+                    <span>{{ martialStatus}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class=""><b>Objective:</b></label>
+                        <!-- <span>{{ objectives}}</span> -->
+                        <ul style="margin-left: 3%;">
+                            <li ng-repeat="o in objectiveDiv">{{o.objective}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class=""><b>Summary:</b></label>
+                        <ul style="margin-left: 3%;">
+                            <li ng-repeat="s in summaryDiv">{{s.summary}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <h4>EDUCATIONAL DETAILS :</h4>
+            <div ng-repeat="qu in qualifications">
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class=""><b>Qualification: </b></label>
+                        <span>{{ qu.qualificationName}}</span>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class=""><b>Stream:</b></label>
+                            <span>{{ qu.stream}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class=""><b>Percentage:</b></label>
+                            <span>{{ qu.percentage}}</span>
                         </div>
                     </div>
                 </div>
-                <div class="row">                    
-                    <div class="col-md-6 form-group">
-                            <label class=""><b>Mobile Number:</b></label>
-                            <span>{{ mobileNumber}}</span>
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class=""><b>University: </b></label>
+                        <span>{{ qu.university}}</span>
                     </div>
-                    <div class="col-md-6 form-group">
-                        <label class=""><b>Gender:</b></label>
-                        <span>{{ gender}}</span>                    
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class=""><b>College:</b></label>
+                            <span>{{ qu.college}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class=""><b>Duration:</b></label>
+                            <span>{{ qu.start_year}} - {{qu.end_year}}</span>
+                        </div>
                     </div>
                 </div>
+            </div>
+
+            <hr>
+
+            <h4>ACHIEVEMENTS DETAILS:</h4>
+            <div class="row">
+                <ul ng-repeat="ac in achievements" style="margin-left: 3%;">
+                    <li><strong>{{ac.achievement_type}}:</strong> {{ac.achivement}}</li>
+                </ul>
+            </div>
+
+            <hr>
+
+            <h4>TECHNICAL SKILLS :</h4>
+            <div class="row" ng-repeat="ts in technicalSkill">
+                <div class="col-md-6 form-group">
+                    <label class=""><b>Technology: </b></label>
+                    <span>{{ ts.technology_name}}</span>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class=""><b>Relevance Experience:</b></label>
+                        <span>{{ ts.relevanceYearExperience}}.{{ts.relevanceMonthExperience}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <h4>INDUSTRIAL EXPERIENCE :</h4>
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label class=""><b>Total Experience: </b></label>
+                    <span>{{ totalYearIndustryExperiance}}.{{totalMonthIndustryExperiance}}</span>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label class=""><b>Current CTC: </b></label>
+                    <span>{{ currentCTC}} {{currency_unit}}</span>
+                </div>
+            </div>
+            <div ng-repeat="ie in industryExperiance">
                 <div class="row">
                     <div class="col-md-6 form-group">
-                        <label class=""><b>Passport No.: </b></label>
-                        <span>{{ passportNumber == null ? 'NA' : passportNumber}}</span>
+                        <label class=""><b>Company Name: </b></label>
+                        <span>{{ ie.company_name}}</span>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class=""><b>PAN No.:</b></label>
-                            <span>{{ panNumber}}</span>
+                            <label class=""><b>Project Name:</b></label>
+                            <span>{{ ie.project_name}}</span>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 form-group">
-                        <label class=""><b>Correspondence Address: </b></label>
-                        <span>{{ correspondingAddr }}</span>
+                        <label class=""><b>Role: </b></label>
+                        <span>{{ ie.role_in_project}}</span>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class=""><b>Permanent Address:</b></label>
-                            <span>{{ permanentAddr}}</span>
-                        </div>
-                    </div>
+                    <div class="col-md-6 form-group"></div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 form-group">
-                        <label class=""><b>Marital Status: </b></label>
-                        <span>{{ martialStatus}}</span>
+                        <label class=""><b>Languages Used:</b></label>
+                        <ul style="margin-left: 6%;">
+                            <li ng-repeat="l in ie.languages">{{l.language}}</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label class=""><b>Tools Used:</b></label>
+                        <ul style="margin-left: 6%;">
+                            <li ng-repeat="t in ie.tools">{{t.tool}}</li>
+                        </ul>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class=""><b>Objective:</b></label>
-                            <!-- <span>{{ objectives}}</span> -->
-                            <ul style="margin-left: 3%;">
-                                <li ng-repeat="o in objectiveDiv">{{o.objective}}</li>
-                            </ul>
-                        </div>
+                    <div class="col-md-12 form-group">
+                        <label class=""><b>Project Description: </b></label>
+                        <ul style="margin-left: 3%;">
+                            <li ng-repeat="p in ie.project_descriptions">{{p.project_description}}</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class=""><b>Summary:</b></label>   
-                            <ul style="margin-left: 3%;">
-                                <li ng-repeat="s in summaryDiv">{{s.summary}}</li>
-                            </ul>
-                        </div>
-                    </div>
+            </div>
+
+
+            <hr>
+
+            <h4>LANGUAGE(s) KNOWN :</h4>
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label class=""><b>Indian language(s): </b></label>
+                    <span>{{ indianLang}}</span>
                 </div>
-
-                <hr>
-                                
-                <h4>EDUCATIONAL DETAILS :</h4>
-	            <div ng-repeat="qu in qualifications">
-	                <div class="row">
-	                    <div class="col-md-4 form-group">
-	                        <label class=""><b>Qualification: </b></label>
-	                        <span>{{ qu.qualificationName}}</span>
-	                    </div>
-	                    <div class="col-md-4">
-	                        <div class="form-group">
-	                            <label class=""><b>Stream:</b></label>
-	                            <span>{{ qu.stream}}</span>
-	                        </div>
-	                    </div>
-	                    <div class="col-md-4">
-	                        <div class="form-group">
-	                            <label class=""><b>Percentage:</b></label>
-	                            <span>{{ qu.percentage}}</span>
-	                        </div>
-	                    </div>
-	                </div>
-	                <div class="row">
-	                    <div class="col-md-4 form-group">
-	                        <label class=""><b>University: </b></label>
-	                        <span>{{ qu.university}}</span>
-	                    </div>
-	                    <div class="col-md-4">
-	                        <div class="form-group">
-	                            <label class=""><b>College:</b></label>
-	                            <span>{{ qu.college}}</span>
-	                        </div>
-	                    </div>
-	                    <div class="col-md-4">
-	                        <div class="form-group">
-	                            <label class=""><b>Duration:</b></label>
-	                            <span>{{ qu.start_year}} - {{qu.end_year}}</span>
-	                        </div>
-	                    </div>
-	                </div>
-	            </div>
-
-                <hr>
-
-                <h4>ACHIEVEMENTS DETAILS:</h4>
-                <div class="row" >
-                    <ul ng-repeat="ac in achievements" style="margin-left: 3%;">
-                        <li><strong>{{ac.achievement_type}}:</strong> {{ac.achivement}}</li>
-                    </ul>
+                <div class="col-md-6 form-group">
+                    <label class=""><b>Foreign language(s): </b></label>
+                    <span>{{ foreignLang}}</span>
                 </div>
+            </div>
 
-                <hr>
 
-                <h4>TECHNICAL SKILLS :</h4>
-                <div class="row" ng-repeat="ts in technicalSkill">
-                    <div class="col-md-6 form-group">
-                        <label class=""><b>Technology: </b></label>
-                        <span>{{ ts.technology_name}}</span>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class=""><b>Relevance Experience:</b></label>
-                            <span>{{ ts.relevanceYearExperience}}.{{ts.relevanceMonthExperience}}</span>
-                        </div>
-                    </div>
-                </div>
+            <hr>
+            <h4>HOBBIES DETAILS :</h4>
+            <div class="row">
+                <ul ng-repeat="h in hobbyDiv" style="margin-left: 3%;">
+                    <li>{{h.hobbie_name}}</li>
+                </ul>
+            </div>
 
-                <hr>
-
-                <h4>INDUSTRIAL EXPERIENCE :</h4>
-                <div class="row">
-                    <div class="col-md-6 form-group">
-                        <label class=""><b>Total Experience: </b></label>
-                        <span>{{ totalYearIndustryExperiance}}.{{totalMonthIndustryExperiance}}</span>
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label class=""><b>Current CTC: </b></label>
-                        <span>{{ currentCTC}} {{currency_unit}}</span>
-                    </div>
-                </div>
-                <div ng-repeat="ie in industryExperiance">
-                    <div class="row" >
-                        <div class="col-md-6 form-group">
-                            <label class=""><b>Company Name: </b></label>
-                            <span>{{ ie.company_name}}</span>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class=""><b>Project Name:</b></label>
-                                <span>{{ ie.project_name}}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 form-group">
-                            <label class=""><b>Role: </b></label>
-                            <span>{{ ie.role_in_project}}</span>
-                        </div>
-                        <div class="col-md-6 form-group"></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 form-group">
-                            <label class=""><b>Languages Used:</b></label>
-                            <ul style="margin-left: 6%;">
-                                <li ng-repeat="l in ie.languages">{{l.language}}</li>
-                            </ul>
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label class=""><b>Tools Used:</b></label>
-                            <ul style="margin-left: 6%;">
-                                <li ng-repeat="t in ie.tools">{{t.tool}}</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 form-group">
-                            <label class=""><b>Project Description: </b></label>
-                            <ul style="margin-left: 3%;">
-                                <li ng-repeat="p in ie.project_descriptions">{{p.project_description}}</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                               
-                <hr>
-
-                <h4>LANGUAGE(s) KNOWN :</h4>
-                <div class="row">
-                    <div class="col-md-6 form-group">
-                        <label class=""><b>Indian language(s): </b></label>
-                        <span>{{ indianLang}}</span>
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label class=""><b>Foreign language(s): </b></label>
-                        <span>{{ foreignLang}}</span>
-                    </div>
-                </div>
-                                
-
-                <hr>
-                <h4>HOBBIES DETAILS :</h4>
-                <div class="row">
-                    <ul ng-repeat="h in hobbyDiv" style="margin-left: 3%;">
-                        <li>{{h.hobbie_name}}</li>
-                    </ul>
-                </div>
-
-                <!-- <hr>
+            <!-- <hr>
                 <h4>UPLOAD DOCUMENT :</h4>
                 <div class="row">
                     <div class="col-md-12 form-group">
@@ -266,8 +268,8 @@
                         <span>{{ fileName}}</span>
                     </div>
                 </div> -->
-                           
-            </div>
+
         </div>
-	
+    </div>
+
 </section>

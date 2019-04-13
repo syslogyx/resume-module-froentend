@@ -1,4 +1,4 @@
-<section class="content" ng-cloak >
+<section class="content" ng-cloak>
     <div class="container-fluid" style="overflow-y: hidden;">
         <br>
         <div class="row">
@@ -7,29 +7,32 @@
             </div>
             <div class="col-md-4" style="margin-top:1.5%;">
                 <div class="dataTables_length text-right" id="example_length">
-                    <label>Show 
+                    <label>Show
                         <select id="table_length" aria-controls="example" style="outline: 0;">
                             <option value="10">10</option>
                             <option value="25">25</option>
                             <option value="50">50</option>
                             <option value="100">100</option>
-                        </select> 
-                    entries</label>
+                        </select>
+                        entries</label>
                 </div>
-            </div> 
+            </div>
             <div class="col-md-2 pull-right" style="margin-top:1%;">
-                <button type="button" class="btn btn-primary btn-circle btn-sm pull-right"  title="Add New Job " data-target="" data-ng-click="sc.addNewJob()" style="outline: 0;background-color:#428bca;border-color:#357ebd;"><i class="fa fa-plus" aria-hidden="true" style="padding-right:0.3px"></i>
+                <button type="button" class="btn btn-primary btn-circle btn-sm pull-right" title="Add New Job "
+                    data-target="" data-ng-click="sc.addNewJob()"
+                    style="outline: 0;background-color:#428bca;border-color:#357ebd;"><i class="fa fa-plus"
+                        aria-hidden="true" style="padding-right:0.3px"></i>
                 </button>
-            </div>           
-        </div> 
-        <br>        
-        
+            </div>
+        </div>
+        <br>
+
         <div class="table-responsive no-padding">
             <table class="table table-hover">
                 <thead class="thead-default">
                     <tr>
                         <th style="text-align: center;">Sr No.</th>
-                        <th>Stream</th>                        
+                        <th>Stream</th>
                         <th>Question</th>
                         <th style="text-align: center;">Action</th>
                         <th style="text-align: center;">Status</th>
@@ -39,25 +42,30 @@
                 <tbody>
                     <tr ng-repeat="q in sc.questionList">
                         <td style="text-align: center;" ng-bind="(sc.pageno - 1) * sc.limit + ($index + 1)"></td>
-                        <td >{{q.stream.name}}</td>
-                        <td >{{q.question}}</td>  
+                        <td>{{q.stream.name}}</td>
+                        <td>{{q.question}}</td>
                         <td style="text-align: center;">
-                            <a type="button" class="btn btn-xs" ng-href="/screening/edit_question?id={{q.id}}" title="Edit" style="outline: 0;"><i class="fa fa-pencil" aria-hidden="true" ></i></a>
-                        </td>  
+                            <a type="button" class="btn btn-xs" ng-href="/screening/edit_question?id={{q.id}}"
+                                title="Edit" style="outline: 0;"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                        </td>
                         <td style="text-align: center;">
-                            <toggle id="enabled_{{$index}}" name="enabled_{{$index}}" size="btn-xs" off-class="btn-danger" on-class="btn-success" ng-model="q.status" id="toggle-status-switch" ng-click=" sc.changeQuestionStatus(q.status,q.id,$index);" on="Active" off="Inactive"></toggle>
+                            <toggle id="enabled_{{$index}}" name="enabled_{{$index}}" size="btn-xs"
+                                off-class="btn-danger" on-class="btn-success" ng-model="q.status"
+                                id="toggle-status-switch" ng-click=" sc.changeQuestionStatus(q.status,q.id,$index);"
+                                on="Active" off="Inactive"></toggle>
                         </td>
                     </tr>
                     <tr ng-if="sc.questionList == null || sc.questionList.length == 0">
-                        <td style="text-align: center;" colspan="4">No Records Found</td> 
+                        <td style="text-align: center;" colspan="4">No Records Found</td>
                     </tr>
                 </tbody>
             </table>
             <div class="row col-sm-12" style="padding-right: 0px;">
-                <ul id="pagination-sec" class="pagination-sm" style="float: right;margin-top: 5px;margin-bottom:45px;margin-right:-1.2%"></ul>
+                <ul id="pagination-sec" class="pagination-sm"
+                    style="float: right;margin-top: 5px;margin-bottom:45px;margin-right:-1.2%"></ul>
             </div>
-        </div> 
+        </div>
     </div>
 
-    
+
 </section>

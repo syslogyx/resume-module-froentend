@@ -1,81 +1,94 @@
 <style type="text/css">
     .select2-container--default {
-        width:100% !important;
+        width: 100% !important;
     }
-    #pdfSettingModel > .modal-dialog.modal-lg{
+
+    #pdfSettingModel>.modal-dialog.modal-lg {
         width: 50%;
     }
 
-    #pdfSettingModel .modal-body{
-        padding-left: 10% ;
+    #pdfSettingModel .modal-body {
+        padding-left: 10%;
         padding-right: 10%;
     }
-    div#ms-my-select{
+
+    div#ms-my-select {
         width: auto;
     }
-    #select-all-div{
+
+    #select-all-div {
         padding-left: 0px;
     }
-    #deselect-all-div{
+
+    #deselect-all-div {
         padding-left: 30px;
     }
+
     @media only screen and (max-width: 640px) {
-        #pdfSettingModel > .modal-dialog.modal-lg{
+        #pdfSettingModel>.modal-dialog.modal-lg {
             width: auto;
         }
-        #select-all-div{
+
+        #select-all-div {
             padding-left: 0px;
         }
-        #deselect-all-div{
+
+        #deselect-all-div {
             padding-left: 0px;
         }
-        #select-all-div_for_zip{
+
+        #select-all-div_for_zip {
             padding-left: 5% !important;
         }
     }
-    
-    .listanchor{
+
+    .listanchor {
         cursor: pointer;
     }
-    .rowMargin{
-        margin-left:0px;
-        margin-right:0px;
-    }
-    div#ms-my-select_for_zip{
-        width:100%;
-    }
-    .box-body, .box-footer {
-         margin-left: 0px!important; 
-         margin-right: 0px!important; 
-    }
-    .header-fixed {
-        width: 100% 
+
+    .rowMargin {
+        margin-left: 0px;
+        margin-right: 0px;
     }
 
-    .header-fixed > thead,
-    .header-fixed > tbody,
-    .header-fixed > thead > tr,
-    .header-fixed > tbody > tr,
-    .header-fixed > thead > tr > th,
-    .header-fixed > tbody > tr > td {
+    div#ms-my-select_for_zip {
+        width: 100%;
+    }
+
+    .box-body,
+    .box-footer {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+
+    .header-fixed {
+        width: 100%
+    }
+
+    .header-fixed>thead,
+    .header-fixed>tbody,
+    .header-fixed>thead>tr,
+    .header-fixed>tbody>tr,
+    .header-fixed>thead>tr>th,
+    .header-fixed>tbody>tr>td {
         display: block;
     }
 
-    .header-fixed > tbody > tr:after,
-    .header-fixed > thead > tr:after {
+    .header-fixed>tbody>tr:after,
+    .header-fixed>thead>tr:after {
         content: ' ';
         display: block;
         visibility: hidden;
         clear: both;
     }
 
-    .header-fixed > tbody {
+    .header-fixed>tbody {
         overflow-y: auto;
         height: 262px;
     }
 
-    .header-fixed > tbody > tr > td,
-    .header-fixed > thead > tr > th {
+    .header-fixed>tbody>tr>td,
+    .header-fixed>thead>tr>th {
         float: left;
     }
 
@@ -83,17 +96,26 @@
     .nav-tabs {
         border-bottom: 0px solid #ddd !important;
     }
-    .nav-tabs-custom-main > .nav-tabs > li:not(.active) > a:hover, .nav-tabs-custom-main > .nav-tabs > li:not(.active) > a:focus, .nav-tabs-custom-main > .nav-tabs > li:not(.active) > a:active{
+
+    .nav-tabs-custom-main>.nav-tabs>li:not(.active)>a:hover,
+    .nav-tabs-custom-main>.nav-tabs>li:not(.active)>a:focus,
+    .nav-tabs-custom-main>.nav-tabs>li:not(.active)>a:active {
         border-radius: 5px 5px 0 0 !important;
     }
-    .nav-tabs-custom-main > .nav-tabs > li > a, .nav-tabs-custom-main > .nav-tabs > li > a:hover{
+
+    .nav-tabs-custom-main>.nav-tabs>li>a,
+    .nav-tabs-custom-main>.nav-tabs>li>a:hover {
         border-radius: 5px 5px 0 0 !important;
     }
-    .nav-tabs-custom-main > .nav-tabs > li.active > a, .nav-tabs-custom-main > .nav-tabs > li.active:hover > a{
+
+    .nav-tabs-custom-main>.nav-tabs>li.active>a,
+    .nav-tabs-custom-main>.nav-tabs>li.active:hover>a {
         background-color: #4090be !important;
         color: #ffffff !important;
     }
-    .nav-tabs-custom-main > .nav-tabs > li > a, .nav-tabs-custom-main > .nav-tabs > li > a:hover{
+
+    .nav-tabs-custom-main>.nav-tabs>li>a,
+    .nav-tabs-custom-main>.nav-tabs>li>a:hover {
         background: #fff !important;
         color: #444 !important;
         /*padding-left: 38px !important;
@@ -103,16 +125,16 @@
         /*padding-top: 13px !important;
         padding-bottom: 13px !important;*/
     }
-    .nav-tabs-custom-main > .nav-tabs > li{
+
+    .nav-tabs-custom-main>.nav-tabs>li {
         margin-right: 3px !important;
-        border-bottom:1px solid #ddd !important;
+        border-bottom: 1px solid #ddd !important;
     }
-    .nav-tabs-custom-main{
+
+    .nav-tabs-custom-main {
         margin-bottom: 10px !important;
         /*background-color: #fff !important;*/
     }
-
-
 </style>
 <section class="content" ng-cloak>
     <div class="container-fluid" style="overflow-y: hidden;">
@@ -123,15 +145,15 @@
             </div>
             <!-- <div class="col-md-2 pull-right" style="margin-top:1%;">
                 <button type="button" class="btn btn-primary btn-circle btn-sm pull-right" data-toggle="collapse" title="Filter" data-target="#filter"><i class="fa fa-filter" aria-hidden="true" style="padding-right:0.3px"></i></button>
-            </div>  -->        
-        </div> 
+            </div>  -->
+        </div>
 
         <div class="row">
             <div class="col-xs-12">
                 <div class="nav-tabs-custom-main">
                     <ul class="nav nav-tabs">
-                      <li class="active"><a href="forward_resumes">Forward Resume</a></li>
-                      <li class=""><a href="round_details">Round Details</a></li>
+                        <li class="active"><a href="forward_resumes">Forward Resume</a></li>
+                        <li class=""><a href="round_details">Round Details</a></li>
                     </ul>
                 </div>
             </div>
@@ -139,12 +161,16 @@
 
         <div class="box box-primary">
             <div class="box-body">
-                <form id="forwardResumeFilterForm">                    
+                <form id="forwardResumeFilterForm">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                              <label class="mandatory" for="">Client name</label>
-                                <select id="company_name" name="company_name" ng-model="frlc.companyId" class="form-control s2mn" placeholder="Enter Client Name" style="width:100%;" ng-options="x.id as x.name for x in frlc.companyList" ng-selected="frlc.companyId ? true : false" ng-change="frlc.getJobcodeByCompanyId()">
+                                <label class="mandatory" for="">Client name</label>
+                                <select id="company_name" name="company_name" ng-model="frlc.companyId"
+                                    class="form-control s2mn" placeholder="Enter Client Name" style="width:100%;"
+                                    ng-options="x.id as x.name for x in frlc.companyList"
+                                    ng-selected="frlc.companyId ? true : false"
+                                    ng-change="frlc.getJobcodeByCompanyId()">
                                     <option value="" style="color:#ccc;">Select client</option>
                                 </select>
                             </div>
@@ -152,16 +178,21 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                              <label class="mandatory" for="">Job Code</label>
-                                <select id="jobCode" name="jobCode" ng-model="frlc.jobCodeId" class="form-control s2mn" placeholder="Enter Job code" style="width:100%;" ng-disabled="frlc.jobcodeList == null ? true : false" ng-selected="frlc.companyId ? true : false" >
+                                <label class="mandatory" for="">Job Code</label>
+                                <select id="jobCode" name="jobCode" ng-model="frlc.jobCodeId" class="form-control s2mn"
+                                    placeholder="Enter Job code" style="width:100%;"
+                                    ng-disabled="frlc.jobcodeList == null ? true : false"
+                                    ng-selected="frlc.companyId ? true : false">
                                     <option value="" style="color:#ccc !important;">Select job code</option>
-                                    <option ng-repeat="jd in frlc.jobcodeList track by jd.id" value="{{jd.id}}">{{jd.job_code}} {{jd.sub_title != '' ? (jd.sub_title) : ''}}</option>
+                                    <option ng-repeat="jd in frlc.jobcodeList track by jd.id" value="{{jd.id}}">
+                                        {{jd.job_code}} {{jd.sub_title != '' ? (jd.sub_title) : ''}}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-4" style="margin-top: 2.2%">
-                            <button type="button" class="btn btn-primary" ng-click="frlc.search()">Search</button> 
-                            <button type="button" class="btn btn-primary fa fa-refresh" ng-click="frlc.resetFilter()"></button>
+                            <button type="button" class="btn btn-primary" ng-click="frlc.search()">Search</button>
+                            <button type="button" class="btn btn-primary fa fa-refresh"
+                                ng-click="frlc.resetFilter()"></button>
                         </div>
                     </div>
                 </form>
@@ -171,7 +202,8 @@
             <table id="tableid" class="table table-hover table-striped">
                 <thead class="thead-default">
                     <tr>
-                        <th style="text-align: center;"><input type="checkbox" ng-model="frlc.checkall" ng-click="frlc.checkUncheckAll()" ng-if="frlc.candiadteList != null"/></th>
+                        <th style="text-align: center;"><input type="checkbox" ng-model="frlc.checkall"
+                                ng-click="frlc.checkUncheckAll()" ng-if="frlc.candiadteList != null" /></th>
                         <th style="text-align: center;">Sr No.</th>
                         <th>Candidate Name</th>
                         <th>Client Name</th>
@@ -180,26 +212,32 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="data in frlc.candiadteList">
-                        <td style="text-align: center;"><input type="checkbox" name="" value="{{ data.checked }}" ng-model="data.checked" ng-change='frlc.updateCheckall()' /></td>
+                        <td style="text-align: center;"><input type="checkbox" name="" value="{{ data.checked }}"
+                                ng-model="data.checked" ng-change='frlc.updateCheckall()' /></td>
                         <td style="text-align: center;" ng-bind="$index + 1"></td>
-                        <td ng-bind="data.first_name+' '+data.middle_name+' '+data.last_name"></td>
+                        <td
+                            ng-bind="data.first_name+' '+ (data.middle_name != null ? data.middle_name : '') +' '+data.last_name">
+                        </td>
                         <td ng-bind="data.job_description.companies.name"></td>
-                        <td>{{data.job_description.job_code}} {{data.job_description.sub_title != '' ? (data.job_description.sub_title) : ''}}</td>
+                        <td>{{data.job_description.job_code}}
+                            {{data.job_description.sub_title != '' ? (data.job_description.sub_title) : ''}}</td>
                     </tr>
                     <tr ng-if="frlc.candiadteList == null || frlc.candiadteList.length == 0">
-                        <td style="text-align: center;" colspan="5">No Records Found</td> 
+                        <td style="text-align: center;" colspan="5">No Records Found</td>
                     </tr>
                 </tbody>
             </table>
-        </div> 
+        </div>
 
         <div class="box-footer">
             <div class="pull pull-right">
-                <input type="submit" value="Forward" data-ng-click="frlc.saveForwardResume()" class="btn btn-success" style="outline: 0;" ng-disabled="frlc.candiadteList == null || frlc.candiadteList.length == 0 ? true:false"/>
+                <input type="submit" value="Forward" data-ng-click="frlc.saveForwardResume()" class="btn btn-success"
+                    style="outline: 0;"
+                    ng-disabled="frlc.candiadteList == null || frlc.candiadteList.length == 0 ? true:false" />
             </div>
         </div>
     </div>
-    
+
 </section>
 <script type="text/javascript">
     applySelect2();
@@ -214,15 +252,13 @@
         errorPlacement: function (error, element) {
 
             var type = $(element).attr("type");
-            if ($(element).attr("id") === "jobCode")
-            {
+            if ($(element).attr("id") === "jobCode") {
                 element.parent().append(error);
 
-            }else if ($(element).attr("id") === "company_name")
-            {
+            } else if ($(element).attr("id") === "company_name") {
                 element.parent().append(error);
 
-            }else{
+            } else {
                 error.insertAfter(element);
             }
         },
@@ -250,15 +286,15 @@
         },
         unhighlight: function (element) { // revert the change done by hightlight
             $(element)
-                    .closest('.form-group').removeClass('has-error');
+                .closest('.form-group').removeClass('has-error');
             $(element)
-                    .next().children().children().attr('style', 'border-color:'); // set error class to the control group
+                .next().children().children().attr('style', 'border-color:'); // set error class to the control group
         },
         success: function (label) {
             label
-                    .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                .closest('.form-group').removeClass('has-error'); // set success class to the control group
         }
     });
 
-    
+
 </script>

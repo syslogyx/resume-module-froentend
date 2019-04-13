@@ -1,4 +1,4 @@
-app.controller('jobDescriptionListCtrl', function ($scope, $rootScope, $http, services, $location, menuService, $cookieStore,pagination,RESOURCES) {
+app.controller('jobDescriptionListCtrl', function ($scope, $rootScope, $http, services, $location, menuService, $cookieStore, pagination, RESOURCES) {
 
     var jdc = this;
 
@@ -9,71 +9,66 @@ app.controller('jobDescriptionListCtrl', function ($scope, $rootScope, $http, se
     jdc.jobList = [];
     jdc.technologyList = [];
 
-    
-    var loggedInUser = services.getIdentity()==undefined?undefined:JSON.parse(services.getIdentity());
-    jdc.loggedRoleId = loggedInUser == undefined ? undefined :loggedInUser.identity.role;
-    // console.log(jdc.loggedRoleId);
+    var loggedInUser = services.getIdentity() == undefined ? undefined : JSON.parse(services.getIdentity());
+    jdc.loggedRoleId = loggedInUser == undefined ? undefined : loggedInUser.identity.role;
 
     jdc.jobStatusData = RESOURCES.JOB_STATUS;
-   
 
-    jdc.searchJobDescription = function(){
+    jdc.searchJobDescription = function () {
         jdc.fetchList(-1);
     }
 
     /* To fetch data according table length */
-    setTimeout(function(){
-        $('#table_length').on('change',function(){
+    setTimeout(function () {
+        $('#table_length').on('change', function () {
             jdc.fetchList(-1);
         });
-    },100);
+    }, 100);
 
     /* To cancle add job form */
-    jdc.cancelJob = function() {
+    jdc.cancelJob = function () {
         $location.url('/jobs');
     }
 
     /* Function to fetch all job list data */
-    jdc.fetchList = function(page){
+    jdc.fetchList = function (page) {
         jdc.limit = $('#table_length').val();
-        if(jdc.limit == undefined){
+        if (jdc.limit == undefined) {
             jdc.limit = -1;
         }
-        if(page == -1){
+        if (page == -1) {
             jdc.pageno = 1;
-            // console.log($('#pagination-sec').data("twbs-pagination"));
-            if($('#pagination-sec').data("twbs-pagination")){
-                    $('#pagination-sec').twbsPagination('destroy');
+            if ($('#pagination-sec').data("twbs-pagination")) {
+                $('#pagination-sec').twbsPagination('destroy');
             }
         }
-        else{
+        else {
             jdc.pageno = page;
         }
 
-        var email = loggedInUser == undefined ? undefined :loggedInUser.identity.email;
-        var mobile = loggedInUser == undefined ? undefined :loggedInUser.identity.mobile;
-            
+        var email = loggedInUser == undefined ? undefined : loggedInUser.identity.email;
+        var mobile = loggedInUser == undefined ? undefined : loggedInUser.identity.mobile;
+
         var requestParam = {
-            page:jdc.pageno,
-            limit:jdc.limit,
+            page: jdc.pageno,
+            limit: jdc.limit,
         }
 
         var req = {
-            'email':email,
-            'contact_no':mobile,
-            "technology_id":jdc.technologyId
+            'email': email,
+            'contact_no': mobile,
+            "technology_id": jdc.technologyId
         }
 
         // var promise = services.getfilteredJdList(req,requestParam);        
-        var promise = services.getAllJobListByCompanyDetails(requestParam,req);       
+        var promise = services.getAllJobListByCompanyDetails(requestParam, req);
         promise.success(function (result) {
-            // console.log(result.status_code);
             Utility.stopAnimation();
-            if (result.status_code == 200) {                
-                jdc.jobList = result.data.data; 
+            if (result.status_code == 200) {
+                jdc.jobList = result.data.data;
                 $scope.totalRequirement = 0;
-                pagination.applyPagination(result.data,jdc);
-            }else{
+                pagination.applyPagination(result.data, jdc);
+            } else {
                 jdc.jobList = [];
                 $scope.totalRequirement = 0;
             }
@@ -82,11 +77,11 @@ app.controller('jobDescriptionListCtrl', function ($scope, $rootScope, $http, se
             $scope.totalRequirement = 0;
             Utility.stopAnimation();
         });
-        
+
     }
 
     /* Function to initialise job controller */
-    jdc.init = function(){
+    jdc.init = function () {
         jdc.limit = $('#table_length').val();
         jdc.technologyId = $location.search()["tech_id"];
         jdc.fetchList(-1);
@@ -99,7 +94,6 @@ app.controller('jobDescriptionListCtrl', function ($scope, $rootScope, $http, se
     //     var promise = services.getAllActvieCompanyList();
     //     promise.success(function (result) {
     //         Utility.stopAnimation();
-    //         console.log(result.data);
     //         jdc.companyList = result.data; 
     //     }, function myError(r) {
     //         toastr.error(r.data.message, 'Sorry!');
@@ -107,11 +101,10 @@ app.controller('jobDescriptionListCtrl', function ($scope, $rootScope, $http, se
     //     });
     // }
 
-    jdc.getActvieTechnologyListList = function(){        
+    jdc.getActvieTechnologyListList = function () {
         var promise = services.getAllActvieTechnologyList();
         promise.success(function (result) {
             Utility.stopAnimation();
-            console.log(result.data);
             jdc.technologyList = result.data;
         }, function myError(r) {
             jdc.technologyList = [];
@@ -121,13 +114,13 @@ app.controller('jobDescriptionListCtrl', function ($scope, $rootScope, $http, se
     }
 
     /* Function to reset add job form */
-    jdc.resetFilter = function(){
-    	$("div.form-group").each(function () {
+    jdc.resetFilter = function () {
+        $("div.form-group").each(function () {
             $(this).removeClass('has-error');
             $('span.help-block-error').remove();
             applySelect2();
         });
-        jdc.technologyId ='';
+        jdc.technologyId = '';
         jdc.fetchList(-1);
     }
 

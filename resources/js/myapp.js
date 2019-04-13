@@ -1,13 +1,13 @@
 ﻿var Utility = {
 
-     // apiBaseUrl: "http://127.0.0.1:8000/api/",
-       apiBaseUrl: "http://172.16.1.97:8000/api/",
-      // apiBaseUrl: "http://172.16.2.37:9000/api/",
-      // apiBaseUrl: "http://172.16.1.180:9000/api/",
+    // apiBaseUrl: "http://127.0.0.1:8000/api/",
+    apiBaseUrl: "http://172.16.1.97:8000/api/",
+    // apiBaseUrl: "http://172.16.2.37:9000/api/",
+    // apiBaseUrl: "http://172.16.1.180:9000/api/",
 
     // apiBaseUrl: "http://127.0.0.1:8000/api/",
     // apiBaseUrl: "http://172.16.1.180:8000/api/",
-     // apiBaseUrl: "https://recruitmentapi.syslogyx.com/api/",
+    // apiBaseUrl: "https://recruitmentapi.syslogyx.com/api/",
 
     formatDate: function (date, format) {
         var tDate = null;
@@ -37,7 +37,7 @@
     },
     toDate: function (dateStr) {
         const [day, month, year] = dateStr.split("/")
-                return new Date(year, month - 1, day)
+        return new Date(year, month - 1, day)
     },
     startAnimation: function () {
         if ($("#loading").css('display') == 'none') {
@@ -51,22 +51,22 @@
     },
     descriptiveFormatOfDate: function (date) {
         var m_names = new Array("Jan", "Feb", "Mar",
-                "Apr", "May", "Jun", "Jul", "Aug", "Sep",
-                "Oct", "Nov", "Dec");
+            "Apr", "May", "Jun", "Jul", "Aug", "Sep",
+            "Oct", "Nov", "Dec");
 
         var d = new Date(date);
         var curr_date = d.getDate();
         var curr_month = d.getMonth();
         var curr_year = d.getFullYear();
         var formatedDate = curr_date + "-" + m_names[curr_month]
-                + "-" + curr_year;
+            + "-" + curr_year;
         return formatedDate;
     },
     formatPhoneNumber: function (number) {
         var arr = number.match(/^(\d{3})(\d{3})(\d{4})$/);
-        if(arr){
+        if (arr) {
             arr.shift();
-        }        
+        }
         return arr;
     },
     formatAadharNumber: function (number) {
@@ -78,7 +78,7 @@
 
 
 
-var app = angular.module("myapp", ['ngRoute', 'mm.acl', 'ngCookies' , 'ui.sortable','ui.toggle']);
+var app = angular.module("myapp", ['ngRoute', 'mm.acl', 'ngCookies', 'ui.sortable', 'ui.toggle']);
 //  ,'uiSwitch'
 /*app.directive('setHeight', function($window){
  return{
@@ -103,8 +103,8 @@ var app = angular.module("myapp", ['ngRoute', 'mm.acl', 'ngCookies' , 'ui.sortab
 //         }  
 //     };  
 // }); 
-app.filter('removeSpaces', [function() {
-    return function(string) {
+app.filter('removeSpaces', [function () {
+    return function (string) {
         if (!angular.isString(string)) {
             return string;
         }
@@ -113,33 +113,33 @@ app.filter('removeSpaces', [function() {
 }]);
 
 app.factory("menuService", ["$rootScope", function ($rootScope) {
-        "use strict";
-        return {
-            menu: function () {
-                $rootScope.globalMenu;
-            },
-            setMenu: function (menu) {
-                $rootScope.globalMenu = menu;
-            }
-        };
-    }])
+    "use strict";
+    return {
+        menu: function () {
+            $rootScope.globalMenu;
+        },
+        setMenu: function (menu) {
+            $rootScope.globalMenu = menu;
+        }
+    };
+}])
 
 app.factory("sidebarFactory", ["$rootScope", function ($rootScope) {
-        "use strict";
-        return {
-            template: null,
-            setMenu: function (menu) {
-                $rootScope.globalMenu = menu;
-            }
-        };
-    }])
+    "use strict";
+    return {
+        template: null,
+        setMenu: function (menu) {
+            $rootScope.globalMenu = menu;
+        }
+    };
+}])
 
 
 app.constant('RESOURCES', (function () {
     // Use the variable in your constants    
     return {
         TOKEN: "null",
-       
+
         SERVER_API: Utility.apiBaseUrl,
         SERVER_URL: 'https://recruitmentapi.syslogyx.com/',
         // SERVER_URL: 'http://127.0.0.1:8000/',
@@ -147,120 +147,120 @@ app.constant('RESOURCES', (function () {
         COMPANY_NAME: 'Syslogyx Technologies Pvt. Ltd.',
         COMPANY_ID: 3,
 
-        ROLE_ADMIN:1,
-        ROLE_HR:2,
-        ROLE_COLLEGUE:3,
-        ROLE_INTERVIWER:4,
-        ROLE_CANDIDATE:5,
-        ROLE_CLIENT:6,
+        ROLE_ADMIN: 1,
+        ROLE_HR: 2,
+        ROLE_COLLEGUE: 3,
+        ROLE_INTERVIWER: 4,
+        ROLE_CANDIDATE: 5,
+        ROLE_CLIENT: 6,
 
         // defined job status constants
         JOB_STATUS: [
-            {id:0, name: "Active"},
-            {id: 1, name: "Inactive"}
+            { id: 0, name: "Active" },
+            { id: 1, name: "Inactive" }
         ],
         // defined Month constants
         MONTHS: [
-            {id: 0, name: "0"},
-            {id: 1, name: "1"},
-            {id: 2, name: "2"},
-            {id: 3, name: "3"},
-            {id: 4, name: "4"},
-            {id: 5, name: "5"},
-            {id: 6, name: "6"},
-            {id: 7, name: "7"},
-            {id: 8, name: "8"},
-            {id: 9, name: "9"},
-            {id: 10, name: "10"},
-            {id: 11, name: "11"}
+            { id: 0, name: "0" },
+            { id: 1, name: "1" },
+            { id: 2, name: "2" },
+            { id: 3, name: "3" },
+            { id: 4, name: "4" },
+            { id: 5, name: "5" },
+            { id: 6, name: "6" },
+            { id: 7, name: "7" },
+            { id: 8, name: "8" },
+            { id: 9, name: "9" },
+            { id: 10, name: "10" },
+            { id: 11, name: "11" }
         ],
         // defined Year constants
         YEARS: [
-            {id: 0, name: "0"},
-            {id: 1, name: "1"},
-            {id: 2, name: "2"},
-            {id: 3, name: "3"},
-            {id: 4, name: "4"},
-            {id: 5, name: "5"},
-            {id: 6, name: "6"},
-            {id: 7, name: "7"},
-            {id: 8, name: "8"},
-            {id: 9, name: "9"},
-            {id: 10, name: "10"},
-            {id: 11, name: "11"},
-            {id: 12, name: "12"},
-            {id: 13, name: "13"},
-            {id: 14, name: "14"},
-            {id: 15, name: "15"}
+            { id: 0, name: "0" },
+            { id: 1, name: "1" },
+            { id: 2, name: "2" },
+            { id: 3, name: "3" },
+            { id: 4, name: "4" },
+            { id: 5, name: "5" },
+            { id: 6, name: "6" },
+            { id: 7, name: "7" },
+            { id: 8, name: "8" },
+            { id: 9, name: "9" },
+            { id: 10, name: "10" },
+            { id: 11, name: "11" },
+            { id: 12, name: "12" },
+            { id: 13, name: "13" },
+            { id: 14, name: "14" },
+            { id: 15, name: "15" }
         ],
 
-        OPPORTUNITYFOR:[
-            {id: 0, name: "Experience"},
-            {id: 1, name: "Fresher"}
+        OPPORTUNITYFOR: [
+            { id: 0, name: "Experience" },
+            { id: 1, name: "Fresher" }
         ],
 
-        GENDER:[
-            {id: 0, name: "Male"},
-            {id: 1, name: "Female"},
-            {id: 2, name: "Other"}
+        GENDER: [
+            { id: 0, name: "Male" },
+            { id: 1, name: "Female" },
+            { id: 2, name: "Other" }
         ],
 
-        MARITAL_STATUS:[
-            {id: 0, name: "Unmarried"},
-            {id: 1, name: "Married"},
-            {id: 2, name: "Divorced"},
-            {id: 3, name: "Widowed"}
+        MARITAL_STATUS: [
+            { id: 0, name: "Unmarried" },
+            { id: 1, name: "Married" },
+            { id: 2, name: "Divorced" },
+            { id: 3, name: "Widowed" }
         ],
 
-        ACHIVEMENT_TYPES:[
-            {id: 0, name: "Professional Training"},
-            {id: 1, name: "Certification"},
-            {id: 2, name: "Sports"},
-            {id: 3, name: "Others"}
+        ACHIVEMENT_TYPES: [
+            { id: 0, name: "Professional Training" },
+            { id: 1, name: "Certification" },
+            { id: 2, name: "Sports" },
+            { id: 3, name: "Others" }
         ],
 
         // defined Technical round constants
         TECHNICAL_ROUND: [
-            {id:1,name:"Round 1"},
-            {id:2,name:"Round 2"}
+            { id: 1, name: "Round 1" },
+            { id: 2, name: "Round 2" }
         ],
 
         // defined Interview type constants
         INTERVIEW_TYPE: [
-            {id:1,name:"Telephone"},
-            {id:2,name:"Skype"},
-            {id:3,name:"Face-to-Face"}
+            { id: 1, name: "Telephone" },
+            { id: 2, name: "Skype" },
+            { id: 3, name: "Face-to-Face" }
         ],
 
         // defined Answer type constants
-        ANSWER_OPTIONS:[
-            {'id':2,'name':'No'},
-            {'id':1,'name':'Yes'}
+        ANSWER_OPTIONS: [
+            { 'id': 2, 'name': 'No' },
+            { 'id': 1, 'name': 'Yes' }
         ],
 
         // defined result status constants
         RESULT_STATUS: [
-            {'id':2,'name':'Fail'},
-            {'id':1,'name':'Pass'}
+            { 'id': 2, 'name': 'Fail' },
+            { 'id': 1, 'name': 'Pass' }
         ],
 
         // defined result status constants
         CLIENT_RESULT_STATUS: [
-            {'id':2,'name':'Fail'},
-            {'id':1,'name':'Selected'}
+            { 'id': 2, 'name': 'Fail' },
+            { 'id': 1, 'name': 'Selected' }
         ],
 
         // defined result status constants
         CANDIDATE_STATUS: [
             // {'id':1,'name':'Selected'},
-            {'id':1,'name':'Joined'},
-            {'id':2,'name':'Block'},
-            {'id':3,'name':'On Hold'},
-            {'id':4,'name':'Rejected'},
-            {'id':6,'name':'Join Somewhere Else'},
-            {'id':7,'name':'No Response from Candidate'},
-            {'id':8,'name':'Expecting High CTC'},
-            {'id':9,'name':'BGC Form shared / candidate not interested'},
+            { 'id': 1, 'name': 'Joined' },
+            { 'id': 2, 'name': 'Block' },
+            { 'id': 3, 'name': 'On Hold' },
+            { 'id': 4, 'name': 'Rejected' },
+            { 'id': 6, 'name': 'Join Somewhere Else' },
+            { 'id': 7, 'name': 'No Response from Candidate' },
+            { 'id': 8, 'name': 'Expecting High CTC' },
+            { 'id': 9, 'name': 'BGC Form shared / candidate not interested' },
         ],
 
         //CONTENT_TYPE: 'application/json; charset=UTF-8'
@@ -279,12 +279,12 @@ app.directive('ngFiles', ['$parse', function ($parse) {
     return {
         link: fn_link
     }
-} ]);
+}]);
 
 
 // app.directive('toggleCheckbox', function() {
 //   // based on https://github.com/minhur/bootstrap-toggle/issues/19
-  
+
 //   return {
 //     restrict: 'A',
 //     require: 'ngModel',
@@ -293,17 +293,17 @@ app.directive('ngFiles', ['$parse', function ($parse) {
 //         var checked = element.prop('checked');
 //         ngModelController.$setViewValue(checked);
 //       });
-                
+
 //       ngModelController.$render = function() {
 //         element.bootstrapToggle(ngModelController.$viewValue ? 'Inactive' : 'Active');
 //       };
-      
+
 //       scope.$on('$destroy', function() {
 //         // clean up
 //         element.off('change.toggle');
 //         element.bootstrapToggle('destroy');
 //       });
-              
+
 //       // we set the 'checked' property once so the Bootstrap toggle is initialized to the correct value, i.e.,  without flashing the 'off' state and then switch to the 'on' state in case of an initial value of 'true';
 //       // this is not needed if your markup already contains the correct 'checked' property;
 //       // note that we can't use ngModelController.$viewValue since at this stage, it's still uninitialized as NaN
@@ -330,25 +330,25 @@ app.directive('applyCheckBox', function () {
             //Getting the scope of main controller where the icheck plugin is applied
             var index = parseInt($ele.attr("data-index"));
             var scope = angular.element(document.querySelector("#resumeListCtrl")).scope();
-            $('#chk_'+index).attr('checked', true);
+            $('#chk_' + index).attr('checked', true);
             // if ($('.icheckBox').filter(':checked').length == $('.icheckBox').length) {
             //     $('#chk_all').iCheck('check');
             // }
             scope.$apply(function () {
-               scope.toggleSelection(index);
+                scope.toggleSelection(index);
             });
         });
 
         $('.icheckBox').on('ifUnchecked', function (event) {
             $ele = $("#" + event.target.id);
             //Getting the scope of main controller where the icheck plugin is applied
-           var scope = angular.element(document.querySelector("#resumeListCtrl")).scope();
+            var scope = angular.element(document.querySelector("#resumeListCtrl")).scope();
             var index = parseInt($ele.attr("data-index"));
-            console.log($('#chk_'+index));
-            $('#chk_'+index).attr('checked', false);
+            console.log($('#chk_' + index));
+            $('#chk_' + index).attr('checked', false);
             // $('#chk_all').iCheck('uncheck');
             scope.$apply(function () {
-               scope.toggleSelection(index);
+                scope.toggleSelection(index);
             });
         });
 
@@ -360,11 +360,11 @@ app.service('pagination', function (RESOURCES, $http, $cookieStore, $filter) {
     //set pagination limit here
     var paginationLimit = 10;
     this.getpaginationLimit = function () {
-     return paginationLimit;
+        return paginationLimit;
     };
 
     //apply pagination
-    this.applyPagination = function (pageData, ctrlscope, $source= null) {
+    this.applyPagination = function (pageData, ctrlscope, $source = null) {
         // console.log(pageData);
         // console.log(ctrlscope);
         $('#pagination-sec').twbsPagination({
@@ -380,12 +380,12 @@ app.service('pagination', function (RESOURCES, $http, $cookieStore, $filter) {
                     return;
                 }
                 //tec.search(page);
-                if($source != null){
+                if ($source != null) {
 
-                }else{
-                    ctrlscope.fetchList(page,$source);
+                } else {
+                    ctrlscope.fetchList(page, $source);
                 }
-                
+
                 $("html, body").animate({ scrollTop: 0 }, "slow");
             }
         });
@@ -411,7 +411,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         var date = new Date();
         var minutes = 0.5;
         date.setTime(date.getTime() + (minutes * 60 * 1000));
-        $cookieStore.put('authkey', authkey, {expires: 60 * 60 * 1000, path: '/'});
+        $cookieStore.put('authkey', authkey, { expires: 60 * 60 * 1000, path: '/' });
     }
 
     this.getAuthKey = function () {
@@ -425,7 +425,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             method: 'POST',
             url: RESOURCES.SERVER_API + "authenticate",
             dataType: 'json',
-            data: $.param({"email": email, "password": password}),
+            data: $.param({ "email": email, "password": password }),
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
             }
@@ -441,16 +441,16 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             data: $.param(req),
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
-                
+
             }
         })
     };
 
     this.getAllUsers = function (request) {
-        if(request == undefined){
+        if (request == undefined) {
             page = -1;
             limit = -1;
-        }else{
+        } else {
             page = request.page;
             limit = request.limit;
         }
@@ -466,10 +466,10 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
     };
 
     this.getSelectedUsers = function (request) {
-        if(request == undefined){
+        if (request == undefined) {
             page = -1;
             limit = -1;
-        }else{
+        } else {
             page = request.page;
             limit = request.limit;
         }
@@ -483,7 +483,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             }
         })
     };
-   
+
     /*User data update with id*/
     this.updateUser = function (req) {
         Utility.startAnimation();
@@ -510,7 +510,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             }
         })
     };
-    
+
     this.updatePassword = function (req) {
         Utility.startAnimation();
         return $http({
@@ -524,11 +524,11 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
-    this.findUser = function (req,request) {
-        if(request == undefined){
+    this.findUser = function (req, request) {
+        if (request == undefined) {
             page = -1;
             limit = -1;
-        }else{
+        } else {
             page = request.page;
             limit = request.limit;
         }
@@ -581,7 +581,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             }
         })
     };
-   
+
     this.createCandidate = function (req) {
         Utility.startAnimation();
         return $http({
@@ -610,7 +610,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
-    this.updateCandidateStatus = function(req){
+    this.updateCandidateStatus = function (req) {
         Utility.startAnimation();
         return $http({
             method: 'POST',
@@ -623,7 +623,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     }
 
-    this.changeJobDescriptionByCandidateId = function(req){
+    this.changeJobDescriptionByCandidateId = function (req) {
         Utility.startAnimation();
         return $http({
             method: 'POST',
@@ -636,26 +636,26 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     }
 
-    this.downloadResumePDF = function (id,sectionNames) {       
-        window.open(RESOURCES.SERVER_API +'generate_pdf/'+id+'?section_names='+sectionNames);
+    this.downloadResumePDF = function (id, sectionNames) {
+        window.open(RESOURCES.SERVER_API + 'generate_pdf/' + id + '?section_names=' + sectionNames);
     };
 
     this.downloadResumePDFWithoutContact = function (id) {
         // var win =
-        window.open(RESOURCES.SERVER_API +'generate_pdf_without_contact/'+id);
+        window.open(RESOURCES.SERVER_API + 'generate_pdf_without_contact/' + id);
         // win.setTimeout(function(){this.close();},1500)
         // win.focus();
     };
 
-    this.downloadResume = function (id) {        
-        window.open(RESOURCES.SERVER_API +'download/'+id);        
+    this.downloadResume = function (id) {
+        window.open(RESOURCES.SERVER_API + 'download/' + id);
     };
 
-    this.getAllCandidates = function(req,request){
-        if(request == undefined){
+    this.getAllCandidates = function (req, request) {
+        if (request == undefined) {
             page = -1;
             limit = -1;
-        }else{
+        } else {
             page = request.page;
             limit = request.limit;
         }
@@ -700,10 +700,10 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
     };
 
     this.getAllJobList = function (request) {
-        if(request == undefined){
+        if (request == undefined) {
             page = -1;
             limit = -1;
-        }else{
+        } else {
             page = request.page;
             limit = request.limit;
         }
@@ -718,11 +718,11 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
-    this.getAllJobListByCompanyDetails = function (request,req) {
-        if(request == undefined){
+    this.getAllJobListByCompanyDetails = function (request, req) {
+        if (request == undefined) {
             page = -1;
             limit = -1;
-        }else{
+        } else {
             page = request.page;
             limit = request.limit;
         }
@@ -749,7 +749,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             data: $.param(req),
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
-                
+
             }
         })
     };
@@ -779,7 +779,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
-    this.updateJobStatus = function(req){
+    this.updateJobStatus = function (req) {
         Utility.startAnimation();
         return $http({
             method: 'POST',
@@ -805,7 +805,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
     //     })
     // };
 
-    this.uploadresumeFile  = function(request){      
+    this.uploadresumeFile = function (request) {
         Utility.startAnimation();
         return $http({
             method: 'POST',
@@ -818,7 +818,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
-    this.uploadProfileIamge  = function(request){      
+    this.uploadProfileIamge = function (request) {
         Utility.startAnimation();
         return $http({
             method: 'POST',
@@ -832,7 +832,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
     };
 
 
-    this.uploadBackgroundDocFile  = function(request){      
+    this.uploadBackgroundDocFile = function (request) {
         Utility.startAnimation();
         return $http({
             method: 'POST',
@@ -845,11 +845,11 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
-    this.getAllQuestionList = function (req,request) {
-        if(request == undefined){
+    this.getAllQuestionList = function (req, request) {
+        if (request == undefined) {
             page = -1;
             limit = -1;
-        }else{
+        } else {
             page = request.page;
             limit = request.limit;
         }
@@ -858,18 +858,18 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             method: 'GET',
             url: RESOURCES.SERVER_API + "basic_screening_questions?page=" + page + "&limit=" + limit,
             dataType: 'json',
-             data: $.param(req),
+            data: $.param(req),
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
             }
         })
     };
 
-    this.getAllFilteredQuestionList = function (req,request) {
-        if(request == undefined){
+    this.getAllFilteredQuestionList = function (req, request) {
+        if (request == undefined) {
             page = -1;
             limit = -1;
-        }else{
+        } else {
             page = request.page;
             limit = request.limit;
         }
@@ -878,7 +878,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             method: 'POST',
             url: RESOURCES.SERVER_API + "basic_screening_questions/filter?page=" + page + "&limit=" + limit,
             dataType: 'json',
-             data: $.param(req),
+            data: $.param(req),
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
             }
@@ -894,7 +894,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             data: $.param(req),
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
-                
+
             }
         })
     };
@@ -959,7 +959,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             data: $.param(req),
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
-                
+
             }
         })
     };
@@ -976,7 +976,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
-    this.scheduleInterviewer = function(req){
+    this.scheduleInterviewer = function (req) {
         Utility.startAnimation();
         return $http({
             method: 'POST',
@@ -985,12 +985,12 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             data: $.param(req),
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
-                
+
             }
         })
     };
 
-    this.rescheduleInterview = function(req){
+    this.rescheduleInterview = function (req) {
         Utility.startAnimation();
         return $http({
             method: 'POST',
@@ -1003,11 +1003,11 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
-    this.getScheduledInterviewList = function(req,request){
-        if(request == undefined){
+    this.getScheduledInterviewList = function (req, request) {
+        if (request == undefined) {
             page = -1;
             limit = -1;
-        }else{
+        } else {
             page = request.page;
             limit = request.limit;
         }
@@ -1024,11 +1024,11 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
-    this.getTodaysScheduledInterviewList = function(req,request){
-        if(request == undefined){
+    this.getTodaysScheduledInterviewList = function (req, request) {
+        if (request == undefined) {
             page = -1;
             limit = -1;
-        }else{
+        } else {
             page = request.page;
             limit = request.limit;
         }
@@ -1055,7 +1055,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             data: $.param(req),
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
-                
+
             }
         })
     };
@@ -1069,7 +1069,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             data: $.param(req),
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
-                
+
             }
         })
     };
@@ -1099,37 +1099,37 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
-    this.downloadBackgroundForm = function () {        
-        window.open(RESOURCES.SERVER_API +'download_background_form');        
+    this.downloadBackgroundForm = function () {
+        window.open(RESOURCES.SERVER_API + 'download_background_form');
     };
 
-    this.downloadSampleBackgroundForm = function () {        
-        window.open(RESOURCES.SERVER_API +'download_sample_bgform');        
+    this.downloadSampleBackgroundForm = function () {
+        window.open(RESOURCES.SERVER_API + 'download_sample_bgform');
     };
 
-    this.downloadBgFileByFileID = function (documentId) {        
-        window.open(RESOURCES.SERVER_API +'download_candidate_bg_file/'+documentId);        
+    this.downloadBgFileByFileID = function (documentId) {
+        window.open(RESOURCES.SERVER_API + 'download_candidate_bg_file/' + documentId);
     };
 
     this.deleteCandidateBgFileByID = function (documentId) {
         Utility.startAnimation();
         return $http({
             method: 'POST',
-            url: RESOURCES.SERVER_API + "candidate_bg_file/"+documentId+"/delete",
+            url: RESOURCES.SERVER_API + "candidate_bg_file/" + documentId + "/delete",
             dataType: 'json',
             // data: $.param(req),
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
-                
+
             }
         })
     };
 
     this.getAllCompanyList = function (request) {
-        if(request == undefined){
+        if (request == undefined) {
             page = -1;
             limit = -1;
-        }else{
+        } else {
             page = request.page;
             limit = request.limit;
         }
@@ -1165,7 +1165,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             data: $.param(req),
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
-                
+
             }
         })
     };
@@ -1195,7 +1195,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
-    this.updateCompanyStatus = function(req){
+    this.updateCompanyStatus = function (req) {
         Utility.startAnimation();
         return $http({
             method: 'POST',
@@ -1209,10 +1209,10 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
     }
 
     this.getAllBackgroundCheckList = function (request) {
-        if(request == undefined){
+        if (request == undefined) {
             page = -1;
             limit = -1;
-        }else{
+        } else {
             page = request.page;
             limit = request.limit;
         }
@@ -1236,7 +1236,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             data: $.param(req),
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
-                
+
             }
         })
     };
@@ -1266,7 +1266,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
-    this.updateBackgroundChecklistStatus = function(req){
+    this.updateBackgroundChecklistStatus = function (req) {
         Utility.startAnimation();
         return $http({
             method: 'POST',
@@ -1279,7 +1279,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     }
 
-    this.updateQuestionStatus = function(req){
+    this.updateQuestionStatus = function (req) {
         Utility.startAnimation();
         return $http({
             method: 'POST',
@@ -1292,11 +1292,11 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     }
 
-    this.getAllBgCheckList = function (cId,viewName) {
+    this.getAllBgCheckList = function (cId, viewName) {
         Utility.startAnimation();
         return $http({
             method: 'GET',
-            url: RESOURCES.SERVER_API + "get_bg_checklist_with_flag?candidate_id="+cId+"&view_type="+viewName,
+            url: RESOURCES.SERVER_API + "get_bg_checklist_with_flag?candidate_id=" + cId + "&view_type=" + viewName,
             dataType: 'json',
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
@@ -1304,32 +1304,32 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
-    this.createBgCheckListDocZip = function (candidateId,sectionNames) {
+    this.createBgCheckListDocZip = function (candidateId, sectionNames) {
         Utility.startAnimation();
         return $http({
             method: 'GET',
-            url: RESOURCES.SERVER_API + 'download_bg_documents?candidate_id='+candidateId+'&section_names='+sectionNames,
+            url: RESOURCES.SERVER_API + 'download_bg_documents?candidate_id=' + candidateId + '&section_names=' + sectionNames,
             dataType: 'json',
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
             }
         })
-         // window.open(RESOURCES.SERVER_API +'download_bg_documents?candidate_id='+candidateId);
+        // window.open(RESOURCES.SERVER_API +'download_bg_documents?candidate_id='+candidateId);
     };
 
-    this.downloadBgCheckListDocZip= function (candidateName) {  
-            // setTimeout(function(){    
-                window.open(RESOURCES.SERVER_URL +'app/public/'+candidateName+'.zip');
-                // var myWindow =  window.open(RESOURCES.SERVER_URL +'app/public/'+candidateName+'.zip');
-                // myWindow.location.reload();
-            // },1000); 
+    this.downloadBgCheckListDocZip = function (candidateName) {
+        // setTimeout(function(){    
+        window.open(RESOURCES.SERVER_URL + 'app/public/' + candidateName + '.zip');
+        // var myWindow =  window.open(RESOURCES.SERVER_URL +'app/public/'+candidateName+'.zip');
+        // myWindow.location.reload();
+        // },1000); 
         // Utility.stopAnimation();
         //for local server code
         // window.open('file:///var/www/resume-module-backtend/public/'+candidateName+'.zip');        
     };
 
-    this.downloadBgCheckListDocZip1 = function (candidateName) {      
-        window.open(RESOURCES.SERVER_API +'download_candidate_zip?file_name='+candidateName+'.zip');          
+    this.downloadBgCheckListDocZip1 = function (candidateName) {
+        window.open(RESOURCES.SERVER_API + 'download_candidate_zip?file_name=' + candidateName + '.zip');
     };
 
     // this.getListOfAlphabets = function(){
@@ -1343,11 +1343,11 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
     //         }
     //     })
     // };
-    this.getListOfAlphabets = function(type){
+    this.getListOfAlphabets = function (type) {
         Utility.startAnimation();
         return $http({
             method: 'GET',
-            url: RESOURCES.SERVER_API + "get_alphabets/"+type,
+            url: RESOURCES.SERVER_API + "get_alphabets/" + type,
             dataType: 'json',
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
@@ -1367,11 +1367,11 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
     //     })
     // };
 
-    this.getJobCodeListByCompanyId = function(companyId){
+    this.getJobCodeListByCompanyId = function (companyId) {
         Utility.startAnimation();
         return $http({
             method: 'GET',
-            url: RESOURCES.SERVER_API + "jobList/company/"+companyId,
+            url: RESOURCES.SERVER_API + "jobList/company/" + companyId,
             dataType: 'json',
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
@@ -1379,11 +1379,11 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
-    this.getCandidateListByJobcodeId = function(jobId){
+    this.getCandidateListByJobcodeId = function (jobId) {
         Utility.startAnimation();
         return $http({
             method: 'GET',
-            url: RESOURCES.SERVER_API + "candidateList/job/"+jobId,
+            url: RESOURCES.SERVER_API + "candidateList/job/" + jobId,
             dataType: 'json',
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
@@ -1391,7 +1391,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
-    this.saveTechRoundInfo = function(req){
+    this.saveTechRoundInfo = function (req) {
         Utility.startAnimation();
         return $http({
             method: 'POST',
@@ -1400,27 +1400,27 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             data: $.param(req),
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
-                
+
             }
         })
     };
 
 
-    this.updateRoundDetails = function(req,id){
+    this.updateRoundDetails = function (req, id) {
         Utility.startAnimation();
         return $http({
             method: 'POST',
-            url: RESOURCES.SERVER_API + "companies_feedback/update/"+id,
+            url: RESOURCES.SERVER_API + "companies_feedback/update/" + id,
             dataType: 'json',
             data: $.param(req),
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
-                
+
             }
         })
     };
 
-    this.getNotForwardedCandidateList = function(req,request){
+    this.getNotForwardedCandidateList = function (req, request) {
         // if(request == undefined){
         //     page = -1;
         //     limit = -1;
@@ -1442,11 +1442,11 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
     };
 
 
-    this.getForwardedCandidateResumesList = function(req,request){
-        if(request == undefined){
+    this.getForwardedCandidateResumesList = function (req, request) {
+        if (request == undefined) {
             page = -1;
             limit = -1;
-        }else{
+        } else {
             page = request.page;
             limit = request.limit;
         }
@@ -1462,7 +1462,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
-    this.getInterviewerListByJdIdAndCandidateId = function(req){
+    this.getInterviewerListByJdIdAndCandidateId = function (req) {
         Utility.startAnimation();
         return $http({
             method: 'POST',
@@ -1473,7 +1473,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
                 'Content-Type': RESOURCES.CONTENT_TYPE
             }
         })
-    };    
+    };
 
     this.saveForwardedCandidateResumes = function (req) {
         Utility.startAnimation();
@@ -1483,7 +1483,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             dataType: 'json',
             data: $.param(req),
             headers: {
-                'Content-Type': RESOURCES.CONTENT_TYPE                
+                'Content-Type': RESOURCES.CONTENT_TYPE
             }
         })
     };
@@ -1501,10 +1501,10 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
     };
 
     this.getAllTechnologyList = function (request) {
-        if(request == undefined){
+        if (request == undefined) {
             page = -1;
             limit = -1;
-        }else{
+        } else {
             page = request.page;
             limit = request.limit;
         }
@@ -1528,7 +1528,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
             data: $.param(req),
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
-                
+
             }
         })
     };
@@ -1558,7 +1558,7 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
-    this.updateTechnologyStatus = function(req){
+    this.updateTechnologyStatus = function (req) {
         Utility.startAnimation();
         return $http({
             method: 'POST',
@@ -1583,8 +1583,8 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
-    this.readCSVFile  = function(request){ 
-    console.log(request);     
+    this.readCSVFile = function (request) {
+        console.log(request);
         Utility.startAnimation();
         return $http({
             method: 'POST',
@@ -1623,17 +1623,17 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
-    this.getfilteredJdList = function(requestBody,requestParam){
-        if(requestParam == undefined){
+    this.getfilteredJdList = function (requestBody, requestParam) {
+        if (requestParam == undefined) {
             page = -1;
             limit = -1;
-        }else{
+        } else {
             page = requestParam.page;
             limit = requestParam.limit;
         }
         Utility.startAnimation();
         return $http({
-            method: 'POST',            
+            method: 'POST',
             url: RESOURCES.SERVER_API + "job_description/filter?page=" + page + "&limit=" + limit,
             dataType: 'json',
             data: $.param(requestBody),
@@ -1643,17 +1643,17 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
-    this.getfilteredCandidateList = function(requestBody,requestParam){
-        if(requestParam == undefined){
+    this.getfilteredCandidateList = function (requestBody, requestParam) {
+        if (requestParam == undefined) {
             page = -1;
             limit = -1;
-        }else{
+        } else {
             page = requestParam.page;
             limit = requestParam.limit;
         }
         Utility.startAnimation();
         return $http({
-            method: 'POST',            
+            method: 'POST',
             url: RESOURCES.SERVER_API + "candidate/filter/clients?page=" + page + "&limit=" + limit,
             dataType: 'json',
             data: $.param(requestBody),
@@ -1700,11 +1700,11 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         })
     };
 
-    this.getUsersListOfAlphabets = function(type){
+    this.getUsersListOfAlphabets = function (type) {
         Utility.startAnimation();
         return $http({
             method: 'GET',
-            url: RESOURCES.SERVER_API + "get_users_alphabets/"+type,
+            url: RESOURCES.SERVER_API + "get_users_alphabets/" + type,
             dataType: 'json',
             headers: {
                 'Content-Type': RESOURCES.CONTENT_TYPE
@@ -1717,686 +1717,686 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
 app.config(function ($routeProvider, $locationProvider) {
     $locationProvider.hashPrefix('');
     $routeProvider
-            .when('/', {
-                templateUrl: 'views/home.html',
-                controller: 'homeCtrl',
-                controllerAs: 'hme',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                           // console.log(AclService.getRoles());
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            })
-            .when('/home', {
-                templateUrl: 'views/home.html',
-                controller: 'homeCtrl',
-                controllerAs: 'hme',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                           // console.log(AclService.getRoles());
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            })
-            .when('/site/login', {
-                templateUrl: 'views/site/login.html',
-                controller: 'loginCtrl',
-                controllerAs: 'lgc',
-                resolve: {
-                    'acl': ['$q', 'AclService', '$cookieStore', '$location', function ($q, AclService, $cookieStore, $location) {
-                            var authKey = $cookieStore.get('authkey');
-                            if (authKey !== undefined) {
-                                $location.path('/');
-                                return true;
-                            }
-                        }]
-                }
-            })
-            .when('/user', {
-                templateUrl: 'views/user/user_table.html',
-                controller: 'userCtrl',
-                controllerAs: 'usr',
-                resolve: {
-                    'acl': ['$q', 'AclService', '$cookieStore', '$location', function ($q, AclService, $cookieStore, $location) {
-                            // var authKey = $cookieStore.get('authkey');
-                            // if (authKey == undefined) {
-                            //     $location.path('/');
-                            //     return true;
-                            // }
-                        }]
-                }
-            })
-            .when('/user/add_user', {
-                templateUrl: 'views/user/add_user.html',
-                controller: 'userCtrl',
-                controllerAs: 'usr',
-                resolve: {
-                    'acl': ['$q', 'AclService', '$cookieStore', '$location', function ($q, AclService, $cookieStore, $location) {
-                            // var authKey = $cookieStore.get('authkey');
-                            // if (authKey == undefined) {
-                            //     $location.path('/');
-                            //     return true;
-                            // }
-                        }]
-                }
-            })
+        .when('/', {
+            templateUrl: 'views/home.html',
+            controller: 'homeCtrl',
+            controllerAs: 'hme',
+            resolve: {
+                'acl': ['$q', 'AclService', function ($q, AclService) {
+                    return true;
+                    // console.log(AclService.getRoles());
+                    if (AclService.can('view_dash')) {
+                        // Has proper permissions
+                        return true;
+                    } else {
+                        // Does not have permission
+                        return $q.reject('LoginRequired');
+                    }
+                }]
+            }
+        })
+        .when('/home', {
+            templateUrl: 'views/home.html',
+            controller: 'homeCtrl',
+            controllerAs: 'hme',
+            resolve: {
+                'acl': ['$q', 'AclService', function ($q, AclService) {
+                    return true;
+                    // console.log(AclService.getRoles());
+                    if (AclService.can('view_dash')) {
+                        // Has proper permissions
+                        return true;
+                    } else {
+                        // Does not have permission
+                        return $q.reject('LoginRequired');
+                    }
+                }]
+            }
+        })
+        .when('/site/login', {
+            templateUrl: 'views/site/login.html',
+            controller: 'loginCtrl',
+            controllerAs: 'lgc',
+            resolve: {
+                'acl': ['$q', 'AclService', '$cookieStore', '$location', function ($q, AclService, $cookieStore, $location) {
+                    var authKey = $cookieStore.get('authkey');
+                    if (authKey !== undefined) {
+                        $location.path('/');
+                        return true;
+                    }
+                }]
+            }
+        })
+        .when('/user', {
+            templateUrl: 'views/user/user_table.html',
+            controller: 'userCtrl',
+            controllerAs: 'usr',
+            resolve: {
+                'acl': ['$q', 'AclService', '$cookieStore', '$location', function ($q, AclService, $cookieStore, $location) {
+                    // var authKey = $cookieStore.get('authkey');
+                    // if (authKey == undefined) {
+                    //     $location.path('/');
+                    //     return true;
+                    // }
+                }]
+            }
+        })
+        .when('/user/add_user', {
+            templateUrl: 'views/user/add_user.html',
+            controller: 'userCtrl',
+            controllerAs: 'usr',
+            resolve: {
+                'acl': ['$q', 'AclService', '$cookieStore', '$location', function ($q, AclService, $cookieStore, $location) {
+                    // var authKey = $cookieStore.get('authkey');
+                    // if (authKey == undefined) {
+                    //     $location.path('/');
+                    //     return true;
+                    // }
+                }]
+            }
+        })
 
-            .when('/user/edit', {
-                templateUrl: 'views/user/add_user.html',
-                controller: 'userCtrl',
-                controllerAs: 'usr',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                            
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            })
+        .when('/user/edit', {
+            templateUrl: 'views/user/add_user.html',
+            controller: 'userCtrl',
+            controllerAs: 'usr',
+            resolve: {
+                'acl': ['$q', 'AclService', function ($q, AclService) {
+                    return true;
 
-            .when('/resume/:token', {
-                templateUrl: 'views/resume/resume.html',
-                controller: 'resumeCtrl',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                            //console.log(AclService.getRoles());
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            })
-            
-            .when('/resume_list', {
-                templateUrl: 'views/resume/resume_list.html',
-                controller: 'resumeListCtrl',
-                controllerAs: 'rlc',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                            //console.log(AclService.getRoles());
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            })
-            .when('/forward_resumes', {
-                templateUrl: 'views/resume/forward_resume_list.html',
-                controller: 'forwardResumeListCtrl',
-                controllerAs: 'frlc',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                            //console.log(AclService.getRoles());
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            }) 
-            .when('/jobs', {
-                templateUrl: 'views/job/job_list.html',
-                controller: 'jobCtrl',
-                controllerAs: 'jb',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                            //console.log(AclService.getRoles());
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            })
+                    if (AclService.can('view_dash')) {
+                        // Has proper permissions
+                        return true;
+                    } else {
+                        // Does not have permission
+                        return $q.reject('LoginRequired');
+                    }
+                }]
+            }
+        })
 
-            .when('/jobs/add_job', {
-                templateUrl: 'views/job/create_job.html',
-                controller: 'jobCtrl',
-                controllerAs: 'jb',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                            //console.log(AclService.getRoles());
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            })
+        .when('/resume/:token', {
+            templateUrl: 'views/resume/resume.html',
+            controller: 'resumeCtrl',
+            resolve: {
+                'acl': ['$q', 'AclService', function ($q, AclService) {
+                    return true;
+                    //console.log(AclService.getRoles());
+                    if (AclService.can('view_dash')) {
+                        // Has proper permissions
+                        return true;
+                    } else {
+                        // Does not have permission
+                        return $q.reject('LoginRequired');
+                    }
+                }]
+            }
+        })
 
-            .when('/jobs/edit', {
-                templateUrl: 'views/job/create_job.html',
-                controller: 'jobCtrl',
-                controllerAs: 'jb',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                            
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            })
+        .when('/resume_list', {
+            templateUrl: 'views/resume/resume_list.html',
+            controller: 'resumeListCtrl',
+            controllerAs: 'rlc',
+            resolve: {
+                'acl': ['$q', 'AclService', function ($q, AclService) {
+                    return true;
+                    //console.log(AclService.getRoles());
+                    if (AclService.can('view_dash')) {
+                        // Has proper permissions
+                        return true;
+                    } else {
+                        // Does not have permission
+                        return $q.reject('LoginRequired');
+                    }
+                }]
+            }
+        })
+        .when('/forward_resumes', {
+            templateUrl: 'views/resume/forward_resume_list.html',
+            controller: 'forwardResumeListCtrl',
+            controllerAs: 'frlc',
+            resolve: {
+                'acl': ['$q', 'AclService', function ($q, AclService) {
+                    return true;
+                    //console.log(AclService.getRoles());
+                    if (AclService.can('view_dash')) {
+                        // Has proper permissions
+                        return true;
+                    } else {
+                        // Does not have permission
+                        return $q.reject('LoginRequired');
+                    }
+                }]
+            }
+        })
+        .when('/jobs', {
+            templateUrl: 'views/job/job_list.html',
+            controller: 'jobCtrl',
+            controllerAs: 'jb',
+            resolve: {
+                'acl': ['$q', 'AclService', function ($q, AclService) {
+                    return true;
+                    //console.log(AclService.getRoles());
+                    if (AclService.can('view_dash')) {
+                        // Has proper permissions
+                        return true;
+                    } else {
+                        // Does not have permission
+                        return $q.reject('LoginRequired');
+                    }
+                }]
+            }
+        })
 
-            .when('/jobs/view', {
-                templateUrl: 'views/job/view_job.html',
-                controller: 'jobCtrl',
-                controllerAs: 'jb',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                            
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            })
+        .when('/jobs/add_job', {
+            templateUrl: 'views/job/create_job.html',
+            controller: 'jobCtrl',
+            controllerAs: 'jb',
+            resolve: {
+                'acl': ['$q', 'AclService', function ($q, AclService) {
+                    return true;
+                    //console.log(AclService.getRoles());
+                    if (AclService.can('view_dash')) {
+                        // Has proper permissions
+                        return true;
+                    } else {
+                        // Does not have permission
+                        return $q.reject('LoginRequired');
+                    }
+                }]
+            }
+        })
 
-            .when('/questions', {
-                templateUrl: 'views/screening/question_list.html',
-                controller: 'screeningCtrl',
-                controllerAs: 'sc',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                            //console.log(AclService.getRoles());
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            })
+        .when('/jobs/edit', {
+            templateUrl: 'views/job/create_job.html',
+            controller: 'jobCtrl',
+            controllerAs: 'jb',
+            resolve: {
+                'acl': ['$q', 'AclService', function ($q, AclService) {
+                    return true;
 
-            .when('/screening/add_question', {
-                templateUrl: 'views/screening/create_questions.html',
-                controller: 'screeningCtrl',
-                controllerAs: 'sc',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                            //console.log(AclService.getRoles());
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            })
+                    if (AclService.can('view_dash')) {
+                        // Has proper permissions
+                        return true;
+                    } else {
+                        // Does not have permission
+                        return $q.reject('LoginRequired');
+                    }
+                }]
+            }
+        })
 
-            .when('/screening/edit_question', {
-                templateUrl: 'views/screening/create_questions.html',
-                controller: 'screeningCtrl',
-                controllerAs: 'sc',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                            
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            })
+        .when('/jobs/view', {
+            templateUrl: 'views/job/view_job.html',
+            controller: 'jobCtrl',
+            controllerAs: 'jb',
+            resolve: {
+                'acl': ['$q', 'AclService', function ($q, AclService) {
+                    return true;
 
-            .when('/basic_screening_test', {
-                templateUrl: 'views/screening/screening_test.html',
-                controller: 'screeningTestCtrl',
-                controllerAs: 'st',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                            //console.log(AclService.getRoles());
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            })
-           
-            .when('/interview_list', {
-                templateUrl: 'views/interview/interview_list.html',
-                controller: 'interviewListCtrl',
-                controllerAs: 'ilc',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                            //console.log(AclService.getRoles());
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            }) 
+                    if (AclService.can('view_dash')) {
+                        // Has proper permissions
+                        return true;
+                    } else {
+                        // Does not have permission
+                        return $q.reject('LoginRequired');
+                    }
+                }]
+            }
+        })
 
-            .when('/interview_feedback', {
-                templateUrl: 'views/result/technical_interview_result.html',
-                controller: 'resultCtrl',
-                controllerAs: 'res',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                            //console.log(AclService.getRoles());
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            }) 
-            .when('/round_details', {
-                templateUrl: 'views/result/round_details.html',
-                controller: 'roundDtlsCtrl',
-                controllerAs: 'rdc',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                            //console.log(AclService.getRoles());
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            })
+        .when('/questions', {
+            templateUrl: 'views/screening/question_list.html',
+            controller: 'screeningCtrl',
+            controllerAs: 'sc',
+            resolve: {
+                'acl': ['$q', 'AclService', function ($q, AclService) {
+                    return true;
+                    //console.log(AclService.getRoles());
+                    if (AclService.can('view_dash')) {
+                        // Has proper permissions
+                        return true;
+                    } else {
+                        // Does not have permission
+                        return $q.reject('LoginRequired');
+                    }
+                }]
+            }
+        })
 
-            .when('/round_inforamtions', {
-                templateUrl: 'views/result/companies_tech_round_details.html',
-                controller: 'techDetailsCtrl',
-                controllerAs: 'tdc',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                            //console.log(AclService.getRoles());
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            }) 
+        .when('/screening/add_question', {
+            templateUrl: 'views/screening/create_questions.html',
+            controller: 'screeningCtrl',
+            controllerAs: 'sc',
+            resolve: {
+                'acl': ['$q', 'AclService', function ($q, AclService) {
+                    return true;
+                    //console.log(AclService.getRoles());
+                    if (AclService.can('view_dash')) {
+                        // Has proper permissions
+                        return true;
+                    } else {
+                        // Does not have permission
+                        return $q.reject('LoginRequired');
+                    }
+                }]
+            }
+        })
 
-            .when('/view_resume', {
-                templateUrl: 'views/resume/resume_view.html',
-                controller: 'resumeCtrl',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                            //console.log(AclService.getRoles());
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            }) 
+        .when('/screening/edit_question', {
+            templateUrl: 'views/screening/create_questions.html',
+            controller: 'screeningCtrl',
+            controllerAs: 'sc',
+            resolve: {
+                'acl': ['$q', 'AclService', function ($q, AclService) {
+                    return true;
 
-            .when('/upload_background_form', {
-                templateUrl: 'views/documents/upload_background_form.html',
-                controller: 'documentsCtrl',
-                controllerAs: 'doc',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                            //console.log(AclService.getRoles());
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            })
+                    if (AclService.can('view_dash')) {
+                        // Has proper permissions
+                        return true;
+                    } else {
+                        // Does not have permission
+                        return $q.reject('LoginRequired');
+                    }
+                }]
+            }
+        })
 
-            .when('/import_excel', {
-                templateUrl: 'views/utility/import_excel.html',
-                controller: 'utilityCtrl',
-                controllerAs: 'ucl',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                            
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            })
+        .when('/basic_screening_test', {
+            templateUrl: 'views/screening/screening_test.html',
+            controller: 'screeningTestCtrl',
+            controllerAs: 'st',
+            resolve: {
+                'acl': ['$q', 'AclService', function ($q, AclService) {
+                    return true;
+                    //console.log(AclService.getRoles());
+                    if (AclService.can('view_dash')) {
+                        // Has proper permissions
+                        return true;
+                    } else {
+                        // Does not have permission
+                        return $q.reject('LoginRequired');
+                    }
+                }]
+            }
+        })
 
-            .when('/client', {
-                templateUrl: 'views/client/client_list.html',
-                controller: 'clientCtrl',
-                controllerAs: 'cmp',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                            //console.log(AclService.getRoles());
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            })
+        .when('/interview_list', {
+            templateUrl: 'views/interview/interview_list.html',
+            controller: 'interviewListCtrl',
+            controllerAs: 'ilc',
+            resolve: {
+                'acl': ['$q', 'AclService', function ($q, AclService) {
+                    return true;
+                    //console.log(AclService.getRoles());
+                    if (AclService.can('view_dash')) {
+                        // Has proper permissions
+                        return true;
+                    } else {
+                        // Does not have permission
+                        return $q.reject('LoginRequired');
+                    }
+                }]
+            }
+        })
 
-            .when('/client/add_client', {
-                templateUrl: 'views/client/create_client.html',
-                controller: 'clientCtrl',
-                controllerAs: 'cmp',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                            //console.log(AclService.getRoles());
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            })
+        .when('/interview_feedback', {
+            templateUrl: 'views/result/technical_interview_result.html',
+            controller: 'resultCtrl',
+            controllerAs: 'res',
+            resolve: {
+                'acl': ['$q', 'AclService', function ($q, AclService) {
+                    return true;
+                    //console.log(AclService.getRoles());
+                    if (AclService.can('view_dash')) {
+                        // Has proper permissions
+                        return true;
+                    } else {
+                        // Does not have permission
+                        return $q.reject('LoginRequired');
+                    }
+                }]
+            }
+        })
+        .when('/round_details', {
+            templateUrl: 'views/result/round_details.html',
+            controller: 'roundDtlsCtrl',
+            controllerAs: 'rdc',
+            resolve: {
+                'acl': ['$q', 'AclService', function ($q, AclService) {
+                    return true;
+                    //console.log(AclService.getRoles());
+                    if (AclService.can('view_dash')) {
+                        // Has proper permissions
+                        return true;
+                    } else {
+                        // Does not have permission
+                        return $q.reject('LoginRequired');
+                    }
+                }]
+            }
+        })
 
-            .when('/client/edit', {
-                templateUrl: 'views/client/create_client.html',
-                controller: 'clientCtrl',
-                controllerAs: 'cmp',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                            
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            })
+        .when('/round_inforamtions', {
+            templateUrl: 'views/result/companies_tech_round_details.html',
+            controller: 'techDetailsCtrl',
+            controllerAs: 'tdc',
+            resolve: {
+                'acl': ['$q', 'AclService', function ($q, AclService) {
+                    return true;
+                    //console.log(AclService.getRoles());
+                    if (AclService.can('view_dash')) {
+                        // Has proper permissions
+                        return true;
+                    } else {
+                        // Does not have permission
+                        return $q.reject('LoginRequired');
+                    }
+                }]
+            }
+        })
 
-            .when('/background_checklist', {
-                templateUrl: 'views/backgroundChecklist/background_checklist.html',
-                controller: 'backgroundChecklistCtrl',
-                controllerAs: 'bcl',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                            //console.log(AclService.getRoles());
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            })
+        .when('/view_resume', {
+            templateUrl: 'views/resume/resume_view.html',
+            controller: 'resumeCtrl',
+            resolve: {
+                'acl': ['$q', 'AclService', function ($q, AclService) {
+                    return true;
+                    //console.log(AclService.getRoles());
+                    if (AclService.can('view_dash')) {
+                        // Has proper permissions
+                        return true;
+                    } else {
+                        // Does not have permission
+                        return $q.reject('LoginRequired');
+                    }
+                }]
+            }
+        })
 
-            .when('/background_checklist/add_background_checklist', {
-                templateUrl: 'views/backgroundChecklist/create_background_checklist.html',
-                controller: 'backgroundChecklistCtrl',
-                controllerAs: 'bcl',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                            //console.log(AclService.getRoles());
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            })
+        .when('/upload_background_form', {
+            templateUrl: 'views/documents/upload_background_form.html',
+            controller: 'documentsCtrl',
+            controllerAs: 'doc',
+            resolve: {
+                'acl': ['$q', 'AclService', function ($q, AclService) {
+                    return true;
+                    //console.log(AclService.getRoles());
+                    if (AclService.can('view_dash')) {
+                        // Has proper permissions
+                        return true;
+                    } else {
+                        // Does not have permission
+                        return $q.reject('LoginRequired');
+                    }
+                }]
+            }
+        })
 
-            .when('/background_checklist/edit', {
-                templateUrl: 'views/backgroundChecklist/create_background_checklist.html',
-                controller: 'backgroundChecklistCtrl',
-                controllerAs: 'bcl',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                            
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            })
+        .when('/import_excel', {
+            templateUrl: 'views/utility/import_excel.html',
+            controller: 'utilityCtrl',
+            controllerAs: 'ucl',
+            resolve: {
+                'acl': ['$q', 'AclService', function ($q, AclService) {
+                    return true;
 
-            .when('/today_interviews', {
-                templateUrl: 'views/interview/current_schedule_interviews.html',
-                controller: 'interviewListCtrl',
-                controllerAs: 'ilc',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                            
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            })
-            .when('/technologies', {
-                templateUrl: 'views/technologies/technology_list.html',
-                controller: 'technologiesCtrl',
-                controllerAs: 'tec',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                            //console.log(AclService.getRoles());
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            })
+                    if (AclService.can('view_dash')) {
+                        // Has proper permissions
+                        return true;
+                    } else {
+                        // Does not have permission
+                        return $q.reject('LoginRequired');
+                    }
+                }]
+            }
+        })
 
-            .when('/technologies/add_technology', {
-                templateUrl: 'views/technologies/create_technology.html',
-                controller: 'technologiesCtrl',
-                controllerAs: 'tec',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                            //console.log(AclService.getRoles());
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            })
+        .when('/client', {
+            templateUrl: 'views/client/client_list.html',
+            controller: 'clientCtrl',
+            controllerAs: 'cmp',
+            resolve: {
+                'acl': ['$q', 'AclService', function ($q, AclService) {
+                    return true;
+                    //console.log(AclService.getRoles());
+                    if (AclService.can('view_dash')) {
+                        // Has proper permissions
+                        return true;
+                    } else {
+                        // Does not have permission
+                        return $q.reject('LoginRequired');
+                    }
+                }]
+            }
+        })
 
-            .when('/technologies/edit', {
-                templateUrl: 'views/technologies/create_technology.html',
-                controller: 'technologiesCtrl',
-                controllerAs: 'tec',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                            
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            })
+        .when('/client/add_client', {
+            templateUrl: 'views/client/create_client.html',
+            controller: 'clientCtrl',
+            controllerAs: 'cmp',
+            resolve: {
+                'acl': ['$q', 'AclService', function ($q, AclService) {
+                    return true;
+                    //console.log(AclService.getRoles());
+                    if (AclService.can('view_dash')) {
+                        // Has proper permissions
+                        return true;
+                    } else {
+                        // Does not have permission
+                        return $q.reject('LoginRequired');
+                    }
+                }]
+            }
+        })
 
-            .when('/jobs/jd_list', {
-                templateUrl: 'views/job/job_description_list.html',
-                controller: 'jobDescriptionListCtrl',
-                controllerAs: 'jdc',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                            
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            })
+        .when('/client/edit', {
+            templateUrl: 'views/client/create_client.html',
+            controller: 'clientCtrl',
+            controllerAs: 'cmp',
+            resolve: {
+                'acl': ['$q', 'AclService', function ($q, AclService) {
+                    return true;
 
-            .when('/candidate_list', {
-                templateUrl: 'views/resume/candidate_list.html',
-                controller: 'candidateListCtrl',
-                controllerAs: 'clc',
-                resolve: {
-                    'acl': ['$q', 'AclService', function ($q, AclService) {
-                            return true;
-                            
-                            if (AclService.can('view_dash')) {
-                                // Has proper permissions
-                                return true;
-                            } else {
-                                // Does not have permission
-                                return $q.reject('LoginRequired');
-                            }
-                        }]
-                }
-            })
+                    if (AclService.can('view_dash')) {
+                        // Has proper permissions
+                        return true;
+                    } else {
+                        // Does not have permission
+                        return $q.reject('LoginRequired');
+                    }
+                }]
+            }
+        })
 
-            
- 
+        .when('/background_checklist', {
+            templateUrl: 'views/backgroundChecklist/background_checklist.html',
+            controller: 'backgroundChecklistCtrl',
+            controllerAs: 'bcl',
+            resolve: {
+                'acl': ['$q', 'AclService', function ($q, AclService) {
+                    return true;
+                    //console.log(AclService.getRoles());
+                    if (AclService.can('view_dash')) {
+                        // Has proper permissions
+                        return true;
+                    } else {
+                        // Does not have permission
+                        return $q.reject('LoginRequired');
+                    }
+                }]
+            }
+        })
+
+        .when('/background_checklist/add_background_checklist', {
+            templateUrl: 'views/backgroundChecklist/create_background_checklist.html',
+            controller: 'backgroundChecklistCtrl',
+            controllerAs: 'bcl',
+            resolve: {
+                'acl': ['$q', 'AclService', function ($q, AclService) {
+                    return true;
+                    //console.log(AclService.getRoles());
+                    if (AclService.can('view_dash')) {
+                        // Has proper permissions
+                        return true;
+                    } else {
+                        // Does not have permission
+                        return $q.reject('LoginRequired');
+                    }
+                }]
+            }
+        })
+
+        .when('/background_checklist/edit', {
+            templateUrl: 'views/backgroundChecklist/create_background_checklist.html',
+            controller: 'backgroundChecklistCtrl',
+            controllerAs: 'bcl',
+            resolve: {
+                'acl': ['$q', 'AclService', function ($q, AclService) {
+                    return true;
+
+                    if (AclService.can('view_dash')) {
+                        // Has proper permissions
+                        return true;
+                    } else {
+                        // Does not have permission
+                        return $q.reject('LoginRequired');
+                    }
+                }]
+            }
+        })
+
+        .when('/today_interviews', {
+            templateUrl: 'views/interview/current_schedule_interviews.html',
+            controller: 'interviewListCtrl',
+            controllerAs: 'ilc',
+            resolve: {
+                'acl': ['$q', 'AclService', function ($q, AclService) {
+                    return true;
+
+                    if (AclService.can('view_dash')) {
+                        // Has proper permissions
+                        return true;
+                    } else {
+                        // Does not have permission
+                        return $q.reject('LoginRequired');
+                    }
+                }]
+            }
+        })
+        .when('/technologies', {
+            templateUrl: 'views/technologies/technology_list.html',
+            controller: 'technologiesCtrl',
+            controllerAs: 'tec',
+            resolve: {
+                'acl': ['$q', 'AclService', function ($q, AclService) {
+                    return true;
+                    //console.log(AclService.getRoles());
+                    if (AclService.can('view_dash')) {
+                        // Has proper permissions
+                        return true;
+                    } else {
+                        // Does not have permission
+                        return $q.reject('LoginRequired');
+                    }
+                }]
+            }
+        })
+
+        .when('/technologies/add_technology', {
+            templateUrl: 'views/technologies/create_technology.html',
+            controller: 'technologiesCtrl',
+            controllerAs: 'tec',
+            resolve: {
+                'acl': ['$q', 'AclService', function ($q, AclService) {
+                    return true;
+                    //console.log(AclService.getRoles());
+                    if (AclService.can('view_dash')) {
+                        // Has proper permissions
+                        return true;
+                    } else {
+                        // Does not have permission
+                        return $q.reject('LoginRequired');
+                    }
+                }]
+            }
+        })
+
+        .when('/technologies/edit', {
+            templateUrl: 'views/technologies/create_technology.html',
+            controller: 'technologiesCtrl',
+            controllerAs: 'tec',
+            resolve: {
+                'acl': ['$q', 'AclService', function ($q, AclService) {
+                    return true;
+
+                    if (AclService.can('view_dash')) {
+                        // Has proper permissions
+                        return true;
+                    } else {
+                        // Does not have permission
+                        return $q.reject('LoginRequired');
+                    }
+                }]
+            }
+        })
+
+        .when('/jobs/jd_list', {
+            templateUrl: 'views/job/job_description_list.html',
+            controller: 'jobDescriptionListCtrl',
+            controllerAs: 'jdc',
+            resolve: {
+                'acl': ['$q', 'AclService', function ($q, AclService) {
+                    return true;
+
+                    if (AclService.can('view_dash')) {
+                        // Has proper permissions
+                        return true;
+                    } else {
+                        // Does not have permission
+                        return $q.reject('LoginRequired');
+                    }
+                }]
+            }
+        })
+
+        .when('/candidate_list', {
+            templateUrl: 'views/resume/candidate_list.html',
+            controller: 'candidateListCtrl',
+            controllerAs: 'clc',
+            resolve: {
+                'acl': ['$q', 'AclService', function ($q, AclService) {
+                    return true;
+
+                    if (AclService.can('view_dash')) {
+                        // Has proper permissions
+                        return true;
+                    } else {
+                        // Does not have permission
+                        return $q.reject('LoginRequired');
+                    }
+                }]
+            }
+        })
+
+
+
 
     $locationProvider.html5Mode(true);
 });
 
 app.run(function ($rootScope, AclService, $cookieStore, $location, services) {
     var authKey = services.getAuthKey();
-    if(window.location.pathname.search("/resume/")==0){
+    if (window.location.pathname.search("/resume/") == 0) {
 
-    }else if (authKey == undefined) {
+    } else if (authKey == undefined) {
         $location.path('/site/login');
     } else {
-       
+
         var authPerm = JSON.parse($cookieStore.get('userPermission'));
         var authIdentity = JSON.parse($cookieStore.get('identity'));
         var role = authIdentity.identity.role;
-        var aclData = {admin: authPerm};
+        var aclData = { admin: authPerm };
         AclService.setAbilities(aclData);
         services.setIdentity(authIdentity);
         // Attach the member role to the current user
@@ -2412,12 +2412,12 @@ app.run(function ($rootScope, AclService, $cookieStore, $location, services) {
         }
     });
 
-    $rootScope.$on('$locationChangeSuccess', function() {
+    $rootScope.$on('$locationChangeSuccess', function () {
         $rootScope.actualLocation = $location.path();
     });
 
-   $rootScope.$watch(function () {return $location.path()}, function (newLocation, oldLocation) {
-        if($rootScope.actualLocation === newLocation) {
+    $rootScope.$watch(function () { return $location.path() }, function (newLocation, oldLocation) {
+        if ($rootScope.actualLocation === newLocation) {
             $(".select2-dropdown").remove();
             $(".datepicker").remove();
             $(".sm_container").hide();

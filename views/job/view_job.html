@@ -1,7 +1,7 @@
 <section class="content" ng-cloak>
-<br><br>
-    <form role="form" name="addForm" id="viewJobForm" >
-        <div class="box box-default" >
+    <br><br>
+    <form role="form" name="addForm" id="viewJobForm">
+        <div class="box box-default">
             <div class="row box-header with-border boxhead">
                 <div class="col-xs-6">
                     <h1 class="formheading">
@@ -11,12 +11,15 @@
 
                 <div class="col-xs-6">
                     <div class="pull-right" style="margin-top: 5px; margin-right: 20px;">
-                        <a ng-href="/jobs"><button type="button" class="btn btn-default btn-sm" data-toggle="modal" title="Back" data-target="" data-ng-click="" style="border:white;color:#428bca;outline: 0;"><i class="fa fa-arrow-left" aria-hidden="true"></i></button></a>  
-                    </div> 
-                </div>                
+                        <a ng-href="/jobs"><button type="button" class="btn btn-default btn-sm" data-toggle="modal"
+                                title="Back" data-target="" data-ng-click=""
+                                style="border:white;color:#428bca;outline: 0;"><i class="fa fa-arrow-left"
+                                    aria-hidden="true"></i></button></a>
+                    </div>
+                </div>
             </div>
             <!-- /.box-header -->
-            <div class="box-body">  
+            <div class="box-body">
                 <div class="row">
                     <div class="col-md-4 form-group">
                         <label>Technology:</label><br>
@@ -29,13 +32,13 @@
                     <div class="col-md-4 form-group">
                         <label>Subtitle:</label><br>
                         <span ng-bind="jb.subTitle == null ? 'NA' :  jb.subTitle"></span>
-                    </div>                   
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4 form-group">
                         <label>Notice Period:</label><br>
                         <span ng-bind="jb.noticePeroid == null ? 'NA' : jb.noticePeroid"></span>
-                    </div> 
+                    </div>
                     <div class="col-md-4 form-group">
                         <label>No. of Requirement:</label><br>
                         <span ng-bind="jb.requirementNo == null ? 'NA' : jb.requirementNo"></span>
@@ -43,7 +46,7 @@
                     <div class="col-md-4 form-group">
                         <label>Experience:</label><br>
                         <span ng-bind="jb.experiance == null ? 'NA' : jb.experiance"></span>
-                    </div>                    
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4 form-group">
@@ -57,7 +60,7 @@
                     <div class="col-md-4 form-group">
                         <label>CTC:</label><br>
                         <span ng-bind="jb.ctc == null ? 'NA' : jb.ctc"></span>
-                    </div>                    
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4 form-group">
@@ -71,7 +74,7 @@
                     <div class="col-md-4 form-group">
                         <label>Project Description:</label><br>
                         <span ng-bind="jb.project_title == null ? 'NA' : jb.project_title"></span>
-                    </div>           
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 form-group">
@@ -81,7 +84,7 @@
                     <div class="col-md-6 form-group">
                         <label>Required Skills:</label><br>
                         <span ng-bind="jb.requiredSkill == null ? 'NA' : jb.requiredSkill"></span>
-                    </div>               
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 form-group">
@@ -91,13 +94,14 @@
                     <div class="col-md-6 form-group">
                         <label>Roles And Responsibility:</label><br>
                         <span ng-bind="jb.roleResponsibility == null ? 'NA' : jb.roleResponsibility"></span>
-                    </div>                  
+                    </div>
                 </div>
             </div>
             <!-- /.box-body -->
             <div class="box-footer" style="margin-right:14px!important">
                 <div class="pull pull-right">
-                    <input type="button" value="Back" class="btn btn-warning" data-ng-click="jb.cancelJob()"  style="outline: 0;"/> 
+                    <input type="button" value="Back" class="btn btn-warning" data-ng-click="jb.cancelJob()"
+                        style="outline: 0;" />
                 </div>
             </div>
         </div>
@@ -106,7 +110,6 @@
 
 <script>
     $(document).ready(function () {
-        $("html, body").animate({scrollTop: 0}, "fast");
+        $("html, body").animate({ scrollTop: 0 }, "fast");
     });
 </script>
-

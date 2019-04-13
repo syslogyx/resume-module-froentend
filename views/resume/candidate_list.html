@@ -7,48 +7,55 @@
             </div>
             <div class="col-md-6" style="margin-top:1.5%;">
                 <div class="dataTables_length text-right" id="example_length">
-                    <label>Show 
+                    <label>Show
                         <select id="table_length" aria-controls="example" style="outline: 0;">
                             <option value="10">10</option>
                             <option value="25">25</option>
                             <option value="50">50</option>
                             <option value="100">100</option>
-                        </select> 
-                    entries</label>
+                        </select>
+                        entries</label>
                 </div>
             </div>
             <!-- <div class="col-md-2 pull-right" style="margin-top:1%;">
                 <button type="button" class="btn btn-primary btn-circle btn-sm pull-right" data-toggle="collapse" title="Filter" data-target="#filter"><i class="fa fa-filter" aria-hidden="true" style="padding-right:0.3px"></i></button>
-            </div> -->            
-        </div> 
-        <br> 
+            </div> -->
+        </div>
+        <br>
 
         <div class="box box-primary collapse in" id="filter">
             <!--  ng-class="{'in' : clc.technologyId !=''}" -->
             <div class="box-body">
-                <form id="candidatesFilterDataForm">                    
+                <form id="candidatesFilterDataForm">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                              <label>Technology</label>
-                                <select id="technologyName" name="technology_name" ng-model="clc.technologyId" class="form-control" ng-change="clc.getJDList(clc.technologyId)">
-                                    <option value="" style="color:#ccc !important;" >Select technology</option>
-                                    <option ng-repeat="tech in clc.technologyList" value="{{tech.id}}">{{tech.name}}</option>
+                                <label>Technology</label>
+                                <select id="technologyName" name="technology_name" ng-model="clc.technologyId"
+                                    class="form-control" ng-change="clc.getJDList(clc.technologyId)">
+                                    <option value="" style="color:#ccc !important;">Select technology</option>
+                                    <option ng-repeat="tech in clc.technologyList" value="{{tech.id}}">{{tech.name}}
+                                    </option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                              <label class="mandatory">Job Code</label>
-                                <select id="jobCode" name="job_code" ng-model="clc.jdId" class="form-control s2mn jobCode" data-placeholder="Select Job code" style="width:100%;"  multiple="multiple" ng-disabled="clc.jobList == null ? true:false" ng-selected="clc.jdId ? true : false">
+                                <label class="mandatory">Job Code</label>
+                                <select id="jobCode" name="job_code" ng-model="clc.jdId"
+                                    class="form-control s2mn jobCode" data-placeholder="Select Job code"
+                                    style="width:100%;" multiple="multiple"
+                                    ng-disabled="clc.jobList == null ? true:false"
+                                    ng-selected="clc.jdId ? true : false">
                                     <option value="" style="color:#ccc !important;">Select job code</option>
-                                    <option ng-repeat="jd in clc.jobList track by jd.id" value="{{jd.id}}">{{jd.job_code}} {{jd.sub_title != '' ? (jd.sub_title) : ''}}</option>
+                                    <option ng-repeat="jd in clc.jobList track by jd.id" value="{{jd.id}}">
+                                        {{jd.job_code}} {{jd.sub_title != '' ? (jd.sub_title) : ''}}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                              <label>Candidate Status</label>
+                                <label>Candidate Status</label>
                                 <select id="cStatus" name="cStatus" ng-model="clc.cStatus" class="form-control">
                                     <option value="" style="color:#ccc !important;">Select Status</option>
                                     <option ng-repeat="s in clc.cStatusList" value="{{s.id}}">{{s.name}}</option>
@@ -57,45 +64,50 @@
                         </div>
                     </div>
                     <div class="row pull-right">
-                        <button type="button" class="btn btn-primary " ng-click="clc.searchCandidate()">Search</button> 
-                        <button type="button" class="btn btn-primary pull-right fa fa-refresh" ng-click="clc.resetFilter()"></button>
+                        <button type="button" class="btn btn-primary " ng-click="clc.searchCandidate()">Search</button>
+                        <button type="button" class="btn btn-primary pull-right fa fa-refresh"
+                            ng-click="clc.resetFilter()"></button>
                     </div>
                 </form>
             </div>
-        </div>         
-        
+        </div>
+
         <div class="table-responsive no-padding">
             <table class="table table-hover">
                 <thead class="thead-default">
                     <tr>
                         <th style="text-align: center;" nowrap>Sr No.</th>
-                        <th wrap>Name</th>                        
-                        <th>Email</th>                        
-                        <th>Mobile No.</th>                        
-                        <th>Total Experience</th>                        
-                        <th>Job Code</th>                        
-                        <th>CTC</th> 
+                        <th wrap>Name</th>
+                        <th>Email</th>
+                        <th>Mobile No.</th>
+                        <th>Total Experience</th>
+                        <th>Job Code</th>
+                        <th>CTC</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="data in clc.resumeList">
-                        <td style="text-align: center;" ng-bind="(clc.pageno - 1) * clc.limit + ($index + 1)" nowrap></td>
-                        <td  ng-bind="data.first_name+' '+data.middle_name+' '+data.last_name" wrap></td>
-                        <td ng-bind="data.email"></td>                        
-                        <td ng-bind="data.mobile_no"></td> 
-                        <td ng-bind="clc.setTotalExperience(data.total_experience)"></td>                        
-                        <td>{{data.job_description.job_code}} {{data.job_description.sub_title != '' ? (data.job_description.sub_title) : ''}}</td>
+                        <td style="text-align: center;" ng-bind="(clc.pageno - 1) * clc.limit + ($index + 1)" nowrap>
+                        </td>
+                        <td ng-bind="data.first_name+' '+ (data.middle_name != null ?  data.middle_name : '') +' '+data.last_name"
+                            wrap></td>
+                        <td ng-bind="data.email"></td>
+                        <td ng-bind="data.mobile_no"></td>
+                        <td ng-bind="clc.setTotalExperience(data.total_experience)"></td>
+                        <td>{{data.job_description.job_code}}
+                            {{data.job_description.sub_title != '' ? (data.job_description.sub_title) : ''}}</td>
                         <td>{{data.opprtunity_for == 'Fresher' ? 'NA' : data.ctc}}</td>
                     </tr>
                     <tr ng-if="clc.resumeList == null || clc.resumeList.length == 0">
-                        <td style="text-align: center;" colspan="7">No Records Found</td> 
+                        <td style="text-align: center;" colspan="7">No Records Found</td>
                     </tr>
                 </tbody>
             </table>
             <div class="row col-sm-12" style="padding-right: 0px;">
-                <ul id="pagination-sec" class="pagination-sm" style="float: right;margin-top: 5px;margin-bottom:45px;margin-right:-1.2%"></ul>
+                <ul id="pagination-sec" class="pagination-sm"
+                    style="float: right;margin-top: 5px;margin-bottom:45px;margin-right:-1.2%"></ul>
             </div>
-        </div> 
+        </div>
     </div>
 
 </section>
@@ -103,22 +115,20 @@
     applySelect2();
     $(".s2mn").on("change", function () { $(this).valid(); });
 
-    
-     $("#candidatesFilterDataForm").validate({
+
+    $("#candidatesFilterDataForm").validate({
         errorElement: 'span', //default input error message container
         errorClass: 'help-block help-block-error',
         errorPlacement: function (error, element) {
 
             var type = $(element).attr("type");
-            if ($(element).attr("id") === "jobCode")
-            {
+            if ($(element).attr("id") === "jobCode") {
                 element.parent().append(error);
 
-            }else if ($(element).attr("id") === "company_name")
-            {
+            } else if ($(element).attr("id") === "company_name") {
                 element.parent().append(error);
 
-            }else{
+            } else {
                 error.insertAfter(element);
             }
         },
@@ -140,13 +150,13 @@
         },
         unhighlight: function (element) { // revert the change done by hightlight
             $(element)
-                    .closest('.form-group').removeClass('has-error');
+                .closest('.form-group').removeClass('has-error');
             $(element)
-                    .next().children().children().attr('style', 'border-color:'); // set error class to the control group
+                .next().children().children().attr('style', 'border-color:'); // set error class to the control group
         },
         success: function (label) {
             label
-                    .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                .closest('.form-group').removeClass('has-error'); // set success class to the control group
         }
     });
 

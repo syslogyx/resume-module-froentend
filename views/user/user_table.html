@@ -1,15 +1,17 @@
 <style>
-    .blue{
-        color:#428bca;
+    .blue {
+        color: #428bca;
     }
-    .red{
-        color:red;
+
+    .red {
+        color: red;
     }
-    .listanchor{
+
+    .listanchor {
         cursor: pointer;
     }
 </style>
-<section class="content" ng-cloak >
+<section class="content" ng-cloak>
     <div class="container-fluid" style="overflow-y: hidden;">
         <br>
         <div class="row">
@@ -18,42 +20,47 @@
             </div>
             <div class="col-xs-6" style="margin-top:1.5%;">
                 <div class="dataTables_length text-right" id="example_length">
-                    <label>Show 
+                    <label>Show
                         <select id="table_length" aria-controls="example" style="outline: 0;">
                             <option value="10">10</option>
                             <option value="25">25</option>
                             <option value="50">50</option>
                             <option value="100">100</option>
-                        </select> 
-                    entries</label>
+                        </select>
+                        entries</label>
                 </div>
             </div>
             <div class="col-xs-1 pull-right" style="margin-top:1%;" ng-if="usr.hashPathId == 'all'">
-                <button type="button" class="btn btn-primary btn-circle btn-sm pull-right"  title="Add new User" data-target="" data-ng-click="usr.addNewUser()" style="outline: 0;background-color:#428bca;border-color:#357ebd;"><i class="fa fa-plus" aria-hidden="true" style="padding-right:0.3px" ></i>
+                <button type="button" class="btn btn-primary btn-circle btn-sm pull-right" title="Add new User"
+                    data-target="" data-ng-click="usr.addNewUser()"
+                    style="outline: 0;background-color:#428bca;border-color:#357ebd;"><i class="fa fa-plus"
+                        aria-hidden="true" style="padding-right:0.3px"></i>
                 </button>
 
                 <!-- <button type="button" data-toggle="collapse" data-target="#filterBox" class="btn btn-primary btn-circle btn-sm pull-right" title="Filter" style="outline: 0;margin-right:5px;background-color:#428bca;border-color:#357ebd;"><i class="fa fa-filter" aria-hidden="true"></i>
                 </button>  -->
-            </div>  
-        </div> 
+            </div>
+        </div>
 
         <div class="row">
-            <div class="col-xs-12 searchbar">                
-                <label style="float: left">Sort by Alphabet : &nbsp; </label> 
-                <ul class="alpabet-list" ng-repeat="alpabet in usr.alphabet" style="float: left;list-style-type: none;padding-right:1%;cursor: pointer;">
-                    <li><a ng-class="alpabet=='All'?'red sort-alphabet':'blue sort-alphabet'" id="alpabet_{{$index}}" ng-click="usr.onAlphabetClick(alpabet,$index)">{{alpabet}}</a></li>
+            <div class="col-xs-12 searchbar">
+                <label style="float: left">Sort by Alphabet : &nbsp; </label>
+                <ul class="alpabet-list" ng-repeat="alpabet in usr.alphabet"
+                    style="float: left;list-style-type: none;padding-right:1%;cursor: pointer;">
+                    <li><a ng-class="alpabet=='All'?'red sort-alphabet':'blue sort-alphabet'" id="alpabet_{{$index}}"
+                            ng-click="usr.onAlphabetClick(alpabet,$index)">{{alpabet}}</a></li>
                 </ul>
             </div>
         </div>
-        <br>  
+        <br>
 
         <div class="row">
             <div class="col-xs-12">
                 <div class="nav-tabs-custom-main">
                     <ul class="nav nav-tabs">
-                      <li class=""><a id="all" href="user#all">User List</a></li>
-                      <li class=""><a id="candidate" href="user#candidate">Candidate List</a></li>
-                      <li class=""><a id="client" href="user#client">Client List</a></li>
+                        <li class=""><a id="all" href="user#all">User List</a></li>
+                        <li class=""><a id="candidate" href="user#candidate">Candidate List</a></li>
+                        <li class=""><a id="client" href="user#client">Client List</a></li>
                     </ul>
                 </div>
             </div>
@@ -70,7 +77,10 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="pull-right">
-                                        <i data-toggle="tooltip" title="Refresh" data-ng-click="usr.refreshUserfilter();" style="font-size: 18px;margin-right: 15px;" class="mdi mdi-refresh" aria-hidden="true"></i>
+                                        <i data-toggle="tooltip" title="Refresh"
+                                            data-ng-click="usr.refreshUserfilter();"
+                                            style="font-size: 18px;margin-right: 15px;" class="mdi mdi-refresh"
+                                            aria-hidden="true"></i>
                                     </div>
                                 </div>
                             </div>
@@ -83,36 +93,48 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="" for="">Name</label>
-                                        <select id="fiterUserName" name="fiterUserName" class="form-control select2 s2mn" ng-model="usr.filteUsername" placeholder="Select name." style="width:100%;" ng-options="x.id as x.name for x in usr.usersList" >
+                                        <select id="fiterUserName" name="fiterUserName"
+                                            class="form-control select2 s2mn" ng-model="usr.filteUsername"
+                                            placeholder="Select name." style="width:100%;"
+                                            ng-options="x.id as x.name for x in usr.usersList">
                                             <option value="" style="color:#ccc;">Select Name
                                             </option>
                                         </select>
                                     </div>
                                 </div>
-                             
+
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="" for="">Designation</label>
-                                        <select id="filterDesignation" name="filterDesignation" class="form-control s2mn" ng-model="usr.filterDesignation" placeholder="Select designation." style="width:100%;" ng-options="x.id as x.designation for x in usr.designationList" >
+                                        <select id="filterDesignation" name="filterDesignation"
+                                            class="form-control s2mn" ng-model="usr.filterDesignation"
+                                            placeholder="Select designation." style="width:100%;"
+                                            ng-options="x.id as x.designation for x in usr.designationList">
                                             <option value="" style="color:#ccc;">Select designation</option>
                                         </select>
-                                    </div>  
+                                    </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="" for="">Contact Email</label>
-                                        <input type="text" class="form-control" name="filterContactEmail" id="filterContactEmail" ng-model="usr.filterContactEmail" placeholder="Enter contact email">
+                                        <input type="text" class="form-control" name="filterContactEmail"
+                                            id="filterContactEmail" ng-model="usr.filterContactEmail"
+                                            placeholder="Enter contact email">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </form>
                     <!-- /.box-body -->
-                    <div class="box-footer" style="margin-right:14px!important;border-top: 1px solid lightgrey!important;">
+                    <div class="box-footer"
+                        style="margin-right:14px!important;border-top: 1px solid lightgrey!important;">
                         <div class="row">
                             <div class="pull-right">
                                 <div class="col-md-6" style="float: right;">
-                                    <button  type="button" class="btn btn-default btn-md pull pull-right"  title="Find" ng-click="usr.findFilterWithUser(-1);" style="margin-top: 10px;outline: 0;background-color: white;border-color: #ccc;" ><i class="fa fa-search" aria-hidden="true"></i> &nbsp; Find
+                                    <button type="button" class="btn btn-default btn-md pull pull-right" title="Find"
+                                        ng-click="usr.findFilterWithUser(-1);"
+                                        style="margin-top: 10px;outline: 0;background-color: white;border-color: #ccc;"><i
+                                            class="fa fa-search" aria-hidden="true"></i> &nbsp; Find
                                     </button>
                                 </div>
                             </div>
@@ -122,7 +144,7 @@
             </div>
         </div>
         <!-- Filter section ends here -->
-        
+
         <div class="table-responsive no-padding">
             <table class="table table-hover">
                 <thead class="thead-default">
@@ -146,38 +168,47 @@
                         <td ng-if="usr.hashPathId == 'all'"> {{ul.company_name}} </td>
                         <td ng-if="usr.hashPathId == 'all'"> {{ul.role.name}} </td>
                         <td style="text-align: center;" ng-if="usr.hashPathId == 'all'">
-                            <a type="button" class="btn btn-xs" ng-href="user/edit?id={{ul.id}}" title="Edit" style="outline: 0;" ng-disabled="{{ul.role_id != '5' ? 'false':'true'}}"><i style="cursor: pointer;" class="fa fa-pencil" aria-hidden="true" ></i></a>
+                            <a type="button" class="btn btn-xs" ng-href="user/edit?id={{ul.id}}" title="Edit"
+                                style="outline: 0;" ng-disabled="{{ul.role_id != '5' ? 'false':'true'}}"><i
+                                    style="cursor: pointer;" class="fa fa-pencil" aria-hidden="true"></i></a>
 
-                            <a type="button" class="btn btn-xs"  data="{{ul.id}}" title="Change Password" ng-click="usr.sendUserId(ul.id,ul.name);usr.resetForm()" style="outline: 0;" ng-disabled="{{ul.role_id != '5' ? 'false':'true'}}"><i style="cursor: pointer;" class="fa fa-key" aria-hidden="true"></i></a>
-                        </td>     
+                            <a type="button" class="btn btn-xs" data="{{ul.id}}" title="Change Password"
+                                ng-click="usr.sendUserId(ul.id,ul.name);usr.resetForm()" style="outline: 0;"
+                                ng-disabled="{{ul.role_id != '5' ? 'false':'true'}}"><i style="cursor: pointer;"
+                                    class="fa fa-key" aria-hidden="true"></i></a>
+                        </td>
                     </tr>
                     <tr ng-if="usr.allUsersList == null || usr.allUsersList.length == 0">
-                        <td style="text-align: center;" colspan="6">No Records Found</td> 
+                        <td style="text-align: center;" colspan="6">No Records Found</td>
                     </tr>
                 </tbody>
             </table>
             <div class="row col-sm-12" style="padding-right: 0px;">
-                <ul id="pagination-sec" class="pagination-sm" style="float: right;margin-top: 5px;margin-bottom:45px;margin-right:-1.2%"></ul>
+                <ul id="pagination-sec" class="pagination-sm"
+                    style="float: right;margin-top: 5px;margin-bottom:45px;margin-right:-1.2%"></ul>
             </div>
-        </div> 
+        </div>
     </div>
 
     <div class="modal fade changePasswordModal" id="changePasswordModal" role="dialog">
         <div class="modal-dialog modal-md">
-            <div class="modal-content" style="border-radius: 0px!important;" >
-                <div class="modal-header" id="popUpModalHeader"> 
-                    <button type="button" class="close" data-dismiss="modal" ng-click="usr.resetForm()" style="margin-right: 5px;">&times;</button>
+            <div class="modal-content" style="border-radius: 0px!important;">
+                <div class="modal-header" id="popUpModalHeader">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="usr.resetForm()"
+                        style="margin-right: 5px;">&times;</button>
                     <h4 class="modal-title popUpModalTitle">Change Password - {{usr.userName}}</h4>
                 </div>
                 <div class="modal-body">
                     <form id="changePasswordForm">
-                        <div class="form-group" ng-show="usr.userName==usr.logInUser" style="min-height:67px;margin-bottom:0px">
+                        <div class="form-group" ng-show="usr.userName==usr.logInUser"
+                            style="min-height:67px;margin-bottom:0px">
                             <div class="row">
                                 <div class="col-md-4" style="margin-top: 1%;">
                                     <label class="" style="font-size: 14px">Old Password :</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input  id="oldPassword" type="password" class="form-control"  name="oldPassword" ng-model="usr.oldPassword" placeholder="Old Password">
+                                    <input id="oldPassword" type="password" class="form-control" name="oldPassword"
+                                        ng-model="usr.oldPassword" placeholder="Old Password">
                                 </div>
                             </div>
                         </div>
@@ -187,27 +218,33 @@
                                     <label class="mandatory" style="font-size: 14px">New Password :</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input  id="newPassword" type="password" class="form-control"  name="newPassword" ng-model="usr.newPassword" placeholder="New Password">
+                                    <input id="newPassword" type="password" class="form-control" name="newPassword"
+                                        ng-model="usr.newPassword" placeholder="New Password">
                                 </div>
                             </div>
                         </div>
                         <div class="form-group" style="min-height:67px;margin-bottom:0px">
                             <div class="row">
-                                
+
                                 <div class="col-md-4" style="margin-top: 1%;">
                                     <label class="mandatory" style="font-size: 14px">Confirm Password :</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input  id="repeatPassword" type="password" class="form-control"  name="repeatPassword" ng-model="usr.repeatPassword" placeholder="Confirm Password">
-                                    <span ng-if="usr.newPassword!=usr.repeatPassword" style="color: #dd4b39;border-color: #dd4b39;">{{usr.errMessage}}</span>
+                                    <input id="repeatPassword" type="password" class="form-control"
+                                        name="repeatPassword" ng-model="usr.repeatPassword"
+                                        placeholder="Confirm Password">
+                                    <span ng-if="usr.newPassword!=usr.repeatPassword"
+                                        style="color: #dd4b39;border-color: #dd4b39;">{{usr.errMessage}}</span>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer" style="margin-top: 0px;"> 
-                    <button type="button" id="changePasswordBtn" class="btn btn-primary"  data-ng-click="usr.updatePassword(usr.userId);" >Save</button>
-                    <button type="reset" id="closeModal" class="btn btn-warning"  ng-click="usr.resetForm()" data-dismiss="modal">Cancel</button>
+                <div class="modal-footer" style="margin-top: 0px;">
+                    <button type="button" id="changePasswordBtn" class="btn btn-primary"
+                        data-ng-click="usr.updatePassword(usr.userId);">Save</button>
+                    <button type="reset" id="closeModal" class="btn btn-warning" ng-click="usr.resetForm()"
+                        data-dismiss="modal">Cancel</button>
                 </div>
             </div>
         </div>
@@ -227,9 +264,9 @@
                 // },
                 newPassword: {
                     required: true,
-                    minlength:5
+                    minlength: 5
                 },
-                    repeatPassword: {
+                repeatPassword: {
                     required: true
                 }
             },
@@ -239,7 +276,7 @@
                 // },
                 newPassword: {
                     required: "New Password is required.",
-                    minlength:"Minimum 5 characters are required"
+                    minlength: "Minimum 5 characters are required"
                 },
                 repeatPassword: {
                     required: "Confirm Password is required"
@@ -262,33 +299,33 @@
                 label
                     .closest('.form-group').removeClass('has-error'); // set success class to the control group
             }
-        }); 
+        });
     }); 
 </script>
 <script>
-    $("#changePasswordModal").on('hidden.bs.modal',function(){
+    $("#changePasswordModal").on('hidden.bs.modal', function () {
         $(this).find('form').trigger('reset');
     });
     $("#filterDesignation").select2();
     $("#fiterUserName").select2();
-            
+
     $(".s2mn").on("change", function () { $(this).valid(); });
 </script>
 <script>
     $(document).ready(function () {
-        $("html, body").animate({scrollTop: 0}, "fast");
+        $("html, body").animate({ scrollTop: 0 }, "fast");
         $('.modal').on('hidden.bs.modal', function (e) {
             console.log("Modal is closed");
             $('header').css('z-index', '1053');
             $('footer').css('z-index', '1053');
         })
     });
-    function setCSS(){
-        if($('.modal').is(':visible') == true){
+    function setCSS() {
+        if ($('.modal').is(':visible') == true) {
             console.log("Modal is open");
             $('header').css('z-index', '900');
             $('footer').css('z-index', '900');
-        }else{
+        } else {
             $('header').css('z-index', '1053');
             $('footer').css('z-index', '1053');
         }

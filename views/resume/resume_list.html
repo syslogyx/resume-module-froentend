@@ -1,46 +1,56 @@
 <style type="text/css">
     .select2-container--default {
-        width:100% !important;
+        width: 100% !important;
     }
-    #pdfSettingModel > .modal-dialog.modal-lg{
+
+    #pdfSettingModel>.modal-dialog.modal-lg {
         width: 50%;
     }
 
-    #pdfSettingModel .modal-body{
-        padding-left: 10% ;
+    #pdfSettingModel .modal-body {
+        padding-left: 10%;
         padding-right: 10%;
     }
-    div#ms-my-select{
+
+    div#ms-my-select {
         width: auto;
     }
-    #select-all-div{
+
+    #select-all-div {
         padding-left: 0px;
     }
-    #deselect-all-div{
+
+    #deselect-all-div {
         padding-left: 30px;
     }
+
     @media only screen and (max-width: 640px) {
-        #pdfSettingModel > .modal-dialog.modal-lg{
+        #pdfSettingModel>.modal-dialog.modal-lg {
             width: auto;
         }
-        #select-all-div{
+
+        #select-all-div {
             padding-left: 0px;
         }
-        #deselect-all-div{
+
+        #deselect-all-div {
             padding-left: 0px;
         }
-        #select-all-div_for_zip{
+
+        #select-all-div_for_zip {
             padding-left: 5% !important;
         }
     }
-    .check-green{
-        color:#4cae4c;
-    }
-    .check-red{
-        color:#dd4b39;
+
+    .check-green {
+        color: #4cae4c;
     }
 
-    
+    .check-red {
+        color: #dd4b39;
+    }
+
+
     /*.searchbar ul {
       float: left;
       list-style-type: none;
@@ -71,36 +81,42 @@
     .searchbar .deselected{
         color:red;
     }*/
-    .blue{
-        color:#428bca;
+    .blue {
+        color: #428bca;
     }
-    .red{
-        color:red;
+
+    .red {
+        color: red;
     }
-    .listanchor{
+
+    .listanchor {
         cursor: pointer;
     }
-    .rowMargin{
-        margin-left:0px;
-        margin-right:0px;
+
+    .rowMargin {
+        margin-left: 0px;
+        margin-right: 0px;
     }
-    div#ms-my-select_for_zip{
-        width:100%;
+
+    div#ms-my-select_for_zip {
+        width: 100%;
     }
-    #select-all-div_for_zip{
+
+    #select-all-div_for_zip {
         padding-left: 2%;
     }
-    #deselect-all-div_for_zip{
+
+    #deselect-all-div_for_zip {
         padding-left: 5%;
     }
 
-    a:active ,.btn:focus{
+    a:active,
+    .btn:focus {
         color: #428bca;
         text-decoration: none;
     }
-
 </style>
-<section class="content" ng-cloak  id="resumeListCtrl">
+<section class="content" ng-cloak id="resumeListCtrl">
     <div class="container-fluid" style="overflow-y: hidden;">
         <br>
         <div class="row">
@@ -109,16 +125,16 @@
             </div>
             <div class="col-md-4" style="margin-top:1.5%;">
                 <div class="dataTables_length text-right" id="example_length">
-                    <label>Show 
+                    <label>Show
                         <select id="table_length" aria-controls="example" style="outline: 0;">
                             <option value="10">10</option>
                             <option value="25">25</option>
                             <option value="50">50</option>
                             <option value="100">100</option>
-                        </select> 
-                    entries</label>
+                        </select>
+                        entries</label>
                 </div>
-            </div> 
+            </div>
             <!-- <div class="col-md-2" style="margin-top:1.5%;">
                 <label>Sort by Alphabet</label> 
                 <select id="alphabetic_sort" style="outline: 0;">
@@ -126,49 +142,58 @@
                 </select>
             </div> -->
             <div class="col-md-2 pull-right" style="margin-top:1%;">
-                <button type="button" class="btn btn-primary btn-circle btn-sm pull-right" data-toggle="collapse" title="Filter" data-target="#filter"><i class="fa fa-filter" aria-hidden="true" style="padding-right:0.3px"></i></button>
-            </div>         
-        </div> 
-        <br> 
+                <button type="button" class="btn btn-primary btn-circle btn-sm pull-right" data-toggle="collapse"
+                    title="Filter" data-target="#filter"><i class="fa fa-filter" aria-hidden="true"
+                        style="padding-right:0.3px"></i></button>
+            </div>
+        </div>
+        <br>
 
         <div class="box box-primary collapse" id="filter">
             <div class="box-body">
-                <form id="candidateResumeFilterForm">                    
+                <form id="candidateResumeFilterForm">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                              <label>Job Code</label>
-                              <!-- <select id="jobCode" name="jobCode" ng-model="rlc.jobCodeId" class="form-control" style="width: 100%;" ng-options="x.id as x.title for x in rlc.jobDetail track by x.id">
+                                <label>Job Code</label>
+                                <!-- <select id="jobCode" name="jobCode" ng-model="rlc.jobCodeId" class="form-control" style="width: 100%;" ng-options="x.id as x.title for x in rlc.jobDetail track by x.id">
                                 <option value="">Select Job Code</option>
                               </select> -->
-                                <select id="jobCode" name="jobCode" ng-model="rlc.jobCodeId" class="form-control" >
+                                <select id="jobCode" name="jobCode" ng-model="rlc.jobCodeId" class="form-control">
                                     <option value="" style="color:#ccc !important;">Select job code</option>
-                                    <option ng-repeat="jd in rlc.jobDetail" value="{{jd.id}}">{{jd.job_code}} {{jd.sub_title != '' ? (jd.sub_title) : ''}}</option>
+                                    <option ng-repeat="jd in rlc.jobDetail" value="{{jd.id}}">{{jd.job_code}}
+                                        {{jd.sub_title != '' ? (jd.sub_title) : ''}}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                              <label>From CTC</label>
-                              <input id="ctc_from" name="ctc_from" class="form-control" ng-model="rlc.ctcFrom" placeholder="Enter From CTC">
+                                <label>From CTC</label>
+                                <input id="ctc_from" name="ctc_from" class="form-control" ng-model="rlc.ctcFrom"
+                                    placeholder="Enter From CTC">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                              <label>To CTC</label>
-                              <input id="ctc_to" name="ctc_to" class="form-control" ng-model="rlc.ctcTo" placeholder="Enter To CTC">
+                                <label>To CTC</label>
+                                <input id="ctc_to" name="ctc_to" class="form-control" ng-model="rlc.ctcTo"
+                                    placeholder="Enter To CTC">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                              <label>From Total Exp.</label>
-                              <input class="form-control" type="text" name="from_total_year_experience" id="from_total_year_experience" ng-model="rlc.fromTotalYearExperiance" placeholder="Enter From value" style="padding-right:8px">
+                                <label>From Total Exp.</label>
+                                <input class="form-control" type="text" name="from_total_year_experience"
+                                    id="from_total_year_experience" ng-model="rlc.fromTotalYearExperiance"
+                                    placeholder="Enter From value" style="padding-right:8px">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                              <label>To Total Exp.</label>
-                              <input class="form-control" type="text" name="to_total_year_experience" id="to_total_year_experience" ng-model="rlc.toTotalYearExperiance"  placeholder="Enter To value">
+                                <label>To Total Exp.</label>
+                                <input class="form-control" type="text" name="to_total_year_experience"
+                                    id="to_total_year_experience" ng-model="rlc.toTotalYearExperiance"
+                                    placeholder="Enter To value">
                             </div>
                         </div>
                     </div>
@@ -224,173 +249,221 @@
                     </div> -->
                     <div class="row">
                         <div style="text-align: center;">
-                            <button type="button" class="btn btn-primary" ng-click="rlc.searchCandidate()">Search</button> 
-                            <button type="button" class="btn btn-primary fa fa-refresh" ng-click="rlc.resetFilter()"></button>
+                            <button type="button" class="btn btn-primary"
+                                ng-click="rlc.searchCandidate()">Search</button>
+                            <button type="button" class="btn btn-primary fa fa-refresh"
+                                ng-click="rlc.resetFilter()"></button>
                         </div>
                     </div>
                 </form>
             </div>
-        </div>     
+        </div>
 
         <div class="row">
-            <div class="col-xs-12 searchbar">                
-                <label style="float: left">Sort by Alphabet : &nbsp; </label> 
-                <ul class="alpabet-list" ng-repeat="alpabet in rlc.alphabet" style="float: left;list-style-type: none;padding-right:1%;cursor: pointer;">
-                    <li><a ng-class="alpabet=='All'?'red sort-alphabet':'blue sort-alphabet'" id="alpabet_{{$index}}" ng-click="rlc.onAlphabetClick(alpabet,$index)">{{alpabet}}</a></li>
+            <div class="col-xs-12 searchbar">
+                <label style="float: left">Sort by Alphabet : &nbsp; </label>
+                <ul class="alpabet-list" ng-repeat="alpabet in rlc.alphabet"
+                    style="float: left;list-style-type: none;padding-right:1%;cursor: pointer;">
+                    <li><a ng-class="alpabet=='All'?'red sort-alphabet':'blue sort-alphabet'" id="alpabet_{{$index}}"
+                            ng-click="rlc.onAlphabetClick(alpabet,$index)">{{alpabet}}</a></li>
                 </ul>
             </div>
         </div>
-        <br>  
+        <br>
 
         <div class="row">
             <div class="col-xs-12">
                 <div class="nav-tabs-custom-main">
                     <ul class="nav nav-tabs">
-                      <li class=""><a id="non-selected" href="resume_list#non-selected">Non-Selected Candidate List</a></li>
-                      <li class=""><a id="selected" href="resume_list#selected">Selected Candidate List</a></li>
+                        <li class=""><a id="non-selected" href="resume_list#non-selected">Non-Selected Candidate
+                                List</a></li>
+                        <li class=""><a id="selected" href="resume_list#selected">Selected Candidate List</a></li>
                     </ul>
                 </div>
             </div>
         </div>
-        
+
         <div class="table-responsive no-padding">
             <table class="table table-hover">
                 <thead class="thead-default">
                     <tr>
                         <th style="text-align: center;">Sr No.</th>
-                        <th>Name</th>                        
-                        <th>Email</th>                        
-                        <th>Mobile No.</th>                        
-                        <th>Total Experience</th>                        
-                        <th>Job Code</th>                        
-                        <th>CTC</th> 
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Mobile No.</th>
+                        <th>Total Experience</th>
+                        <!-- <th>Status</th> -->
+                        <th>Job Code</th>
+                        <th>CTC</th>
                         <!-- <th style="text-align: center;display:none">Download Resume</th> -->
                         <th style="text-align: center;">Uploaded Docs</th>
                         <th style="text-align: center;width: 15px;">CV Export</th>
-                       <!--  <th style="text-align: center;width: 15px;">CV w/o contact</th> -->
+                        <!--  <th style="text-align: center;width: 15px;">CV w/o contact</th> -->
                         <th style="text-align: center;width:100px">Action</th>
                     </tr>
                 </thead>
-                <!-- <pre>{{usr.allUsersList|json}}</pre> -->
                 <tbody>
                     <tr ng-repeat="data in rlc.resumeList">
                         <td style="text-align: center;" ng-bind="(rlc.pageno - 1) * rlc.limit + ($index + 1)"></td>
-                        <td ng-bind="data.first_name+' '+data.middle_name+' '+data.last_name"></td>                        
-                        <td ng-bind="data.email"></td>                        
-                        <td ng-bind="data.mobile_no"></td>                        
+                        <td
+                            ng-bind="data.first_name+' '+(data.middle_name != null ? data.middle_name : '')+' '+data.last_name">
+                        </td>
+                        <td ng-bind="data.email"></td>
+                        <td ng-bind="data.mobile_no"></td>
                         <td ng-bind="rlc.setTotalExperience(data.total_experience)"></td>
+                        <!-- <td ng-bind="data.status"></td> -->
                         <!-- <td ng-bind="data.job_description.title"></td> -->
-                        <td>{{data.job_description.job_code}} {{data.job_description.sub_title != '' ? (data.job_description.sub_title) : ''}}</td>
-                        <td>{{data.opprtunity_for == 'Fresher' ? 'NA' : data.ctc}}</td>                        
+                        <td>{{data.job_description.job_code}}
+                            {{data.job_description.sub_title != '' ? (data.job_description.sub_title) : ''}}</td>
+                        <td>{{data.opprtunity_for == 'Fresher' ? 'NA' : data.ctc}}</td>
                         <!-- <td style="text-align: center;">
                             <a type="button" class="btn" title="Download Resume" ng-click="rlc.downloadResumeDoc(data.id)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-download" aria-hidden="true"></i></a>
                         </td> -->
                         <td style="text-align: center;">
-                            <a type="button" class="btn btn-xs" title="View Uploaded document List" ng-click="rlc.viewBgChecklistModal(data)" style="outline: 0;"><i style="cursor: pointer;" class="fa fa-eye" aria-hidden="true"></i></a>
+                            <a type="button" class="btn btn-xs" title="View Uploaded document List"
+                                ng-click="rlc.viewBgChecklistModal(data)" style="outline: 0;"><i
+                                    style="cursor: pointer;" class="fa fa-eye" aria-hidden="true"></i></a>
                         </td>
-                        <td style="text-align: center;" nowrap> 
-                            <a type="button" class="btn btn-xs" title="Download PDF" ng-click="rlc.downloadResumePDF(data.id)" style="outline: 0;"><i style="cursor: pointer;color: red;" class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
+                        <td style="text-align: center;" nowrap>
+                            <a type="button" class="btn btn-xs" title="Download PDF"
+                                ng-click="rlc.downloadResumePDF(data.id)" style="outline: 0;"><i
+                                    style="cursor: pointer;color: red;" class="fa fa-file-pdf-o"
+                                    aria-hidden="true"></i></a>
                         </td>
                         <!--   <td style="text-align: center;"> 
                             <a type="button" class="btn btn-xs" title="Download PDF" ng-click="rlc.downloadResumePDFWithoutContact(data.id)" style="outline: 0;"><i style="cursor: pointer;color: red;" class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
                         </td>  -->
                         <!-- ||  (data.candidate_technical_result[tech_last_result].technical_round != 'Round 2' && data.candidate_technical_result[tech_last_result].status != 'Pass') -->
-                        <td style="text-align: center; width:72px" ng-init="data.candidate_technical_result.length >= 2 && data.status!='Clear'? tech_last_result = (data.candidate_technical_result.length -1) : ''">
+                        <td style="text-align: center; width:72px"
+                            ng-init="data.candidate_technical_result.length >= 2 && data.status!='Clear'? tech_last_result = (data.candidate_technical_result.length -1) : ''">
                             <!-- ng-init="data.candidate_technical_result.length >= 2 && data.status!='Clear'? tech_last_result = (data.candidate_technical_result.length -1) : ''" -->
-                            <a ng-if="data.status=='Active'" href="/basic_screening_test?candidate_id={{data.id}}&token={{data.unique_token}}&name={{data.first_name+' '+data.middle_name+' '+data.last_name}}" type="button" class="btn btn-xs" title="Screening" style="outline: 0;"><i style="cursor: pointer;" class="fa fa-file-o" aria-hidden="true"></i></a>
+                            <a ng-if="data.status=='Active'"
+                                href="/basic_screening_test?candidate_id={{data.id}}&token={{data.unique_token}}&name={{data.first_name+' '+ (data.middle_name != null ? data.middle_name : '') +' '+data.last_name}}"
+                                type="button" class="btn btn-xs" title="Screening" style="outline: 0;"><i
+                                    style="cursor: pointer;" class="fa fa-file-o" aria-hidden="true"></i></a>
 
-                            <a  ng-if="(data.status=='Pass' || data.status=='Clear') && (data.candidate_technical_result[tech_last_result].technical_round != 'Round 2')" type="button" class="btn btn-xs" title="Assign Interviewer" ng-click="rlc.openAssignInterviewerModal(data)" style="outline: 0;"><i style="cursor: pointer;" class="fa fa-cog" aria-hidden="true"></i></a>
-                           <!--  <a  ng-if="data.status=='Pass' || data.status=='Clear'" type="button" class="btn btn-xs" title="Assign Interviewer" ng-click="rlc.openAssignInterviewerModal(data)" style="outline: 0;"><i style="cursor: pointer;" class="fa fa-cog" aria-hidden="true"></i></a> -->
+                            <a ng-if="(data.status=='Pass' || data.status=='Clear') && (data.candidate_technical_result[tech_last_result].technical_round != 'Round 2')"
+                                type="button" class="btn btn-xs" title="Assign Interviewer"
+                                ng-click="rlc.openAssignInterviewerModal(data)" style="outline: 0;"><i
+                                    style="cursor: pointer;" class="fa fa-cog" aria-hidden="true"></i></a>
+                            <!--  <a  ng-if="data.status=='Pass' || data.status=='Clear'" type="button" class="btn btn-xs" title="Assign Interviewer" ng-click="rlc.openAssignInterviewerModal(data)" style="outline: 0;"><i style="cursor: pointer;" class="fa fa-cog" aria-hidden="true"></i></a> -->
 
-                            <a ng-if="data.status=='Schedule'" type="button" class="btn btn-xs" title="Reschedule Interviewer" ng-click="rlc.openRescheduleModal(data,data.candidate_user_assocs)" style="outline: 0;"><i style="cursor: pointer;" class="fa fa-clock-o" aria-hidden="true"></i></a>
+                            <a ng-if="data.status=='Schedule'" type="button" class="btn btn-xs"
+                                title="Reschedule Interviewer"
+                                ng-click="rlc.openRescheduleModal(data,data.candidate_user_assocs)"
+                                style="outline: 0;"><i style="cursor: pointer;" class="fa fa-clock-o"
+                                    aria-hidden="true"></i></a>
 
-                           <!--  <a ng-if="data.status=='Pass'" type="button" class="btn btn-xs" title="Change Status" ng-click="rlc.openChangeStatusModal(data)" style="outline: 0;"><i style="cursor: pointer;" class="fa fa-exchange" aria-hidden="true"></i></a> -->
-                           
-                           <a ng-if="data.status == 'Fail' && data.status != 'Pass'" type="button" class="btn btn-xs" title="Change JD" ng-click="rlc.openChangeJdStatusModel(data.id)" style="outline: 0;"><i style="cursor: pointer;" class="fa fa-refresh" aria-hidden="true"></i></a>
+                            <!--  <a ng-if="data.status=='Pass'" type="button" class="btn btn-xs" title="Change Status" ng-click="rlc.openChangeStatusModal(data)" style="outline: 0;"><i style="cursor: pointer;" class="fa fa-exchange" aria-hidden="true"></i></a> -->
 
-                           <a type="button" href="/round_inforamtions?id={{data.id}}" class="btn btn-xs" title="View Technical Details"style="outline: 0;" ng-if="rlc.hashPathId == 'selected'"><i style="cursor: pointer;color:#5cb85c" class="fa fa-eye" aria-hidden="true"></i></a>
+                            <a ng-if="data.status == 'Fail' && data.status != 'Pass'" type="button" class="btn btn-xs"
+                                title="Change JD" ng-click="rlc.openChangeJdStatusModel(data.id)" style="outline: 0;"><i
+                                    style="cursor: pointer;" class="fa fa-refresh" aria-hidden="true"></i></a>
 
-                            <a href="/resume/{{data.unique_token}}?id={{data.id}}" type="button" target="_blank" class="btn btn-xs" title="Edit" style="outline: 0;"><i style="cursor: pointer;" class="fa fa-pencil" aria-hidden="true"></i></a>
-                        </td>     
+                            <a type="button" href="/round_inforamtions?id={{data.id}}" class="btn btn-xs"
+                                title="View Technical Details" style="outline: 0;"
+                                ng-if="rlc.hashPathId == 'selected'"><i style="cursor: pointer;color:#5cb85c"
+                                    class="fa fa-eye" aria-hidden="true"></i></a>
+
+                            <a href="/resume/{{data.unique_token}}?id={{data.id}}" type="button" target="_blank"
+                                class="btn btn-xs" title="Edit" style="outline: 0;"><i style="cursor: pointer;"
+                                    class="fa fa-pencil" aria-hidden="true"></i></a>
+                        </td>
                     </tr>
                     <tr ng-if="rlc.resumeList == null || rlc.resumeList.length == 0">
-                        <td style="text-align: center;" colspan="10">No Records Found</td> 
+                        <td style="text-align: center;" colspan="10">No Records Found</td>
                     </tr>
                 </tbody>
             </table>
             <div class="row col-sm-12" style="padding-right: 0px;">
-                <ul id="pagination-sec" class="pagination-sm" style="float: right;margin-top: 5px;margin-bottom:45px;margin-right:-1.2%"></ul>
+                <ul id="pagination-sec" class="pagination-sm"
+                    style="float: right;margin-top: 5px;margin-bottom:45px;margin-right:-1.2%"></ul>
             </div>
-        </div> 
+        </div>
     </div>
 
     <!-- Start schedule Interview Model -->
     <div class="modal fade assignStatusModel" id="assignStatusModel" role="dialog">
         <div class="modal-dialog modal-xs">
-            <div class="modal-content" style="border-radius: 0px!important;" >
-                <div class="modal-header" id="popUpModalHeader"> 
-                    <button type="button" class="close" data-dismiss="modal" ng-click="rlc.resetForm()" style="margin-right: 5px;">&times;</button>
-                    <h4 class="modal-title popUpModalTitle">Assign Interviewer of <span style="color:#3c8dbc;">{{rlc.assignCandidateName}}</span></h4>
+            <div class="modal-content" style="border-radius: 0px!important;">
+                <div class="modal-header" id="popUpModalHeader">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="rlc.resetForm()"
+                        style="margin-right: 5px;">&times;</button>
+                    <h4 class="modal-title popUpModalTitle">Assign Interviewer of <span
+                            style="color:#3c8dbc;">{{rlc.assignCandidateName}}</span></h4>
                 </div>
                 <div class="modal-body">
-                    <form id="assignStatusForm">                            
-                            <div class="row">
-                                <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
-                                    <label class="mandatory"> Interviewer  </label>
-                                    <!-- <select id="interviewer" name="interviewer[]" class="form-control s2mn" ng-model="rlc.interviewer" data-placeholder="Select interviewer" ng-options="x.id as x.name for x in rlc.interviewerList" multiple="multiple" >
+                    <form id="assignStatusForm">
+                        <div class="row">
+                            <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
+                                <label class="mandatory"> Interviewer </label>
+                                <!-- <select id="interviewer" name="interviewer[]" class="form-control s2mn" ng-model="rlc.interviewer" data-placeholder="Select interviewer" ng-options="x.id as x.name for x in rlc.interviewerList" multiple="multiple" >
                                         <option value="">Select Interviewer</option>
                                     </select> -->
-                                    <select id="interviewer" name="interviewer" class="form-control" ng-model="rlc.interviewer" data-placeholder="Select interviewer" ng-options="x.id as x.name for x in rlc.notSameInterviewerList" >
-                                        <option value="">Select Interviewer</option>
-                                    </select>
-                                </div>
-
-                                <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
-                                    <label class=""> Round  </label>
-                                    <select id="round" name="round" class="form-control" ng-model="round" data-placeholder="Select Round" ng-options="x.name as x.name for x in rlc.round" disabled="">
-                                        <option value="">Select Round</option>
-                                    </select>
-                                </div>
+                                <select id="interviewer" name="interviewer" class="form-control"
+                                    ng-model="rlc.interviewer" data-placeholder="Select interviewer"
+                                    ng-options="x.id as x.name for x in rlc.notSameInterviewerList">
+                                    <option value="">Select Interviewer</option>
+                                </select>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
-                                    <label class="mandatory"> Schedule date </label>
-                                    <input type="text" name="schedule_date" class="form-control" id="schedule_date" ng-model="scheduleDate" placeholder="Select date" readonly='true' style="cursor:default;background-color: white;">
-                                </div>
-                                <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
-                                    <label class="mandatory"> Time </label>
-                                    <div>                                        
-                                        <div class="input-group bootstrap-timepicker timepicker">
-                                            <input type="text" name="schedule_time" class="form-control" id="schedule_time" ng-model="scheduleTime" placeholder="Select Time">
-                                            <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
-                                        </div>
+
+                            <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
+                                <label class=""> Round </label>
+                                <select id="round" name="round" class="form-control" ng-model="round"
+                                    data-placeholder="Select Round" ng-options="x.name as x.name for x in rlc.round"
+                                    disabled="">
+                                    <option value="">Select Round</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
+                                <label class="mandatory"> Schedule date </label>
+                                <input type="text" name="schedule_date" class="form-control" id="schedule_date"
+                                    ng-model="scheduleDate" placeholder="Select date" readonly='true'
+                                    style="cursor:default;background-color: white;">
+                            </div>
+                            <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
+                                <label class="mandatory"> Time </label>
+                                <div>
+                                    <div class="input-group bootstrap-timepicker timepicker">
+                                        <input type="text" name="schedule_time" class="form-control" id="schedule_time"
+                                            ng-model="scheduleTime" placeholder="Select Time">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
-                                    <label class="mandatory"> Interview Mode  </label>
-                                    <select id="interview_type" name="interview_type" class="form-control" ng-model="interviewType" data-placeholder="Select interview mode" ng-options="x.name as x.name for x in rlc.interviewType">
-                                        <option value="">Select interview mode</option>
-                                    </select>
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px">
+                                <label class="mandatory"> Interview Mode </label>
+                                <select id="interview_type" name="interview_type" class="form-control"
+                                    ng-model="interviewType" data-placeholder="Select interview mode"
+                                    ng-options="x.name as x.name for x in rlc.interviewType">
+                                    <option value="">Select interview mode</option>
+                                </select>
                             </div>
+                        </div>
                     </form>
                 </div>
-                <div class="modal-footer" style="margin-top: 0px;"> 
-                    <button type="button" id="assignStatusBtn" class="btn btn-primary"  data-ng-click="rlc.scheduleInterview();" >Assign</button>
-                    <button type="reset" id="closeModal" class="btn btn-warning"  ng-click="rlc.resetForm()" data-dismiss="modal">Cancel</button>
+                <div class="modal-footer" style="margin-top: 0px;">
+                    <button type="button" id="assignStatusBtn" class="btn btn-primary"
+                        data-ng-click="rlc.scheduleInterview();">Assign</button>
+                    <button type="reset" id="closeModal" class="btn btn-warning" ng-click="rlc.resetForm()"
+                        data-dismiss="modal">Cancel</button>
                 </div>
             </div>
         </div>
     </div>
     <!-- End schedule Interview Model -->
 
+    <!-- Start Change JD Status Model -->
     <div class="modal fade changeJdStatusModal" id="changeJdStatusModal" role="dialog">
         <div class="modal-dialog modal-sm">
-            <div class="modal-content" style="border-radius: 0px!important;" >
-                <div class="modal-header" id="popUpModalHeader"> 
-                    <button type="button" class="close" data-dismiss="modal" ng-click="rlc.resetChangeJdForm()" style="margin-right: 5px;">&times;</button>
+            <div class="modal-content" style="border-radius: 0px!important;">
+                <div class="modal-header" id="popUpModalHeader">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="rlc.resetChangeJdForm()"
+                        style="margin-right: 5px;">&times;</button>
                     <h4 class="modal-title popUpModalTitle">Change Job Code</h4>
                 </div>
                 <div class="modal-body">
@@ -407,38 +480,43 @@
                                     <label class="mandatory" style="font-size: 14px">Job code </label>
                                     <select class="form-control" name="job_code" id="job_code" ng-model="rlc.job_id">
                                         <option value="" style="color:#ccc !important;">Select job code</option>
-                                        <option ng-repeat="jd in rlc.jdList" value="{{jd.id}}">{{jd.job_code}} {{jd.sub_title != '' ? (jd.sub_title) : ''}}</option>
+                                        <option ng-repeat="jd in rlc.jdList" value="{{jd.id}}">{{jd.job_code}}
+                                            {{jd.sub_title != '' ? (jd.sub_title) : ''}}</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer" style="margin-top: 0px;"> 
-                    <button type="button" id="changeJobCodeBtn" class="btn btn-primary"  data-ng-click="rlc.changeJobDescription();" >Save</button>
-                    <button type="reset" id="closeModal" class="btn btn-warning"  ng-click="rlc.resetChangeJdForm()" data-dismiss="modal">Cancel</button>
+                <div class="modal-footer" style="margin-top: 0px;">
+                    <button type="button" id="changeJobCodeBtn" class="btn btn-primary"
+                        data-ng-click="rlc.changeJobDescription();">Save</button>
+                    <button type="reset" id="closeModal" class="btn btn-warning" ng-click="rlc.resetChangeJdForm()"
+                        data-dismiss="modal">Cancel</button>
                 </div>
             </div>
         </div>
     </div>
+    <!-- End Change JD Status Model -->
 
     <!-- Start Change Status of candidate Model -->
     <div class="modal fade changeStatusModel" id="changeStatusModel" role="dialog">
         <div class="modal-dialog modal-xs">
-            <div class="modal-content" style="border-radius: 0px!important;" >
-                <div class="modal-header" id="popUpModalHeader"> 
-                    <button type="button" class="close" data-dismiss="modal" ng-click="rlc.resetForm()" style="margin-right: 5px;">&times;</button>
+            <div class="modal-content" style="border-radius: 0px!important;">
+                <div class="modal-header" id="popUpModalHeader">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="rlc.resetForm()"
+                        style="margin-right: 5px;">&times;</button>
                     <h4 class="modal-title popUpModalTitle">Change Status</h4>
                 </div>
                 <div class="modal-body">
-                    <form id="changeStatusForm">  
+                    <form id="changeStatusForm">
                         <div class="row form-group">
                             <div class="col-md-4" style="margin-top: 1%;">
                                 <label class="mandatory">Interviewer Name:</label>
                             </div>
                             <div class="col-md-8">
                                 {{ rlc.interviewer_name }}
-                            </div>                          
+                            </div>
                         </div>
                         <div class="row form-group">
                             <div class="col-md-4" style="margin-top: 1%;">
@@ -453,16 +531,20 @@
                                 <label class="mandatory">Status:</label>
                             </div>
                             <div class="col-md-8">
-                                <select class="form-control" id="change_status" name="change_status" ng-model="rlc.candidate_status" ng-options="x.name as x.name for x in rlc.candidateStatusOptions">
+                                <select class="form-control" id="change_status" name="change_status"
+                                    ng-model="rlc.candidate_status"
+                                    ng-options="x.name as x.name for x in rlc.candidateStatusOptions">
                                     <option value="">Select Status</option>
                                 </select>
                             </div>
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer" style="margin-top: 0px;"> 
-                    <button type="button" id="changeStatusBtn" class="btn btn-primary"  data-ng-click="rlc.changeStatus();" >Save</button>
-                    <button type="reset" id="closeModal" class="btn btn-warning"  ng-click="rlc.resetForm()" data-dismiss="modal">Cancel</button>
+                <div class="modal-footer" style="margin-top: 0px;">
+                    <button type="button" id="changeStatusBtn" class="btn btn-primary"
+                        data-ng-click="rlc.changeStatus();">Save</button>
+                    <button type="reset" id="closeModal" class="btn btn-warning" ng-click="rlc.resetForm()"
+                        data-dismiss="modal">Cancel</button>
                 </div>
             </div>
         </div>
@@ -472,59 +554,77 @@
     <!-- Start reschedule Interview Model -->
     <div class="modal fade rescheduleModel" id="rescheduleModel" role="dialog">
         <div class="modal-dialog modal-xs">
-            <div class="modal-content" style="border-radius: 0px!important;" >
-                <div class="modal-header" id="popUpModalHeader"> 
-                    <button type="button" class="close" data-dismiss="modal" ng-click="rlc.resetForm()" style="margin-right: 5px;">&times;</button>
-                    <h4 class="modal-title popUpModalTitle">Reschedule Interview of <span style="color:#3c8dbc;">{{reassignCandidateName}}</span></h4>
+            <div class="modal-content" style="border-radius: 0px!important;">
+                <div class="modal-header" id="popUpModalHeader">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="rlc.resetForm()"
+                        style="margin-right: 5px;">&times;</button>
+                    <h4 class="modal-title popUpModalTitle">Reschedule Interview of <span
+                            style="color:#3c8dbc;">{{reassignCandidateName}}</span></h4>
                 </div>
                 <div class="modal-body">
-                    <form id="rescheduleForm">                           
+                    <form id="rescheduleForm">
                         <div class="row">
-                            <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px;min-height: 70px; ">
+                            <div class="col-md-6 form-group"
+                                style="margin-top: 1%;margin-bottom: 0px;min-height: 70px; ">
                                 <label class="mandatory"> Interviewer </label>
                                 <!-- <select id="interviewer" name="interviewer[]" class="form-control s2mn" ng-model="rlc.interviewer" data-placeholder="Select interviewer" ng-options="x.id as x.name for x in rlc.interviewerList" multiple="multiple" >
                                     <option value="">Select Interviewer</option>
                                 </select> -->
-                                <select id="interviewer" name="interviewer" class="form-control" ng-model="rlc.interviewer" data-placeholder="Select interviewer" ng-options="x.id as x.name for x in rlc.interviewerList" >
+                                <select id="interviewer" name="interviewer" class="form-control"
+                                    ng-model="rlc.interviewer" data-placeholder="Select interviewer"
+                                    ng-options="x.id as x.name for x in rlc.interviewerList">
                                     <option value="">Select Interviewer</option>
                                 </select>
                             </div>
 
-                            <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px;min-height: 70px; ">
-                                <label class=""> Round  </label>
-                                <select id="round" name="round" class="form-control" ng-model="round" data-placeholder="Select Round" ng-options="x.name as x.name for x in rlc.round" disabled="">
+                            <div class="col-md-6 form-group"
+                                style="margin-top: 1%;margin-bottom: 0px;min-height: 70px; ">
+                                <label class=""> Round </label>
+                                <select id="round" name="round" class="form-control" ng-model="round"
+                                    data-placeholder="Select Round" ng-options="x.name as x.name for x in rlc.round"
+                                    disabled="">
                                     <option value="">Select Round</option>
                                 </select>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px;min-height: 70px; ">
+                            <div class="col-md-6 form-group"
+                                style="margin-top: 1%;margin-bottom: 0px;min-height: 70px; ">
                                 <label class="mandatory"> Schedule date </label>
-                                <input type="text" name="reschedule_date" class="form-control" id="reschedule_date" ng-model="scheduleDate" placeholder="Select Date" readonly='true' style="cursor:default;background-color: white;">
+                                <input type="text" name="reschedule_date" class="form-control" id="reschedule_date"
+                                    ng-model="scheduleDate" placeholder="Select Date" readonly='true'
+                                    style="cursor:default;background-color: white;">
                             </div>
-                            <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px;min-height: 70px; ">
+                            <div class="col-md-6 form-group"
+                                style="margin-top: 1%;margin-bottom: 0px;min-height: 70px; ">
                                 <label class="mandatory"> Time </label>
-                                <div>                                    
+                                <div>
                                     <div class="input-group bootstrap-timepicker timepicker">
-                                        <input type="text" name="reschedule_time" class="form-control" id="reschedule_time" ng-model="scheduleTime" placeholder="Select Time">
+                                        <input type="text" name="reschedule_time" class="form-control"
+                                            id="reschedule_time" ng-model="scheduleTime" placeholder="Select Time">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6 form-group" style="margin-top: 1%;margin-bottom: 0px;min-height: 70px; ">
-                                <label class="mandatory"> Interview Mode  </label>
-                                <select id="interview_type" name="reinterview_type" class="form-control" ng-model="interviewType" data-placeholder="Select interview mode" ng-options="x.name as x.name for x in rlc.interviewType">
+                            <div class="col-md-6 form-group"
+                                style="margin-top: 1%;margin-bottom: 0px;min-height: 70px; ">
+                                <label class="mandatory"> Interview Mode </label>
+                                <select id="interview_type" name="reinterview_type" class="form-control"
+                                    ng-model="interviewType" data-placeholder="Select interview mode"
+                                    ng-options="x.name as x.name for x in rlc.interviewType">
                                     <option value="">Select interview mode</option>
                                 </select>
                             </div>
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer" style="margin-top: 0px;"> 
-                    <button type="button" id="reScheduleInterviewBtn" class="btn btn-primary"  data-ng-click="rlc.reScheduleInterview();" >Reschedule</button>
-                    <button type="reset" id="closeModal" class="btn btn-warning"  ng-click="rlc.resetForm()" data-dismiss="modal">Cancel</button>
+                <div class="modal-footer" style="margin-top: 0px;">
+                    <button type="button" id="reScheduleInterviewBtn" class="btn btn-primary"
+                        data-ng-click="rlc.reScheduleInterview();">Reschedule</button>
+                    <button type="reset" id="closeModal" class="btn btn-warning" ng-click="rlc.resetForm()"
+                        data-dismiss="modal">Cancel</button>
                 </div>
             </div>
         </div>
@@ -534,20 +634,26 @@
     <!-- Start download pdf setting Model -->
     <div class="modal fade pdfSettingModel" id="pdfSettingModel" role="dialog">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content" style="border-radius: 0px!important;" >
-                <div class="modal-header" id="popUpModalHeader"> 
-                    <button type="button" class="close" data-dismiss="modal" ng-click="rlc.resetPdfForm()" style="margin-right: 5px;">&times;</button>
+            <div class="modal-content" style="border-radius: 0px!important;">
+                <div class="modal-header" id="popUpModalHeader">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="rlc.resetPdfForm()"
+                        style="margin-right: 5px;">&times;</button>
                     <h4 class="modal-title popUpModalTitle">Select Sections for PDF</h4>
                 </div>
                 <div class="modal-body">
                     <form id="pdfSettingForm">
                         <div class="row" style="margin-left:-6%">
                             <div class="col-md-6">
-                                <label class="" style="font-family: sanspro_bold;color: #555555;font-weight: 700;">Default Selected Section:</label>
+                                <label class=""
+                                    style="font-family: sanspro_bold;color: #555555;font-weight: 700;">Default Selected
+                                    Section:</label>
                             </div>
                             <div class="col-md-6">
                                 <div class="" style="text-align: center;margin-left: 7%;">
-                                   <a class="btn btn-outline btn-circles btn-sm green" ng-repeat ="data in rlc.defaultSelectSectionList" ng-model="rlc.defaultSelectSection" style="margin-right: 10px;cursor: text;" value="{{data.id}}">{{data.section_name}}&nbsp;&nbsp;</a>
+                                    <a class="btn btn-outline btn-circles btn-sm green"
+                                        ng-repeat="data in rlc.defaultSelectSectionList"
+                                        ng-model="rlc.defaultSelectSection" style="margin-right: 10px;cursor: auto;"
+                                        value="{{data.id}}">{{data.section_name}}</a>
                                 </div>
                             </div>
                         </div>
@@ -558,32 +664,37 @@
                                 Check All
                             </label>
                         </div> -->
-                        <div class="row form-group">                        
+                        <div class="row form-group">
                             <!-- <label  class="col-xs-3 " ng-repeat="section in rlc.pdfSectionsNameList" style="margin-bottom: 15px;">
                               <input class="icheckBox" apply-check-box data-index="{{section.id}}"  id="chk_{{section.id}}" type="checkbox"  name="selectedSectionNames[]" value="{{section.id}}" checked> &nbsp;&nbsp;&nbsp;{{section.section_name}}
                             </label> -->
                             <!-- {{rlc.seletedSection}} -->
-                            <div col="col-md-12">                                    
+                            <div col="col-md-12">
                                 <select multiple="multiple" id="my-select" name="selectedSectionNames[]">
-                                    <option ng-repeat="sec in rlc.pdfSectionsNameList" value="{{sec.id}}" selected>{{sec.section_name}}</option>
+                                    <option ng-repeat="sec in rlc.pdfSectionsNameList" value="{{sec.id}}" selected>
+                                        {{sec.section_name}}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="row">
-                            <div col="col-md-12">      
+                            <div col="col-md-12">
                                 <div id="select-all-div" class="col-md-6 form-group">
                                     <a href='#' id='select-all'>Select All</a>
+                                    <!-- ng-hide="(($('#my-select').val()).length == rlc.pdfSectionsNameList.length)" -->
                                 </div>
-                                <div id="deselect-all-div" class="col-md-6 form-group">                                        
+                                <div id="deselect-all-div" class="col-md-6 form-group">
                                     <a href='#' id='deselect-all'>Deselect All</a>
+                                    <!-- ng-hide="(($('#my-select').val()).length == 0)" -->
                                 </div>
                             </div>
-                        </div>                  
+                        </div>
                     </form>
                 </div>
-                <div class="modal-footer" style="margin-top: 0px;"> 
-                    <button type="button" id="pdfSettingSubmitBtn" class="btn btn-primary" data-ng-click="rlc.downloadPdfWithSectionSetting();" >Download PDF</button>
-                    <button type="reset" id="closeModal" class="btn btn-warning"  ng-click="rlc.resetPdfForm()" data-dismiss="modal">Cancel</button>
+                <div class="modal-footer" style="margin-top: 0px;">
+                    <button type="button" id="pdfSettingSubmitBtn" class="btn btn-primary"
+                        data-ng-click="rlc.downloadPdfWithSectionSetting();">Download PDF</button>
+                    <button type="reset" id="closeModal" class="btn btn-warning" ng-click="rlc.resetPdfForm()"
+                        data-dismiss="modal">Cancel</button>
                 </div>
             </div>
         </div>
@@ -596,16 +707,20 @@
             <form id="bgChecklistDocsForm">
                 <div class="modal-content" style="border-radius: 0px!important;">
                     <div class="modal-header" id="popUpModalHeader">
-                        <button type="button" class="close" data-dismiss="modal" style="margin-right: 5px;">&times;</button>
-                        <h4 class="modal-title popUpModalTitle">Background Checklist Document List And CV Zip Download</h4>
+                        <button type="button" class="close" data-dismiss="modal"
+                            style="margin-right: 5px;">&times;</button>
+                        <h4 class="modal-title popUpModalTitle">Background Checklist Document List And CV Zip Download
+                        </h4>
                     </div>
                     <div class="modal-body">
                         <div class="row ">
                             <form id="pdfSettingFormForZip">
                                 <div class="row form-group">
                                     <div col="col-md-12">
-                                        <select multiple="multiple" id="my-selectForZip" name="selectedSectionNamesForZip[]">
-                                            <option ng-repeat="sec in rlc.pdfSectionsNameList" value="{{sec.id}}" selected>{{sec.section_name}}</option>
+                                        <select multiple="multiple" id="my-selectForZip"
+                                            name="selectedSectionNamesForZip[]">
+                                            <option ng-repeat="sec in rlc.pdfSectionsNameList" value="{{sec.id}}"
+                                                selected>{{sec.section_name}}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -637,17 +752,27 @@
                                         <tbody>
                                             <tr>
                                                 <!-- <td style="text-align: center;" ng-bind="(rlc.pageno - 1) * rlc.limit + ($index + 1)"></td> -->
-                                                <td><i style="margin-left: 5px;" class="fa fa-asterisk" aria-hidden="true"></i></td>
+                                                <td><i style="margin-left: 5px;" class="fa fa-asterisk"
+                                                        aria-hidden="true"></i></td>
                                                 <td>Candidate Resume</td>
-                                                <td style="text-align: center;width: 20%;"><i class="fa fa-check check-green" aria-hidden="true" style="margin-left: 5px;font-size: 15px;" title="File uploaded"></i></td>
+                                                <td style="text-align: center;width: 20%;"><i
+                                                        class="fa fa-check check-green" aria-hidden="true"
+                                                        style="margin-left: 5px;font-size: 15px;"
+                                                        title="File uploaded"></i></td>
                                             </tr>
                                             <tr ng-repeat="data in rlc.bgChecklistDocList ">
                                                 <!-- <td style="text-align: center;" ng-bind="(rlc.pageno - 1) * rlc.limit + ($index + 1)"></td> -->
-                                                <td><i style="margin-left: 5px;" class="fa fa-asterisk" aria-hidden="true"></i></td>
+                                                <td><i style="margin-left: 5px;" class="fa fa-asterisk"
+                                                        aria-hidden="true"></i></td>
                                                 <td>{{data.name}}</td>
-                                                <td style="text-align: center;width: 20%;"><i class="{{data.displayFlag =='False' ? 'fa fa-check check-green':'fa fa-close check-red' }}" aria-hidden="true" style="margin-left: 5px;font-size: 15px;" title="{{data.displayFlag =='False' ? 'File uploaded' : 'Not  uploaded yet'}}"></i></td>
+                                                <td style="text-align: center;width: 20%;"><i
+                                                        class="{{data.displayFlag =='False' ? 'fa fa-check check-green':'fa fa-close check-red' }}"
+                                                        aria-hidden="true" style="margin-left: 5px;font-size: 15px;"
+                                                        title="{{data.displayFlag =='False' ? 'File uploaded' : 'Not  uploaded yet'}}"></i>
+                                                </td>
                                             </tr>
-                                            <tr ng-if="rlc.bgChecklistDocList == null || rlc.bgChecklistDocList.length == 0">
+                                            <tr
+                                                ng-if="rlc.bgChecklistDocList == null || rlc.bgChecklistDocList.length == 0">
                                                 <td style="text-align: center;" colspan="3">No Records Found</td>
                                             </tr>
                                         </tbody>
@@ -659,8 +784,10 @@
                         </div>
                     </div>
                     <div class="modal-footer" style="margin-top: 0px;">
-                        <button type="button" id="downloadZipBtn" class="btn btn-primary" data-ng-click="rlc.downloadBgChecklistDocsZip();">Download Document Zip</button>
-                        <button type="reset" id="closeModal" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+                        <button type="button" id="downloadZipBtn" class="btn btn-primary"
+                            data-ng-click="rlc.downloadBgChecklistDocsZip();">Download Document Zip</button>
+                        <button type="reset" id="closeModal" class="btn btn-warning"
+                            data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
             </form>
@@ -669,12 +796,14 @@
     <!-- End Bg checklist document list Model -->
 
     <!-- Start Bg checklist document list Model -->
-    <div class="modal fade bgChecklistDocsModal" id="bgChecklistDocsModal" data-backdrop="static"  role="dialog">
+    <div class="modal fade bgChecklistDocsModal" id="bgChecklistDocsModal" data-backdrop="static" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content" style="border-radius: 0px!important;">
                 <div class="modal-header" id="popUpModalHeader">
-                    <button type="button" class="close" data-dismiss="modal" style="margin-right: 5px;" ng-if="!rlc.waiting">&times;</button>
-                    <h4 class="modal-title popUpModalTitle"> Background Check Documents And CV of <span style="color:#3c8dbc;">{{rlc.candidateNameToShowOnModal}}</span></h4>
+                    <button type="button" class="close" data-dismiss="modal" style="margin-right: 5px;"
+                        ng-if="!rlc.waiting">&times;</button>
+                    <h4 class="modal-title popUpModalTitle"> Background Check Documents And CV of <span
+                            style="color:#3c8dbc;">{{rlc.candidateNameToShowOnModal}}</span></h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -682,8 +811,12 @@
                             <div class="panel-body">
                                 <div class="nav-tabs-custom ">
                                     <ul class="nav nav-tabs" style="background-color:#e1e9f1">
-                                        <li class="active listanchor" id='bg_checklist_li'><a data-target="#bg_checklist" data-toggle="tab"><b>Background Check Documents</b></a></li>
-                                        <li id='cv_selection_list_li'><a class="listanchor" data-target="#cv_selection_list" data-toggle="tab"><b>Section List For CV</b></a></li>
+                                        <li class="active listanchor" id='bg_checklist_li'><a
+                                                data-target="#bg_checklist" data-toggle="tab"><b>Background Check
+                                                    Documents</b></a></li>
+                                        <li id='cv_selection_list_li'><a class="listanchor"
+                                                data-target="#cv_selection_list" data-toggle="tab"><b>Section List For
+                                                    CV</b></a></li>
                                     </ul>
                                     <div class="tab-content">
                                         <div class="active tab-pane" id="bg_checklist">
@@ -695,22 +828,38 @@
                                                                 <tr>
                                                                     <th></th>
                                                                     <th>Document Name</th>
-                                                                    <th style="text-align: center;width: 20%;">Uploaded Status</th>
+                                                                    <th style="text-align: center;width: 20%;">Uploaded
+                                                                        Status</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                                 <tr>
-                                                                    <td><i style="margin-left: 5px;" class="fa fa-asterisk" aria-hidden="true"></i></td>
+                                                                    <td><i style="margin-left: 5px;"
+                                                                            class="fa fa-asterisk"
+                                                                            aria-hidden="true"></i></td>
                                                                     <td>Candidate Resume</td>
-                                                                    <td style="text-align: center;width: 20%;"><i class="fa fa-check check-green" aria-hidden="true" style="margin-left: 5px;font-size: 15px;" title="File uploaded"></i></td>
+                                                                    <td style="text-align: center;width: 20%;"><i
+                                                                            class="fa fa-check check-green"
+                                                                            aria-hidden="true"
+                                                                            style="margin-left: 5px;font-size: 15px;"
+                                                                            title="File uploaded"></i></td>
                                                                 </tr>
                                                                 <tr ng-repeat="data in rlc.bgChecklistDocList ">
-                                                                    <td><i style="margin-left: 5px;" class="fa fa-asterisk" aria-hidden="true"></i></td>
+                                                                    <td><i style="margin-left: 5px;"
+                                                                            class="fa fa-asterisk"
+                                                                            aria-hidden="true"></i></td>
                                                                     <td>{{data.name}}</td>
-                                                                    <td style="text-align: center;width: 20%;"><i class="{{data.displayFlag =='False' ? 'fa fa-check check-green':'fa fa-close check-red' }}" aria-hidden="true" style="margin-left: 5px;font-size: 15px;" title="{{data.displayFlag =='False' ? 'File uploaded' : 'Not  uploaded yet'}}"></i></td>
+                                                                    <td style="text-align: center;width: 20%;"><i
+                                                                            class="{{data.displayFlag =='False' ? 'fa fa-check check-green':'fa fa-close check-red' }}"
+                                                                            aria-hidden="true"
+                                                                            style="margin-left: 5px;font-size: 15px;"
+                                                                            title="{{data.displayFlag =='False' ? 'File uploaded' : 'Not  uploaded yet'}}"></i>
+                                                                    </td>
                                                                 </tr>
-                                                                <tr ng-if="rlc.bgChecklistDocList == null || rlc.bgChecklistDocList.length == 0">
-                                                                    <td style="text-align: center;" colspan="3">No Records Found</td>
+                                                                <tr
+                                                                    ng-if="rlc.bgChecklistDocList == null || rlc.bgChecklistDocList.length == 0">
+                                                                    <td style="text-align: center;" colspan="3">No
+                                                                        Records Found</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -721,16 +870,23 @@
                                         <div class="tab-pane" id="cv_selection_list">
                                             <div class="row">
                                                 <div class="col-md-6 form-group">
-                                                    <span> <b style="color:#dd4b39;">NOTE: </b><br> * Please select at least one section to add in CV.</span>
+                                                    <span> <b style="color:#dd4b39;">NOTE: </b><br> * Please select at
+                                                        least one section to add in CV.</span>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <label class="" style="font-family: sanspro_bold;color: #555555;font-weight: 700;">Default Selected Section:</label>
+                                                    <label class=""
+                                                        style="font-family: sanspro_bold;color: #555555;font-weight: 700;">Default
+                                                        Selected Section:</label>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="" style="margin-left: 7%;">
-                                                       <a class="btn btn-outline btn-circles btn-sm green" ng-repeat ="data in rlc.defaultSelectSectionList" ng-model="rlc.defaultSelectSection" style="margin-right: 10px;cursor: text;" value="{{data.id}}">{{data.section_name}}&nbsp;&nbsp;</a>
+                                                        <a class="btn btn-outline btn-circles btn-sm green"
+                                                            ng-repeat="data in rlc.defaultSelectSectionList"
+                                                            ng-model="rlc.defaultSelectSection"
+                                                            style="margin-right: 10px;cursor: auto;"
+                                                            value="{{data.id}}">{{data.section_name}}</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -740,18 +896,24 @@
                                                     <form id="pdfSettingFormForZip">
                                                         <div class="row form-group rowMargin">
                                                             <div col="col-md-12">
-                                                                <select multiple="multiple" id="my-select_for_zip" name="selectedSectionNamesForZip[]">
-                                                                    <option ng-repeat="sec in rlc.pdfSectionsNameList" value="{{sec.id}}" selected>{{sec.section_name}}</option>
+                                                                <select multiple="multiple" id="my-select_for_zip"
+                                                                    name="selectedSectionNamesForZip[]">
+                                                                    <option ng-repeat="sec in rlc.pdfSectionsNameList"
+                                                                        value="{{sec.id}}" selected>{{sec.section_name}}
+                                                                    </option>
                                                                 </select>
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div col="col-md-12">
-                                                                <div id="select-all-div_for_zip" class="col-md-6 form-group">
+                                                                <div id="select-all-div_for_zip"
+                                                                    class="col-md-6 form-group">
                                                                     <a href='#' id='select-all_for_zip'>Select All</a>
                                                                 </div>
-                                                                <div id="deselect-all-div_for_zip" class="col-md-6 form-group">
-                                                                    <a href='#' id='deselect-all_for_zip'>Deselect All</a>
+                                                                <div id="deselect-all-div_for_zip"
+                                                                    class="col-md-6 form-group">
+                                                                    <a href='#' id='deselect-all_for_zip'>Deselect
+                                                                        All</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -765,18 +927,20 @@
                         </div>
                     </div>
                     <div class="modal-footer" style="margin-top: 0px;">
-                        <button type="button" id="downloadZipBtn" class="btn btn-primary" ng-disabled="rlc.waiting" data-ng-click="rlc.downloadBgChecklistDocsZip();">
+                        <button type="button" id="downloadZipBtn" class="btn btn-primary" ng-disabled="rlc.waiting"
+                            data-ng-click="rlc.downloadBgChecklistDocsZip();">
                             <div ng-if="!rlc.waiting">Download in Zip</div>
                             <div ng-if="rlc.waiting">Wait for {{rlc.second}} S</div>
                         </button>
-                        <button type="reset" id="closeModal" class="btn btn-warning" data-dismiss="modal" ng-if="!rlc.waiting">Cancel</button>
+                        <button type="reset" id="closeModal" class="btn btn-warning" data-dismiss="modal"
+                            ng-if="!rlc.waiting">Cancel</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-        <!-- End Bg checklist document list Model -->
-    
+    <!-- End Bg checklist document list Model -->
+
 </section>
 <script>
 
@@ -798,11 +962,11 @@
     //       return this.optional(element) || parseInt(value, 10) > otherElement || parseInt(value, 10) == otherElement;
     // });
 
-    $.validator.addMethod("checkGreaterThan",function (value, element, param) {
+    $.validator.addMethod("checkGreaterThan", function (value, element, param) {
         var otherElement = $(param).val();
-        if(otherElement != '' && !isNaN(otherElement)){
+        if (otherElement != '' && !isNaN(otherElement)) {
             parseFloat(otherElement);
-        }else{
+        } else {
             return true;
         }
         return this.optional(element) || parseFloat(value) > otherElement || parseFloat(value) == otherElement;
@@ -818,13 +982,13 @@
     //       return parseInt(value, 10) < otherElement || this.optional(element) || parseInt(value, 10) == otherElement;
     // });
 
-    $.validator.addMethod("checkLessThan",function (value, element, param) {
+    $.validator.addMethod("checkLessThan", function (value, element, param) {
         var otherElement = $(param).val();
-        if(otherElement != '' && !isNaN(otherElement)){
+        if (otherElement != '' && !isNaN(otherElement)) {
             parseFloat(otherElement);
-        }else{
+        } else {
             return true;
-        }       
+        }
         return this.optional(element) || parseFloat(value) < otherElement || parseFloat(value) == otherElement;
     });
 
@@ -836,20 +1000,17 @@
         errorPlacement: function (error, element) {
             var type = $(element).attr("type");
             console.log($(element).attr("id"));
-            if ($(element).attr("id") === "")
-            {
+            if ($(element).attr("id") === "") {
                 element.parent().append(error);
 
             }
-            else if ($(element).attr("id") === "interviewer")
-            {
+            else if ($(element).attr("id") === "interviewer") {
                 element.parent().append(error);
 
-            }else if ($(element).attr("id") === "schedule_time")
-            {
+            } else if ($(element).attr("id") === "schedule_time") {
                 element.parent().parent().append(error);
 
-            }else{
+            } else {
                 error.insertAfter(element);
             }
         },
@@ -874,7 +1035,7 @@
             }
         },
         messages: {
-             interviewer: {
+            interviewer: {
                 required: "Interviewer is required."
             },
             round: {
@@ -890,7 +1051,7 @@
                 required: "Interview mode is required."
             }
         },
-         highlight: function (element) { // hightlight error inputs
+        highlight: function (element) { // hightlight error inputs
             $(element)
                 .closest('.form-group').addClass('has-error');
             $(element)
@@ -918,20 +1079,17 @@
 
             var type = $(element).attr("type");
             console.log($(element).attr("id"));
-            if ($(element).attr("id") === "")
-            {
+            if ($(element).attr("id") === "") {
                 element.parent().append(error);
 
             }
-            else if ($(element).attr("id") === "interviewer")
-            {
+            else if ($(element).attr("id") === "interviewer") {
                 element.parent().append(error);
 
-            }else if ($(element).attr("id") === "reschedule_time")
-            {
+            } else if ($(element).attr("id") === "reschedule_time") {
                 element.parent().parent().append(error);
 
-            }else{
+            } else {
                 error.insertAfter(element);
             }
         },
@@ -975,7 +1133,7 @@
                 required: "Interview mode is required."
             }
         },
-         highlight: function (element) { // hightlight error inputs
+        highlight: function (element) { // hightlight error inputs
             $(element)
                 .closest('.form-group').addClass('has-error');
             $(element)
@@ -1004,24 +1162,24 @@
             error.insertAfter(element);
         },
         rules: {
-            ctc_from:{
-                number:true,
-                mynumber :true,
+            ctc_from: {
+                number: true,
+                mynumber: true,
                 // checkForToCTC:"#ctc_to",
-                required: function(element){
-                    return $("#ctc_to").val()!="";
+                required: function (element) {
+                    return $("#ctc_to").val() != "";
                 },
                 checkLessThan: "#ctc_to",
             },
-            ctc_to:{
-                number:true,
-                mynumber :true,
+            ctc_to: {
+                number: true,
+                mynumber: true,
                 // checkForFromCTC:"#ctc_from",
-                required: function(element){
-                    return $("#ctc_from").val()!="";
+                required: function (element) {
+                    return $("#ctc_from").val() != "";
                 },
                 checkGreaterThan: "#ctc_from",
-            },  
+            },
             // from_total_year_experience: {
             //     required: function(element){
             //             return $("#to_total_year_experience").val()!="" || $("#to_total_month_experience").val()!="" || $("#from_total_month_experience").val()!="";
@@ -1043,39 +1201,39 @@
             //         }
             // },
             from_total_year_experience: {
-                required: function(element){
-                    return $("#to_total_year_experience").val()!="";
+                required: function (element) {
+                    return $("#to_total_year_experience").val() != "";
                 },
-                number:true,
+                number: true,
                 checkLessThan: "#to_total_year_experience",
             },
             to_total_year_experience: {
-                required: function(element){
-                    return $("#from_total_year_experience").val()!="";
+                required: function (element) {
+                    return $("#from_total_year_experience").val() != "";
                 },
-                number:true,
+                number: true,
                 checkGreaterThan: "#from_total_year_experience",
             },
         },
         messages: {
-            ctc_from:{
-                number:"Enter the numeric value",
+            ctc_from: {
+                number: "Enter the numeric value",
                 required: "From CTC is required.",
                 checkLessThan: "Must be Less than To CTC value.",
             },
-            ctc_to:{
-                number:"Enter the numeric value",
+            ctc_to: {
+                number: "Enter the numeric value",
                 required: "To CTC is required.",
                 checkGreaterThan: "Must be greater than Form CTC value.",
-            },          
+            },
             from_total_year_experience: {
                 required: "From Total Exp is required.",
-                number:"Enter the numeric value",
+                number: "Enter the numeric value",
                 checkLessThan: "Must be Less than To Total Exp.",
             },
             to_total_year_experience: {
                 required: "To Total Exp is required.",
-                number:"Enter the numeric value",
+                number: "Enter the numeric value",
                 checkGreaterThan: "Must be greater than Form Total Exp.",
             },
             // from_total_month_experience: {
@@ -1088,7 +1246,7 @@
             //     required: "Month is required.",
             // },
         },
-         highlight: function (element) { // hightlight error inputs
+        highlight: function (element) { // hightlight error inputs
             $(element)
                 .closest('.form-group').addClass('has-error');
             $(element)
@@ -1114,7 +1272,7 @@
         ignore: "", // validate all fields including form hidden input
         errorPlacement: function (error, element) {
 
-            var type = $(element).attr("type");            
+            var type = $(element).attr("type");
             error.insertAfter(element);
         },
         rules: {
@@ -1123,12 +1281,12 @@
             }
         },
         messages: {
-            change_status:{
+            change_status: {
                 required: "Status is required."
             }
-            
+
         },
-         highlight: function (element) { // hightlight error inputs
+        highlight: function (element) { // hightlight error inputs
             $(element)
                 .closest('.form-group').addClass('has-error');
             $(element)
@@ -1156,27 +1314,26 @@
 
             var type = $(element).attr("type");
             console.log(type);
-            if ($(element).attr("id") === "my-select")
-            {
+            if ($(element).attr("id") === "my-select") {
                 // console.log(element.parent().parent());
                 // element.parent().parent().parent().parent().append(error);
                 element.parent().parent().append(error);
 
-            }else{
+            } else {
                 error.insertAfter(element);
             }
         },
         rules: {
-            
+
             "selectedSectionNames[]": {
                 required: true
             }
         },
         messages: {
-            "selectedSectionNames[]":{
+            "selectedSectionNames[]": {
                 required: "Select at least one section."
             }
-            
+
         },
         highlight: function (element) { // hightlight error inputs
             $(element)
@@ -1203,27 +1360,26 @@
 
             var type = $(element).attr("type");
             console.log(type);
-            if ($(element).attr("id") === "my-select_for_zip")
-            {
+            if ($(element).attr("id") === "my-select_for_zip") {
                 // console.log(element.parent().parent());
                 // element.parent().parent().parent().parent().append(error);
                 element.parent().parent().append(error);
 
-            }else{
+            } else {
                 error.insertAfter(element);
             }
         },
         rules: {
-            
+
             "selectedSectionNamesForZip[]": {
                 required: true
             }
         },
         messages: {
-            "selectedSectionNamesForZip[]":{
+            "selectedSectionNamesForZip[]": {
                 required: "Select at least one section."
             }
-            
+
         },
         highlight: function (element) { // hightlight error inputs
             $(element)
@@ -1247,16 +1403,14 @@
         errorPlacement: function (error, element) {
 
             var type = $(element).attr("type");
-            if ($(element).attr("id") === "")
-            {
+            if ($(element).attr("id") === "") {
                 element.parent().append(error);
 
             }
-            else if ($(element).attr("id") === "job_code")
-            {
+            else if ($(element).attr("id") === "job_code") {
                 element.parent().append(error);
 
-            }else{
+            } else {
                 error.insertAfter(element);
             }
         },
@@ -1278,13 +1432,13 @@
         },
         unhighlight: function (element) { // revert the change done by hightlight
             $(element)
-                    .closest('.form-group').removeClass('has-error');
+                .closest('.form-group').removeClass('has-error');
             $(element)
-                    .next().children().children().attr('style', 'border-color:'); // set error class to the control group
+                .next().children().children().attr('style', 'border-color:'); // set error class to the control group
         },
         success: function (label) {
             label
-                    .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                .closest('.form-group').removeClass('has-error'); // set success class to the control group
         }
     });
 
@@ -1292,59 +1446,58 @@
 </script>
 <script>
     $(document).ready(function () {
-        $('#default_select_section').select2()
-        // $('#select-all').hide();
-        // $('#deselect-all').show();
-        $('#my-select,#my-select_for_zip').on('change',function(){
-            $(this).valid();
+        $('#default_select_section').select2();
 
-            // $('#deselect-all').show();
-            // $('#select-all').show();
-        })
+        $('#my-select,#my-select_for_zip').on('change', function () {
+            $(this).valid();
+            // debugger
+            // if(($('#my-select').val()).length > 0 && ($('#my-select').val()).length < rlc.pdfSectionsNameList.length){
+            //     $('#deselect-all').hide();
+            // }
+        });
 
         /* Select-all and deselect all functionality of section name in pdf download*/
-        $('#select-all').click(function(){
-          $('#my-select').multiSelect('select_all');
-          // $('#select-all').hide();
+        $('#select-all').click(function () {
+            $('#my-select').multiSelect('select_all');
+            // $('#select-all').hide();
             $("div.form-group").each(function () {
                 $(this).removeClass('has-error');
                 $('span.help-block-error').remove();
-                $('.ms-selectable > ul').css('border','1px solid #ccc');
-                $('.ms-selection > ul').css('border','1px solid #ccc');
+                $('.ms-selectable > ul').css('border', '1px solid #ccc');
+                $('.ms-selection > ul').css('border', '1px solid #ccc');
             });
-          return false;
+            return false;
         });
-        $('#deselect-all').click(function(){
-          $('#my-select').multiSelect('deselect_all');
-          // $('#my-select').multiSelect('select', '1');
-          $('#my-select').valid();
-          // $('#deselect-all').hide();
-          return false;
+        $('#deselect-all').click(function () {
+            $('#my-select').multiSelect('deselect_all');
+            $('#my-select').valid();
+            // $('#deselect-all').hide();
+            return false;
         });
-         /* Select-all and deselect all functionality of section name in zip download functionality containg pdf*/
-        $('#select-all_for_zip').click(function(){
-          $('#my-select_for_zip').multiSelect('select_all');
-          // $('#my-select').valid();
+        /* Select-all and deselect all functionality of section name in zip download functionality containg pdf*/
+        $('#select-all_for_zip').click(function () {
+            $('#my-select_for_zip').multiSelect('select_all');
+            // $('#my-select').valid();
             $("div.form-group").each(function () {
                 $(this).removeClass('has-error');
                 $('span.help-block-error').remove();
-                $('.ms-selectable > ul').css('border','1px solid #ccc');
-                $('.ms-selection > ul').css('border','1px solid #ccc');
+                $('.ms-selectable > ul').css('border', '1px solid #ccc');
+                $('.ms-selection > ul').css('border', '1px solid #ccc');
             });
-          return false;
+            return false;
         });
-        $('#deselect-all_for_zip').click(function(){
-          $('#my-select_for_zip').multiSelect('deselect_all');
-          $('#my-select_for_zip').valid();
-          return false;
+        $('#deselect-all_for_zip').click(function () {
+            $('#my-select_for_zip').multiSelect('deselect_all');
+            $('#my-select_for_zip').valid();
+            return false;
         });
 
-        $("html, body").animate({scrollTop: 0}, "fast");
+        $("html, body").animate({ scrollTop: 0 }, "fast");
         $('#assignStatusModel.modal,#changeStatusModel.modal').on('hidden.bs.modal', function (e) {
-            $(this).find('form').trigger('reset'); 
+            $(this).find('form').trigger('reset');
             $("div.form-group").each(function () {
                 $(this).removeClass('has-error');
-                $('span.help-block-error').remove();            
+                $('span.help-block-error').remove();
                 applySelect2();
             });
             $('header').css('z-index', '1053');
@@ -1352,44 +1505,44 @@
         });
 
         $('#pdfSettingModel.modal').on('hidden.bs.modal', function (e) {
-                $(this).removeClass('has-error');
-                $('span.help-block-error').remove();
-                $('#ms-my-select').find('.ms-selectable > span').remove();
-                $('#ms-my-select').find('.ms-selection > span').remove();
-                $('.ms-selectable > ul').css('border','1px solid #ccc');
-                $('.ms-selection > ul').css('border','1px solid #ccc');
+            $(this).removeClass('has-error');
+            $('span.help-block-error').remove();
+            $('#ms-my-select').find('.ms-selectable > span').remove();
+            $('#ms-my-select').find('.ms-selection > span').remove();
+            $('.ms-selectable > ul').css('border', '1px solid #ccc');
+            $('.ms-selection > ul').css('border', '1px solid #ccc');
         });
 
         $('#bgChecklistDocsModal.modal').on('hidden.bs.modal', function (e) {
-                $(this).removeClass('has-error');
-                $('span.help-block-error').remove();                
-                $('#ms-my-select_for_zip').find('.ms-selectable > span').remove();
-                $('#ms-my-select_for_zip').find('.ms-selection > span').remove();
-                $('.ms-selectable > ul').css('border','1px solid #ccc');
-                $('.ms-selection > ul').css('border','1px solid #ccc');
+            $(this).removeClass('has-error');
+            $('span.help-block-error').remove();
+            $('#ms-my-select_for_zip').find('.ms-selectable > span').remove();
+            $('#ms-my-select_for_zip').find('.ms-selection > span').remove();
+            $('.ms-selectable > ul').css('border', '1px solid #ccc');
+            $('.ms-selection > ul').css('border', '1px solid #ccc');
         });
         $('#changeJdStatusModal.modal').on('hidden.bs.modal', function (e) {
-                $(this).removeClass('has-error');
-                $('span.help-block-error').remove();
-                $('.ms-selectable > ul').css('border','1px solid #ccc');
-                $('.ms-selection > ul').css('border','1px solid #ccc');
+            $(this).removeClass('has-error');
+            $('span.help-block-error').remove();
+            $('.ms-selectable > ul').css('border', '1px solid #ccc');
+            $('.ms-selection > ul').css('border', '1px solid #ccc');
         });
+    });
 
-    }); 
     $(document).ready(function () {
-        $("html, body").animate({scrollTop: 0}, "fast");
+        $("html, body").animate({ scrollTop: 0 }, "fast");
         $('.modal').on('hidden.bs.modal', function (e) {
             console.log("Modal is closed");
             $('header').css('z-index', '1053');
             $('footer').css('z-index', '1053');
         })
     });
-    function setCSS(){
-        if($('.modal').is(':visible') == true){
+    function setCSS() {
+        if ($('.modal').is(':visible') == true) {
             console.log("Modal is open");
             $('header').css('z-index', '900');
             $('footer').css('z-index', '900');
-        }else{
+        } else {
             $('header').css('z-index', '1053');
             $('footer').css('z-index', '1053');
         }
@@ -1399,22 +1552,22 @@
 <script>
     $(document).ready(function () {
         /* Function to restrict keyboard enter key on datepicker*/
-        $('#schedule_date').bind('keydown',function(e){
+        $('#schedule_date').bind('keydown', function (e) {
             if (e.which == 13) //13 is Enter/Return key.
                 e.stopImmediatePropagation();
         }).datepicker({
             startDate: "today",
             autoclose: true,
             todayHighlight: true
-        });  
+        });
 
-        $('#reschedule_date').bind('keydown',function(e){
+        $('#reschedule_date').bind('keydown', function (e) {
             if (e.which == 13) //13 is Enter/Return key.
                 e.stopImmediatePropagation();
         }).datepicker({
             autoclose: true,
             todayHighlight: true,
             startDate: "today"
-        }); 
+        });
     });
 </script>

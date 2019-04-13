@@ -8,57 +8,67 @@
             </div>
             <div class="col-md-4" style="margin-top:1.5%;">
                 <div class="dataTables_length text-right" id="example_length">
-                    <label>Show 
+                    <label>Show
                         <select id="table_length" aria-controls="example" style="outline: 0;">
                             <!-- <option value="1">1</option> -->
                             <option value="10">10</option>
                             <option value="25">25</option>
                             <option value="50">50</option>
                             <option value="100">100</option>
-                        </select> 
-                    entries</label>
+                        </select>
+                        entries</label>
                 </div>
             </div>
             <div class="col-md-2 pull-right" style="margin-top:1%;">
-                <button type="button" class="btn btn-primary btn-circle btn-sm pull-right" data-toggle="collapse" title="Filter" data-target="#filter"><i class="fa fa-filter" aria-hidden="true" style="padding-right:0.3px"></i></button>
-            </div>            
-        </div> 
-        <br>        
+                <button type="button" class="btn btn-primary btn-circle btn-sm pull-right" data-toggle="collapse"
+                    title="Filter" data-target="#filter"><i class="fa fa-filter" aria-hidden="true"
+                        style="padding-right:0.3px"></i></button>
+            </div>
+        </div>
+        <br>
 
         <div class="box box-primary collapse" id="filter">
-        <!-- <div class="box box-primary" id="filter"> -->
+            <!-- <div class="box box-primary" id="filter"> -->
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-3" ng-if="ilc.logInUserRole == '1'">
                         <div class="form-group">
-                          <label>Interviewer</label>
-                          <select id="jobCode" name="jobCode" ng-model="ilc.userId" class="form-control" style="width: 100%;"  ng-options="x.id as x.name for x in ilc.interviewerList">
-                            <option value="">Select Interviewer</option>
-                          </select>
+                            <label>Interviewer</label>
+                            <select id="jobCode" name="jobCode" ng-model="ilc.userId" class="form-control"
+                                style="width: 100%;" ng-options="x.id as x.name for x in ilc.interviewerList">
+                                <option value="">Select Interviewer</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-3" ng-if="ilc.logInUserRole == '4' || ilc.logInUserRole == '1'">
                         <div class="form-group">
                             <label>Job Code</label>
-                            <select id="jobCode" name="jobCode" ng-model="ilc.jobCodeId" class="form-control" style="width: 100%;">
+                            <select id="jobCode" name="jobCode" ng-model="ilc.jobCodeId" class="form-control"
+                                style="width: 100%;">
                                 <option value="" style="color:#ccc !important;">Select job code</option>
-                                <option ng-repeat="jd in ilc.activeJobDetail" value="{{jd.id}}">{{jd.job_code}} {{jd.sub_title != '' ? (jd.sub_title) : ''}}</option>
+                                <option ng-repeat="jd in ilc.activeJobDetail" value="{{jd.id}}">{{jd.job_code}}
+                                    {{jd.sub_title != '' ? (jd.sub_title) : ''}}</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-3 form-group">
                         <div class="form-group">
                             <label class="" for="">Scheduled Date</label>
-                            <input class="form-control" type="text" id="scheduled_date" name="scheduled_date" ng-model="ilc.scheduledDate" placeholder="Enter date" readonly='true' style="cursor:default;background-color: white;">
+                            <input class="form-control" type="text" id="scheduled_date" name="scheduled_date"
+                                ng-model="ilc.scheduledDate" placeholder="Enter date" readonly='true'
+                                style="cursor:default;background-color: white;">
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                          <label>Candidate</label>
-                          <select id="candidate" name="candidate" ng-model="ilc.candidate" class="form-control" style="width: 100%;">
-                            <option value="">Select Candidate</option>
-                            <option value="{{x.id}}" ng-repeat="x in ilc.candidateList track by x.id">{{x.first_name +' '+ x.middle_name +' '+ x.last_name}}</option>
-                          </select>
+                            <label>Candidate</label>
+                            <select id="candidate" name="candidate" ng-model="ilc.candidate" class="form-control"
+                                style="width: 100%;">
+                                <option value="">Select Candidate</option>
+                                <option value="{{x.id}}" ng-repeat="x in ilc.candidateList track by x.id">
+                                    {{x.first_name +' '+ (x.middle_name != null ?  x.middle_name : '') +' '+ x.last_name}}
+                                </option>
+                            </select>
                         </div>
                     </div>
                     <!-- <div class="col-md-1" style="text-align: center;">
@@ -75,24 +85,26 @@
                     </div> -->
                 </div>
             </div>
-            <div class="box-footer"> 
+            <div class="box-footer">
                 <div class="pull pull-right">
-                   <button type="button" id="changeStatusBtn" class="btn btn-primary"  data-ng-click="ilc.fetchList(-1)" title="Search">Search</button>
-                   <button type="button" class="btn btn-primary fa fa-refresh" ng-click="ilc.resetFilter()" title="Refresh"></button>
+                    <button type="button" id="changeStatusBtn" class="btn btn-primary" data-ng-click="ilc.fetchList(-1)"
+                        title="Search">Search</button>
+                    <button type="button" class="btn btn-primary fa fa-refresh" ng-click="ilc.resetFilter()"
+                        title="Refresh"></button>
                 </div>
             </div>
-        </div>  
+        </div>
         <div class="table-responsive no-padding">
             <table class="table table-hover">
                 <thead class="thead-default">
                     <tr>
                         <th style="text-align: center;">Sr No.</th>
-                        <th ng-if="ilc.logInUserRole != 4">Interviewer Name</th>                        
+                        <th ng-if="ilc.logInUserRole != 4">Interviewer Name</th>
                         <th>Candidate Name</th>
                         <th>Job Code</th>
-                        <th>Scheduled Date</th>                        
-                        <th>Scheduled Time</th>           
-                        <th>Round</th>           
+                        <th>Scheduled Date</th>
+                        <th>Scheduled Time</th>
+                        <th>Round</th>
                         <!-- <th style="text-align: center;" >Action</th> -->
                     </tr>
                 </thead>
@@ -101,7 +113,8 @@
                     <tr ng-repeat="data in ilc.interviewList">
                         <td style="text-align: center;" ng-bind="(ilc.pageno - 1) * ilc.limit + ($index + 1)"></td>
                         <td ng-if="ilc.logInUserRole != 4">{{data.users.name}}</td>
-                        <td>{{data.all_candidates.first_name +' '+ data.all_candidates.middle_name +' '+ data.all_candidates.last_name}}</td>
+                        <td>{{data.all_candidates.first_name +' '+ (data.all_candidates.middle_name != null ?  data.all_candidates.middle_name : '') +' '+ data.all_candidates.last_name}}
+                        </td>
                         <td>{{data.job_description.job_code +' '+data.job_description.sub_title}}</td>
                         <td>{{data.schedule_date | date: 'dd-MM-yyyy'}}</td>
                         <td>{{ilc.tConvert(data.schedule_time)}}</td>
@@ -112,21 +125,23 @@
                         </td> -->
                     </tr>
                     <tr ng-if="ilc.interviewList == null || ilc.interviewList.length == 0">
-                        <td style="text-align: center;" colspan="7">No Records Found</td> 
+                        <td style="text-align: center;" colspan="7">No Records Found</td>
                     </tr>
                 </tbody>
             </table>
             <div class="row col-sm-12" style="padding-right: 0px;">
-                <ul id="pagination-sec" class="pagination-sm" style="float: right;margin-top: 5px;margin-bottom:45px;margin-right:-1.2%"></ul>
+                <ul id="pagination-sec" class="pagination-sm"
+                    style="float: right;margin-top: 5px;margin-bottom:45px;margin-right:-1.2%"></ul>
             </div>
-        </div> 
+        </div>
     </div>
 
     <div class="modal fade changeJdStatusModal" id="changeJdStatusModal" role="dialog">
         <div class="modal-dialog modal-sm">
-            <div class="modal-content" style="border-radius: 0px!important;" >
-                <div class="modal-header" id="popUpModalHeader"> 
-                    <button type="button" class="close" data-dismiss="modal" ng-click="ilc.resetForm()" style="margin-right: 5px;">&times;</button>
+            <div class="modal-content" style="border-radius: 0px!important;">
+                <div class="modal-header" id="popUpModalHeader">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="ilc.resetForm()"
+                        style="margin-right: 5px;">&times;</button>
                     <h4 class="modal-title popUpModalTitle">Change Job Code</h4>
                 </div>
                 <div class="modal-body">
@@ -143,16 +158,19 @@
                                     <label class="mandatory" style="font-size: 14px">Job code </label>
                                     <select class="form-control" name="job_code" id="job_code" ng-model="ilc.job_id">
                                         <option value="" style="color:#ccc !important;">Select job code</option>
-                                        <option ng-repeat="jd in ilc.jobDetail" value="{{jd.id}}">{{jd.job_code}} {{jd.sub_title != '' ? (jd.sub_title) : ''}}</option>
+                                        <option ng-repeat="jd in ilc.jobDetail" value="{{jd.id}}">{{jd.job_code}}
+                                            {{jd.sub_title != '' ? (jd.sub_title) : ''}}</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer" style="margin-top: 0px;"> 
-                    <button type="button" id="changeStatusBtn" class="btn btn-primary"  data-ng-click="ilc.changeJobDescription();" >Save</button>
-                    <button type="reset" id="closeModal" class="btn btn-warning"  ng-click="ilc.resetForm()" data-dismiss="modal">Cancel</button>
+                <div class="modal-footer" style="margin-top: 0px;">
+                    <button type="button" id="changeStatusBtn" class="btn btn-primary"
+                        data-ng-click="ilc.changeJobDescription();">Save</button>
+                    <button type="reset" id="closeModal" class="btn btn-warning" ng-click="ilc.resetForm()"
+                        data-dismiss="modal">Cancel</button>
                 </div>
             </div>
         </div>
@@ -160,135 +178,133 @@
 
 </section>
 <style type="text/css">
-    @media (min-width: 768px){
+    @media (min-width: 768px) {
         .modal-sm {
             width: 350px;
-        }        
+        }
     }
 </style>
 <!-- <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script> -->
 <script>
 
-     // $(function() {        
-     //    $('#toggle-status-switch').bootstrapToggle({
-     //      on: 'Inactive',
-     //      off: 'Active',
-     //    });
+    // $(function() {        
+    //    $('#toggle-status-switch').bootstrapToggle({
+    //      on: 'Inactive',
+    //      off: 'Active',
+    //    });
 
-     //  })
-        // $('#toggle-status-switch').change(function(e) {
-        //     console.log("status");
-        //   var status=$(this).prop('checked');
-        //   var scope = angular.element(document.querySelector("#jobCtrl")).scope();
-        //        scope.$apply(function () {
-        //            scope.isChecked(status);
-        //        });
+    //  })
+    // $('#toggle-status-switch').change(function(e) {
+    //     console.log("status");
+    //   var status=$(this).prop('checked');
+    //   var scope = angular.element(document.querySelector("#jobCtrl")).scope();
+    //        scope.$apply(function () {
+    //            scope.isChecked(status);
+    //        });
 
-        // });
+    // });
 
-        $(".select2").select2();
+    $(".select2").select2();
 
-            // var baseUrl = Utility.apiBaseUrl;
-            $("#changeJdStatusForm").validate({
-                errorElement: 'span', //default input error message container
-                errorClass: 'help-block help-block-error',
-                errorPlacement: function (error, element) {
+    // var baseUrl = Utility.apiBaseUrl;
+    $("#changeJdStatusForm").validate({
+        errorElement: 'span', //default input error message container
+        errorClass: 'help-block help-block-error',
+        errorPlacement: function (error, element) {
 
-                    var type = $(element).attr("type");
-                    if ($(element).attr("id") === "")
-                    {
-                        element.parent().append(error);
+            var type = $(element).attr("type");
+            if ($(element).attr("id") === "") {
+                element.parent().append(error);
 
-                    }
-                    else if ($(element).attr("id") === "job_code")
-                    {
-                        element.parent().append(error);
-
-                    }else{
-                        error.insertAfter(element);
-                    }
-                },
-                rules: {
-                    job_code: {
-                        required: true
-                    }
-                },
-                messages: {
-                    job_code: {
-                        required: "Job code is required."
-                    }
-                },
-                highlight: function (element) { // hightlight error inputs
-                    $(element).closest('.form-group').addClass('has-error');
-
-                    $(element).next().children().children().attr('style', 'border-color:#dd4b39!important');
-                    // set error class to the control group
-                },
-                unhighlight: function (element) { // revert the change done by hightlight
-                    $(element)
-                            .closest('.form-group').removeClass('has-error');
-                    $(element)
-                            .next().children().children().attr('style', 'border-color:'); // set error class to the control group
-                },
-                success: function (label) {
-                    label
-                            .closest('.form-group').removeClass('has-error'); // set success class to the control group
-                }
-            });
-
-            $('#changeJdStatusModal.modal').on('hidden.bs.modal', function (e) {
-                $(this).find('form').trigger('reset'); 
-                $("div.form-group").each(function () {
-                    $(this).removeClass('has-error');
-                    $('span.help-block-error').remove();
-                    applySelect2();
-                });
-                $('header').css('z-index', '1053');
-                $('footer').css('z-index', '1053');
-            });
-
-            $(".s2mn").on("change", function () { $(this).valid(); });
-        $(document).ready(function () {
-            $("html, body").animate({scrollTop: 0}, "fast");
-            $('.modal').on('hidden.bs.modal', function (e) {
-                console.log("Modal is closed");
-                $('header').css('z-index', '1053');
-                $('footer').css('z-index', '1053');
-            })
-        });
-        function setCSS(){
-            if($('.modal').is(':visible') == true){
-                console.log("Modal is open");
-                $('header').css('z-index', '900');
-                $('footer').css('z-index', '900');
-            }else{
-                $('header').css('z-index', '1053');
-                $('footer').css('z-index', '1053');
             }
+            else if ($(element).attr("id") === "job_code") {
+                element.parent().append(error);
+
+            } else {
+                error.insertAfter(element);
+            }
+        },
+        rules: {
+            job_code: {
+                required: true
+            }
+        },
+        messages: {
+            job_code: {
+                required: "Job code is required."
+            }
+        },
+        highlight: function (element) { // hightlight error inputs
+            $(element).closest('.form-group').addClass('has-error');
+
+            $(element).next().children().children().attr('style', 'border-color:#dd4b39!important');
+            // set error class to the control group
+        },
+        unhighlight: function (element) { // revert the change done by hightlight
+            $(element)
+                .closest('.form-group').removeClass('has-error');
+            $(element)
+                .next().children().children().attr('style', 'border-color:'); // set error class to the control group
+        },
+        success: function (label) {
+            label
+                .closest('.form-group').removeClass('has-error'); // set success class to the control group
         }
-        setCSS();
-    
+    });
+
+    $('#changeJdStatusModal.modal').on('hidden.bs.modal', function (e) {
+        $(this).find('form').trigger('reset');
+        $("div.form-group").each(function () {
+            $(this).removeClass('has-error');
+            $('span.help-block-error').remove();
+            applySelect2();
+        });
+        $('header').css('z-index', '1053');
+        $('footer').css('z-index', '1053');
+    });
+
+    $(".s2mn").on("change", function () { $(this).valid(); });
+    $(document).ready(function () {
+        $("html, body").animate({ scrollTop: 0 }, "fast");
+        $('.modal').on('hidden.bs.modal', function (e) {
+            console.log("Modal is closed");
+            $('header').css('z-index', '1053');
+            $('footer').css('z-index', '1053');
+        })
+    });
+    function setCSS() {
+        if ($('.modal').is(':visible') == true) {
+            console.log("Modal is open");
+            $('header').css('z-index', '900');
+            $('footer').css('z-index', '900');
+        } else {
+            $('header').css('z-index', '1053');
+            $('footer').css('z-index', '1053');
+        }
+    }
+    setCSS();
+
 </script>
 <script>
-    function setTime(){
+    function setTime() {
         //Date picker
         $('#scheduled_date').datepicker({
             autoclose: true,
             todayHighlight: true
-        }).on('changeDate', function(selected){
-             // $(this).valid();
+        }).on('changeDate', function (selected) {
+            // $(this).valid();
         });
     }
 
-    setTimeout(function(){setTime();},10);
+    setTimeout(function () { setTime(); }, 10);
 
     $(document).ready(function () {
-        $('#scheduled_date').bind('keydown',function(e){
+        $('#scheduled_date').bind('keydown', function (e) {
             if (e.which == 13) //13 is Enter/Return key.
                 e.stopImmediatePropagation();
         }).datepicker({
             autoclose: true,
             todayHighlight: true
-        }); 
+        });
     });
 </script>

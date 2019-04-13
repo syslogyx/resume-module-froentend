@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html> 
+<html>
     <head>
 
         <base href="/">
 
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Resume Module</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link rel="shortcut icon" href="/resources/img/favicon.ico">
-        <!-- Bootstrap 3.3.6 -->    
+        <!-- Bootstrap 3.3.6 -->
         <link rel="stylesheet" href="/resources/plugins/bootstrap/css/bootstrap.min.css">
         <!-- Font Awesome -->
         <link rel="stylesheet" href="/resources/lib/font-awesome-4.5.0/css/font-awesome.min.css">
@@ -30,7 +30,7 @@
 
         <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
         <!-- Data Table -->
-        <link rel="stylesheet" type="text/css" href="/resources/lib/datatables-1.10.15/css/datatables.min.css"/>  
+        <link rel="stylesheet" type="text/css" href="/resources/lib/datatables-1.10.15/css/datatables.min.css"/>
 
         <!--<link rel="stylesheet" href="resources/css/style.css">-->
 
@@ -44,10 +44,10 @@
         <!-- Select2 -->
         <link rel="stylesheet" href="/resources/plugins/select2/select2.min.css">
         <!-- Custom common style -->
-        <link rel="stylesheet" type="text/css" href="/resources/css/commonStyle.css"/> 
+        <link rel="stylesheet" type="text/css" href="/resources/css/commonStyle.css"/>
         <link rel="stylesheet" href="/resources/plugins/sweetalert2-6.6.0/sweetalert2.min.css">
 
-        
+
         <!-- Material design icons -->
         <link rel="stylesheet" type="text/css" href="/resources/node_modules/mdi/css/materialdesignicons.min.css">
 
@@ -56,12 +56,12 @@
 
         <!-- For toaster alert section -->
         <link rel="stylesheet" href="/resources/bower_components/toastr/toastr.min.css">
-        
+
         <!-- <link href="/resources/bower_components/bootstrap-toggle-master/css/bootstrap2-toggle.min.css" rel="stylesheet">
         <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet"> -->
         <link href="/resources/plugins/angular-bootstrap-toggle-master/dist/angular-bootstrap-toggle.min.css" rel="stylesheet">
         <!-- <link href="https://gitcdn.github.io/bootstrap-toggle/2.1.0/css/bootstrap-toggle.min.css" rel="stylesheet"> -->
-        
+
         <!-- For panel in fund request section -->
         <link rel="stylesheet" type="text/css" href="/resources/css/ziehharmonika.css">
 
@@ -75,9 +75,9 @@
                 display: none !important;
             }
             .Blink {
-                animation: blinker 1.5s cubic-bezier(.5, 0, 1, 1) infinite alternate;  
+                animation: blinker 1.5s cubic-bezier(.5, 0, 1, 1) infinite alternate;
             }
-            @keyframes blinker {  
+            @keyframes blinker {
                 from { opacity: 1; }
                 to { opacity: 0; }
             }
@@ -165,7 +165,7 @@
                               <p>{{name}}</p>
                             </div>
                         </div>
-                      
+
                         <ul class="sidebar-menu" data-widget="treeview" role="menu">
                             <!-- Dashboard Menu -->
                             <li id="{{item.Title | removeSpaces}}" ng-repeat = "item in menuList" ng-click="menuClick(item.Link)" class="{{item.active}}">
@@ -252,7 +252,7 @@
 
                 <div class="pm_uploader_container pmct">
                     <div class="pm_uploader_head">
-                        <h4 >Uploading 1 file</h4> 
+                        <h4 >Uploading 1 file</h4>
                         <a href="" class="pm_close"><i class="mdi mdi-close"></i></a>
                     </div>
                     <div class="pm_uploader_body">
@@ -271,12 +271,12 @@
                     </div>
                 </div>
             </div>
-            <!-- ./wrapper -->          
+            <!-- ./wrapper -->
         </div>
-       
+
          <!-- jQuery 3 -->
         <script src="/resources/plugins/jQuery/jquery.min.js"></script>
-       
+
         <!-- SlimScroll -->
         <script src="/resources/plugins/slimScroll/jquery.slimscroll.min.js"></script>
         <!-- FastClick -->
@@ -294,7 +294,7 @@
         <script src="/resources/bower_components/angular-cookies/angular-cookies.js"></script>
         <!--<script src="/resources/plugins/jquery-validation/dist/jquery.validate.min.js"></script>-->
         <script src="/resources/plugins/icheck-1.x/icheck.js"></script>
-    
+
         <!-- For toaster alert -->
         <script src="/resources/bower_components/toastr/toastr.min.js"></script>
         <!-- date-range-picker -->
@@ -333,17 +333,17 @@
         <script type="text/javascript" src="/resources/pie_chart/jqwidgets/jqxcore.js"></script>
         <script type="text/javascript" src="/resources/pie_chart/jqwidgets/jqxdraw.js"></script>
         <script type="text/javascript" src="/resources/pie_chart/jqwidgets/jqxchart.core.js"></script>
-        
+
         <!-- <script type="text/javascript" src="scripts/demos.js"></script> -->
         <script type="text/javascript" src="/resources/pie_chart/jqwidgets/jqxdata.js"></script>
-        
-        <script src="/resources/js/myapp.js"></script>  
+
+        <script src="/resources/js/myapp.js"></script>
         <script src="/controller/homeCtrl.js"></script>
-        <script src="/controller/loginCtrl.js"></script>  
-        <script src="/controller/menuCtrl.js"></script> 
-        <script src="/controller/userCtrl.js"></script> 
-        <script src="/controller/resumeCtrl.js"></script> 
-        <script src="/controller/resumeListCtrl.js"></script> 
+        <script src="/controller/loginCtrl.js"></script>
+        <script src="/controller/menuCtrl.js"></script>
+        <script src="/controller/userCtrl.js"></script>
+        <script src="/controller/resumeCtrl.js"></script>
+        <script src="/controller/resumeListCtrl.js"></script>
         <script src="/controller/jobCtrl.js"></script>
         <script src="/controller/screeningCtrl.js"></script>
         <script src="/controller/screeningTestCtrl.js"></script>

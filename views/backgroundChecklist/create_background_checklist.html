@@ -1,7 +1,7 @@
 <section class="content" ng-cloak>
-<br><br>
-    <form role="form" name="addForm" id="backgroundChecklistForm" >
-        <div class="box box-default" >
+    <br><br>
+    <form role="form" name="addForm" id="backgroundChecklistForm">
+        <div class="box box-default">
             <div class="row box-header with-border boxhead">
                 <div class="col-xs-6">
                     <h1 class="formheading">
@@ -11,16 +11,20 @@
 
                 <div class="col-xs-6">
                     <div class="pull-right" style="margin-top: 5px; margin-right: 20px;">
-                        <a ng-href="/background_checklist"><button type="button" class="btn btn-default btn-sm" data-toggle="modal" title="Back" data-target="" data-ng-click="" style="border:white;color:#428bca;outline: 0;"><i class="fa fa-arrow-left" aria-hidden="true"></i></button></a>  
-                    </div> 
-                </div>                
+                        <a ng-href="/background_checklist"><button type="button" class="btn btn-default btn-sm"
+                                data-toggle="modal" title="Back" data-target="" data-ng-click=""
+                                style="border:white;color:#428bca;outline: 0;"><i class="fa fa-arrow-left"
+                                    aria-hidden="true"></i></button></a>
+                    </div>
+                </div>
             </div>
             <!-- /.box-header -->
-            <div class="box-body">  
+            <div class="box-body">
                 <div class="row">
                     <div class="col-md-4 form-group">
                         <label class="mandatory" for="">Name</label>
-                        <input type="text" class="form-control" ng-model="bcl.bgChecklistName" name="bg_checklist_name" id="bg_checklist_name" placeholder="Enter name" >
+                        <input type="text" class="form-control" ng-model="bcl.bgChecklistName" name="bg_checklist_name"
+                            id="bg_checklist_name" placeholder="Enter name">
 
                     </div>
                     <!-- <div class="col-md-4">
@@ -33,26 +37,33 @@
                     </div> -->
                     <div class="col-md-4 form-group">
                         <label class="" style="margin-bottom: 2.5%;">Field Type</label>
-                        <select id="field_type" ng-init="bcl.fieldType='file'" name="field_type" class="form-control" placeholder="Enter mandatory field" ng-model="bcl.fieldType" disabled>
+                        <select id="field_type" ng-init="bcl.fieldType='file'" name="field_type" class="form-control"
+                            placeholder="Enter mandatory field" ng-model="bcl.fieldType" disabled>
                             <option value="" style="color:#ccc !important;">Select field type</option>
                             <option value="file" selected>File</option>
                         </select>
                     </div>
                     <div class="col-md-4">
                         <div style="margin-top: 8%">
-                            <input type="submit" value="Save" data-ng-click="bcl.createBackgroundChecklist()" class="btn btn-success" style="outline: 0;"/> 
-                            <input type="button" value="Cancel" class="btn btn-warning" data-ng-click="bcl.cancelBackgroundChecklist()"  style="outline: 0;"/> 
-                            <input ng-if="bcl.title == 'Add New Background Checklist'" type="reset" value="Reset" ng-click="bcl.resetForm()" class="btn" style="outline: 0;"/> 
+                            <input type="submit" value="Save" data-ng-click="bcl.createBackgroundChecklist()"
+                                class="btn btn-success" style="outline: 0;" />
+                            <input type="button" value="Cancel" class="btn btn-warning"
+                                data-ng-click="bcl.cancelBackgroundChecklist()" style="outline: 0;" />
+                            <input ng-if="bcl.title == 'Add New Background Checklist'" type="reset" value="Reset"
+                                ng-click="bcl.resetForm()" class="btn" style="outline: 0;" />
                         </div>
                     </div>
-                </div> 
+                </div>
             </div>
             <!-- /.box-body -->
             <div class="box-footer" style="margin-right:14px!important;display: none">
                 <div class="pull pull-right">
-                    <input type="submit" value="Save" data-ng-click="bcl.createBackgroundChecklist()" class="btn btn-success" style="outline: 0;"/> 
-                    <input type="button" value="Cancel" class="btn btn-warning" data-ng-click="bcl.cancelBackgroundChecklist()"  style="outline: 0;"/> 
-                    <input  ng-if="bcl.title == 'Add New Background Checklist'" type="reset" value="Reset" ng-click="bcl.resetForm()" class="btn" style="outline: 0;"/> 
+                    <input type="submit" value="Save" data-ng-click="bcl.createBackgroundChecklist()"
+                        class="btn btn-success" style="outline: 0;" />
+                    <input type="button" value="Cancel" class="btn btn-warning"
+                        data-ng-click="bcl.cancelBackgroundChecklist()" style="outline: 0;" />
+                    <input ng-if="bcl.title == 'Add New Background Checklist'" type="reset" value="Reset"
+                        ng-click="bcl.resetForm()" class="btn" style="outline: 0;" />
                 </div>
             </div>
         </div>
@@ -60,62 +71,59 @@
 </section>
 
 <script>
-        var baseUrl = Utility.apiBaseUrl;
-        $("#backgroundChecklistForm").validate({
-            errorElement: 'span', //default input error message container
-            errorClass: 'help-block help-block-error',
-            errorPlacement: function (error, element) {
+    var baseUrl = Utility.apiBaseUrl;
+    $("#backgroundChecklistForm").validate({
+        errorElement: 'span', //default input error message container
+        errorClass: 'help-block help-block-error',
+        errorPlacement: function (error, element) {
 
-                var type = $(element).attr("type");
-                if ($(element).attr("id") === "")
-                {
-                    element.parent().append(error);
-                }
-                else if ($(element).attr("id") === "mandatory_field")
-                {
-                    element.parent().append(error);
-                }
-                else{
-                    error.insertAfter(element);
-                }
-            },
-            rules: {
-                bg_checklist_name: {
-                    required: true
-                },
-                // mandatory_field: {
-                //     required:true
-                // }
-            },
-            messages: {
-                bg_checklist_name: {
-                    required: "Checklist name is required."
-                },
-                // mandatory_field: {
-                //     required: "Mandatory field is required."
-                // }
-            },
-            highlight: function (element) { // hightlight error inputs
-                $(element).closest('.form-group').addClass('has-error');
-
-                $(element).next().children().children().attr('style', 'border-color:#dd4b39!important');
-                // set error class to the control group
-            },
-            unhighlight: function (element) { // revert the change done by hightlight
-                $(element)
-                        .closest('.form-group').removeClass('has-error');
-                $(element)
-                        .next().children().children().attr('style', 'border-color:'); // set error class to the control group
-            },
-            success: function (label) {
-                label
-                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+            var type = $(element).attr("type");
+            if ($(element).attr("id") === "") {
+                element.parent().append(error);
             }
-        });
+            else if ($(element).attr("id") === "mandatory_field") {
+                element.parent().append(error);
+            }
+            else {
+                error.insertAfter(element);
+            }
+        },
+        rules: {
+            bg_checklist_name: {
+                required: true
+            },
+            // mandatory_field: {
+            //     required:true
+            // }
+        },
+        messages: {
+            bg_checklist_name: {
+                required: "Checklist name is required."
+            },
+            // mandatory_field: {
+            //     required: "Mandatory field is required."
+            // }
+        },
+        highlight: function (element) { // hightlight error inputs
+            $(element).closest('.form-group').addClass('has-error');
+
+            $(element).next().children().children().attr('style', 'border-color:#dd4b39!important');
+            // set error class to the control group
+        },
+        unhighlight: function (element) { // revert the change done by hightlight
+            $(element)
+                .closest('.form-group').removeClass('has-error');
+            $(element)
+                .next().children().children().attr('style', 'border-color:'); // set error class to the control group
+        },
+        success: function (label) {
+            label
+                .closest('.form-group').removeClass('has-error'); // set success class to the control group
+        }
+    });
 </script>
 <script>
-        $(document).ready(function () {
-            $("html, body").animate({scrollTop: 0}, "fast");
-        });
+    $(document).ready(function () {
+        $("html, body").animate({ scrollTop: 0 }, "fast");
+    });
 </script>
-

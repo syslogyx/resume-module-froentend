@@ -1,18 +1,19 @@
 <section class="content dashboard" style="min-height: 525px;">
     <div class="container-fluid dashbaordContainer">
-        <div ng-class="{'margin-left-client': hme.logInUserRole == hme.role_client, 'margin-left-others': hme.logInUserRole == hme.role_hr, 'margin-left-others': hme.logInUserRole == hme.role_admin}"> 
+        <div
+            ng-class="{'margin-left-client': hme.logInUserRole == hme.role_client, 'margin-left-others': hme.logInUserRole == hme.role_hr, 'margin-left-others': hme.logInUserRole == hme.role_admin}">
             <h3>Welcome <span style="color:#1e5598;font-size: smaller;">{{hme.name }} !</span></h3>
         </div>
         <!-- Start Dashboard for admin -->
-            <div class="row col-xs-12" ng-if='hme.logInUserRole == hme.role_admin'> 
-                <div class="col-md-6" style="padding-left: 0px !important; padding-right: 0px !important;">
-                    <div id='adminOverallChartContainer' class='chartData'></div>
-                </div>
-                <div class="col-md-6" style="padding-left: 0px !important; padding-right: 0px !important;">
-                    <div id='adminJoinedchartContainer' class='chartData'></div>
-                </div>
+        <div class="row col-xs-12" ng-if='hme.logInUserRole == hme.role_admin'>
+            <div class="col-md-6" style="padding-left: 0px !important; padding-right: 0px !important;">
+                <div id='adminOverallChartContainer' class='chartData'></div>
             </div>
-            <!-- <div class="row col-xs-12" ng-if='hme.logInUserRole == hme.role_admin'> 
+            <div class="col-md-6" style="padding-left: 0px !important; padding-right: 0px !important;">
+                <div id='adminJoinedchartContainer' class='chartData'></div>
+            </div>
+        </div>
+        <!-- <div class="row col-xs-12" ng-if='hme.logInUserRole == hme.role_admin'> 
                 <div class="col-md-6 zoom no-padding align-image-center">
                     <img src="resources/img/Admin_dashboard/Overall_img.png" width="500px">
                 </div>    
@@ -21,205 +22,229 @@
                     <img src="resources/img/Admin_dashboard/Selected_img.png" width="500px">
                 </div>
             </div> -->
-            <div class="row col-xs-12 no-padding" ng-if='hme.logInUserRole == hme.role_admin'> 
-                <div class="col-md-4">
-                    <!-- <img src="resources/img/Admin_dashboard/Live_jd_img.png" width="325px" height="261px"> -->
-                    <div class="box box-default totalcountBox">
-                        <div class="box-header with-border">
-                            <div class="col-sm-10 col-xs-10 no-padding">
-                                <h3 class="box-title">Live JD</h3>
+        <div class="row col-xs-12 no-padding" ng-if='hme.logInUserRole == hme.role_admin'>
+            <div class="col-md-4">
+                <!-- <img src="resources/img/Admin_dashboard/Live_jd_img.png" width="325px" height="261px"> -->
+                <div class="box box-default totalcountBox">
+                    <div class="box-header with-border">
+                        <div class="col-sm-10 col-xs-10 no-padding">
+                            <h3 class="box-title">Live JD</h3>
+                        </div>
+                        <div class="col-sm-2 col-xs-2 no-padding">
+                            <div class="pull-right">
+                                <a ng-href="/jobs"><button type="button" class="btn btn-default btn-sm no-margin"
+                                        title="View" style="background-color:#fd7e14;color:#fff;"><i class="fa fa-eye"
+                                            aria-hidden="true"></i></button></a>
                             </div>
-                            <div class="col-sm-2 col-xs-2 no-padding">
-                                <div class="pull-right" >
-                                    <a ng-href="/jobs"><button type="button" class="btn btn-default btn-sm no-margin"  title="View" style="background-color:#fd7e14;color:#fff;"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
-                                </div> 
-                            </div>  
                         </div>
-                        <div class="box-body">
-                            <h1 class="box-content">{{hme.adminDashboradRecord.total_jd_count}}</h1>
-                        </div>
+                    </div>
+                    <div class="box-body">
+                        <h1 class="box-content">{{hme.adminDashboradRecord.total_jd_count}}</h1>
                     </div>
                 </div>
-                <div class="col-md-4">
-                   <!--  <img src="resources/img/Admin_dashboard/Clients_img.png" width="325px" height="261px"> -->
-                    <div class="box box-default totalcountBox">
-                        <div class="box-header with-border">
-                            <div class="col-sm-10 col-xs-10 no-padding">
-                                <h3 class="box-title">Clients</h3>
-                            </div>
-                            <div class="col-sm-2 col-xs-2 no-padding">
-                                <div class="pull-right" >
-                                    <a ng-href="/client"><button type="button" class="btn btn-default btn-sm no-margin"  title="View" style="background-color:#fd7e14;color:#fff;"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
-                                </div> 
-                            </div> 
-                        </div>
-                        <div class="box-body">
-                            <h1 class="box-content">{{hme.adminDashboradRecord.total_client_count}}</h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <!-- <img src="resources/img/Admin_dashboard/Candidates_img.png" width="365px" height="261px"> -->
-                    <div class="box box-default totalcountBox">
-                        <div class="box-header with-border">
-                            <div class="col-sm-10 col-xs-10 no-padding" style='padding-left:0px'>
-                                <h3 class="box-title">Candidates Management</h3>
-                            </div>
-                            <div class="col-sm-2 col-xs-2 no-padding">
-                                <div class="pull-right" >
-                                    <a ng-href="/resume_list#non-selected"><button type="button" class="btn btn-default btn-sm no-margin"  title="View" style="background-color:#fd7e14;color:#fff;"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
-                                </div> 
-                            </div> 
-                        </div>
-                        <div class="box-body">
-                            <ul id="candidate_details_list" style="list-style: none;">
-                                <li>
-                                    <div class="row"> 
-                                        <div class="col-md-12">
-                                            <span class='candidate_details_key'>Shared <strong class='candidate_details_value'>{{hme.adminDashboradRecord.candidate_mgmt_details.forwarded_candidates_count}}</strong></span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="row"> 
-                                        <div class="col-md-12">
-                                            <span class='candidate_details_key'>Shortlisted <strong class='candidate_details_value'>{{hme.adminDashboradRecord.candidate_mgmt_details.shortlisted_candidates_count}}</strong></span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="row"> 
-                                        <div class="col-md-12">
-                                            <span class='candidate_details_key'>Interview In Progress <strong class='candidate_details_value'>{{hme.adminDashboradRecord.candidate_mgmt_details.inprogress_interviews_count}}</strong></span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="row"> 
-                                        <div class="col-md-12">
-                                            <span class='candidate_details_key'>Onboarding <strong class='candidate_details_value'>{{hme.adminDashboradRecord.candidate_mgmt_details.onbording}}</strong></span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="row"> 
-                                        <div class="col-md-12">
-                                            <span class='candidate_details_key'>Joined <strong class='candidate_details_value'>{{hme.adminDashboradRecord.candidate_mgmt_details.joined_candidates_count}}</strong></span>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul> 
-                        </div>
-                    </div>
-                </div> 
             </div>
+            <div class="col-md-4">
+                <!--  <img src="resources/img/Admin_dashboard/Clients_img.png" width="325px" height="261px"> -->
+                <div class="box box-default totalcountBox">
+                    <div class="box-header with-border">
+                        <div class="col-sm-10 col-xs-10 no-padding">
+                            <h3 class="box-title">Clients</h3>
+                        </div>
+                        <div class="col-sm-2 col-xs-2 no-padding">
+                            <div class="pull-right">
+                                <a ng-href="/client"><button type="button" class="btn btn-default btn-sm no-margin"
+                                        title="View" style="background-color:#fd7e14;color:#fff;"><i class="fa fa-eye"
+                                            aria-hidden="true"></i></button></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <h1 class="box-content">{{hme.adminDashboradRecord.total_client_count}}</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <!-- <img src="resources/img/Admin_dashboard/Candidates_img.png" width="365px" height="261px"> -->
+                <div class="box box-default totalcountBox">
+                    <div class="box-header with-border">
+                        <div class="col-sm-10 col-xs-10 no-padding" style='padding-left:0px'>
+                            <h3 class="box-title">Candidates Management</h3>
+                        </div>
+                        <div class="col-sm-2 col-xs-2 no-padding">
+                            <div class="pull-right">
+                                <a ng-href="/resume_list#non-selected"><button type="button"
+                                        class="btn btn-default btn-sm no-margin" title="View"
+                                        style="background-color:#fd7e14;color:#fff;"><i class="fa fa-eye"
+                                            aria-hidden="true"></i></button></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <ul id="candidate_details_list" style="list-style: none;">
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <span class='candidate_details_key'>Shared <strong
+                                                class='candidate_details_value'>{{hme.adminDashboradRecord.candidate_mgmt_details.forwarded_candidates_count}}</strong></span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <span class='candidate_details_key'>Shortlisted <strong
+                                                class='candidate_details_value'>{{hme.adminDashboradRecord.candidate_mgmt_details.shortlisted_candidates_count}}</strong></span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <span class='candidate_details_key'>Interview In Progress <strong
+                                                class='candidate_details_value'>{{hme.adminDashboradRecord.candidate_mgmt_details.inprogress_interviews_count}}</strong></span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <span class='candidate_details_key'>Onboarding <strong
+                                                class='candidate_details_value'>{{hme.adminDashboradRecord.candidate_mgmt_details.onbording}}</strong></span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <span class='candidate_details_key'>Joined <strong
+                                                class='candidate_details_value'>{{hme.adminDashboradRecord.candidate_mgmt_details.joined_candidates_count}}</strong></span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- End Dashboard for admin -->
 
         <!-- Start Dashboard for hr -->
-            <div class="row col-xs-12" ng-if='hme.logInUserRole == hme.role_hr'>  
-                <!-- <div class="col-md-6 zoom no-padding align-image-center">
+        <div class="row col-xs-12" ng-if='hme.logInUserRole == hme.role_hr'>
+            <!-- <div class="col-md-6 zoom no-padding align-image-center">
                     <img src="resources/img/HR_dashboard/Overall_img.png" width="500px">
                 </div>
                 <div class="col-md-6 zoom no-padding align-image-center">
                     <img src="resources/img/HR_dashboard/Selected_img.png" width="500px">
                 </div>  -->
-                <div class="col-md-6" style="padding-left: 0px !important; padding-right: 0px !important;">
-                    <div id='hrOverallChartContainer' class='chartData'></div>
-                </div>
-                <div class="col-md-6" style="padding-left: 0px !important; padding-right: 0px !important;">
-                    <div id='hrJoinedChartContainer' class='chartData'></div>
-                </div>
+            <div class="col-md-6" style="padding-left: 0px !important; padding-right: 0px !important;">
+                <div id='hrOverallChartContainer' class='chartData'></div>
             </div>
-            <div class="row col-xs-12 no-padding" ng-if='hme.logInUserRole == hme.role_hr' >
-                <!-- <div class="col-md-6 zoom no-padding align-image-center">
+            <div class="col-md-6" style="padding-left: 0px !important; padding-right: 0px !important;">
+                <div id='hrJoinedChartContainer' class='chartData'></div>
+            </div>
+        </div>
+        <div class="row col-xs-12 no-padding" ng-if='hme.logInUserRole == hme.role_hr'>
+            <!-- <div class="col-md-6 zoom no-padding align-image-center">
                     <img src="resources/img/HR_dashboard/Candidates_Management_img.png" width="500px" height="auto">
                 </div> -->
-                <div class="col-md-6">
-                    <div class="box box-default totalcountBox">
-                        <div class="box-header with-border">
-                            <div class="col-sm-10 col-xs-10 no-padding">
-                                <h3 class="box-title">Candidates Management</h3>
-                            </div>
-                            <div class="col-sm-2 col-xs-2 no-padding">
-                                <div class="pull-right" >
-                                    <a ng-href="/resume_list#non-selected"><button type="button" class="btn btn-default btn-sm"  title="View" style="background-color:#fd7e14;color:#fff;"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
-                                </div> 
-                            </div>
+            <div class="col-md-6">
+                <div class="box box-default totalcountBox">
+                    <div class="box-header with-border">
+                        <div class="col-sm-10 col-xs-10 no-padding">
+                            <h3 class="box-title">Candidates Management</h3>
                         </div>
-                        <div class="box-body">
-                            <ul id="candidate_details_list" style="list-style: none;">
-                                <li>
-                                    <div class="row"> 
-                                        <div class="col-md-12">
-                                            <span class='candidate_details_key'>Shared <strong class='candidate_details_value'>{{hme.hrDashboradRecord.candidate_mgmt_details.forwarded_candidates_count}}</strong></span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="row"> 
-                                        <div class="col-md-12">
-                                            <span class='candidate_details_key'>Shortlisted <strong class='candidate_details_value'>{{hme.hrDashboradRecord.candidate_mgmt_details.shortlisted_candidates_count}}</strong></span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="row"> 
-                                        <div class="col-md-12">
-                                            <span class='candidate_details_key'>Interview In Progress <strong class='candidate_details_value'>{{hme.hrDashboradRecord.candidate_mgmt_details.inprogress_interviews_count}}</strong></span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="row"> 
-                                        <div class="col-md-12">
-                                            <span class='candidate_details_key'>Onboarding <strong class='candidate_details_value'>{{hme.hrDashboradRecord.candidate_mgmt_details.onbording}}</strong></span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="row"> 
-                                        <div class="col-md-12">
-                                            <span class='candidate_details_key'>Joined <strong class='candidate_details_value'>{{hme.hrDashboradRecord.candidate_mgmt_details.joined_candidates_count}}</strong></span>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul> 
+                        <div class="col-sm-2 col-xs-2 no-padding">
+                            <div class="pull-right">
+                                <a ng-href="/resume_list#non-selected"><button type="button"
+                                        class="btn btn-default btn-sm" title="View"
+                                        style="background-color:#fd7e14;color:#fff;"><i class="fa fa-eye"
+                                            aria-hidden="true"></i></button></a>
+                            </div>
                         </div>
                     </div>
-                </div> 
-                <!-- <div class="col-md-6 zoom no-padding align-image-center">
+                    <div class="box-body">
+                        <ul id="candidate_details_list" style="list-style: none;">
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <span class='candidate_details_key'>Shared <strong
+                                                class='candidate_details_value'>{{hme.hrDashboradRecord.candidate_mgmt_details.forwarded_candidates_count}}</strong></span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <span class='candidate_details_key'>Shortlisted <strong
+                                                class='candidate_details_value'>{{hme.hrDashboradRecord.candidate_mgmt_details.shortlisted_candidates_count}}</strong></span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <span class='candidate_details_key'>Interview In Progress <strong
+                                                class='candidate_details_value'>{{hme.hrDashboradRecord.candidate_mgmt_details.inprogress_interviews_count}}</strong></span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <span class='candidate_details_key'>Onboarding <strong
+                                                class='candidate_details_value'>{{hme.hrDashboradRecord.candidate_mgmt_details.onbording}}</strong></span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <span class='candidate_details_key'>Joined <strong
+                                                class='candidate_details_value'>{{hme.hrDashboradRecord.candidate_mgmt_details.joined_candidates_count}}</strong></span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-md-6 zoom no-padding align-image-center">
                     <img src="resources/img/HR_dashboard/Todays_Interview_Schedule_img.png" width="500px" height="auto">
                 </div> -->
-                <div class="col-md-6">
-                    <div class="box box-default totalcountBox">
-                        <div class="box-header with-border">
-                            <div class="col-sm-10 col-xs-10 no-padding">
-                                <h3 class="box-title">Today's Interview Schedule</h3>
-                            </div>
-                            <div class="col-sm-2 col-xs-2 no-padding">
-                                <div class="pull-right" >
-                                    <a ng-href="/interview_list?status=today"><button type="button" class="btn btn-default btn-sm"  title="View" style="background-color:#fd7e14;color:#fff;"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
-                                </div> 
-                            </div> 
+            <div class="col-md-6">
+                <div class="box box-default totalcountBox">
+                    <div class="box-header with-border">
+                        <div class="col-sm-10 col-xs-10 no-padding">
+                            <h3 class="box-title">Today's Interview Schedule</h3>
                         </div>
-                        <div class="box-body">
-                            <ul id="candidate_details_list" style="list-style: none;">
-                                <li ng-repeat="td in hme.hrDashboradRecord.technology_details" >
-                                    <div class="row"> 
-                                        <div class="col-md-12">
-                                            <span class='candidate_details_key'>{{td.name}}<strong class='candidate_details_value'>{{td.total_todayinterview_candidate_count}}</strong></span>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul> 
+                        <div class="col-sm-2 col-xs-2 no-padding">
+                            <div class="pull-right">
+                                <a ng-href="/interview_list?status=today"><button type="button"
+                                        class="btn btn-default btn-sm" title="View"
+                                        style="background-color:#fd7e14;color:#fff;"><i class="fa fa-eye"
+                                            aria-hidden="true"></i></button></a>
+                            </div>
                         </div>
                     </div>
-                </div> 
+                    <div class="box-body">
+                        <ul id="candidate_details_list" style="list-style: none;">
+                            <li ng-repeat="td in hme.hrDashboradRecord.technology_details">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <span class='candidate_details_key'>{{td.name}}<strong
+                                                class='candidate_details_value'>{{td.total_todayinterview_candidate_count}}</strong></span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
+        </div>
         <!-- End Dashboard for hr -->
 
         <!-- Start Dashboard for client -->
-            <!-- <div class="row col-xs-12" ng-if='hme.logInUserRole == hme.role_client'> 
+        <!-- <div class="row col-xs-12" ng-if='hme.logInUserRole == hme.role_client'> 
                 <div class="col-md-6 zoom no-padding align-image-center">
                     <img src="resources/img/Client_dashboard/Live_jd_img.png" width="500px" height="auto">
                 </div>
@@ -235,7 +260,7 @@
                     <img src="resources/img/Client_dashboard/Selected_img.png" width="500px">
                 </div>
             </div> -->
-            <!-- <div class="row col-xs-12" ng-if='hme.logInUserRole == hme.role_client'>
+        <!-- <div class="row col-xs-12" ng-if='hme.logInUserRole == hme.role_client'>
                 <div class="col-md-3 col-sm-6 col-xs-12 zoom" ng-repeat="tec in hme.technologyList">                    
                     <div class="box box-solid box-primary">
                         <div class="box-header">
@@ -247,8 +272,8 @@
                     </div>
                 </div>
             </div> -->
-            <div class="row client-row"  ng-if='hme.logInUserRole == hme.role_client' style='display:none'>
-              <div class="col-md-12 set-main-padding">
+        <div class="row client-row" ng-if='hme.logInUserRole == hme.role_client' style='display:none'>
+            <div class="col-md-12 set-main-padding">
                 <div class="col-md-3 col-sm-6 col-xs-12 set-padding" ng-repeat="tec in hme.technologyList">
                     <div class="box style_prevu_kit" style="">
                         <div class="box-header with-border">
@@ -258,42 +283,56 @@
                             <ul id="details_list" style="list-style: none;">
                                 <li>
                                     <strong>Job Description</strong>
-                                    <a class="pull-right" ng-href="/jobs/jd_list?tech_id={{tec.id}}" ng-if="tec.job_description_count > 0"><!-- /jobs/jd_list?tech_id={{tec.id}} /jobs?tech_id={{tec.id}} -->{{tec.job_description_count}}</a>
-                                    <a class="pull-right" ng-if="tec.job_description_count == 0" style="cursor: default;">{{tec.job_description_count}}</a>
+                                    <a class="pull-right" ng-href="/jobs/jd_list?tech_id={{tec.id}}"
+                                        ng-if="tec.job_description_count > 0">
+                                        <!-- /jobs/jd_list?tech_id={{tec.id}} /jobs?tech_id={{tec.id}} -->{{tec.job_description_count}}</a>
+                                    <a class="pull-right" ng-if="tec.job_description_count == 0"
+                                        style="cursor: default;">{{tec.job_description_count}}</a>
                                 </li>
                                 <li>
                                     <strong>Total JD Requirements</strong>
-                                    <a class="pull-right" ng-href="/jobs/jd_list?tech_id={{tec.id}}" ng-if="tec.total_no_of_requiremet_count > 0">{{tec.total_no_of_requiremet_count}}</a>
-                                    <a class="pull-right" ng-if="tec.total_no_of_requiremet_count == 0" style="cursor: default;">{{tec.total_no_of_requiremet_count}}</a>
+                                    <a class="pull-right" ng-href="/jobs/jd_list?tech_id={{tec.id}}"
+                                        ng-if="tec.total_no_of_requiremet_count > 0">{{tec.total_no_of_requiremet_count}}</a>
+                                    <a class="pull-right" ng-if="tec.total_no_of_requiremet_count == 0"
+                                        style="cursor: default;">{{tec.total_no_of_requiremet_count}}</a>
                                 </li>
                                 <li>
                                     <strong>Shared Candidates</strong>
-                                    <a class="pull-right" ng-href="/candidate_list?tech_id={{tec.id}}&status=Forwarded&jd_id={{tec.jd_ids}}" ng-if="tec.forwarded_candidates_count > 0">{{tec.forwarded_candidates_count}}</a>
-                                    <a class="pull-right" ng-if="tec.forwarded_candidates_count == 0" style="cursor: default;">{{tec.forwarded_candidates_count}}</a>
+                                    <a class="pull-right"
+                                        ng-href="/candidate_list?tech_id={{tec.id}}&status=Forwarded&jd_id={{tec.jd_ids}}"
+                                        ng-if="tec.forwarded_candidates_count > 0">{{tec.forwarded_candidates_count}}</a>
+                                    <a class="pull-right" ng-if="tec.forwarded_candidates_count == 0"
+                                        style="cursor: default;">{{tec.forwarded_candidates_count}}</a>
                                 </li>
                                 <li>
                                     <strong>Shortlist Candidates</strong>
-                                    <a class="pull-right" ng-href="/candidate_list?tech_id={{tec.id}}&status=Pass&jd_id={{tec.jd_ids}}" ng-if="tec.shortlisted_candidates_count > 0">{{tec.shortlisted_candidates_count}}</a>
-                                    <a class="pull-right" ng-if="tec.shortlisted_candidates_count == 0" style="cursor: default;">{{tec.shortlisted_candidates_count}}</a>
+                                    <a class="pull-right"
+                                        ng-href="/candidate_list?tech_id={{tec.id}}&status=Pass&jd_id={{tec.jd_ids}}"
+                                        ng-if="tec.shortlisted_candidates_count > 0">{{tec.shortlisted_candidates_count}}</a>
+                                    <a class="pull-right" ng-if="tec.shortlisted_candidates_count == 0"
+                                        style="cursor: default;">{{tec.shortlisted_candidates_count}}</a>
                                 </li>
                                 <li>
                                     <strong>Joined Candidates</strong>
-                                    <a class="pull-right" ng-href="/candidate_list?tech_id={{tec.id}}&status=Joined&jd_id={{tec.jd_ids}}" ng-if="tec.joined_candidates_count > 0">{{tec.joined_candidates_count}}</a>
-                                    <a class="pull-right" ng-if="tec.joined_candidates_count == 0" style="cursor: default;">{{tec.joined_candidates_count}}</a>
+                                    <a class="pull-right"
+                                        ng-href="/candidate_list?tech_id={{tec.id}}&status=Joined&jd_id={{tec.jd_ids}}"
+                                        ng-if="tec.joined_candidates_count > 0">{{tec.joined_candidates_count}}</a>
+                                    <a class="pull-right" ng-if="tec.joined_candidates_count == 0"
+                                        style="cursor: default;">{{tec.joined_candidates_count}}</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
-              </div>
             </div>
-            <div class="row col-xs-12" ng-if='hme.logInUserRole == hme.role_client'>  
-                <div class="col-md-6" style="padding-right: 0px !important;">
-                    <div id='clientSharedChartContainer' class='chartData'></div>
-                </div>
-                <div class="col-md-6" style="padding-right: 0px;">
-                    <div class='row col-xs-12 chartData' style="text-align:center;padding-top:170px">
-                        <!-- <div class="col-md-7" style="margin-top:180px; display:none">
+        </div>
+        <div class="row col-xs-12" ng-if='hme.logInUserRole == hme.role_client'>
+            <div class="col-md-6" style="padding-right: 0px !important;">
+                <div id='clientSharedChartContainer' class='chartData'></div>
+            </div>
+            <div class="col-md-6" style="padding-right: 0px;">
+                <div class='row col-xs-12 chartData' style="text-align:center;padding-top:170px">
+                    <!-- <div class="col-md-7" style="margin-top:180px; display:none">
                             <ul id="technology_details_list" style="list-style: none;">
                                 <li class="clientTechList" ng-repeat='tc in hme.clientDashboradRecord.technology_details'>
                                     <div class="row"> 
@@ -308,112 +347,135 @@
                         <div class="col-md-5"  style="margin-top:170px">
                             <div class="row"> 
                                 <div class="col-md-12" style="text-align:center"> -->
-                                    <span class='total_tech_details_key'><strong>Total CV</strong></span><br>
-                                    <span><strong class='total_tech_details_value'>{{hme.clientDashboradRecord.total_no_of_client_cv}}</strong></span>
-                                <!-- </div>
+                    <span class='total_tech_details_key'><strong>Total CV</strong></span><br>
+                    <span><strong
+                            class='total_tech_details_value'>{{hme.clientDashboradRecord.total_no_of_client_cv}}</strong></span>
+                    <!-- </div>
                             </div>  
                         </div> -->
+                </div>
+            </div>
+        </div>
+        <div class="row col-xs-12" ng-if='hme.logInUserRole == hme.role_client'>
+            <div class="col-md-4" ng-repeat='cd in hme.clientDashboradRecord.technology_details'>
+                <div class="box box-default totalcountBox">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{{cd.name}}</h3>
+                    </div>
+                    <div class="box-body">
+                        <ul id="candidate_details_list" style="list-style: none;">
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <span class='candidate_details_key'><strong>Selected </strong><strong
+                                                class='candidate_details_value'>{{cd.selected_candidates_count}}</strong></span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <span class='candidate_details_key'><strong>Shortlisted through other Vendor
+                                            </strong><strong
+                                                class='candidate_details_value'>{{cd.shortlist_through_other_vendor}}</strong></span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <span class='candidate_details_key'><strong>Joining TCS Directly
+                                            </strong><strong
+                                                class='candidate_details_value'>{{cd.joinded_directly_tcs}}</strong></span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <span class='candidate_details_key'><strong>Joined Somewhere Else
+                                            </strong><strong
+                                                class='candidate_details_value'>{{cd.joined_somewhere_else}}</strong></span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <span class='candidate_details_key'><strong>Rejected </strong><strong
+                                                class='candidate_details_value'>{{cd.rejected}}</strong></span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <span class='candidate_details_key'><strong>No Response from Candidate
+                                            </strong><strong
+                                                class='candidate_details_value'>{{cd.no_response_from_Candidate}}</strong></span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <span class='candidate_details_key'><strong>Expecting High
+                                                CTC(Rejected)</strong> <strong
+                                                class='candidate_details_value'>{{cd.expecting_high_ctc}}</strong></span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <span class='candidate_details_key'><strong>BCG form shared/ Candidate Not
+                                                Interested</strong> <strong
+                                                class='candidate_details_value'>{{cd.bgc_form_not_shared_not_interested_candidate}}</strong></span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
-            <div class="row col-xs-12" ng-if='hme.logInUserRole == hme.role_client'>
-                <div class="col-md-4" ng-repeat='cd in hme.clientDashboradRecord.technology_details'>
-                    <div class="box box-default totalcountBox">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">{{cd.name}}</h3>
-                        </div>
-                        <div class="box-body">
-                            <ul id="candidate_details_list" style="list-style: none;">
-                                <li>
-                                    <div class="row"> 
-                                        <div class="col-md-12">
-                                            <span class='candidate_details_key'><strong>Selected </strong><strong class='candidate_details_value'>{{cd.selected_candidates_count}}</strong></span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="row"> 
-                                        <div class="col-md-12">
-                                            <span class='candidate_details_key'><strong>Shortlisted through other Vendor </strong><strong class='candidate_details_value'>{{cd.shortlist_through_other_vendor}}</strong></span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="row"> 
-                                        <div class="col-md-12">
-                                            <span class='candidate_details_key'><strong>Joining TCS Directly </strong><strong class='candidate_details_value'>{{cd.joinded_directly_tcs}}</strong></span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="row"> 
-                                        <div class="col-md-12">
-                                            <span class='candidate_details_key'><strong>Joined Somewhere Else </strong><strong class='candidate_details_value'>{{cd.joined_somewhere_else}}</strong></span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="row"> 
-                                        <div class="col-md-12">
-                                            <span class='candidate_details_key'><strong>Rejected </strong><strong class='candidate_details_value'>{{cd.rejected}}</strong></span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="row"> 
-                                        <div class="col-md-12">
-                                            <span class='candidate_details_key'><strong>No Response from Candidate </strong><strong class='candidate_details_value'>{{cd.no_response_from_Candidate}}</strong></span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="row"> 
-                                        <div class="col-md-12">
-                                            <span class='candidate_details_key'><strong>Expecting High CTC(Rejected)</strong> <strong class='candidate_details_value'>{{cd.expecting_high_ctc}}</strong></span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="row"> 
-                                        <div class="col-md-12">
-                                            <span class='candidate_details_key'><strong>BCG form shared/ Candidate Not Interested</strong> <strong class='candidate_details_value'>{{cd.bgc_form_not_shared_not_interested_candidate}}</strong></span>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul> 
-                        </div>
-                    </div>
-                </div> 
-            </div>
+        </div>
         <!-- End Dashboard for hr -->
     </div>
 </section>
 <style type="text/css">
-    #details_list a{
+    #details_list a {
         cursor: pointer;
         text-decoration: none;
     }
+
     /*.align-image-center{
         text-align: center;
     }*/
     .zoom {
-      transition: transform .2s;
+        transition: transform .2s;
     }
+
     .zoom:hover {
-      -ms-transform: scale(1.1); /* IE 9 */
-      -webkit-transform: scale(1.1); /* Safari 3-8 */
-      transform: scale(1.1); 
+        -ms-transform: scale(1.1);
+        /* IE 9 */
+        -webkit-transform: scale(1.1);
+        /* Safari 3-8 */
+        transform: scale(1.1);
     }
-    .set-padding{
+
+    .set-padding {
         padding-left: 5px;
         padding-right: 5px;
     }
-    .margin-left-client{
-        margin-left:15px !important;
+
+    .margin-left-client {
+        margin-left: 15px !important;
     }
-    .margin-left-others{
-        margin-left:0px !important;
+
+    .margin-left-others {
+        margin-left: 0px !important;
     }
+
     /*.box{
         border: 1px solid #1e5598;
         border-top: 5px solid #1e5598;
@@ -421,136 +483,150 @@
 
         margin-bottom:10px;
     }*/
-  /*  .main-box-header{
+    /*  .main-box-header{
         background-color: #1e5598;
         color: #ffffff;
         text-align: center;
     }*/
-   /* .box-header .main-box-title{
+    /* .box-header .main-box-title{
         font-size: 22px;
         font-weight: bold;
     }*/
-    .box-header.with-border{
+    .box-header.with-border {
         margin-top: -1px;
         /*border-bottom: 0px solid;*/
     }
+
     /*.box-header{
         background-color: #1e5598;
         color: #ffffff;
     }*/
-    .set-padding{
+    .set-padding {
         padding-left: 5px;
         padding-right: 5px;
     }
-    .set-main-padding{
+
+    .set-main-padding {
         padding: 5px;
     }
-    .set-img-border-radius{
+
+    .set-img-border-radius {
         border-bottom-right-radius: 5px;
         border-bottom-left-radius: 5px;
     }
-    .client-row{
+
+    .client-row {
         margin-right: 0px;
         margin-left: 0px;
-        border:1px solid #a9a9a9;
+        border: 1px solid #a9a9a9;
         padding-top: 10px;
         padding-bottom: 5px;
     }
 
-    .style_prevu_kit{
+    .style_prevu_kit {
         -webkit-transition: all 200ms ease-in;
-        -webkit-transform: scale(1); 
+        -webkit-transform: scale(1);
         -ms-transition: all 200ms ease-in;
-        -ms-transform: scale(1); 
+        -ms-transform: scale(1);
         -moz-transition: all 200ms ease-in;
         -moz-transform: scale(1);
         transition: all 200ms ease-in;
-        transform: scale(1);   
+        transform: scale(1);
 
     }
 
-    .style_prevu_kit:hover{
+    .style_prevu_kit:hover {
         box-shadow: 0px 0px 100px #7E7E7E;
         z-index: 2;
         -webkit-transition: all 200ms ease-in;
         -webkit-transform: scale(1.1);
         -ms-transition: all 200ms ease-in;
-        -ms-transform: scale(1.1);   
+        -ms-transform: scale(1.1);
         -moz-transition: all 200ms ease-in;
         -moz-transform: scale(1.1);
         transition: all 200ms ease-in;
         transform: scale(1.1);
     }
 
-    .totalcountBox{
-        margin-top:20px;
+    .totalcountBox {
+        margin-top: 20px;
         width: 100%
     }
 
 
-    .box-title{
+    .box-title {
         color: #1e5598;
-        margin: 5px !important;  
+        margin: 5px !important;
     }
 
-    .box-content{
+    .box-content {
         font-size: 60px;
         margin-top: 20px;
         margin-bottom: 30px;
     }
 
-    .candidate_details_key{
+    .candidate_details_key {
         font-size: 15px;
-        margin-top: 10px; 
+        margin-top: 10px;
         margin-bottom: 10px;
-        font-family: 'Source Sans Pro',sans-serif;
+        font-family: 'Source Sans Pro', sans-serif;
     }
-    .candidate_details_value{
-        padding-left:5px;
-        float: right!important;
+
+    .candidate_details_value {
+        padding-left: 5px;
+        float: right !important;
     }
-    .tech_details_key{
+
+    .tech_details_key {
         font-size: 20px;
-        margin-top: 10px; 
+        margin-top: 10px;
         margin-bottom: 10px;
-        font-family: 'Source Sans Pro',sans-serif;
+        font-family: 'Source Sans Pro', sans-serif;
     }
-    .tech_details_value{
-        padding-left:10px;
-        float: right!important;
+
+    .tech_details_value {
+        padding-left: 10px;
+        float: right !important;
     }
-    .total_tech_details_key{
-        text-align:center;
-        color:#1e5598 !important;
+
+    .total_tech_details_key {
+        text-align: center;
+        color: #1e5598 !important;
         font-size: 30px;
-        margin-top: 10px; 
+        margin-top: 10px;
         margin-bottom: 10px;
-        font-family: 'Source Sans Pro',sans-serif;
+        font-family: 'Source Sans Pro', sans-serif;
     }
-    .total_tech_details_value{
-        text-align:center;
+
+    .total_tech_details_value {
+        text-align: center;
         font-size: 50px;
-        padding-left:10px;
+        padding-left: 10px;
         /*float: right!important;*/
     }
-    .jqx-chart-title-text{
-        color:#1e5598 !important; 
+
+    .jqx-chart-title-text {
+        color: #1e5598 !important;
         font-size: 18px;
-        fill: #1e5598 !important; 
+        fill: #1e5598 !important;
     }
+
     /*.jqx-chart-title-description{
         display:none;
     }*/
-    .chartData{
-        width: 100%; 
+    .chartData {
+        width: 100%;
         height: 410px;
-        background-color:#fff;
+        background-color: #fff;
         /*border:1px #bbbcbb; */
     }
-    .clientTechList{
-        padding-bottom:10px;
+
+    .clientTechList {
+        padding-bottom: 10px;
     }
-    #circle, #circle1 {
+
+    #circle,
+    #circle1 {
         width: 15px;
         height: 15px;
         -webkit-border-radius: 25px;
@@ -561,19 +637,22 @@
         margin-right: 20px;
         margin-top: 10px;
     }
-    .Android{
-        background-color:#adf969;
+
+    .Android {
+        background-color: #adf969;
     }
-    .Java{
-        background-color:#ff3594;
+
+    .Java {
+        background-color: #ff3594;
     }
-    .Embedded{
-        background-color:#ffc943;
+
+    .Embedded {
+        background-color: #ffc943;
     }
 </style>
 
 <script>
     $(document).ready(function () {
-        $("html, body").animate({scrollTop: 0}, "fast");
+        $("html, body").animate({ scrollTop: 0 }, "fast");
     });
 </script>

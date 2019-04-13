@@ -5,43 +5,46 @@
         <div class="row">
             <div class="col-md-6">
                 <h4>Today's Interviews</h4>
-            </div>            
+            </div>
             <!-- <div class="col-md-2 pull-right" style="margin-top:1%;">
                 <button type="button" class="btn btn-primary btn-circle btn-sm pull-right" data-toggle="collapse" title="Filter" data-target="#filter"><i class="fa fa-filter" aria-hidden="true" style="padding-right:0.3px"></i></button>
-            </div>   -->          
-        </div> 
-        <br> 
+            </div>   -->
+        </div>
+        <br>
         <div class="box box-primary" id="filter">
             <div class="box-body">
-                <form id="todayInterviewFilterForm"> 
+                <form id="todayInterviewFilterForm">
                     <div class="row">
                         <div class="col-md-4" ng-if="ilc.logInUserRole == '4' || ilc.logInUserRole == '1'">
                             <div class="form-group">
                                 <label>Job Code</label>
-                                <select id="jobCode" name="jobCode" ng-model="ilc.jobCodeId" class="form-control" >
+                                <select id="jobCode" name="jobCode" ng-model="ilc.jobCodeId" class="form-control">
                                     <option value="" style="color:#ccc !important;">Select job code</option>
-                                    <option ng-repeat="jd in ilc.activeJobDetail" value="{{jd.id}}">{{jd.job_code}} {{jd.sub_title != '' ? (jd.sub_title) : ''}}</option>
+                                    <option ng-repeat="jd in ilc.activeJobDetail" value="{{jd.id}}">{{jd.job_code}}
+                                        {{jd.sub_title != '' ? (jd.sub_title) : ''}}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-1" style="text-align: center;">
-                          <div class="form-group" >
-                            <br>
-                              <input type="button" value="Search" ng-click="ilc.getTodaysScheduledInterviewList()" class="btn btn-primary" style="margin-top:5px" />
-                          </div>
+                            <div class="form-group">
+                                <br>
+                                <input type="button" value="Search" ng-click="ilc.getTodaysScheduledInterviewList()"
+                                    class="btn btn-primary" style="margin-top:5px" />
+                            </div>
                         </div>
                         <div class="col-md-1 " style="text-align: center;">
-                          <div class="form-group" >
-                            <br>
-                            <button type="button" class="btn btn-primary fa fa-refresh" ng-click="ilc.resetFilter()" style="margin-top:5px"></button>           
+                            <div class="form-group">
+                                <br>
+                                <button type="button" class="btn btn-primary fa fa-refresh" ng-click="ilc.resetFilter()"
+                                    style="margin-top:5px"></button>
 
-                          </div>
+                            </div>
                         </div>
                     </div>
                 </form>
             </div>
-        </div>  
-        
+        </div>
+
         <div class="table-responsive no-padding">
             <table class="table table-hover">
                 <thead class="thead-default">
@@ -49,41 +52,48 @@
                         <th style="text-align: center;">Sr No.</th>
                         <th>Candidate Name</th>
                         <th>Job Code</th>
-                        <th>Scheduled Date</th>                        
-                        <th>Scheduled Time</th>           
+                        <th>Scheduled Date</th>
+                        <th>Scheduled Time</th>
                         <th>Round</th>
-                        <th style="text-align: center;" >Action</th>
+                        <th style="text-align: center;">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="data in ilc.currentInterviewList">
                         <td style="text-align: center;" ng-bind="(ilc.pageno - 1) * ilc.limit + ($index + 1)"></td>
-                        <td>{{data.all_candidates.first_name +' '+ data.all_candidates.middle_name +' '+ data.all_candidates.last_name}}</td>
+                        <td>{{data.all_candidates.first_name +' '+ (data.all_candidates.middle_name != null ? data.all_candidates.middle_name : '') +' '+ data.all_candidates.last_name}}
+                        </td>
                         <td>{{data.job_description.job_code +' '+data.job_description.sub_title}}</td>
                         <td>{{data.schedule_date | date: 'dd-MM-yyyy'}}</td>
                         <td>{{ilc.tConvert(data.schedule_time)}}</td>
                         <td>{{data.technical_round}}</td>
                         <td style="text-align: center">
-                            <a  ng-href="/interview_feedback?cId={{data.candidate_id}}&uId={{data.user_id}}&round={{data.technical_round}}&jd_id={{data.job_description_id}}" ng-if="data.all_candidates.candidate_technical_result[0].status != 'Pass' && data.all_candidates.candidate_technical_result[0].status != 'Fail' && ilc.logInUserRole != '1'" type="button" class="btn" title="Feedback" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-comments" aria-hidden="true"></i></a>
+                            <a ng-href="/interview_feedback?cId={{data.candidate_id}}&uId={{data.user_id}}&round={{data.technical_round}}&jd_id={{data.job_description_id}}"
+                                ng-if="data.all_candidates.candidate_technical_result[0].status != 'Pass' && data.all_candidates.candidate_technical_result[0].status != 'Fail' && ilc.logInUserRole != '1'"
+                                type="button" class="btn" title="Feedback" style="outline: 0;padding:0px"><i
+                                    style="cursor: pointer;margin-left: 5px;" class="fa fa-comments"
+                                    aria-hidden="true"></i></a>
                             <!-- <a ng-if="data.all_candidates.status == 'Fail' && data.all_candidates.status != 'Pass' && ilc.logInUserRole == '1'" type="button" class="btn" title="Change JD" ng-click="ilc.openChangeJdStatusModel(data.candidate_id)" style="outline: 0;padding:0px"><i style="cursor: pointer;margin-left: 5px;" class="fa fa-refresh" aria-hidden="true"></i></a> -->
                         </td>
                     </tr>
                     <tr ng-if="ilc.currentInterviewList == null || ilc.currentInterviewList.length == 0">
-                        <td style="text-align: center;" colspan="7">No Records Found</td> 
+                        <td style="text-align: center;" colspan="7">No Records Found</td>
                     </tr>
                 </tbody>
             </table>
             <div class="row col-sm-12" style="padding-right: 0px;">
-                <ul id="pagination-sec" class="pagination-sm" style="float: right;margin-top: 5px;margin-bottom:45px;margin-right:-1.2%"></ul>
+                <ul id="pagination-sec" class="pagination-sm"
+                    style="float: right;margin-top: 5px;margin-bottom:45px;margin-right:-1.2%"></ul>
             </div>
-        </div> 
+        </div>
     </div>
 
     <div class="modal fade changeJdStatusModal" id="changeJdStatusModal" role="dialog">
         <div class="modal-dialog modal-sm">
-            <div class="modal-content" style="border-radius: 0px!important;" >
-                <div class="modal-header" id="popUpModalHeader"> 
-                    <button type="button" class="close" data-dismiss="modal" ng-click="jb.resetForm()" style="margin-right: 5px;">&times;</button>
+            <div class="modal-content" style="border-radius: 0px!important;">
+                <div class="modal-header" id="popUpModalHeader">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="jb.resetForm()"
+                        style="margin-right: 5px;">&times;</button>
                     <h4 class="modal-title popUpModalTitle">Change Job Code</h4>
                 </div>
                 <div class="modal-body">
@@ -100,16 +110,19 @@
                                     <label class="mandatory" style="font-size: 14px">Job code </label>
                                     <select class="form-control" name="job_code" id="job_code" ng-model="ilc.job_id">
                                         <option value="" style="color:#ccc !important;">Select job code</option>
-                                        <option ng-repeat="jd in ilc.jobDetail" value="{{jd.id}}">{{jd.job_code}} {{jd.sub_title != '' ? (jd.sub_title) : ''}}</option>
+                                        <option ng-repeat="jd in ilc.jobDetail" value="{{jd.id}}">{{jd.job_code}}
+                                            {{jd.sub_title != '' ? (jd.sub_title) : ''}}</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer" style="margin-top: 0px;"> 
-                    <button type="button" id="changeStatusBtn" class="btn btn-primary"  data-ng-click="ilc.changeJobDescription();" >Save</button>
-                    <button type="reset" id="closeModal" class="btn btn-warning"  ng-click="ilc.resetForm()" data-dismiss="modal">Cancel</button>
+                <div class="modal-footer" style="margin-top: 0px;">
+                    <button type="button" id="changeStatusBtn" class="btn btn-primary"
+                        data-ng-click="ilc.changeJobDescription();">Save</button>
+                    <button type="reset" id="closeModal" class="btn btn-warning" ng-click="ilc.resetForm()"
+                        data-dismiss="modal">Cancel</button>
                 </div>
             </div>
         </div>
@@ -117,156 +130,152 @@
 
 </section>
 <style type="text/css">
-    @media (min-width: 768px){
+    @media (min-width: 768px) {
         .modal-sm {
             width: 350px;
-        }        
+        }
     }
 </style>
 <!-- <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script> -->
 <script>
 
-     // $(function() {        
-     //    $('#toggle-status-switch').bootstrapToggle({
-     //      on: 'Inactive',
-     //      off: 'Active',
-     //    });
+    // $(function() {        
+    //    $('#toggle-status-switch').bootstrapToggle({
+    //      on: 'Inactive',
+    //      off: 'Active',
+    //    });
 
-     //  })
-        // $('#toggle-status-switch').change(function(e) {
-        //     console.log("status");
-        //   var status=$(this).prop('checked');
-        //   var scope = angular.element(document.querySelector("#jobCtrl")).scope();
-        //        scope.$apply(function () {
-        //            scope.isChecked(status);
-        //        });
+    //  })
+    // $('#toggle-status-switch').change(function(e) {
+    //     console.log("status");
+    //   var status=$(this).prop('checked');
+    //   var scope = angular.element(document.querySelector("#jobCtrl")).scope();
+    //        scope.$apply(function () {
+    //            scope.isChecked(status);
+    //        });
 
-        // });
+    // });
 
-            // var baseUrl = Utility.apiBaseUrl;
-            $("#todayInterviewFilterForm").validate({
-                errorElement: 'span', //default input error message container
-                errorClass: 'help-block help-block-error',
-                errorPlacement: function (error, element) {
+    // var baseUrl = Utility.apiBaseUrl;
+    $("#todayInterviewFilterForm").validate({
+        errorElement: 'span', //default input error message container
+        errorClass: 'help-block help-block-error',
+        errorPlacement: function (error, element) {
 
-                    var type = $(element).attr("type");
-                    if ($(element).attr("id") === "")
-                    {
-                        element.parent().append(error);
+            var type = $(element).attr("type");
+            if ($(element).attr("id") === "") {
+                element.parent().append(error);
 
-                    }
-                    else if ($(element).attr("id") === "jobCode")
-                    {
-                        element.parent().append(error);
-
-                    }else{
-                        error.insertAfter(element);
-                    }
-                },
-                rules: {
-                    jobCode: {
-                        required: true
-                    }
-                },
-                messages: {
-                    jobCode: {
-                        required: "Job code is required."
-                    }
-                },
-                highlight: function (element) { // hightlight error inputs
-                    $(element).closest('.form-group').addClass('has-error');
-
-                    $(element).next().children().children().attr('style', 'border-color:#dd4b39!important');
-                    // set error class to the control group
-                },
-                unhighlight: function (element) { // revert the change done by hightlight
-                    $(element)
-                            .closest('.form-group').removeClass('has-error');
-                    $(element)
-                            .next().children().children().attr('style', 'border-color:'); // set error class to the control group
-                },
-                success: function (label) {
-                    label
-                            .closest('.form-group').removeClass('has-error'); // set success class to the control group
-                }
-            });
-
-            $("#changeJdStatusForm").validate({
-                errorElement: 'span', //default input error message container
-                errorClass: 'help-block help-block-error',
-                errorPlacement: function (error, element) {
-
-                    var type = $(element).attr("type");
-                    if ($(element).attr("id") === "")
-                    {
-                        element.parent().append(error);
-
-                    }
-                    else if ($(element).attr("id") === "job_code")
-                    {
-                        element.parent().append(error);
-
-                    }else{
-                        error.insertAfter(element);
-                    }
-                },
-                rules: {
-                    job_code: {
-                        required: true
-                    }
-                },
-                messages: {
-                    job_code: {
-                        required: "Job code is required."
-                    }
-                },
-                highlight: function (element) { // hightlight error inputs
-                    $(element).closest('.form-group').addClass('has-error');
-
-                    $(element).next().children().children().attr('style', 'border-color:#dd4b39!important');
-                    // set error class to the control group
-                },
-                unhighlight: function (element) { // revert the change done by hightlight
-                    $(element)
-                            .closest('.form-group').removeClass('has-error');
-                    $(element)
-                            .next().children().children().attr('style', 'border-color:'); // set error class to the control group
-                },
-                success: function (label) {
-                    label
-                            .closest('.form-group').removeClass('has-error'); // set success class to the control group
-                }
-            });
-
-            $('#changeJdStatusModal.modal').on('hidden.bs.modal', function (e) {
-                $(this).find('form').trigger('reset'); 
-                $("div.form-group").each(function () {
-                    $(this).removeClass('has-error');
-                    $('span.help-block-error').remove();
-                    applySelect2();
-                });
-                $('header').css('z-index', '1053');
-                $('footer').css('z-index', '1053');
-            });
-
-            $(".s2mn").on("change", function () { $(this).valid(); });
-       $(document).ready(function () {
-            $("html, body").animate({scrollTop: 0}, "fast");
-            $('.modal').on('hidden.bs.modal', function (e) {
-                console.log("Modal is closed");
-                $('header').css('z-index', '1053');
-                $('footer').css('z-index', '1053');
-            })
-        });
-        function setCSS(){
-            if($('.modal').is(':visible') == true){
-                console.log("Modal is open");
-                $('header').css('z-index', '900');
-                $('footer').css('z-index', '900');
-            }else{
-                $('header').css('z-index', '1053');
-                $('footer').css('z-index', '1053');
             }
+            else if ($(element).attr("id") === "jobCode") {
+                element.parent().append(error);
+
+            } else {
+                error.insertAfter(element);
+            }
+        },
+        rules: {
+            jobCode: {
+                required: true
+            }
+        },
+        messages: {
+            jobCode: {
+                required: "Job code is required."
+            }
+        },
+        highlight: function (element) { // hightlight error inputs
+            $(element).closest('.form-group').addClass('has-error');
+
+            $(element).next().children().children().attr('style', 'border-color:#dd4b39!important');
+            // set error class to the control group
+        },
+        unhighlight: function (element) { // revert the change done by hightlight
+            $(element)
+                .closest('.form-group').removeClass('has-error');
+            $(element)
+                .next().children().children().attr('style', 'border-color:'); // set error class to the control group
+        },
+        success: function (label) {
+            label
+                .closest('.form-group').removeClass('has-error'); // set success class to the control group
         }
-        setCSS();
+    });
+
+    $("#changeJdStatusForm").validate({
+        errorElement: 'span', //default input error message container
+        errorClass: 'help-block help-block-error',
+        errorPlacement: function (error, element) {
+
+            var type = $(element).attr("type");
+            if ($(element).attr("id") === "") {
+                element.parent().append(error);
+
+            }
+            else if ($(element).attr("id") === "job_code") {
+                element.parent().append(error);
+
+            } else {
+                error.insertAfter(element);
+            }
+        },
+        rules: {
+            job_code: {
+                required: true
+            }
+        },
+        messages: {
+            job_code: {
+                required: "Job code is required."
+            }
+        },
+        highlight: function (element) { // hightlight error inputs
+            $(element).closest('.form-group').addClass('has-error');
+
+            $(element).next().children().children().attr('style', 'border-color:#dd4b39!important');
+            // set error class to the control group
+        },
+        unhighlight: function (element) { // revert the change done by hightlight
+            $(element)
+                .closest('.form-group').removeClass('has-error');
+            $(element)
+                .next().children().children().attr('style', 'border-color:'); // set error class to the control group
+        },
+        success: function (label) {
+            label
+                .closest('.form-group').removeClass('has-error'); // set success class to the control group
+        }
+    });
+
+    $('#changeJdStatusModal.modal').on('hidden.bs.modal', function (e) {
+        $(this).find('form').trigger('reset');
+        $("div.form-group").each(function () {
+            $(this).removeClass('has-error');
+            $('span.help-block-error').remove();
+            applySelect2();
+        });
+        $('header').css('z-index', '1053');
+        $('footer').css('z-index', '1053');
+    });
+
+    $(".s2mn").on("change", function () { $(this).valid(); });
+    $(document).ready(function () {
+        $("html, body").animate({ scrollTop: 0 }, "fast");
+        $('.modal').on('hidden.bs.modal', function (e) {
+            console.log("Modal is closed");
+            $('header').css('z-index', '1053');
+            $('footer').css('z-index', '1053');
+        })
+    });
+    function setCSS() {
+        if ($('.modal').is(':visible') == true) {
+            console.log("Modal is open");
+            $('header').css('z-index', '900');
+            $('footer').css('z-index', '900');
+        } else {
+            $('header').css('z-index', '1053');
+            $('footer').css('z-index', '1053');
+        }
+    }
+    setCSS();
 </script>

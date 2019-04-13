@@ -13,7 +13,7 @@
   <title>Financial Management</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.6 -->    
+  <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="/resources/plugins/bootstrap/css/bootstrap.min.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="/resources/lib/font-awesome-4.5.0/css/font-awesome.min.css">
@@ -31,9 +31,9 @@
   <!-- css default skin: _all-skins.min.css   -->
 
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-  
+
   <!-- Data Table -->
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.css"/>  
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.css"/>
 
     <!--<link rel="stylesheet" href="resources/css/style.css">-->
 
@@ -42,7 +42,7 @@
     <link rel="stylesheet" href="/resources/lib/angular-block-ui-master/dist/angular-block-ui.min.css"/>
 
     <link rel="stylesheet" href="/resources/css/jquery-ui.css">
-  
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -61,20 +61,20 @@
 
 
   <!-- =============================================== -->
-  
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
 
      <div data-ng-view></div>
-   
-  
+
+
   <!-- /.content-wrapper -->
 
 
 <!-- ./wrapper -->
 </div>
 
-<!-- jQuery 2.2.3 --> 
+<!-- jQuery 2.2.3 -->
 <script src="/resources/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="/resources/js/bootstrap.min.js"></script>
@@ -105,17 +105,17 @@
 
         <script src="/resources/plugins/sortable/sortable.js"></script>
 
-<script src="/resources/js/myapp.js"></script>  
+<script src="/resources/js/myapp.js"></script>
 <script src="/controller/homeCtrl.js"></script>
 <script src="/controller/indexCtrl.js"></script>
-<script src="/controller/loginCtrl.js"></script>    
-<script src="/controller/forgetPasswordCtrl.js"></script>   
+<script src="/controller/loginCtrl.js"></script>
+<script src="/controller/forgetPasswordCtrl.js"></script>
 <script src="/controller/verifyCtrl.js"></script>
-<script src="/controller/menuCtrl.js"></script> 
+<script src="/controller/menuCtrl.js"></script>
 <script src="/controller/fundCtrl.js"></script>
-<script src="/controller/userCtrl.js"></script> 
+<script src="/controller/userCtrl.js"></script>
 <script>
-            
+
         // var clickedOnScrollbar = function(mouseX){
         //     if( $(window).outerWidth() <= mouseX )
         //       {
@@ -132,6 +132,6 @@
           //            }
           //       //}
           // });
-        </script> 
+        </script>
 </body>
 </html>

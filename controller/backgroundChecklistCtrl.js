@@ -1,4 +1,4 @@
-app.controller('backgroundChecklistCtrl', function ($scope, $rootScope, $http, services, $location, menuService, $cookieStore,pagination,RESOURCES) {
+app.controller('backgroundChecklistCtrl', function ($scope, $rootScope, $http, services, $location, menuService, $cookieStore, pagination, RESOURCES) {
 
     var bcl = this;
 
@@ -7,54 +7,54 @@ app.controller('backgroundChecklistCtrl', function ($scope, $rootScope, $http, s
     bcl.pageno = 0;
     bcl.limit = 0;
     bcl.skip = true;
-    bcl.backgroundCheckList =[];
+    bcl.backgroundCheckList = [];
 
     // bcl.mandatoryFieldData =[{id: 1, name: "True"},{id: 2, name: "False"}];
 
     /* To fetch data according table length */
-    setTimeout(function(){
-        $('#table_length').on('change',function(){
+    setTimeout(function () {
+        $('#table_length').on('change', function () {
             bcl.fetchList(-1);
         });
-    },100);
+    }, 100);
 
     /* Function to load add background checklist view */
-    bcl.addNewBackgroundChecklist = function(){
-    	$location.url('/background_checklist/add_background_checklist');
+    bcl.addNewBackgroundChecklist = function () {
+        $location.url('/background_checklist/add_background_checklist');
     }
 
     /* Function to cancle background checklist form */
-    bcl.cancelBackgroundChecklist = function() {
+    bcl.cancelBackgroundChecklist = function () {
         $location.url('/background_checklist');
     }
 
     /* Function to fetch background checklist list */
-    bcl.fetchList = function(page){
+    bcl.fetchList = function (page) {
         bcl.limit = $('#table_length').val();
-        if(bcl.limit == undefined){
+        if (bcl.limit == undefined) {
             bcl.limit = -1;
         }
-        if(page == -1){
+        if (page == -1) {
             bcl.pageno = 1;
-            if($('#pagination-sec').data("twbs-pagination")){
+            if ($('#pagination-sec').data("twbs-pagination")) {
                 $('#pagination-sec').twbsPagination('destroy');
             }
         }
-        else{
+        else {
             bcl.pageno = page;
         }
         var requestParam = {
-            page:bcl.pageno,
+            page: bcl.pageno,
             // limit:pagination.getpaginationLimit(),
-            limit:bcl.limit,
+            limit: bcl.limit,
         }
         var promise = services.getAllBackgroundCheckList(requestParam);
         promise.success(function (result) {
             Utility.stopAnimation();
-            if(result.data != null){
+            if (result.data != null) {
                 bcl.backgroundCheckList = result.data.data;
-                pagination.applyPagination(result.data,bcl);
-            }else{
+                pagination.applyPagination(result.data, bcl);
+            } else {
                 bcl.backgroundCheckList = null;
             }
         }, function myError(r) {
@@ -65,9 +65,9 @@ app.controller('backgroundChecklistCtrl', function ($scope, $rootScope, $http, s
     }
 
     /* Function to initialise background checklist controller */
-    bcl.init = function(){
+    bcl.init = function () {
         bcl.limit = $('#table_length').val();
-        bcl.fetchList(-1);        
+        bcl.fetchList(-1);
         /* Editing perticular background checklist*/
         bcl.id = $location.search()["id"];
         if (bcl.id > 0) {
@@ -76,10 +76,10 @@ app.controller('backgroundChecklistCtrl', function ($scope, $rootScope, $http, s
                 Utility.stopAnimation();
                 bcl.title = 'Update Background Checklist';
                 bcl.bgChecklistName = response.data.data.name,
-                // bcl.mandatoryField = response.data.data.mandatory==1?"True":"False",
-                bcl.status = response.data.data.status,
-                bcl.fieldType = response.data.data.type             
-                applySelect2();   
+                    // bcl.mandatoryField = response.data.data.mandatory==1?"True":"False",
+                    bcl.status = response.data.data.status,
+                    bcl.fieldType = response.data.data.type
+                applySelect2();
             }, function myError(r) {
                 toastr.error(r.data.message, 'Sorry!');
                 Utility.stopAnimation();
@@ -88,24 +88,24 @@ app.controller('backgroundChecklistCtrl', function ($scope, $rootScope, $http, s
     }
 
     /* Function reset create background checklist form */
-    bcl.resetForm = function(){
-    	$("div.form-group").each(function () {
+    bcl.resetForm = function () {
+        $("div.form-group").each(function () {
             $(this).removeClass('has-error');
             $('span.help-block-error').remove();
             applySelect2();
         });
-        bcl.bgChecklistName ='';
+        bcl.bgChecklistName = '';
         // bcl.mandatoryField ='';
     }
 
     /* Function to create/update new background checklist */
-    bcl.createBackgroundChecklist = function(){
+    bcl.createBackgroundChecklist = function () {
         if ($("#backgroundChecklistForm").valid()) {
-            var req ={
-                "name":bcl.bgChecklistName,
+            var req = {
+                "name": bcl.bgChecklistName,
                 // "mandatory":bcl.mandatoryField=='True'?1:0,
-                "mandatory":1,
-                "type":bcl.fieldType
+                "mandatory": 1,
+                "type": bcl.fieldType
             }
 
             var promise;
@@ -120,7 +120,7 @@ app.controller('backgroundChecklistCtrl', function ($scope, $rootScope, $http, s
             promise.then(function mySuccess(response) {
                 Utility.stopAnimation();
                 try {
-                    toastr.success('Background checklist ' + operationMessage +' successfully.');
+                    toastr.success('Background checklist ' + operationMessage + ' successfully.');
                     $location.url('/background_checklist');
                 } catch (e) {
                     toastr.error("Background checklist is not saved successfully.");
@@ -134,48 +134,45 @@ app.controller('backgroundChecklistCtrl', function ($scope, $rootScope, $http, s
     }
 
     /* Function to change background checklist status */
-    bcl.changeBgChecklistStatus = function(status,id,index){
+    bcl.changeBgChecklistStatus = function (status, id, index) {
         var req = {
-            "id":id,
+            "id": id,
             "status": status == true ? 1 : 0
         };
         swal({
-                title: "Sure?",
-                text: "Are you sure you want to change background checklist status?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                cancelButtonText: "No",
-                confirmButtonText: "Yes",
-                allowOutsideClick: false,
-            }).then(function(isConfirm) {
-                console.log(isConfirm);
-                if (isConfirm) {
-                    var promise = services.updateBackgroundChecklistStatus(req);
-                        promise.then(function mySuccess(response) {
-                        Utility.stopAnimation();
-                        try {
-                            console.log(response);
-                            toastr.success('Background checklist status is changed successfully.');
-                         } catch (e) {
-                            toastr.error('Background checklist status is changed successfully.');
-                            Raven.captureException(e)
-                        }
-                    }, function myError(r) {
-                        toastr.error(r.data.message, 'Sorry!');
-                    });
-                  } else { 
-                    console.log("cancel");
-                }
-                    
-            }, function(dismiss) {
-                if (dismiss === 'cancel') {
-                    setTimeout(function(){
-                        bcl.init();
-                    },100);  
-                }
-            }).catch(swal.noop);
+            title: "Sure?",
+            text: "Are you sure you want to change background checklist status?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "No",
+            confirmButtonText: "Yes",
+            allowOutsideClick: false,
+        }).then(function (isConfirm) {
+            if (isConfirm) {
+                var promise = services.updateBackgroundChecklistStatus(req);
+                promise.then(function mySuccess(response) {
+                    Utility.stopAnimation();
+                    try {
+                        toastr.success('Background checklist status is changed successfully.');
+                    } catch (e) {
+                        toastr.error('Background checklist status is changed successfully.');
+                        Raven.captureException(e)
+                    }
+                }, function myError(r) {
+                    toastr.error(r.data.message, 'Sorry!');
+                });
+            } else {
+                console.log("cancel");
+            }
+        }, function (dismiss) {
+            if (dismiss === 'cancel') {
+                setTimeout(function () {
+                    bcl.init();
+                }, 100);
+            }
+        }).catch(swal.noop);
     }
 
     bcl.init();
