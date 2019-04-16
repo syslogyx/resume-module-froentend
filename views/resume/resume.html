@@ -1475,7 +1475,13 @@
                                                 <label class=""><b>Role: </b></label>
                                                 <span>{{ ie.role_in_project}}</span>
                                             </div>
-                                            <div class="col-md-6 form-group"></div>
+                                            <div class="col-md-6 form-group">
+                                                <label class=""><b>Project Description: </b></label>
+                                                <ul style="margin-left: 6%;">
+                                                    <li ng-repeat="p in ie.project_descriptions">
+                                                        {{p.project_description}}</li>
+                                                </ul>
+                                            </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6 form-group">
@@ -1491,7 +1497,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <!-- <div class="row">
                                             <div class="col-md-12 form-group">
                                                 <label class=""><b>Project Description: </b></label>
                                                 <ul style="margin-left: 3%;">
@@ -1499,7 +1505,7 @@
                                                         {{p.project_description}}</li>
                                                 </ul>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
 
                                     <hr>

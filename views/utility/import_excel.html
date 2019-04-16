@@ -51,6 +51,7 @@
                             <th>Pan No.</th>
                             <th>Total Experience</th>
                             <th>Status</th>
+                            <th>Job Code</th>
                             <th>CV Received Date</th>
                             <th>Data Exist</th>
                         </tr>
@@ -69,6 +70,7 @@
                             <td ng-bind="data.pan_no"></td>
                             <td ng-bind="ucl.setTotalExperience(data.total_experience)"></td>
                             <td ng-bind="data.status"></td>
+                            <td ng-bind="data.job_code"></td>
                             <td ng-bind="data.cv_received_date"></td>
                             <td style="text-align: center;"><i
                                     ng-class="data.is_record_exist == 'false' ? 'fa fa-close check-red':'fa fa-check check-green'"

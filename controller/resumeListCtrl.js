@@ -566,13 +566,10 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
 
             setTimeout(function () {
                 setCSS();
-                // if(($('#my-select').val()).length == rlc.pdfSectionsNameList.length){
-                //     $('#select-all').hide();
-                //     $('#deselect-all').show();
-                // }else{
-                //     $('#select-all').show();
-                //     $('#deselect-all').hide();
-                // }
+                if(($('#my-select').val()).length == rlc.pdfSectionsNameList.length){
+                    $('#select-all').hide();
+                    $('#deselect-all').show();
+                }
             }, 200);
         }, function myError(r) {
             toastr.error(r.data.message, 'Sorry!');
@@ -662,6 +659,10 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         // }
         setTimeout(function () {
             setCSS();
+            if(($('#my-select_for_zip').val()).length == rlc.pdfSectionsNameList.length){
+                $('#select-all_for_zip').hide();
+                $('#deselect-all_for_zip').show();
+            }
         }, 200);
     }
 

@@ -65,7 +65,7 @@
                         <th>Job Location</th>
                         <!-- <th>Job Type</th>  -->
                         <th>Job Code</th>
-                        <th style="text-align: center;">Action</th>
+                        <th style="text-align: center;width:8%">Action</th>
                         <th style="text-align: center;">Status</th>
                     </tr>
                 </thead>
@@ -83,7 +83,7 @@
                         <td>{{jl.job_location}}</td>
                         <!--  <td >{{jl.job_type}}</td> -->
                         <td>{{jl.job_code}}</td>
-                        <td style="text-align: center;">
+                        <td style="text-align: center;width:8%">
                             <a type="button" class="btn btn-xs" ng-href="jobs/edit?id={{jl.id}}" title="Edit"
                                 style="outline: 0;" ng-if="jb.loggedRoleId != 6"><i class="fa fa-pencil"
                                     aria-hidden="true"></i></a>

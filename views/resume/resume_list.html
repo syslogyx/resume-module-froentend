@@ -110,8 +110,8 @@
         padding-left: 5%;
     }
 
-    a:active,
-    .btn:focus {
+    .activeBtn:active,
+    .activeBtn:focus {
         color: #428bca;
         text-decoration: none;
     }
@@ -356,7 +356,7 @@
 
                             <!--  <a ng-if="data.status=='Pass'" type="button" class="btn btn-xs" title="Change Status" ng-click="rlc.openChangeStatusModal(data)" style="outline: 0;"><i style="cursor: pointer;" class="fa fa-exchange" aria-hidden="true"></i></a> -->
 
-                            <a ng-if="data.status == 'Fail' && data.status != 'Pass'" type="button" class="btn btn-xs"
+                            <a ng-if="(data.status == 'Fail' && data.status != 'Pass')||(data.status =='Rejected')" type="button" class="btn btn-xs"
                                 title="Change JD" ng-click="rlc.openChangeJdStatusModel(data.id)" style="outline: 0;"><i
                                     style="cursor: pointer;" class="fa fa-refresh" aria-hidden="true"></i></a>
 
@@ -366,7 +366,7 @@
                                     class="fa fa-eye" aria-hidden="true"></i></a>
 
                             <a href="/resume/{{data.unique_token}}?id={{data.id}}" type="button" target="_blank"
-                                class="btn btn-xs" title="Edit" style="outline: 0;"><i style="cursor: pointer;"
+                                class="btn btn-xs activeBtn" title="Edit" style="outline: 0;"><i style="cursor: pointer;"
                                     class="fa fa-pencil" aria-hidden="true"></i></a>
                         </td>
                     </tr>
@@ -645,15 +645,13 @@
                         <div class="row" style="margin-left:-6%">
                             <div class="col-md-6">
                                 <label class=""
-                                    style="font-family: sanspro_bold;color: #555555;font-weight: 700;">Default Selected
-                                    Section:</label>
+                                    style="font-family: sanspro_bold;color: #555555;font-weight: 700;">Default Selected Section:</label>
                             </div>
                             <div class="col-md-6">
                                 <div class="" style="text-align: center;margin-left: 7%;">
                                     <a class="btn btn-outline btn-circles btn-sm green"
                                         ng-repeat="data in rlc.defaultSelectSectionList"
-                                        ng-model="rlc.defaultSelectSection" style="margin-right: 10px;cursor: auto;"
-                                        value="{{data.id}}">{{data.section_name}}</a>
+                                        ng-model="rlc.defaultSelectSection" value="{{data.id}}" style="margin-right: 10px;cursor: auto;">{{data.section_name}}</a>
                                 </div>
                             </div>
                         </div>
@@ -668,7 +666,6 @@
                             <!-- <label  class="col-xs-3 " ng-repeat="section in rlc.pdfSectionsNameList" style="margin-bottom: 15px;">
                               <input class="icheckBox" apply-check-box data-index="{{section.id}}"  id="chk_{{section.id}}" type="checkbox"  name="selectedSectionNames[]" value="{{section.id}}" checked> &nbsp;&nbsp;&nbsp;{{section.section_name}}
                             </label> -->
-                            <!-- {{rlc.seletedSection}} -->
                             <div col="col-md-12">
                                 <select multiple="multiple" id="my-select" name="selectedSectionNames[]">
                                     <option ng-repeat="sec in rlc.pdfSectionsNameList" value="{{sec.id}}" selected>
@@ -684,7 +681,6 @@
                                 </div>
                                 <div id="deselect-all-div" class="col-md-6 form-group">
                                     <a href='#' id='deselect-all'>Deselect All</a>
-                                    <!-- ng-hide="(($('#my-select').val()).length == 0)" -->
                                 </div>
                             </div>
                         </div>
@@ -779,8 +775,6 @@
                                     </table>
                                 </div>
                             </div>
-
-                            <!-- </div> -->
                         </div>
                     </div>
                     <div class="modal-footer" style="margin-top: 0px;">
@@ -815,8 +809,7 @@
                                                 data-target="#bg_checklist" data-toggle="tab"><b>Background Check
                                                     Documents</b></a></li>
                                         <li id='cv_selection_list_li'><a class="listanchor"
-                                                data-target="#cv_selection_list" data-toggle="tab"><b>Section List For
-                                                    CV</b></a></li>
+                                                data-target="#cv_selection_list" data-toggle="tab"><b>Section List For CV</b></a></li>
                                     </ul>
                                     <div class="tab-content">
                                         <div class="active tab-pane" id="bg_checklist">
@@ -870,7 +863,7 @@
                                         <div class="tab-pane" id="cv_selection_list">
                                             <div class="row">
                                                 <div class="col-md-6 form-group">
-                                                    <span> <b style="color:#dd4b39;">NOTE: </b><br> * Please select at
+                                                    <span><b style="color:#dd4b39;">NOTE: </b><br> * Please select at
                                                         least one section to add in CV.</span>
                                                 </div>
                                             </div>
@@ -940,7 +933,6 @@
         </div>
     </div>
     <!-- End Bg checklist document list Model -->
-
 </section>
 <script>
 
@@ -1449,17 +1441,32 @@
         $('#default_select_section').select2();
 
         $('#my-select,#my-select_for_zip').on('change', function () {
-            $(this).valid();
-            // debugger
-            // if(($('#my-select').val()).length > 0 && ($('#my-select').val()).length < rlc.pdfSectionsNameList.length){
-            //     $('#deselect-all').hide();
-            // }
+            $(this).valid();          
+            if(!$(this).valid()){
+                $('#deselect-all').hide();
+                $('#select-all').show();
+                $('#deselect-all_for_zip').hide();
+                $('#select-all_for_zip').show();
+            }else{
+                $('#deselect-all').show(); 
+                $('#deselect-all_for_zip').show();
+            }
+            var scope = angular.element(document.querySelector("#resumeListCtrl")).scope();
+            if(($('#my-select').val()).length == scope.rlc.pdfSectionsNameList.length){
+                $('#select-all').hide();
+            }else{
+               $('#select-all').show(); 
+            }
+            if(($('#my-select_for_zip').val()).length == scope.rlc.pdfSectionsNameList.length){
+                $('#select-all_for_zip').hide();
+            }else{
+                $('#select-all_for_zip').show();
+            }
         });
 
         /* Select-all and deselect all functionality of section name in pdf download*/
         $('#select-all').click(function () {
             $('#my-select').multiSelect('select_all');
-            // $('#select-all').hide();
             $("div.form-group").each(function () {
                 $(this).removeClass('has-error');
                 $('span.help-block-error').remove();
@@ -1471,13 +1478,11 @@
         $('#deselect-all').click(function () {
             $('#my-select').multiSelect('deselect_all');
             $('#my-select').valid();
-            // $('#deselect-all').hide();
             return false;
         });
         /* Select-all and deselect all functionality of section name in zip download functionality containg pdf*/
         $('#select-all_for_zip').click(function () {
             $('#my-select_for_zip').multiSelect('select_all');
-            // $('#my-select').valid();
             $("div.form-group").each(function () {
                 $(this).removeClass('has-error');
                 $('span.help-block-error').remove();
@@ -1493,6 +1498,7 @@
         });
 
         $("html, body").animate({ scrollTop: 0 }, "fast");
+
         $('#assignStatusModel.modal,#changeStatusModel.modal').on('hidden.bs.modal', function (e) {
             $(this).find('form').trigger('reset');
             $("div.form-group").each(function () {
@@ -1521,22 +1527,21 @@
             $('.ms-selectable > ul').css('border', '1px solid #ccc');
             $('.ms-selection > ul').css('border', '1px solid #ccc');
         });
+
         $('#changeJdStatusModal.modal').on('hidden.bs.modal', function (e) {
             $(this).removeClass('has-error');
             $('span.help-block-error').remove();
             $('.ms-selectable > ul').css('border', '1px solid #ccc');
             $('.ms-selection > ul').css('border', '1px solid #ccc');
         });
-    });
 
-    $(document).ready(function () {
-        $("html, body").animate({ scrollTop: 0 }, "fast");
         $('.modal').on('hidden.bs.modal', function (e) {
             console.log("Modal is closed");
             $('header').css('z-index', '1053');
             $('footer').css('z-index', '1053');
         })
     });
+
     function setCSS() {
         if ($('.modal').is(':visible') == true) {
             console.log("Modal is open");

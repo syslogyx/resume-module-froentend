@@ -35,7 +35,7 @@
                             <table class="table-bordered table table-hover">
                                 <thead class="thead-default">
                                     <tr>
-                                        <th nowrap>Sr. no.</th>
+                                        <th nowrap style="text-align: center;">Sr. no.</th>
                                         <th nowrap>Job code</th>
                                         <th nowrap>Interviewer Name</th>
                                         <th nowrap>Round</th>
@@ -45,7 +45,7 @@
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="r in tdc.technicalDetailsList">
-                                        <td ng-bind="$index+1" nowrap></td>
+                                        <td ng-bind="$index+1" nowrap style="text-align: center;"></td>
                                         <td>{{r.job_description.job_code +" "+r.job_description.sub_title}}</td>
                                         <td ng-bind="r.users.name" nowrap></td>
                                         <td ng-bind="r.technical_round" nowrap></td>
@@ -80,7 +80,7 @@
                             <table class="table-bordered table table-hover">
                                 <thead class="thead-default">
                                     <tr>
-                                        <th nowrap>Sr. no.</th>
+                                        <th nowrap style="text-align: center;">Sr. no.</th>
                                         <th nowrap>Job code</th>
                                         <th nowrap>Round</th>
                                         <th nowrap>Status</th>
@@ -89,7 +89,7 @@
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="r in data.companies_tech_round_info">
-                                        <td ng-bind="$index+1" nowrap></td>
+                                        <td ng-bind="$index+1" nowrap style="text-align: center;"></td>
                                         <td>{{data.job_description.job_code +" "+data.job_description.sub_title}}</td>
                                         <td ng-bind="'Round '+($index+1)" nowrap></td>
                                         <td ng-bind="r.company_tech_status" nowrap></td>

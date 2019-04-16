@@ -119,6 +119,7 @@ app.controller('utilityCtrl', function (services, AclService, $scope, $http, $lo
                         "unique_token": authKey.identity.uniqueToken,
                         "timestamp": "",
                         "created_at": cdata[i].cv_received_date.split("/").reverse().join("-"),
+                        "job_description_id":cdata[i].job_description_id
                     }
                     request.data.push(obj);
                 }

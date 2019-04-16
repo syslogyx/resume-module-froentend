@@ -135,6 +135,9 @@ app.controller('clientCtrl', function ($scope, $rootScope, $http, services, $loc
                     if (k == 'contact_no') {
                         htmlerror = htmlerror + v + '</li><li>';
                     }
+                    if (k == 'mobile') {
+                        htmlerror = htmlerror + v + '</li><li>';
+                    }
                 });
                 toastr.error(htmlerror);
                 Utility.stopAnimation();
