@@ -43,18 +43,6 @@
         </div>
 
         <div class="row">
-            <div class="col-xs-12 searchbar">
-                <label style="float: left">Sort by Alphabet : &nbsp; </label>
-                <ul class="alpabet-list" ng-repeat="alpabet in usr.alphabet"
-                    style="float: left;list-style-type: none;padding-right:1%;cursor: pointer;">
-                    <li><a ng-class="alpabet=='All'?'red sort-alphabet':'blue sort-alphabet'" id="alpabet_{{$index}}"
-                            ng-click="usr.onAlphabetClick(alpabet,$index)">{{alpabet}}</a></li>
-                </ul>
-            </div>
-        </div>
-        <br>
-
-        <div class="row">
             <div class="col-xs-12">
                 <div class="nav-tabs-custom-main">
                     <ul class="nav nav-tabs">
@@ -63,6 +51,17 @@
                         <li class=""><a id="client" href="user#client">Client List</a></li>
                     </ul>
                 </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 searchbar">
+                <label style="float: left">Sort by Alphabet : &nbsp; </label>
+                <ul class="alpabet-list" ng-repeat="alpabet in usr.alphabet"
+                    style="float: left;list-style-type: none;padding-right:1%;cursor: pointer;">
+                    <li><a ng-class="alpabet=='All'?'red sort-alphabet':'blue sort-alphabet'" id="alpabet_{{$index}}"
+                            ng-click="usr.onAlphabetClick(alpabet,$index)">{{alpabet}}</a></li>
+                </ul>
             </div>
         </div>
 

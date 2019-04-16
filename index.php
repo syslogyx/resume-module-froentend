@@ -244,7 +244,7 @@
             <div class="menuSec" ng-controller="menuCtrl" style="min-height: 50px;">
                 <footer class="main-footer" style="height: 50px;">
                     <div class="pull-right hidden-xs">
-                        <b>Version</b> 1.0.6
+                        <b>Version</b> 1.0.7
                     </div>
                     <strong>Copyright &copy; 2018 <a href="http://www.syslogyx.com/">Syslogyx Technologies Pvt. Ltd.</a></strong> All rights
                     reserved.

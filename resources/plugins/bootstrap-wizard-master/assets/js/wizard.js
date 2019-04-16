@@ -430,7 +430,7 @@ $(document).ready(function(){
                 required: "Stream is required.",
             },
             percentage:{
-                required: "percentage is required.",
+                required: "Percentage is required.",
                 min: "Please enter a value greater than or equal to 50."
             },
             university: {
