@@ -21,7 +21,7 @@
             <!-- /.box-header -->
             <div class="box-body">
                 <div class="row">
-                    <div class="col-md-4 form-group">
+                    <div class="col-md-4 form-group" style="min-height:85px">
                         <label class="mandatory" for="">Name</label>
                         <input type="text" class="form-control" ng-model="bcl.bgChecklistName" name="bg_checklist_name"
                             id="bg_checklist_name" placeholder="Enter name">
@@ -36,7 +36,7 @@
                         </div>
                     </div> -->
                     <div class="col-md-4 form-group">
-                        <label class="" style="margin-bottom: 2.5%;">Field Type</label>
+                        <label class="" style="margin-bottom: 1.5%;">Field Type</label>
                         <select id="field_type" ng-init="bcl.fieldType='file'" name="field_type" class="form-control"
                             placeholder="Enter mandatory field" ng-model="bcl.fieldType" disabled>
                             <option value="" style="color:#ccc !important;">Select field type</option>
@@ -44,7 +44,7 @@
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <div style="margin-top: 8%">
+                        <div style="margin-top: 7.1%">
                             <input type="submit" value="Save" data-ng-click="bcl.createBackgroundChecklist()"
                                 class="btn btn-success" style="outline: 0;" />
                             <input type="button" value="Cancel" class="btn btn-warning"
@@ -55,6 +55,7 @@
                     </div>
                 </div>
             </div>
+            <br>
             <!-- /.box-body -->
             <div class="box-footer" style="margin-right:14px!important;display: none">
                 <div class="pull pull-right">

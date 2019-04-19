@@ -240,6 +240,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
         promise.then(function mySuccess(response) {
             Utility.stopAnimation();
             var res = response.data;
+            console.log(res);
             $totalExpArray = "";
             if (res.status_code == 200) {
                 $scope.job_id = res.data.job_description_id != null ? res.data.job_description_id.toString() : null;
@@ -274,6 +275,18 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
                 $scope.status = res.data.status;
                 $scope.industrialExpData = res.data.candidate_ind_exp;
                 $scope.oldOpprtunityFor = res.data.opprtunity_for;
+                // for(var i=0;i<res.data.candidate_document.length;i++){
+                //     if(res.data.candidate_document[i].type == "Resume"){
+                //         $scope.file = res.data.candidate_document[i].original_file_name;
+                //         $('#file').trigger('change');
+                //     }else{
+                //         $scope.profileImageName = res.data.candidate_document[i].original_file_name;
+                //     }
+                // }
+                // // $("#profile_pic_file").text( $scope.profileImage);
+                // console.log($scope.file);
+                // console.log( $scope.profileImageName);
+
                 // }else{
                 //     toastr.error(response.data.message, 'Sorry!');
             }
@@ -623,12 +636,13 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
     };
 
     $scope.saveResumeData = function () {
-        var msg = '';
-        if ($scope.candidateId > 0) {
-            msg1 = 'Please review your details before submitting.';
-        } else {
-            msg1 = 'Please review your details before submitting.<br>You can not edit the same after final submit.';
-        }
+        // var msg = '';
+        var msg1 = 'Please review your details before submitting.';
+        // if ($scope.candidateId > 0) {
+        //     msg1 = 'Please review your details before submitting.';
+        // } else {
+        //     msg1 = 'Please review your details before submitting.<br>You can not edit the same after final submit.';
+        // }
 
         swal({
             title: "Sure?",

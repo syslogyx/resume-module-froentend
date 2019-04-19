@@ -21,6 +21,7 @@ app.controller('interviewListCtrl', function ($scope, $rootScope, $http, service
         ilc.jobCodeId = null;
         ilc.scheduledDate = '';
         ilc.candidate = null;
+        // ilc.userId = null;
         $('#scheduled_date').datepicker('setDate', null);
         if (ilc.logInUserRole != 4) {
             // ilc.userId = null;

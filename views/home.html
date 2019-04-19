@@ -72,7 +72,11 @@
                         </div>
                         <div class="col-sm-2 col-xs-2 no-padding">
                             <div class="pull-right">
-                                <a ng-href="/resume_list#non-selected"><button type="button"
+                                <!-- <a ng-href="/resume_list#non-selected"><button type="button"
+                                        class="btn btn-default btn-sm no-margin" title="View"
+                                        style="background-color:#fd7e14;color:#fff;"><i class="fa fa-eye"
+                                            aria-hidden="true"></i></button></a> -->
+                                <a ng-href="/resume_list"><button type="button"
                                         class="btn btn-default btn-sm no-margin" title="View"
                                         style="background-color:#fd7e14;color:#fff;"><i class="fa fa-eye"
                                             aria-hidden="true"></i></button></a>
@@ -84,16 +88,20 @@
                             <li>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <span class='candidate_details_key'>Shared <strong
-                                                class='candidate_details_value'>{{hme.adminDashboradRecord.candidate_mgmt_details.forwarded_candidates_count}}</strong></span>
+                                        <span class='candidate_details_key'>Shared 
+                                            <!-- <strong class='candidate_details_value'>{{hme.adminDashboradRecord.candidate_mgmt_details.forwarded_candidates_count}}</strong> -->
+                                            <a href="/resume_list?status=Forwarded" type="button" class="btn btn-xs candidate_details_value" style="outline: 0;">{{hme.adminDashboradRecord.candidate_mgmt_details.forwarded_candidates_count}}</a>
+                                        </span>
                                     </div>
                                 </div>
                             </li>
                             <li>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <span class='candidate_details_key'>Shortlisted <strong
-                                                class='candidate_details_value'>{{hme.adminDashboradRecord.candidate_mgmt_details.shortlisted_candidates_count}}</strong></span>
+                                        <span class='candidate_details_key'>Shortlisted 
+                                            <!-- <strong class='candidate_details_value'>{{hme.adminDashboradRecord.candidate_mgmt_details.shortlisted_candidates_count}}</strong> -->
+                                            <a href="/resume_list?status=Pass" type="button" class="btn btn-xs candidate_details_value" style="outline: 0;">{{hme.adminDashboradRecord.candidate_mgmt_details.shortlisted_candidates_count}}</a>
+                                        </span>
                                     </div>
                                 </div>
                             </li>
@@ -108,16 +116,20 @@
                             <li>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <span class='candidate_details_key'>Onboarding <strong
-                                                class='candidate_details_value'>{{hme.adminDashboradRecord.candidate_mgmt_details.onbording}}</strong></span>
+                                        <span class='candidate_details_key'>Onboarding 
+                                            <!-- <strong class='candidate_details_value'>{{hme.adminDashboradRecord.candidate_mgmt_details.onbording}}</strong> -->
+                                            <a href="/resume_list?status=Selected" type="button" class="btn btn-xs candidate_details_value" style="outline: 0;">{{hme.adminDashboradRecord.candidate_mgmt_details.onbording}}</a>
+                                        </span>
                                     </div>
                                 </div>
                             </li>
                             <li>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <span class='candidate_details_key'>Joined <strong
-                                                class='candidate_details_value'>{{hme.adminDashboradRecord.candidate_mgmt_details.joined_candidates_count}}</strong></span>
+                                        <span class='candidate_details_key'>Joined 
+                                            <!-- <strong class='candidate_details_value'>{{hme.adminDashboradRecord.candidate_mgmt_details.joined_candidates_count}}</strong> -->
+                                            <a href="/resume_list?status=Joined" type="button" class="btn btn-xs candidate_details_value" style="outline: 0;">{{hme.adminDashboradRecord.candidate_mgmt_details.joined_candidates_count}}</a>
+                                        </span>
                                     </div>
                                 </div>
                             </li>
@@ -155,7 +167,11 @@
                         </div>
                         <div class="col-sm-2 col-xs-2 no-padding">
                             <div class="pull-right">
-                                <a ng-href="/resume_list#non-selected"><button type="button"
+                                <!-- <a ng-href="/resume_list#non-selected"><button type="button"
+                                        class="btn btn-default btn-sm" title="View"
+                                        style="background-color:#fd7e14;color:#fff;"><i class="fa fa-eye"
+                                            aria-hidden="true"></i></button></a> -->
+                                    <a ng-href="/resume_list"><button type="button"
                                         class="btn btn-default btn-sm" title="View"
                                         style="background-color:#fd7e14;color:#fff;"><i class="fa fa-eye"
                                             aria-hidden="true"></i></button></a>
@@ -167,40 +183,49 @@
                             <li>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <span class='candidate_details_key'>Shared <strong
-                                                class='candidate_details_value'>{{hme.hrDashboradRecord.candidate_mgmt_details.forwarded_candidates_count}}</strong></span>
+                                        <span class='candidate_details_key'>Shared 
+                                            <!-- <strong class='candidate_details_value'>{{hme.hrDashboradRecord.candidate_mgmt_details.forwarded_candidates_count}}</strong> -->
+                                            <a href="/resume_list?status=Forwarded" type="button" class="btn btn-xs candidate_details_value" style="outline: 0;">{{hme.hrDashboradRecord.candidate_mgmt_details.forwarded_candidates_count}}</a>
+                                        </span>
                                     </div>
                                 </div>
                             </li>
                             <li>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <span class='candidate_details_key'>Shortlisted <strong
-                                                class='candidate_details_value'>{{hme.hrDashboradRecord.candidate_mgmt_details.shortlisted_candidates_count}}</strong></span>
+                                        <span class='candidate_details_key'>Shortlisted 
+                                            <!-- <strong class='candidate_details_value'>{{hme.hrDashboradRecord.candidate_mgmt_details.shortlisted_candidates_count}}</strong> -->
+                                            <a href="/resume_list?status=Pass" type="button" class="btn btn-xs candidate_details_value" style="outline: 0;">{{hme.hrDashboradRecord.candidate_mgmt_details.shortlisted_candidates_count}}</a>
+                                        </span>
                                     </div>
                                 </div>
                             </li>
                             <li>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <span class='candidate_details_key'>Interview In Progress <strong
-                                                class='candidate_details_value'>{{hme.hrDashboradRecord.candidate_mgmt_details.inprogress_interviews_count}}</strong></span>
+                                        <span class='candidate_details_key'>Interview In Progress 
+                                            <strong class='candidate_details_value'>{{hme.hrDashboradRecord.candidate_mgmt_details.inprogress_interviews_count}}</strong>
+                                        </span>
                                     </div>
                                 </div>
                             </li>
                             <li>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <span class='candidate_details_key'>Onboarding <strong
-                                                class='candidate_details_value'>{{hme.hrDashboradRecord.candidate_mgmt_details.onbording}}</strong></span>
+                                        <span class='candidate_details_key'>Onboarding 
+                                           <!--  <strong class='candidate_details_value'>{{hme.hrDashboradRecord.candidate_mgmt_details.onbording}}</strong> -->
+                                            <a href="/resume_list?status=Selected" type="button" class="btn btn-xs candidate_details_value" style="outline: 0;">{{hme.hrDashboradRecord.candidate_mgmt_details.onbording}}</a>
+                                        </span>
                                     </div>
                                 </div>
                             </li>
                             <li>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <span class='candidate_details_key'>Joined <strong
-                                                class='candidate_details_value'>{{hme.hrDashboradRecord.candidate_mgmt_details.joined_candidates_count}}</strong></span>
+                                        <span class='candidate_details_key'>Joined 
+                                            <!-- <strong class='candidate_details_value'>{{hme.hrDashboradRecord.candidate_mgmt_details.joined_candidates_count}}</strong> -->
+                                            <a href="/resume_list?status=Joined" type="button" class="btn btn-xs candidate_details_value" style="outline: 0;">{{hme.hrDashboradRecord.candidate_mgmt_details.joined_candidates_count}}</a>
+                                        </span>
                                     </div>
                                 </div>
                             </li>
@@ -367,70 +392,88 @@
                             <li>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <span class='candidate_details_key'><strong>Selected </strong><strong
-                                                class='candidate_details_value'>{{cd.selected_candidates_count}}</strong></span>
+                                        <span class='candidate_details_key'>
+                                            <strong>Selected </strong>
+                                           <!--  <strong class='candidate_details_value'>{{cd.selected_candidates_count}}</strong> -->
+                                            <a href="/resume_list?technology_id={{cd.id}}&status=Selected" type="button" class="btn btn-xs candidate_details_value" style="outline: 0;">{{cd.selected_candidates_count}}</a>
+                                        </span>
                                     </div>
                                 </div>
                             </li>
                             <li>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <span class='candidate_details_key'><strong>Shortlisted through other Vendor
-                                            </strong><strong
-                                                class='candidate_details_value'>{{cd.shortlist_through_other_vendor}}</strong></span>
+                                        <span class='candidate_details_key'>
+                                            <strong>Shortlisted through other Vendor </strong>
+                                            <strong class='candidate_details_value'>{{cd.shortlist_through_other_vendor}}</strong>
+                                            <!-- <a href="/resume_list?technology_id={{cd.id}}&status=Shortlisted through other Vendor" type="button" class="btn btn-xs candidate_details_value" style="outline: 0;">{{cd.shortlist_through_other_vendor}}</a> -->
+                                        </span>
                                     </div>
                                 </div>
                             </li>
                             <li>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <span class='candidate_details_key'><strong>Joining TCS Directly
-                                            </strong><strong
-                                                class='candidate_details_value'>{{cd.joinded_directly_tcs}}</strong></span>
+                                        <span class='candidate_details_key'>
+                                            <strong>Joining TCS Directly</strong>
+                                            <strong class='candidate_details_value'>{{cd.joinded_directly_tcs}}</strong>
+                                            <!-- <a href="/resume_list?technology_id={{cd.id}}&status=Joining TCS Directly" type="button" class="btn btn-xs candidate_details_value" style="outline: 0;">{{cd.joinded_directly_tcs}}</a> -->
+                                        </span>
                                     </div>
                                 </div>
                             </li>
                             <li>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <span class='candidate_details_key'><strong>Joined Somewhere Else
-                                            </strong><strong
-                                                class='candidate_details_value'>{{cd.joined_somewhere_else}}</strong></span>
+                                        <span class='candidate_details_key'>
+                                            <strong>Joined Somewhere Else</strong>
+                                            <!-- <strong class='candidate_details_value'>{{cd.joined_somewhere_else}}</strong> -->
+                                            <a href="/resume_list?technology_id={{cd.id}}&status=Join Somewhere Else" type="button" class="btn btn-xs candidate_details_value" style="outline: 0;">{{cd.joined_somewhere_else}}</a>
+                                        </span>
                                     </div>
                                 </div>
                             </li>
                             <li>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <span class='candidate_details_key'><strong>Rejected </strong><strong
-                                                class='candidate_details_value'>{{cd.rejected}}</strong></span>
+                                        <span class='candidate_details_key'>
+                                            <strong>Rejected </strong>
+                                            <!-- <strong class='candidate_details_value'>{{cd.rejected}}</strong> -->
+                                            <a href="/resume_list?technology_id={{cd.id}}&status=Rejected" type="button" class="btn btn-xs candidate_details_value" style="outline: 0;">{{cd.rejected}}</a>
+                                        </span>
                                     </div>
                                 </div>
                             </li>
                             <li>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <span class='candidate_details_key'><strong>No Response from Candidate
-                                            </strong><strong
-                                                class='candidate_details_value'>{{cd.no_response_from_Candidate}}</strong></span>
+                                        <span class='candidate_details_key'>
+                                            <strong>No Response from Candidate</strong>
+                                            <!-- <strong class='candidate_details_value'>{{cd.no_response_from_Candidate}}</strong> -->
+                                            <a href="/resume_list?technology_id={{cd.id}}&status=No Response from Candidate" type="button" class="btn btn-xs candidate_details_value" style="outline: 0;">{{cd.no_response_from_Candidate}}</a>
+                                        </span>
                                     </div>
                                 </div>
                             </li>
                             <li>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <span class='candidate_details_key'><strong>Expecting High
-                                                CTC(Rejected)</strong> <strong
-                                                class='candidate_details_value'>{{cd.expecting_high_ctc}}</strong></span>
+                                        <span class='candidate_details_key'>
+                                            <strong>Expecting High CTC(Rejected)</strong> 
+                                            <!-- <strong class='candidate_details_value'>{{cd.expecting_high_ctc}}</strong> -->
+                                            <a href="/resume_list?technology_id={{cd.id}}&status=Expecting High CTC(Rejected)" type="button" class="btn btn-xs candidate_details_value" style="outline: 0;">{{cd.expecting_high_ctc}}</a>
+                                        </span>
                                     </div>
                                 </div>
                             </li>
                             <li>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <span class='candidate_details_key'><strong>BCG form shared/ Candidate Not
-                                                Interested</strong> <strong
-                                                class='candidate_details_value'>{{cd.bgc_form_shared_not_interested_candidate}}</strong></span>
+                                        <span class='candidate_details_key'>
+                                            <strong>BCG Form shared/ Candidate Not Interested</strong> 
+                                            <!-- <strong class='candidate_details_value'>{{cd.bgc_form_shared_not_interested_candidate}}</strong> -->
+                                            <a href="/resume_list?technology_id={{cd.id}}&status=BGC Form shared / candidate not interested" type="button" class="btn btn-xs candidate_details_value" style="outline: 0;">{{cd.bgc_form_shared_not_interested_candidate}}</a>
+                                        </span>
                                     </div>
                                 </div>
                             </li>
@@ -575,6 +618,10 @@
     .candidate_details_value {
         padding-left: 5px;
         float: right !important;
+        font-size:15px !important;
+        font-weight:600;
+        padding-right:0px!important;
+        margin-right:0px!important;
     }
 
     .tech_details_key {

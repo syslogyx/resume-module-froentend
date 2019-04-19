@@ -11,10 +11,14 @@
             </div>
             <div class="col-xs-2">
                 <div class="pull-right" style="margin-top: 5px; margin-right: 20px;">
-                    <a ng-href="/resume_list#non-selected"><button type="button" class="btn btn-default btn-sm"
+                    <a ng-href="/resume_list"><button type="button" class="btn btn-default btn-sm"
                             data-toggle="modal" title="Back" data-target="" data-ng-click=""
                             style="border:white;color:#428bca;outline: 0;"><i class="fa fa-arrow-left"
                                 aria-hidden="true"></i></button></a>
+                    <!-- <a ng-href="/resume_list#non-selected"><button type="button" class="btn btn-default btn-sm"
+                            data-toggle="modal" title="Back" data-target="" data-ng-click=""
+                            style="border:white;color:#428bca;outline: 0;"><i class="fa fa-arrow-left"
+                                aria-hidden="true"></i></button></a> -->
                 </div>
             </div>
         </div>
@@ -133,7 +137,8 @@
             <div class="pull pull-right">
                 <input type="submit" value="Save" data-ng-click="st.onButtonsave()" class="btn btn-success"
                     style="outline: 0;" ng-disabled="st.questionList == null || st.questionList.length == 0" />
-                <a ng-href="/resume_list#non-selected" class="btn btn-warning">Cancel</a>
+                <a ng-href="/resume_list" class="btn btn-warning">Cancel</a>
+                <!-- <a ng-href="/resume_list#non-selected" class="btn btn-warning">Cancel</a> -->
                 <!-- <input type="reset" value="Reset" ng-click="st.resetForm()" class="btn" style="outline: 0;"/>  -->
             </div>
         </div>

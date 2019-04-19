@@ -203,6 +203,7 @@
     }
 
     .tooltip {
+        z-index: 900 !important;
         opacity: initial !important;
         font-style: normal !important;
         font-weight: 200 !important;
@@ -1195,6 +1196,7 @@
                                                                     uploaded.</span>
                                                                 <span style="color:#dd4b39;">{{fileSizeError}}</span>
                                                             </div>
+                                                            <!-- <span ng-if="candidateId > 0">{{fileName}}</span> -->
                                                         </div>
                                                     </form>
                                                 </div>
@@ -1203,8 +1205,7 @@
                                                 <div class="col-sm-12">
                                                     <div class="col-sm-12">
                                                         <h5 class="info-text"
-                                                            style="text-align:left;padding-left:0% !important"><b
-                                                                style="color:#dd4b39;">*</b> Please upload a profile
+                                                            style="text-align:left;padding-left:0% !important"><b style="color:#dd4b39;">*</b> Please upload a profile
                                                             image in JPE or JPEG or PNG format. Image size should not
                                                             exceed 1MB.</h5>
                                                         <label class="mandatory">Profile Image</label>
@@ -1219,6 +1220,8 @@
                                                                 uploaded.</span>
                                                             <span style="color:#dd4b39;">{{fileSizeError}}</span>
                                                         </div>
+                                                        <br>
+                                                        <!-- <span ng-if="candidateId > 0">{{profileImageName}}</span> -->
                                                     </div>
                                                 </div>
                                             </div>
@@ -1228,7 +1231,7 @@
                                                     <strong>Note:</strong>
                                                     <ul style="margin-left: 20px;">
                                                         <li>Please review your details before submitting. </li>
-                                                        <li>You can not edit the same after final submit.</li>
+                                                        <li style="display:none">You can not edit the same after final submit.</li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -1439,8 +1442,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class=""><b>Relevance Experience:</b></label>
-                                                <span>{{ ts.relevanceYearExperience }} Years
-                                                    {{ts.relevanceMonthExperience }} Months</span>
+                                                <span>{{ ts.relevanceYearExperience > 1 ? ts.relevanceYearExperience + ' Years' : ts.relevanceYearExperience + ' Year'}}
+                                                    {{ts.relevanceMonthExperience == 0 ? '' : (ts.relevanceMonthExperience > 1 ? ts.relevanceMonthExperience + ' Months' : ts.relevanceMonthExperience + ' Month' )}} </span>
                                             </div>
                                         </div>
                                     </div>

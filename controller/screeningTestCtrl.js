@@ -125,7 +125,8 @@ app.controller('screeningTestCtrl', function ($scope, $rootScope, $http, service
             promise.then(function mySuccess(response) {
                 try {
                     // $location.path('/resume_list');
-                    window.location = '/resume_list#non-selected';
+                    // window.location = '/resume_list#non-selected';
+                    window.location = '/resume_list';
                     toastr.success(response.data.message);
                 } catch (e) {
                     toastr.error(response.data.message, 'Sorry!');
@@ -144,7 +145,8 @@ app.controller('screeningTestCtrl', function ($scope, $rootScope, $http, service
 
     /* Function to cancle test form */
     st.cancelTest = function () {
-        $location.url('/resume_list#non-selected');
+        // $location.url('/resume_list#non-selected');
+        $location.url('/resume_list');
     }
 
     st.init();

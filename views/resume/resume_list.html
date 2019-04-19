@@ -147,8 +147,10 @@
                         style="padding-right:0.3px"></i></button>
             </div>
         </div>
+        <br>
 
         <div class="box box-primary collapse" id="filter">
+            <!-- ng-class="{'in' : rlc.selected_status != ''}" -->
             <div class="box-body">
                 <form id="candidateResumeFilterForm">
                     <div class="row">
@@ -247,18 +249,29 @@
                         </div>
                     </div> -->
                     <div class="row">
-                        <div style="text-align: center;">
-                            <button type="button" class="btn btn-primary"
-                                ng-click="rlc.searchCandidate()">Search</button>
-                            <button type="button" class="btn btn-primary fa fa-refresh"
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select class="form-control" id="status_filter" name="status_filter"
+                                    ng-model="rlc.status_filter"
+                                    ng-options="x.id as x.name for x in rlc.candidateTotalStatusOptions">
+                                    <option value="">Select Status</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4" style="margin-top: 2%;">
+                            <button type="button" class="btn btn-primary fa fa-refresh  pull-right"
                                 ng-click="rlc.resetFilter()"></button>
+                            <button type="button" class="btn btn-primary  pull-right"
+                                ng-click="rlc.searchCandidate()">Search</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
 
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-xs-12">
                 <div class="nav-tabs-custom-main">
                     <ul class="nav nav-tabs">
@@ -268,7 +281,7 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <div class="row">
             <div class="col-xs-12 searchbar">
@@ -290,7 +303,7 @@
                         <th>Email</th>
                         <th>Mobile No.</th>
                         <th>Total Experience</th>
-                        <!-- <th>Status</th> -->
+                        <th>Status</th>
                         <th>Job Code</th>
                         <th>CTC</th>
                         <!-- <th style="text-align: center;display:none">Download Resume</th> -->
@@ -309,7 +322,7 @@
                         <td ng-bind="data.email"></td>
                         <td ng-bind="data.mobile_no"></td>
                         <td ng-bind="rlc.setTotalExperience(data.total_experience)"></td>
-                        <!-- <td ng-bind="data.status"></td> -->
+                        <td ng-bind="data.status"></td>
                         <!-- <td ng-bind="data.job_description.title"></td> -->
                         <td>{{data.job_description.job_code}}
                             {{data.job_description.sub_title != '' ? (data.job_description.sub_title) : ''}}</td>
@@ -358,9 +371,13 @@
                                 title="Change JD" ng-click="rlc.openChangeJdStatusModel(data.id)" style="outline: 0;"><i
                                     style="cursor: pointer;" class="fa fa-refresh" aria-hidden="true"></i></a>
 
-                            <a type="button" href="/round_inforamtions?id={{data.id}}" class="btn btn-xs"
+                            <!-- <a type="button" href="/round_inforamtions?id={{data.id}}" class="btn btn-xs"
                                 title="View Technical Details" style="outline: 0;"
                                 ng-if="rlc.hashPathId == 'selected'"><i style="cursor: pointer;color:#5cb85c"
+                                    class="fa fa-eye" aria-hidden="true"></i></a> -->
+                            <a type="button" href="/round_inforamtions?id={{data.id}}" class="btn btn-xs"
+                                title="View Technical Details" style="outline: 0;"
+                                ng-if="(data.status == 'Selected' || data.status == 'Joined')"><i style="cursor: pointer;color:#5cb85c"
                                     class="fa fa-eye" aria-hidden="true"></i></a>
 
                             <a href="/resume/{{data.unique_token}}?id={{data.id}}" type="button" target="_blank"

@@ -263,6 +263,26 @@ app.constant('RESOURCES', (function () {
             { 'id': 9, 'name': 'BGC Form shared / candidate not interested' },
         ],
 
+        // defined result status constants
+        CANDIDATE_TOTAL_STATUS: [
+            { 'id': 'Active', 'name': 'Active' },
+            // { 'id': 2, 'name': 'Clear' },
+            { 'id': 'Schedule', 'name': 'Schedule' },
+            { 'id': 'Pass', 'name': 'Pass' },
+            { 'id': 'Forwarded', 'name': 'Forwarded' },
+            { 'id': 'Selected', 'name': 'Selected' },
+            { 'id': 'Selected', 'name': 'Onboarding' },
+            { 'id': 'Joined', 'name': 'Joined' },
+            { 'id': 'Fail', 'name': 'Fail' },
+            { 'id': 'Block', 'name': 'Block' },
+            { 'id': 'On Hold', 'name': 'On Hold' },
+            { 'id': 'Rejected', 'name': 'Rejected' },
+            { 'id': 'Join Somewhere Else', 'name': 'Join Somewhere Else' },
+            { 'id': 'No Response from Candidate', 'name': 'No Response from Candidate' },
+            { 'id': 'Expecting High CTC(Rejected)', 'name': 'Expecting High CTC(Rejected)' },
+            { 'id': 'BGC Form shared / candidate not interested', 'name': 'BGC Form shared / candidate not interested' },
+        ],
+
         //CONTENT_TYPE: 'application/json; charset=UTF-8'
     }
 })());
@@ -1332,28 +1352,32 @@ app.service('services', function (RESOURCES, $http, $cookieStore, $filter) {
         window.open(RESOURCES.SERVER_API + 'download_candidate_zip?file_name=' + candidateName + '.zip');
     };
 
-    // this.getListOfAlphabets = function(){
+    this.getListOfAlphabets = function(){
+        Utility.startAnimation();
+        return $http({
+            method: 'POST',
+            url: RESOURCES.SERVER_API + "get_alphabets",
+            dataType: 'json',
+            data: $.param(req),
+            headers: {
+                'Content-Type': RESOURCES.CONTENT_TYPE
+            }
+        })
+    };
+    // this.getListOfAlphabets = function (type) {
     //     Utility.startAnimation();
+    //     if(type == undefined || type == ''){
+    //         type = 'All'
+    //     }
     //     return $http({
     //         method: 'GET',
-    //         url: RESOURCES.SERVER_API + "get_alphabets",
+    //         url: RESOURCES.SERVER_API + "get_alphabets/" + type,
     //         dataType: 'json',
     //         headers: {
     //             'Content-Type': RESOURCES.CONTENT_TYPE
     //         }
     //     })
     // };
-    this.getListOfAlphabets = function (type) {
-        Utility.startAnimation();
-        return $http({
-            method: 'GET',
-            url: RESOURCES.SERVER_API + "get_alphabets/" + type,
-            dataType: 'json',
-            headers: {
-                'Content-Type': RESOURCES.CONTENT_TYPE
-            }
-        })
-    };
 
     // this.getAllCandidateList = function(){
     //     Utility.startAnimation();

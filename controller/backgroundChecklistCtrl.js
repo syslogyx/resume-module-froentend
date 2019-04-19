@@ -76,9 +76,9 @@ app.controller('backgroundChecklistCtrl', function ($scope, $rootScope, $http, s
                 Utility.stopAnimation();
                 bcl.title = 'Update Background Checklist';
                 bcl.bgChecklistName = response.data.data.name,
-                    // bcl.mandatoryField = response.data.data.mandatory==1?"True":"False",
-                    bcl.status = response.data.data.status,
-                    bcl.fieldType = response.data.data.type
+                // bcl.mandatoryField = response.data.data.mandatory==1?"True":"False",
+                bcl.status = response.data.data.status,
+                bcl.fieldType = response.data.data.type
                 applySelect2();
             }, function myError(r) {
                 toastr.error(r.data.message, 'Sorry!');

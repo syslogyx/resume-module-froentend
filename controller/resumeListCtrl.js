@@ -19,9 +19,21 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     ];
 
     var loggedInUser = services.getIdentity() == undefined ? undefined : JSON.parse(services.getIdentity());
+    console.log(window.location);
 
-    var hashPathname = window.location.hash;
-    rlc.hashPathId = hashPathname.substring(1, hashPathname.length);
+    rlc.techID = $location.search()["technology_id"];
+    // console.log(rlc.techID);
+    rlc.selected_status = $location.search()["status"];
+    // console.log(rlc.selected_status);
+    if(rlc.selected_status != undefined){
+        rlc.status_filter = rlc.selected_status;
+        $("#filter").addClass("in");
+    }else{
+       $("#filter").removeClass("in");
+    }
+
+    // var hashPathname = window.location.hash;
+    // rlc.hashPathId = hashPathname.substring(1, hashPathname.length);
 
     rlc.round = RESOURCES.TECHNICAL_ROUND;
 
@@ -33,6 +45,8 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     //Array for experience in years drop down options.
     rlc.experienceYears = RESOURCES.YEARS;
     rlc.candidateStatusOptions = RESOURCES.CANDIDATE_STATUS;
+
+    rlc.candidateTotalStatusOptions = RESOURCES.CANDIDATE_TOTAL_STATUS;
 
     rlc.fromTotalYearExperiance = "";
     rlc.fromTotalMonthExperiance = "";
@@ -57,13 +71,38 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     // genCharArray('A', 'Z');
 
     function genCharArray() {
-        var promise = services.getListOfAlphabets(rlc.hashPathId);
+        rlc.alphabet = ['All'];
+        req ={
+            status : rlc.status_filter,
+            technology_id : rlc.techID
+        }
+
+        var email = loggedInUser == undefined ? undefined : loggedInUser.identity.email;
+        var mobile = loggedInUser == undefined ? undefined : loggedInUser.identity.mobile;
+        var role_id = loggedInUser == undefined ? undefined : loggedInUser.identity.role;
+
+        if (email != undefined && mobile != undefined && role_id == 6) {
+            req.email = email;
+            req.contact_no = mobile;
+        }
+
+        if(req.status == undefined || req.status == ''){
+            req.status = 'All'
+        }
+        // status = rlc.status_filter.toString();
+        var promise = services.getListOfAlphabets(req);
+        // var promise = services.getListOfAlphabets();
         promise.success(function (result) {
             Utility.stopAnimation();
-            for (var i = 0; i < result.length; i++) {
-                rlc.alphabet.push(result[i]);
+            if(result.length > 0){                
+                for (var i = 0; i < result.length; i++) {
+                    rlc.alphabet.push(result[i]);
+                }
+            }else{
+                rlc.alphabet = ['All'];
             }
         }, function myError(r) {
+            rlc.alphabet = ['All'];
             toastr.error(r.data.message, 'Sorry!');
             Utility.stopAnimation();
         });
@@ -88,6 +127,7 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     rlc.searchCandidate = function () {
         if ($('#candidateResumeFilterForm').valid()) {
             rlc.onAlphabetClick("All", "0");
+            genCharArray();
             rlc.fetchList(-1);
         }
     };
@@ -133,21 +173,27 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
 
     /*Function to reset resume list filter */
     rlc.resetFilter = function () {
-        rlc.jobCodeId = null;
-        rlc.ctcFrom = null;
-        rlc.ctcTo = null;
-        // rlc.total_experience = null;
-        rlc.fromTotalYearExperiance = "";
-        // rlc.fromTotalMonthExperiance = "";
-        rlc.toTotalYearExperiance = "";
-        // rlc.toTotalMonthExperiance = "";   
-        $("div.form-group").each(function () {
-            $(this).removeClass('has-error');
-            $('span.help-block-error').remove();
-            applySelect2();
-        });
-        rlc.onAlphabetClick("All", "0");
-        rlc.fetchList(-1);
+        // if(rlc.techID != undefined && rlc.status_filter != ''){
+            $location.url('/resume_list');
+        // }else{
+            rlc.jobCodeId = null;
+            rlc.ctcFrom = null;
+            rlc.ctcTo = null;
+            rlc.status_filter = "";
+            // rlc.total_experience = null;
+            rlc.fromTotalYearExperiance = "";
+            // rlc.fromTotalMonthExperiance = "";
+            rlc.toTotalYearExperiance = "";
+            // rlc.toTotalMonthExperiance = "";   
+            $("div.form-group").each(function () {
+                $(this).removeClass('has-error');
+                $('span.help-block-error').remove();
+                applySelect2();
+            });
+            rlc.onAlphabetClick("All", "0");
+            genCharArray();
+            rlc.fetchList(-1); 
+        // }
     }
 
     /*Function to get all active job description list */
@@ -256,7 +302,9 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
             'to_total_experience': rlc.toTotalYearExperiance,
             // 'search_alphabet':alphabet
             'search_alphabet': rlc.alpha,
-            'status': rlc.hashPathId,
+            // 'status': rlc.hashPathId,
+            'status': rlc.status_filter,
+            'technology_id':rlc.techID,
             'role_id': role_id
         }
 
@@ -292,14 +340,14 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
         // if(window.location.pathname == '/resume_list' && window.location.hash == '#selected'){
         //     $("#CandidateManagement").addClass('active');
         // }
-        if (rlc.hashPathId === 'non-selected') {
-            $("#selected").parent().removeClass('active');
-            $("#non-selected").parent().addClass('active');
-            // $("#CandidateManagement").addClass('active');
-        } else if (rlc.hashPathId === 'selected') {
-            $("#non-selected").parent().removeClass('active');
-            $("#selected").parent().addClass('active');
-        }
+
+        // if (rlc.hashPathId === 'non-selected') {
+        //     $("#selected").parent().removeClass('active');
+        //     $("#non-selected").parent().addClass('active');
+        // } else if (rlc.hashPathId === 'selected') {
+        //     $("#non-selected").parent().removeClass('active');
+        //     $("#selected").parent().addClass('active');
+        // }
         rlc.fetchList(-1);
         rlc.getAllInterviewerList();
         rlc.getActiveJd();
@@ -308,8 +356,11 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
     /*Function to set total experiance of candidate */
     rlc.setTotalExperience = function (exp) {
         if (exp % 1 !== '0') {
-            expArray = exp.split('.');
-            return expArray[0] + ' Year ' + expArray[1] + ' Month';
+             expArray = exp.split('.');
+            // return expArray[0] + ' Year ' + expArray[1] + ' Month';
+            var msg = (expArray[0] > 1 ? (expArray[0] + ' Years ') : (expArray[0] + ' Year '));
+            var msg1 = expArray[1] == 0 ? '' : (expArray[1] > 1 ? (expArray[1] + ' Months') : (expArray[1] + ' Month')); 
+                return msg + msg1;
         } else {
             return exp + ' Year';
         }
