@@ -226,10 +226,6 @@ app.controller('userCtrl', function ($scope, $rootScope, $http, services, $locat
                     toastr.error("User not saved successfully.");
                     Raven.captureException(e)
                 }
-                // }, function myError(r) {
-                //     toastr.error(r.data.message);
-                //     Utility.stopAnimation();
-                // });
             }, function myError(r) {
                 var htmlerror = '<ul style="list-style:none;"><li >';
                 $.each(r.data.data, function (k, v) {

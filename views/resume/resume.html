@@ -240,6 +240,10 @@
     .tooltip:hover .tooltiptext {
         visibility: visible !important;
     }
+    /* maintain default list cursor */
+    .defcurr{
+        cursor: default !important;
+    }
 </style>
 <!--     Fonts and icons     -->
 <link href="/resources/lib/font-awesome-4.5.0/css/font-awesome.css" rel="stylesheet" />
@@ -298,29 +302,29 @@
                                 <hr class="border">
                                 <div class="wizard-new-container" style="height: 415px;">
                                     <div class="wizard-navigation col-md-3 col-xs-4" style="background-color:#2a58ad;">
-                                        <ul class="nav nav-pills">
-                                            <li><a href="#presonalDetails" data-toggle="tab"><img id="syslogo"
+                                        <ul class="nav nav-pills" >
+                                            <li><a href="#presonalDetails" class="defcurr" data-toggle="tab" onclick="return false"><img id="syslogo"
                                                         src="resources/img/tab_icons/personal_details_ic.png" alt="" />
                                                     Personal Details</a></li>
-                                            <li><a href="#educationalDetails" data-toggle="tab"><img id="syslogo"
+                                            <li><a href="#educationalDetails" class="defcurr" data-toggle="tab" onclick="return false"><img id="syslogo"
                                                         src="resources/img/tab_icons/educational_details_ic.png"
                                                         alt="" /> Educational Details</a></li>
-                                            <li><a href="#otherAchievements" data-toggle="tab"><img id="syslogo"
+                                            <li><a href="#otherAchievements" class="defcurr" data-toggle="tab" onclick="return false"><img id="syslogo"
                                                         src="resources/img/tab_icons/other_achievements_ic.png"
                                                         alt="" /> Other Achievements</a></li>
-                                            <li><a href="#technicalSkills" data-toggle="tab"><img id="syslogo"
+                                            <li><a href="#technicalSkills" class="defcurr" data-toggle="tab" onclick="return false"><img id="syslogo"
                                                         src="resources/img/tab_icons/technical_skills_ic.png" alt="" />
                                                     Technical Skills</a></li>
-                                            <li><a href="#industrialExperience" data-toggle="tab"><img id="syslogo"
+                                            <li><a href="#industrialExperience" class="defcurr" data-toggle="tab" onclick="return false"><img id="syslogo"
                                                         src="resources/img/tab_icons/industrial_experience_ic.png"
                                                         alt="" /> Industrial Experience</a></li>
-                                            <li><a href="#hobbies" data-toggle="tab"><img id="syslogo"
+                                            <li><a href="#hobbies" class="defcurr" data-toggle="tab" onclick="return false"><img id="syslogo"
                                                         src="resources/img/tab_icons/hobbies_details_ic.png" alt="" />
                                                     Hobbies </a></li>
-                                            <li><a href="#languageKnown" data-toggle="tab"><img id="syslogo"
+                                            <li><a href="#languageKnown" class="defcurr" data-toggle="tab" onclick="return false"><img id="syslogo"
                                                         src="resources/img/tab_icons/language_known_ic.png" alt="" />
                                                     Language(s) Known</a></li>
-                                            <li><a href="#uploadDocument" data-toggle="tab"><img id="syslogo"
+                                            <li><a href="#uploadDocument" class="defcurr" data-toggle="tab" onclick="return false"><img id="syslogo"
                                                         src="resources/img/tab_icons/upload_document_ic.png" alt="" />
                                                     Upload Resume</a></li>
                                         </ul>
@@ -752,11 +756,13 @@
                                                 <div class="col-sm-12" ng-repeat="a in achievements">
                                                     <div class="col-sm-5">
                                                         <div class="form-group">
-                                                            <label class="mandatory"> Achievement Type</label>
-                                                            <select required class="form-control"
+                                                            <label class=""> Achievement Type</label>
+                                                            <!-- required -->
+                                                            <select class="form-control achievement_type"
                                                                 name="achievement_type_{{$index}}"
                                                                 id="achievement_type_{{$index}}"
-                                                                ng-model="a.achievement_type">
+                                                                ng-model="a.achievement_type" ng-change="validateAchievementDetailedField($index,a.achievement_type)">
+                                                                <!-- ng-class="{'required' : a.achivement == ''}" -->
                                                                 <option value="" style="color:#ccc !important;">Select
                                                                     Type</option>
                                                                 <option ng-repeat="ache in achivementTypesOptions"
@@ -766,7 +772,7 @@
                                                     </div>
                                                     <div class="col-sm-5">
                                                         <div class="form-group">
-                                                            <label class="mandatory">Achievement Details</label>
+                                                            <label class="">Achievement Details</label>
                                                             <!-- <input id="other_achievements_{{$index}}" name="other_achievements_{{$index}}" type="text" class="form-control other_achievements" placeholder="Enter achievement" ng-model="a.achivement"> -->
                                                             <textarea placeholder="Enter achievement"
                                                                 class="form-control other_achievements"
@@ -1191,6 +1197,7 @@
                                                                     ng-files="getTheFiles($files)"
                                                                     style="height: auto;">
                                                                 <!--  <input type="file" class="form-control" name="file" id="file" onchange="angular.element(this).scope().uploadFile(this.files)" aria-describedby="fileHelp"  upload-files > -->
+                                                                <span ng-if="candidateId !=null">Uploaded Resume File Name: {{fileName}}</span>
                                                                 <span id="fileEditError1"
                                                                     style="color:#dd4b39;display: none">File is already
                                                                     uploaded.</span>
@@ -1215,6 +1222,7 @@
                                                                 ng-model="profilePicFile"
                                                                 ng-files="getProfilePicFiles($files)"
                                                                 style="height: auto;">
+                                                            <span ng-if="candidateId !=null">Uploaded Profile Image Name: {{profileImageName}}</span>
                                                             <span id="fileEditError"
                                                                 style="color:#dd4b39;display: none">File is already
                                                                 uploaded.</span>
@@ -1423,12 +1431,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <hr>
-                                    <h4>ACHIEVEMENTS DETAILS:</h4>
+                                    <hr ng-if="achievements.length > 0 && (achievements[0].achievement_type !=''|| achievements[0].achivement !='')">
+                                    <h4 ng-if="achievements.length > 0 && (achievements[0].achievement_type !=''|| achievements[0].achivement !='')">ACHIEVEMENTS DETAILS:</h4>
                                     <div class="row">
                                         <ul ng-repeat="ac in achievements" style="margin-left: 3%;">
-
-                                            <li><strong>{{ac.achievement_type}}:</strong> {{ac.achivement}}</li>
+                                            <li ng-if="ac.achievement_type !='' || ac.achivement !=''"><strong>{{ac.achievement_type}}:</strong> {{ac.achivement}}</li>
                                         </ul>
                                     </div>
 

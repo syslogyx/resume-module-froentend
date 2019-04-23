@@ -1,4 +1,4 @@
-app.controller("resumeCtrl", function (services, AclService, $scope, $http, $location, RESOURCES, $cookieStore, menuService, $routeParams) {
+app.controller("resumeCtrl", function (services, AclService, $scope, $http, $location, RESOURCES, $cookieStore, menuService, $routeParams, $rootScope) {
 
     var rsm = this;
     $scope.candidateId = $location.search()["id"] !== undefined ? $location.search()["id"] : null;
@@ -90,6 +90,7 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
     $scope.hobbyDiv = [{ hobbie_name: "" }];
 
     $scope.summaryDiv = [{ summary: "" }];
+    
     $scope.objectiveDiv = [{ objective: "" }];
 
     $scope.datepickerInit = function () {
@@ -115,12 +116,21 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
         });
     }
 
+    $scope.validateAchievementDetailedField = function(index,achievement_type){
+        if(achievement_type != ''){
+            $('#other_achievements_'+index).addClass('required');
+            $('#other_achievements_'+index).valid();
+        }else{
+            $('#other_achievements_'+index).removeClass('required');
+            $('#other_achievements_'+index).valid();
+        }
+
+    }
+
     $scope.copyPerAdd = function () {
         if ($scope.checkvalue) {
             $scope.correspondingAddr = $scope.permanentAddr;
-            if ($scope.correspondingAddr != '') {
-                $("#correspondingAddress").valid();
-            }
+            setTimeout(function(){ $("#correspondingAddress").valid(); },200);
         }
     }
 
@@ -132,8 +142,12 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
         }
         if ($scope.checkvalue == true) {
             $scope.correspondingAddr = $scope.permanentAddr;
+            if ($scope.correspondingAddr != '') {
+                setTimeout(function(){ $("#correspondingAddress").valid(); },200);   
+            }
         } else {
             $scope.correspondingAddr = '';
+            setTimeout(function(){ $("#correspondingAddress").valid(); },200);
         }
     }
 
@@ -275,17 +289,14 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
                 $scope.status = res.data.status;
                 $scope.industrialExpData = res.data.candidate_ind_exp;
                 $scope.oldOpprtunityFor = res.data.opprtunity_for;
-                // for(var i=0;i<res.data.candidate_document.length;i++){
-                //     if(res.data.candidate_document[i].type == "Resume"){
-                //         $scope.file = res.data.candidate_document[i].original_file_name;
-                //         $('#file').trigger('change');
-                //     }else{
-                //         $scope.profileImageName = res.data.candidate_document[i].original_file_name;
-                //     }
-                // }
-                // // $("#profile_pic_file").text( $scope.profileImage);
-                // console.log($scope.file);
-                // console.log( $scope.profileImageName);
+                
+                for(var i=0;i<res.data.candidate_document.length;i++){
+                    if(res.data.candidate_document[i].type == "Resume"){
+                        $scope.fileName = res.data.candidate_document[i].file_name;
+                    }else{
+                        $scope.profileImageName = res.data.candidate_document[i].file_name;
+                    }
+                }
 
                 // }else{
                 //     toastr.error(response.data.message, 'Sorry!');
@@ -678,8 +689,16 @@ app.controller("resumeCtrl", function (services, AclService, $scope, $http, $loc
                 for (var k = 0; k < $scope.quaData.length; k++) {
                     delete $scope.quaData[k]['$$hashKey'];
                 }
+                debugger
+                if($scope.achievements.length > 0){
+                    for(var i=0;i<$scope.achievements.length;i++){
+                        if($scope.achievements[i].achivement == '' || $scope.achievements[i].achievement_type == ''){
+                            $scope.achievements.splice(i, 1);
+                        }
+                    }
+                    $scope.achievements1 = JSON.parse(angular.toJson($scope.achievements));  
+                }
 
-                $scope.achievements1 = JSON.parse(angular.toJson($scope.achievements));
                 $scope.technicalSkill1 = JSON.parse(angular.toJson($scope.technicalSkill));
                 $scope.industryExperiance1 = JSON.parse(angular.toJson($scope.industryExperiance));
                 $scope.hobbyDiv1 = JSON.parse(angular.toJson($scope.hobbyDiv));

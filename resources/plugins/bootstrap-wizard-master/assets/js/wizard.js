@@ -29,7 +29,7 @@ $(document).ready(function(){
         else if (regexp.global)
             regexp.lastIndex = 0;
         return this.optional(element) || regexp.test(value);
-    }, 'Please enter a valid Email Address.');
+    }, 'Please enter a valid email Address.');
 
     $.validator.addMethod("number1", function (phone_number, element) {
         phone_number = phone_number.replace(/\s+/g, "");
@@ -118,9 +118,9 @@ $(document).ready(function(){
         end_year: {
             required: true,
         },
-        other_achievements: {
-            required: true
-        },
+        // other_achievements: {
+        //     required: true
+        // },
         technology_name: {
             required: true
         },
@@ -545,7 +545,6 @@ $(document).ready(function(){
         },
 
         onInit : function(tab, navigation, index){
-
           //check number of tabs and fill the entire row
           var $total = navigation.find('li').length;
           $width = 100/$total;
@@ -567,20 +566,22 @@ $(document).ready(function(){
 
         onTabClick : function(tab, navigation, index){
 
+            // var $valid = $('.wizard-card form').valid();
 
-            var $valid = $('.wizard-card form').valid();
+            // if(!$valid){
+            //     $validator.focusInvalid();         
+            //     return false;
+            // }
 
-            if(!$valid){
-                $validator.focusInvalid();         
-                return false;
-            }
+            // Disable the posibility to click on tabs- yogesh sir suggesion(sonal)
+            return false;
+            
 
             // console.log('index',index);
             // scope.$apply(function () {
             //     scope.backCurrentImg=scope.backImgUrls[index];
                 
             // });
-
         },
 
         onTabShow: function(tab, navigation, index) {

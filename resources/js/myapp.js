@@ -1747,6 +1747,7 @@ app.config(function ($routeProvider, $locationProvider) {
             controllerAs: 'hme',
             resolve: {
                 'acl': ['$q', 'AclService', function ($q, AclService) {
+                    console.log(AclService);
                     return true;
                     // console.log(AclService.getRoles());
                     if (AclService.can('view_dash')) {
@@ -1765,6 +1766,7 @@ app.config(function ($routeProvider, $locationProvider) {
             controllerAs: 'hme',
             resolve: {
                 'acl': ['$q', 'AclService', function ($q, AclService) {
+                    console.log(AclService);
                     return true;
                     // console.log(AclService.getRoles());
                     if (AclService.can('view_dash')) {

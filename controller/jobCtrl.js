@@ -37,12 +37,12 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
         });
     }, 100);
 
-    /* Function to open add job url */
+    /* Function to open add-job url */
     jb.addNewJob = function () {
         $location.url('/jobs/add_job');
     }
 
-    /* To cancle add job form */
+    /* To cancle add-job form */
     jb.cancelJob = function () {
         $location.url('/jobs');
     }
@@ -119,25 +119,25 @@ app.controller('jobCtrl', function ($scope, $rootScope, $http, services, $locati
                 Utility.stopAnimation();
                 jb.title = 'Update Job';
                 jb.jobTitle = response.data.data.title,
-                    jb.subTitle = response.data.data.sub_title,
-                    jb.description = response.data.data.description,
-                    jb.requirementNo = response.data.data.no_of_requiremet,
-                    jb.experiance = response.data.data.experience,
-                    jb.requiredSkill = response.data.data.skills_required,
-                    jb.additionalSkill = response.data.data.additional_skills,
-                    jb.roleResponsibility = response.data.data.roles_and_responsibility,
-                    jb.jobLocation = response.data.data.job_location,
-                    jb.jobType = response.data.data.job_type,
-                    jb.ctc = response.data.data.ctc,
-                    jb.noticePeroid = response.data.data.notice_period,
-                    jb.status = response.data.data.status,
-                    jb.job_code = response.data.data.job_code,
-                    jb.companyId = response.data.data.company_id,
-                    jb.companyName = response.data.data.companies.name,
-                    jb.project_title = response.data.data.project_title,
-                    jb.technology = response.data.data.technology_id,
-                    jb.technologyName = response.data.data.technologies.name,
-                    jb.valid_till_date = response.data.data.valid_till_date != null ? response.data.data.valid_till_date.split("-").reverse().join("/") : ''
+                jb.subTitle = response.data.data.sub_title,
+                jb.description = response.data.data.description,
+                jb.requirementNo = response.data.data.no_of_requiremet,
+                jb.experiance = response.data.data.experience,
+                jb.requiredSkill = response.data.data.skills_required,
+                jb.additionalSkill = response.data.data.additional_skills,
+                jb.roleResponsibility = response.data.data.roles_and_responsibility,
+                jb.jobLocation = response.data.data.job_location,
+                jb.jobType = response.data.data.job_type,
+                jb.ctc = response.data.data.ctc,
+                jb.noticePeroid = response.data.data.notice_period,
+                jb.status = response.data.data.status,
+                jb.job_code = response.data.data.job_code,
+                jb.companyId = response.data.data.company_id,
+                jb.companyName = response.data.data.companies.name,
+                jb.project_title = response.data.data.project_title,
+                jb.technology = response.data.data.technology_id,
+                jb.technologyName = response.data.data.technologies.name,
+                jb.valid_till_date = response.data.data.valid_till_date != null ? response.data.data.valid_till_date.split("-").reverse().join("/") : ''
                 applySelect2();
             }, function myError(r) {
                 toastr.error(r.data.message, 'Sorry!');
