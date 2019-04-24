@@ -113,7 +113,11 @@ app.controller("menuCtrl", function ($scope, services, $http, $location, $cookie
             $scope.userId = $scope.user.id;
             $scope.name = $scope.user.identity.name;
             $scope.profile_image = $scope.user.identity.avatar;
-            $scope.profile_image_with_path = 'https://recruitmentapi.syslogyx.com/app/public/imgs/' + $scope.user.identity.avatar;
+            if($scope.profile_image != null){
+                $scope.profile_image_with_path = 'https://recruitmentapi.syslogyx.com/app/public/imgs/' + $scope.user.identity.avatar;
+            }else{
+                $scope.profile_image_with_path = 'resources/img/default_profile.png';
+            }
             $scope.logInUserRole = $scope.user.identity.role;
             // $scope.menuClick(window.location.pathname);
             var pathUrl = window.location.pathname + (window.location.hash != '' ? window.location.hash : '')
