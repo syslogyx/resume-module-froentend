@@ -204,7 +204,7 @@
                                     class="fa fa-user" aria-hidden="true"></i></a>
 
                             <a type="button" class="btn btn-xs" title="Change Status" style="outline: 0;"
-                                ng-click="rdc.openChangeStatusModal(data.candidate_id)"
+                                ng-click="rdc.openChangeStatusModal(data.candidate_id);rdc.resetForm();"
                                 ng-if="data.hr_status != null"><i class="fa fa-refresh" aria-hidden="true"></i></a>
 
                         </td>
@@ -245,7 +245,7 @@
                                     <table id="candidateInfoTable" class="table-bordered table table-hover">
                                         <thead class="thead-default">
                                             <tr>
-                                                <th nowrap>Sr. no.</th>
+                                                <th nowrap style="text-align: center;">Sr. no.</th>
                                                 <th nowrap>Round date</th>
                                                 <th nowrap>Mode of interview</th>
                                                 <th nowrap>Status</th>
@@ -254,7 +254,7 @@
                                         </thead>
                                         <tbody>
                                             <tr ng-repeat="r in rdc.viewRoundInfoList">
-                                                <td ng-bind="$index+1" nowrap></td>
+                                                <td ng-bind="$index+1" nowrap style="text-align: center;"></td>
                                                 <td ng-bind="rdc.setFormatteddate(r.company_round_date)" nowrap></td>
                                                 <td ng-bind="r.company_tech_round_type" nowrap></td>
                                                 <td ng-bind="r.company_tech_status" nowrap></td>
@@ -560,7 +560,7 @@
             <div class="modal-dialog modal-xs">
                 <div class="modal-content" style="border-radius: 0px!important;">
                     <div class="modal-header" id="popUpModalHeader">
-                        <button type="button" class="close" data-dismiss="modal" ng-click="rlc.resetForm()"
+                        <button type="button" class="close" data-dismiss="modal" ng-click="rdc.resetForm()"
                             style="margin-right: 5px;">&times;</button>
                         <h4 class="modal-title popUpModalTitle">Change Status</h4>
                     </div>

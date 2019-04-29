@@ -440,5 +440,14 @@ app.controller("roundDtlsCtrl", function (services, AclService, $scope, $http, $
 
     rdc.init();
 
+    rdc.resetForm = function(){
+        rdc.candidate_status='';
+        $("div.form-group").each(function () {
+            $(this).removeClass('has-error');
+            $('span.help-block-error').remove();
+            applySelect2();
+        });
+    }
+
 });
 

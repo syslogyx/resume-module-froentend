@@ -499,12 +499,18 @@ app.controller("resumeListCtrl", function (services, AclService, $scope, $http, 
 
     /* Function to open interview reshedule modal */
     rlc.openRescheduleModal = function (cdata, data) {
+        $("div.form-group").each(function () {
+            $(this).removeClass('has-error');
+            $('span.help-block-error').remove();
+            applySelect2();
+        });
         $scope.interviewRescheduleData = data;
         if ($scope.interviewRescheduleData.length != null) {
             rlc.interviewer = $scope.interviewRescheduleData[0].user_id;
             rlc.candidateId = $scope.interviewRescheduleData[0].candidate_id;
             $scope.round = $scope.interviewRescheduleData[0].technical_round;
-            $scope.scheduleDate = $scope.interviewRescheduleData[0].schedule_date.split("-").reverse().join("/");;
+            $scope.scheduleDate = $scope.interviewRescheduleData[0].schedule_date.split("-").reverse().join("/");
+            console.log($scope.scheduleDate);
             $scope.scheduleTime = $scope.interviewRescheduleData[0].schedule_time;
             $scope.interviewType = $scope.interviewRescheduleData[0].mode_of_interview;
             $scope.assoc_id = $scope.interviewRescheduleData[0].id;

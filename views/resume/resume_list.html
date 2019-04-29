@@ -322,7 +322,7 @@
                         <td ng-bind="data.email"></td>
                         <td ng-bind="data.mobile_no"></td>
                         <td ng-bind="rlc.setTotalExperience(data.total_experience)"></td>
-                        <td ng-bind="data.status"></td>
+                        <td ng-bind="data.status != 'Clear'? data.status :'Pass'"></td>
                         <!-- <td ng-bind="data.job_description.title"></td> -->
                         <td>{{data.job_description.job_code}}
                             {{data.job_description.sub_title != '' ? (data.job_description.sub_title) : ''}}</td>
